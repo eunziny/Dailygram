@@ -5,6 +5,11 @@ body {
   background: #fbfbfb;
 }
 
+i.fas , span.glyphicon , span.hidden-xs{
+	text-align: center;
+	color:black;
+}
+
 #nav-container {
   width: 100%;
   text-align: center;
@@ -167,7 +172,8 @@ body {
 
 .main-body {
   clear: both;
-  width: 100%;
+  min-width: 500px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 0px;
 }
