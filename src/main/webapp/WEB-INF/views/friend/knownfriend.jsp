@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/container/header.jsp"%>
+<br>
 <style>
 div.panel-group {
 	width:65%;
