@@ -11,7 +11,7 @@
 <!-- fontawesome icon-->
 <script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 <!-- Custom CSS -->
-<link href="${pageContext.request.contextPath }/header.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath }/resources/css/admin_header.css" rel="stylesheet">
 <title>admin header</title>
  <div id='nav-container'>
   <div id='navbar'>
