@@ -85,4 +85,14 @@ public class MemController {
 	void test16() {
 		
 	}
+	
+	@RequestMapping(value = "/admin/deleteHashtag.do")
+	void test17() {
+		
+	}
+	
+	@RequestMapping(value = "/admin/admin_header.do")
+	void test18() {
+		
+	}
 }
