@@ -99,7 +99,7 @@ a{
             <h1 class="text-center login-title">Dailygram에 로그인하세요</h1>
                 <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
                     alt="">
-                <form class="form-signin" action="${pageContext.request.contextPath }/container/header.do">
+                <form class="form-signin" action="${pageContext.request.contextPath }/member/login.do">
                 <input type="text" class="form-control" placeholder="ID">
                 <input type="password" class="form-control" placeholder="PASSWORD">
                 <button class="button btn-block btn-lg" type="submit">

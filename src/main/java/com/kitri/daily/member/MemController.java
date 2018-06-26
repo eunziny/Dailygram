@@ -50,4 +50,19 @@ public class MemController {
 	void test9() {
 		
 	}
+	
+	@RequestMapping(value = "/board/look.do")
+	void test10() {
+		
+	}
+	
+	@RequestMapping(value = "/member/join.do")
+	void test11() {
+		
+	}
+	
+	@RequestMapping(value = "/member/mem_editForm.do")
+	void test12() {
+		
+	}
 }
