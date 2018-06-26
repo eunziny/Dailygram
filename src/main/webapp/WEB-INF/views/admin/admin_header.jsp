@@ -17,7 +17,7 @@
   <div id='navbar'>
     <div id='left'>
     <!--Input Logo -->
-      <a class="brand" href="#" name="top">Dailygram <!-- <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt=""> --></a>		
+     <a href='#'><img src='${pageContext.request.contextPath }/resources/img/logo.png' id='logo-name'></a>
     </div>
     <div id='center'>
     	 <ul class="nav navbar-right pull-right top-nav">
