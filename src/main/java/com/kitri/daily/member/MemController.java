@@ -45,4 +45,9 @@ public class MemController {
 	void test8() {
 		
 	}
+	
+	@RequestMapping(value = "/board/post.do")
+	void test9() {
+		
+	}
 }
