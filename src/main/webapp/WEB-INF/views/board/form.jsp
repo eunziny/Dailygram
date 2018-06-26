@@ -27,7 +27,7 @@
                <div class="row">
                   <div class="col-lg-12">
                      <p align="center">
-                        <b>게시물 내용을 수정해주세요.</b>
+                        <b>게시물을 등록해주세요.</b>
                      </p>
                   </div>
                </div>
@@ -39,7 +39,7 @@
           <label>내용</label>
           </div>
           <div class="col-lg-offset-3 col-lg-6 col-lg-offset-3">
-          <textarea class="form-control" id="content" name="content" placeholder="Content" rows="8">#치킨#먹고싶다#잠10시간자고싶다#현실은#프젝#아무나데려가라#회사놈들아
+          <textarea class="form-control" id="content" name="content" placeholder="Content" rows="8">
           </textarea>
          </div>
         </div>
@@ -52,7 +52,7 @@
      </div>
      </div>
      <div class="col-lg-offset-3 col-lg-6 col-lg-offset-3">
-    <button type="submit" class="btn btn-primary" id = "ok">수정</button>
+    <button type="submit" class="btn btn-primary" id = "ok">등록</button>
     <button type="reset" class="btn btn-primary" id = "cancel">취소</button>
     </div>
   </form>
