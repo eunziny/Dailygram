@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>   
 <style>
 .useravatar img {
     width: 100%;
@@ -32,7 +32,7 @@
 
 <div class="container">
     <div class="row">
-		<div class="col-xs-10">
+		<div class="col-lg-offset-1 col-lg-10 col-lg-offset-1">
             <div class="well row">
                 <div class="col-md-4 useravatar">
                     <a href="#">

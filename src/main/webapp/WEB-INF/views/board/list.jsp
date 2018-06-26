@@ -15,9 +15,6 @@
  	text-decoration:none;
  }
  
-/* .container {
-   width: 1000px;
-}  */
 .col-lg-12 {
    padding:0;
 }
@@ -28,24 +25,23 @@
 .lookimg {
    width:100%;height:320px;margin-bottom:5px
 }
-
-#profile {
-	width:100%;height:20%;
+.post_register {
+	padding-bottom:5%;
 }
+/* #profile {
+	width:100%;height:20%;
+} */
 </style>
 <%@ include file="/WEB-INF/views/container/header.jsp"%>
-<div class="row">
+<%@ include file="/WEB-INF/views/board/profile.jsp"%>
+
  <div class="container">
-  <div class="col-lg-12 ">
-   <div id="profile">
-    <%@ include file="/WEB-INF/views/board/profile.jsp"%>
-  </div>
- </div>
- </div>
- <div class="col-lg-offset-4 col-lg-4 col-lg-offset-4">
+ <div class="post_register">
+ <div class="col-lg-offset-10 col-lg-2">
   <button type="submit" class="btn btn-primary" id = "add">
   <a id = "form" href="${pageContext.request.contextPath}/board/form.do">게시물 등록</a>
  </button>
+</div>
 </div>
 </div>
 <div class="row">
