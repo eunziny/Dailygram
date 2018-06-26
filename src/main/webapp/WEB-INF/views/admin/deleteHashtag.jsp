@@ -5,7 +5,7 @@
 <html>
 
 <head>
-<title>신고리스트</title>
+<title>해시태그 관리</title>
 </head>
 <style>
 * {
@@ -22,10 +22,6 @@ body {
 
 .eye {
 	color: rgb(0, 0, 0);
-}
-
-.trash {
-	color: rgb(209, 91, 71);
 }
 
 .panel-body {
@@ -66,22 +62,16 @@ body {
 </style>
 <script>
 	$(function() {
-		$("a.eye").click(function() {
-			alert("게시물로 이동");
-		});
-
-		$("a.trash").click(function() {
-			alert("해당 게시물 바로 삭제");
-		});
-
-		$("a.badge").click(function() {
-				window.open("http://localhost:8080/daily/admin/chargeMemList.do",
-						" 해당 게시물 신고자 리스트",
-						"width=450, height=550, top=70 left=400, scrollbars=yes");
+		$("button#add").click(function() {
+			alert("정말 해당 해시태그를 검색 금지어로 설정하시겠습니까?");
 		});
 		
+		$("a.eye").click(function() {
+			alert("해당 해시태그를 다시 활성화 시키시겠습니까?");
+		});
+
 		$("button#delete").click(function() {
-			alert("정말 삭제하시겠습니까?");
+			alert("선택한  해시태그들을 다시 활성화 시키시겠습니까?");
 		});
 	});
 </script>
@@ -91,10 +81,15 @@ body {
 			<div class="row">
 				<div class="panel-group">
 					<div class="panelspace">
-						<h2 class="panel-heading panel-danger">Charge List</h2>
+						<h2 class="panel-heading panel-danger">Delete HashTag List</h2>
+						<hr>
+						<div align="center">
+							<input type="text" placeholder="금지할 해시태그를 입력하세요." style="width:300px; height:35px; vertical-align:middle;">
+							<button id="add" class="btn btn-danger" style="height:35px; vertical-align:middle;"><i class="glyphicon glyphicon-eye-close"></i>추가</button>
+						</div>
 						<hr>
 						<div>
-							<button id="delete" class="btn btn-danger pull-right">삭제</button>
+							<button id="delete" class="btn btn-success pull-right"><i class="glyphicon glyphicon-eye-open"></i>활성화</button>
 						</div>
 						<br> <br>
 						<div class="panel-body">
@@ -102,12 +97,10 @@ body {
 								<li class="list-group-item">
 									<div class="checkbox">
 										<input type="checkbox" class="checkb" name="checkbox[]"
-											id="checkbox1" value="1" /> <label for="checkbox1">신고1</label>
+											id="checkbox1" value="1" /> <label for="checkbox1">몰카</label>
 									</div>
 									<div class="pull-right action-buttons">
-										<a href="#" class="eye"><span class="glyphicon glyphicon-eye-open"></span></a> 
-										<a href="#" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-										<a href="#" class="badge badge-danger">99</a>	
+										<a href="#" class="eye"><span class="glyphicon glyphicon-eye-open"></span></a>
 									</div>
 																		
 								</li>
@@ -115,126 +108,99 @@ body {
 									<div class="checkbox">
 										<input type="checkbox" class="checkb" name="checkbox[]"
 											id="checkbox2" value="2" /> <label for="checkbox2">
-											신고2 </label>
+											유영철 </label>
 									</div>
 									<div class="pull-right action-buttons">
 										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a> <a href="#"
-											class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-										<a href="#" class="badge badge-danger">42</a>
-
+											class="glyphicon glyphicon-eye-open"></span></a>
 									</div>
 								</li>
 								<li class="list-group-item">
 									<div class="checkbox">
 										<input type="checkbox" class="checkb" name="checkbox[]"
 											id="checkbox3" value="3" /> <label for="checkbox3">
-											신고3 </label>
+											강호순 </label>
 									</div>
 									<div class="pull-right action-buttons">
 										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a> <a href="#"
-											class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-										<a href="#" class="badge badge-danger">3</a>
-
+											class="glyphicon glyphicon-eye-open"></span></a>
 									</div>
 								</li>
 								<li class="list-group-item">
 									<div class="checkbox">
 										<input type="checkbox" class="checkb" name="checkbox[]"
 											id="checkbox4" value="4" /> <label for="checkbox4">
-											신고4 </label>
+											다단계 </label>
 									</div>
 									<div class="pull-right action-buttons">
 										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a> <a href="#"
-											class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-										<a href="#" class="badge badge-danger">1</a>
-
+											class="glyphicon glyphicon-eye-open"></span></a>
 									</div>
 								</li>
 								<li class="list-group-item">
 									<div class="checkbox">
 										<input type="checkbox" class="checkb" name="checkbox[]"
 											id="checkbox5" value="50" /> <label for="checkbox5">
-											신고5 </label>
+											신천지 </label>
 									</div>
 									<div class="pull-right action-buttons">
 										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a> <a href="#"
-											class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-										<a href="#" class="badge badge-danger">1</a>
-
+											class="glyphicon glyphicon-eye-open"></span></a>
 									</div>
 								</li>
 								<li class="list-group-item">
 									<div class="checkbox">
 										<input type="checkbox" class="checkb" name="checkbox[]"
 											id="checkbox6" value="50" /> <label for="checkbox6">
-											신고6 </label>
+											대마초 </label>
 									</div>
 									<div class="pull-right action-buttons">
 										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a> <a href="#"
-											class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-										<a href="#" class="badge badge-danger">1</a>
-
+											class="glyphicon glyphicon-eye-open"></span></a>
 									</div>
 								</li>
 								<li class="list-group-item">
 									<div class="checkbox">
 										<input type="checkbox" class="checkb" name="checkbox[]"
 											id="checkbox7" value="50" /> <label for="checkbox7">
-											신고7 </label>
+											마약 </label>
 									</div>
 									<div class="pull-right action-buttons">
 										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a> <a href="#"
-											class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-										<a href="#" class="badge badge-danger">1</a>
-
+											class="glyphicon glyphicon-eye-open"></span></a>
 									</div>
 								</li>
 								<li class="list-group-item">
 									<div class="checkbox">
 										<input type="checkbox" class="checkb" name="checkbox[]"
 											id="checkbox8" value="50" /> <label for="checkbox8">
-											신고8 </label>
+											곤지암 </label>
 									</div>
 									<div class="pull-right action-buttons">
 										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a> <a href="#"
-											class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-										<a href="#" class="badge badge-danger">1</a>
-
+											class="glyphicon glyphicon-eye-open"></span></a>
 									</div>
 								</li>
 								<li class="list-group-item">
 									<div class="checkbox">
 										<input type="checkbox" class="checkb" name="checkbox[]"
 											id="checkbox9" value="50" /> <label for="checkbox9">
-											신고9 </label>
+											살인 </label>
 									</div>
 									<div class="pull-right action-buttons">
 										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a> <a href="#"
-											class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-										<a href="#" class="badge badge-danger">1</a>
-
+											class="glyphicon glyphicon-eye-open"></span></a>
 									</div>
 								</li>
 								<li class="list-group-item">
 									<div class="checkbox">
 										<input type="checkbox" class="checkb" name="checkbox[]"
 											id="checkbox10" value="50" /> <label for="checkbox10">
-											신고10 </label>
+											혐오 </label>
 									</div>
 									<div class="pull-right action-buttons">
 										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a> <a href="#"
-											class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-										<a href="#" class="badge badge-danger">1</a>
-									</div>
+											class="glyphicon glyphicon-eye-open"></span></a>
 								</li>
 							</ul>
 						</div>
