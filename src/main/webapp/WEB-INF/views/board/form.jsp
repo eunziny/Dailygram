@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link href="${pageContext.request.contextPath }/header.css" rel="stylesheet">
+<%@ include file="/WEB-INF/views/container/header.jsp"%>
 <style>
  #ok, #cancel{
   background-color: #9770f9; 
@@ -13,19 +13,18 @@
  color: white;
  text-decoration:none;
  }
- 
 </style>
-<%@ include file="/WEB-INF/views/container/header.jsp"%>
+
 <div class="container">
    <div class="page-header">
-               <div class="row">
-                  <div class="col-lg-12">
-                     <p align="center">
-                        <b>게시물을 등록해주세요.</b>
-                     </p>
-                  </div>
-               </div>
-            </div>
+      <div class="row">
+         <div class="col-lg-12">
+            <p align="center">
+               <b>게시물을 등록해주세요.</b>
+            </p>
+         </div>
+      </div>
+   </div>
   <div class="row">
     <form class="form-horizontal" action="${pageContext.request.contextPath }/board/upload.do">
         <div class="form-group">
