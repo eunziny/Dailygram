@@ -15,4 +15,34 @@ public class MemController {
 	void test2() {
 		
 	}
+	
+	@RequestMapping(value = "/friend/followinglist.do")
+	void test3() {
+		
+	}
+	
+	@RequestMapping(value = "/friend/followerlist.do")
+	void test4() {
+		
+	}
+	
+	@RequestMapping(value = "/friend/subscribelist.do")
+	void test5() {
+		
+	}
+	
+	@RequestMapping(value = "/admin/chargelist.do")
+	void test6() {
+		
+	}
+	
+	@RequestMapping(value = "/admin/chargeMemList.do")
+	void test7() {
+		
+	}
+	
+	@RequestMapping(value = "/board/profile.do")
+	void test8() {
+		
+	}
 }

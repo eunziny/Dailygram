@@ -1,14 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/admin/admin_header.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<link
-	href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	rel="stylesheet" id="bootstrap-css">
-<script
-	src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <head>
 <title>신고리스트</title>
 </head>
@@ -80,7 +75,7 @@ body {
 		});
 
 		$("a.badge").click(function() {
-				window.open("http://localhost:8080/ui/chargeMemList.jsp",
+				window.open("http://localhost:8080/daily/admin/chargeMemList.do",
 						" 해당 게시물 신고자 리스트",
 						"width=450, height=550, top=70 left=400, scrollbars=yes");
 		});
@@ -91,7 +86,6 @@ body {
 	});
 </script>
 <body>
-	<!-- 관리자 헤더 들어갈 자리 -->
 	<div class="container">
 		<div class="col-md-12">
 			<div class="row">
@@ -250,5 +244,7 @@ body {
 			<!-- /.row -->
 		</div>
 	</div>
+<%@ include file="/WEB-INF/views/container/footer.jsp"%>
 </body>
 </html>
+

@@ -6,7 +6,7 @@
 	href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
 <script
-	src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	src="//netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <head>
@@ -14,7 +14,7 @@
 </head>
 <script>
 	$(function(){
-		$('a#delete').click(function(){
+		$('a#close').click(function(){
 			close();
 		});
 	});
@@ -25,7 +25,7 @@
 			<div class="row">
 				<div class="panel-group">
 					<div class="panelspace">
-						<h2 class="panel-heading panel-danger">해당 게시물 신고자 리스트</h2>
+						<h3 class="panel-heading panel-danger">해당 게시물 신고자 리스트</h3>
 						<hr>
 						<div class="panel-body">
 							<ul class="list-group">
@@ -54,8 +54,8 @@
 				<a href=# style="color:black"><span>User6</span></a>
 								</li>
 							</ul>
-							<div align="center">
-							<a id="delete" class="btn btn-success">닫기</a>
+							<div class="pull-right">
+							<a id="close" type="button" class="btn btn-success" style="background-color: #9770f9">닫기</a>
 							</div>
 						</div>
 					</div>
