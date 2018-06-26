@@ -80,4 +80,9 @@ public class MemController {
 	void test15() {
 		
 	}
+	
+	@RequestMapping(value = "/member/login.do")
+	void test16() {
+		
+	}
 }

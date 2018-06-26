@@ -50,10 +50,10 @@
 				<span class="hidden-xs">Admin User</span> 
 			</a>
 			<ul class="dropdown-menu">
-				<li><a href="#"><i class="fa fa-fw fa-user"></i> My Page</a></li>
-				<li><a href="#"><i class="fa fa-fw fa-cog"></i> Edit Profile</a></li>
+				<li><a href="${pageContext.request.contextPath }/board/list.do"><i class="fa fa-fw fa-user"></i> My Page</a></li>
+				<li><a href="${pageContext.request.contextPath }/member/mem_editForm.do"><i class="fa fa-fw fa-cog"></i> Edit Profile</a></li>
 				<li class="divider"></li>
-				<li><a href="#"><i class="fa fa-fw fa-power-off"></i> Logout</a></li>
+				<li><a href="${pageContext.request.contextPath }/member/login.do"><i class="fa fa-fw fa-power-off"></i> Logout</a></li>
 			</ul>
 		</li>
 	</ul>

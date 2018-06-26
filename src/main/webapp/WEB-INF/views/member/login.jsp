@@ -108,7 +108,7 @@ a{
                     	아이디찾기</button>
                 <button class="button">
                    	 비밀번호찾기</button>
-                <a href="#" class="text-center new-account">회원가입</a>
+                <a href="${pageContext.request.contextPath }/member/join.do" class="text-center new-account">회원가입</a>
                 </form>
             </div>
         </div>
