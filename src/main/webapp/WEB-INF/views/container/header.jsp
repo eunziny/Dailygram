@@ -16,16 +16,16 @@
  <div id='nav-cntainer'>
   <div id='navbar'>
     <div id='left'>
-      <a href='#'><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2000px-Instagram_logo.svg.png' id='logo-name'></a>
+      <a href='#'><img src='${pageContext.request.contextPath }/resources/img/logo.png' id='logo-name'></a>
     </div>
     <div id='center'><input id="input-field" type="text" placeholder='Search' style="text-align: center"></div>
     <div id='right'>
       <ul class="nav navbar-right pull-right top-nav">
       	<li class="dropdown dropdown-notification">
-			<a href="${pageContext.request.contextPath }/friend/knownfriend.do"><span class="glyphicon glyphicon-globe"></span></a>	
+			<a href="#"><span class="glyphicon glyphicon-globe"></span></a>	
       	</li>
       	<li class="dropdown dropdown-notification">
-			<a href="javascript:;"><i class="fas fa-users"></i></a>	
+			<a href="${pageContext.request.contextPath }/friend/knownfriend.do"><i class="fas fa-users"></i></a>	
       	</li>
 		<li class="dropdown dropdown-notification"> <a class="dropdown-toggle" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="true"> <i class="fas fa-bell"></i> <span class="badge badge-default"> 5 </span> </a>
 			<ul class="dropdown-menu dropdown-menu-alerm">
