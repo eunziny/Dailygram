@@ -15,27 +15,29 @@
 <title>admin header</title>
  <div id='nav-container'>
   <div id='navbar'>
-    <div id='left'>
+    <div id='left' class="navbar-header">
     <!--Input Logo -->
      <a href='#'><img src='${pageContext.request.contextPath }/resources/img/logo.png' id='logo-name'></a>
     </div>
     <div id='center'>
-    	 <ul class="nav navbar-right pull-right top-nav">
-      	<li>
-			<a href="#"><i class="fas fa-chart-bar"></i>통계</a>
-      	</li>
-      	<li>
-			<a href="${pageContext.request.contextPath }/admin/deleteHashtag.do"><i class="glyphicon glyphicon-eye-close"></i>해시태그관리</a>
-      	</li>
-      	<li>
-			<a href="${pageContext.request.contextPath }/admin/chargelist.do"><i class="fas fa-bullhorn"></i>신고게시물</a>
-      	</li>
-      	<li>
-			<a href="#"><i class="fa fa-fw fa-power-off"></i> Logout</a>
-      	</li>
-	</ul>	
+        <ul class="nav navbar-right pull-right top-nav">
+         <li>
+         <a href="#"><i class="fas fa-chart-bar"></i>통계</a>
+         </li>
+         <li>
+         <a href="${pageContext.request.contextPath }/admin/deleteHashtag.do"><i class="glyphicon glyphicon-eye-close"></i>해시태그관리</a>
+         </li>
+   		</ul>   
     </div>
     <div id='right'>
+    	<ul class="nav navbar-right pull-right top-nav">
+    	<li>
+         <a href="${pageContext.request.contextPath }/admin/chargelist.do"><i class="fas fa-bullhorn"></i>신고게시물</a>
+         </li>
+         <li>
+         <a href="#"><i class="fa fa-fw fa-power-off"></i> Logout</a>
+         </li>
+         </ul>
     </div>
   </div>
 </div>
