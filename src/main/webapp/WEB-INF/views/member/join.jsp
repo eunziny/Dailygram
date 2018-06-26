@@ -189,6 +189,5 @@ body {
 			</div>
 		</div>
 	</div>
-
-
 </form>
+<%@ include file="/WEB-INF/views/container/footer.jsp"%>

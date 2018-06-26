@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/container/header.jsp"%>
 <style>
 .well {
 	padding: 35px;
@@ -7,15 +8,6 @@
 	box-shadow: 0 0 10px #666666;
 	margin: 4% auto 0;
 	width: 450px;
-}
-
-body {
-	background-color: #dedede;
-}
-
-.input-group-addon {
-	background-color: #9770f9;
-	color: #d17d00;
 }
 
 .profileimg {
@@ -166,6 +158,5 @@ body {
 			</div>
 		</div>
 	</div>
-
-
 </form>
+<%@ include file="/WEB-INF/views/container/footer.jsp"%>
