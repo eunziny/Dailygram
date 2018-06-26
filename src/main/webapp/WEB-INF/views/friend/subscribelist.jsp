@@ -10,7 +10,7 @@
 </head>
 <style>
 div.panel-group {
-	width:80%;
+	width:65%;
 	margin: auto;
 	margin-top: 30px;
 }
