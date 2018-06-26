@@ -92,6 +92,20 @@
 						<div class="form-group">
 							<div class="input-group">
 								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-user"></i>
+								</div>
+								<input type="text" placeholder="Self-Introduction" name="intro"
+									class="form-control">
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon">
 									<i class="glyphicon glyphicon-calendar"></i>
 								</div>
 								<input type="date" name="birthday" placeholder="Date Of Birth" class="form-control" id="birthday" required>
@@ -173,10 +187,10 @@
 				<div class="row widget">
 					<div class="col-lg-12">
 						<div class="col-lg-6">
-							<a href="#" class="btn btn-primary btn-block" id="cancle">Cancle</a>
+							<a href="#" class="btn btn-primary btn-block" id="cancle">취소</a>
 						</div>
 						<div class="col-lg-6">
-							<a href="#" class="btn btn-success btn-block" id="ok">OK</a>
+							<a href="#" class="btn btn-success btn-block" id="ok">저장</a>
 						</div>
 					</div>
 				</div>

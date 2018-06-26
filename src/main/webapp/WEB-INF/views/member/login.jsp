@@ -60,13 +60,10 @@
 }
 .profile-img
 {
-    width: 96px;
-    height: 96px;
-    margin: 0 auto 10px;
+    width: 230px;
+    height: 100px;
+     margin: 0 auto 10px;
     display: block;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
 }
 
 .new-account
@@ -91,26 +88,31 @@
 a{
     font-size: 10px;
 }
+
+#logintop {
+	margin-top: 50px;
+}
 </style>
 <body>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="text-center login-title">Dailygram에 로그인하세요</h1>
-                <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
-                    alt="">
-                <form class="form-signin" action="${pageContext.request.contextPath }/member/login.do">
-                <input type="text" class="form-control" placeholder="ID">
-                <input type="password" class="form-control" placeholder="PASSWORD">
-                <button class="button btn-block btn-lg" type="submit">
-                        Login</button>
-                <button class="button">
-                    	아이디찾기</button>
-                <button class="button">
-                   	 비밀번호찾기</button>
-                <a href="${pageContext.request.contextPath }/member/join.do" class="text-center new-account">회원가입</a>
-                </form>
-            </div>
-        </div>
-    </div>
+	<div class="container" id="logintop">
+		<div class="row">
+			<div class="col-lg-12">
+				<!-- <h1 class="text-center login-title"><b>Dailygram에 로그인하세요</b></h1> -->
+				<img class="profile-img"
+					src="${pageContext.request.contextPath }/resources/img/logo.png"
+					alt="Dailygram">
+				<form class="form-signin"
+					action="${pageContext.request.contextPath }/member/login.do">
+					<input type="text" class="form-control" placeholder="ID"> <input
+						type="password" class="form-control" placeholder="PASSWORD">
+					<button class="button btn-block btn-lg" type="submit">
+						Login</button>
+					<button class="button">아이디찾기</button>
+					<button class="button">비밀번호찾기</button>
+					<a href="${pageContext.request.contextPath }/member/join.do"
+						class="text-center new-account">회원가입</a>
+				</form>
+			</div>
+		</div>
+	</div>
 </html>
