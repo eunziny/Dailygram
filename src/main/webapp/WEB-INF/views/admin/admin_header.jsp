@@ -13,7 +13,7 @@
 <!-- Custom CSS -->
 <link href="${pageContext.request.contextPath }/resources/css/admin_header.css" rel="stylesheet">
 <title>admin header</title>
- <div id='nav-container'>
+ <div id='nav-container' style="box-shadow: 0 0 10px #666666">
   <div id='navbar'>
     <div id='left'>
     <!--Input Logo -->
