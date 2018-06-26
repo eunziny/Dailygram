@@ -121,7 +121,7 @@
 								<input type="text" placeholder="Self-Introduction" name="intro"
 									class="form-control">
 							</div>
-							<div class="intro"><b>자기소개 해시태그(#)를 작성하면 친구를 추천해드립니다.</b></div>
+							<div class="intro"><b>자기소개 #해시태그를 작성하면 친구를 추천해드립니다.</b></div>
 						</div>
 					</div>
 				</div>
