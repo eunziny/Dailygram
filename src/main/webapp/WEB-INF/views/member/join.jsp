@@ -26,6 +26,11 @@
 #joinbottom {
 	margin-bottom: 70px;
 }
+
+.intro {
+	text-align: center;
+	color: purple;
+}
 </style>
 <!-- <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
@@ -111,6 +116,21 @@
 						<div class="form-group">
 							<div class="input-group">
 								<div class="input-group-addon">
+									<i class="glyphicon glyphicon-user"></i>
+								</div>
+								<input type="text" placeholder="Self-Introduction" name="intro"
+									class="form-control">
+							</div>
+							<div class="intro"><b>자기소개 해시태그(#)를 작성하면 친구를 추천해드립니다.</b></div>
+						</div>
+					</div>
+				</div>
+
+ 				<div class="row">
+					<div class="col-lg-12">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon">
 									<i class="glyphicon glyphicon-calendar"></i>
 								</div>
 								<input type="date" name="birthday" placeholder="Date Of Birth"
@@ -119,7 +139,7 @@
 						</div>
 					</div>
 				</div>
-
+				
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="form-group">
