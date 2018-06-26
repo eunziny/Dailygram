@@ -49,7 +49,7 @@
 	    
 		<div class="col-lg-offset-8">
 	    	<button type="submit" class="btn btn-primary" id = "ok">등록</button>
-	    	<button onclick="location.href='${pageContext.request.contextPath }/board/list.do'"
+	    	<button type="button" onclick="location.href='${pageContext.request.contextPath }/board/list.do'"
 	    		 class="btn btn-primary" id = "cancel">취소</button>
 	    </div>
   	</form>
