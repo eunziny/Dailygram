@@ -22,7 +22,7 @@
     <div id='right'>
       <ul class="nav navbar-right pull-right top-nav">
       	<li class="dropdown dropdown-notification">
-			<a href="javascript:;"><span class="glyphicon glyphicon-globe"></span></a>	
+			<a href="${pageContext.request.contextPath }/friend/knownfriend.do"><span class="glyphicon glyphicon-globe"></span></a>	
       	</li>
       	<li class="dropdown dropdown-notification">
 			<a href="javascript:;"><i class="fas fa-users"></i></a>	
