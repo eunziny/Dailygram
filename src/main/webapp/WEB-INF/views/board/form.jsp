@@ -20,8 +20,13 @@
   text-align: center;
   margin:2px;
 }
+ #can {
+ color: white;
+ text-decoration:none;
+ }
+ 
 </style>
-<jsp:include page="${request.contextPath}/container/header.jsp"></jsp:include>
+<%@ include file="/WEB-INF/views/container/header.jsp"%>
 <div class="container">
    <div class="page-header">
                <div class="row">
@@ -33,7 +38,7 @@
                </div>
             </div>
   <div class="row">
-    <form class="form-horizontal" action="/action_page.do">
+    <form class="form-horizontal" action="${pageContext.request.contextPath }/board/list.do">
         <div class="form-group">
           <div class="col-lg-offset-3 col-lg-6 col-lg-offset-3">
           <label>내용</label>
@@ -53,9 +58,10 @@
      </div>
      <div class="col-lg-offset-3 col-lg-6 col-lg-offset-3">
     <button type="submit" class="btn btn-primary" id = "ok">등록</button>
-    <button type="reset" class="btn btn-primary" id = "cancel">취소</button>
+    <button type="reset" class="btn btn-primary" id = "cancel"><a id="can" href="${pageContext.request.contextPath }/board/list.do">취소</a></button>
     </div>
   </form>
 </div>
 </div>
+<%@ include file="/WEB-INF/views/container/footer.jsp"%>
 </html>

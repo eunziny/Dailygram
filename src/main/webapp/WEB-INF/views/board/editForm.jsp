@@ -21,7 +21,7 @@
   margin:2px;
 }
 </style>
-<jsp:include page="${request.contextPath}/container/header.jsp"></jsp:include>
+<%@ include file="/WEB-INF/views/container/header.jsp"%>
 <div class="container">
    <div class="page-header">
                <div class="row">
@@ -33,7 +33,7 @@
                </div>
             </div>
   <div class="row">
-    <form class="form-horizontal" action="/action_page.do">
+    <form class="form-horizontal" action="${pageContext.request.contextPath }/board/list.do">
         <div class="form-group">
           <div class="col-lg-offset-3 col-lg-6 col-lg-offset-3">
           <label>내용</label>
@@ -58,4 +58,5 @@
   </form>
 </div>
 </div>
+<%@ include file="/WEB-INF/views/container/header.jsp"%>
 </html>
