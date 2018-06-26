@@ -1,8 +1,12 @@
 @charset "UTF-8";
 
+html{
+	height: 100%;
+}
 body {
   margin: 0;
   background: #fbfbfb;
+  height: 100%;
 }
 
 i.fas , span.glyphicon , span.hidden-xs{
@@ -170,14 +174,6 @@ i.fas , span.glyphicon , span.hidden-xs{
   left: 50%;
 }
 
-.main-body {
-  clear: both;
-  min-width: 500px;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0px;
-}
-
 .feed-img {
   position: relative;
   display: block;
@@ -301,21 +297,4 @@ i.fas , span.glyphicon , span.hidden-xs{
 .top-nav li.dropdown>a.users{
 	padding : 5px;
 	padding-left: 8px;
-}
-
-
-.footer-bottom {
-	position:fixed;
-	background: #eaeaea;
-	border-top: 1px solid #DDDDDD;
-	padding-top: 12px;
-	padding-bottom: 12px;
-	left:0px;
-   	bottom:0px;
- 	height:60px;
- 	width:100%;
-}
-.footer-bottom div.footer-div {
-	padding-top: 6px;
-	text-align: center;
 }

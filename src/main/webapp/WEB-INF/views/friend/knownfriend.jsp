@@ -3,10 +3,13 @@
 <%@ include file="/WEB-INF/views/container/header.jsp"%>
 <style>
 div.panel-group {
-	width:80%;
+	width:65%;
 	margin: auto;
 	margin-top: 30px;
+	margin-bottom: 50px;
+	min-height: 100%;
 }
+
 ul.list-group>li>button{
 	float:right;
 	background-color: #9770f9;

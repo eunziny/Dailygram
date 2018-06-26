@@ -61,4 +61,3 @@
   </div>
 </div>
 
-<div class="main-body">
