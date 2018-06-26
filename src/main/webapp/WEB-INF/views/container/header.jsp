@@ -8,7 +8,7 @@
 <!-- fontawesome icon-->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" rel="stylesheet">
 <!-- Custom CSS -->
-<link href="${pageContext.request.contextPath }/header.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath }/resources/css/header.css" rel="stylesheet">
 
 
 <!------ Include the above in your HEAD tag ---------->
