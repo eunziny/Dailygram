@@ -22,6 +22,10 @@
 .profileimg {
 	text-align: center;
 }
+
+#joinbottom {
+	margin-bottom: 70px;
+}
 </style>
 <!-- <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
@@ -30,7 +34,7 @@
 	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
 <form action="#" name="myForm" method="post" onsubmit="return(validate());">
-	<div class="container-fluid">
+	<div class="container-fluid" id="joinbottom">
 		<div class="row">
 			<div class="well center-block">
 				<div class="well-header" id="title">
@@ -163,6 +167,7 @@
 					</div>
 				</div>
 				<br>
+				
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="form-group">

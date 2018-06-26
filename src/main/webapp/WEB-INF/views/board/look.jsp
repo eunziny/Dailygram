@@ -2,9 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/container/header.jsp"%>
 <style>
-.container {
+/* .container {
 	width: 1000px;
-}
+} */
 .col-lg-12 {
 	padding:0;
 }
@@ -13,23 +13,18 @@
 	padding-left:5px;
 }
 .lookimg {
-	width:100%;height:320px;margin-bottom:5px
+	width:100%;height:350px;margin-bottom:5px
 }
-
-/* .gallery_product {
-	padding-left:0px;
-} */
 
 #looktop {
 	margin-top: 30px;
 	margin-bottom: 50px;
 }
 
-/* .lookimg {
-	width: 365px;
-	height: 365px;
-	margin-bottom: 5px;
-} */
+#lookbottom {
+	margin-bottom: 70px;
+}
+
 </style>
 <!-- <link
    href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
@@ -55,7 +50,7 @@
 		</div>
 	</div>
 </div>
-<div class="row">
+<div class="row" id="lookbottom">
 	<div class="container">
 		<div class="col-lg-12">
 			<div class="gallery_product col-lg-4">
