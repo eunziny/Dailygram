@@ -138,6 +138,7 @@ section {
     height: 24px;
     width: 24px;
     display: inline-block;
+    color : black;
 }
 .caption {
     color: #585858;
