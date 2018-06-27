@@ -1,5 +1,9 @@
 package com.kitri.daily.search;
 
-public interface SearchMapper {
+import java.util.List;
 
+import com.kitri.daily.board.Board;
+
+public interface SearchMapper {
+	List<Board> getLook(String id);
 }
