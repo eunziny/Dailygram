@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/container/header.jsp"%>    
+<%@ include file="/WEB-INF/views/container/header.jsp"%>   
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -50,7 +51,34 @@
 </div>
 </div>
 </div>
+<!-- <div class="row" id="lookbottom">
+ <div class="container">
+	<div class="col-lg-12">
+	 <div class="gallery_product col-lg-4"> -->
+<c:if test="${empty list }">
 <div class="row" id="lookbottom">
+	<div class="container">
+		<div class="col-lg-12">
+			<p> 게시물이 없습니다. 게시물을 등록해보세요!</p>
+		</div>
+	</div>
+</div>
+	<div class="row" id="lookbottom">
+	<div class="container">
+		<div class="col-lg-12">
+			<div class="gallery_product col-lg-4">
+				<img src="${i.img1}">
+			</div>
+		</div>
+	</div>
+</div>
+</c:if>	
+<c:if test="${not empty list }">
+ <c:forEach var="i" items="${list}">	
+		
+</c:forEach>
+</c:if>
+<!-- <div class="row" id="lookbottom">
 	<div class="container">
 		<div class="col-lg-12">
 			<div class="gallery_product col-lg-4">
@@ -102,5 +130,5 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
 <%@ include file="/WEB-INF/views/container/footer.jsp"%>
