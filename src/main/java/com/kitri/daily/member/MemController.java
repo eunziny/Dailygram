@@ -100,11 +100,6 @@ public class MemController {
 		
 	}
 	
-	@RequestMapping(value = "/board/form.do")
-	void test14() {
-		
-	}
-	
 	@RequestMapping(value = "/board/editForm.do")
 	void test15() {
 		

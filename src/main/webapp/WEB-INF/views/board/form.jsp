@@ -38,16 +38,17 @@
 	    	<div class="col-lg-offset-3 col-lg-6 col-lg-offset-3">
 	    		<label>첨부파일</label>
 	    		<br>
-	    		<input type="file" name="file" value="filefile"><br>
+	    		<input type="file" name="img1" multiple><br>
 	    	</div>
 		
 			<div class="col-lg-offset-3 col-lg-6 col-lg-offset-3">
-				<label><input type="radio" name="upload" value="public" checked>전체공개</label>&nbsp;&nbsp;
-				<label><input type="radio" name="upload" value="friend">친구공개</label>
+				<label><input type="radio" name="public_yn" value="y" checked>전체공개</label>&nbsp;&nbsp;
+				<label><input type="radio" name="public_yn" value="n">친구공개</label>
 		    </div>
 	    </div>
 	    
 		<div class="col-lg-offset-8">
+			<input type="hidden" name="writer" value="${sessionScope.id }">
 	    	<button type="submit" class="btn btn-primary" id = "ok">등록</button>
 	    	<button type="button" onclick="location.href='${pageContext.request.contextPath }/board/list.do'"
 	    		 class="btn btn-primary" id = "cancel">취소</button>
