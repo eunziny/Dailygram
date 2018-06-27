@@ -1,5 +1,7 @@
 package com.kitri.daily.board;
 
+import java.util.ArrayList;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,5 +31,16 @@ public class BoardController {
 	public String edit(Board b) {
 		service.uploadBoard(b);
 		return "redirect:/list.do";
+	}
+	
+	@RequestMapping(value = "/board/list.do")
+	public ModelAndView list() {
+		ModelAndView mav = new ModelAndView("board/list");
+		ArrayList<Board> list = (ArrayList<Board>) service.getAll();
+		for (int i = 0; i < list.size(); i++) {
+			Board b = list.get(i);
+		}
+		mav.addObject("list", list);
+		return mav;
 	}
 }

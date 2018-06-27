@@ -7,4 +7,5 @@ public interface BoardService {
 	Board detailBoard(int board_seq, String writer);
 	void editBoard(Board b);
 	void delBoard(int board_seq, String writer);
+	List getAll();
 }
