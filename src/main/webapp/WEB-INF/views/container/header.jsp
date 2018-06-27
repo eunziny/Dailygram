@@ -13,7 +13,7 @@
 
 <!------ Include the above in your HEAD tag ---------->
 
- <div id='nav-cntainer'>
+ <div id='nav-cntainer' style="box-shadow: 0 0 10px #666666">
   <div id='navbar'>
     <div id='left'>
       <a href='#'><img src='${pageContext.request.contextPath }/resources/img/logo.png' id='logo-name'></a>
