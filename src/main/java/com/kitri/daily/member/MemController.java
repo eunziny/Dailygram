@@ -95,10 +95,10 @@ public class MemController {
 		
 	}
 	
-	@RequestMapping(value = "/board/list.do")
+	/*@RequestMapping(value = "/board/list.do")
 	void test13() {
 		
-	}
+	}*/
 	
 	@RequestMapping(value = "/board/form.do")
 	void test14() {

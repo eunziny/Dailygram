@@ -51,18 +51,20 @@
 </div>
 </div>
 </div>
-<!-- <div class="row" id="lookbottom">
- <div class="container">
-	<div class="col-lg-12">
-	 <div class="gallery_product col-lg-4"> -->
+
 <c:if test="${empty list }">
 <div class="row" id="lookbottom">
 	<div class="container">
 		<div class="col-lg-12">
-			<p> 게시물이 없습니다. 게시물을 등록해보세요!</p>
+			<div class="gallery_product col-lg-offset-4 col-lg-4 col-lg-offset-4">
+			<h4> 게시물이 없습니다. 게시물을 등록하세요! </h4>
+		   </div>
 		</div>
 	</div>
 </div>
+</c:if>	
+<c:if test="${not empty list }">
+ <c:forEach var="i" items="${list}">	
 	<div class="row" id="lookbottom">
 	<div class="container">
 		<div class="col-lg-12">
@@ -71,11 +73,7 @@
 			</div>
 		</div>
 	</div>
-</div>
-</c:if>	
-<c:if test="${not empty list }">
- <c:forEach var="i" items="${list}">	
-		
+</div>		
 </c:forEach>
 </c:if>
 <!-- <div class="row" id="lookbottom">
