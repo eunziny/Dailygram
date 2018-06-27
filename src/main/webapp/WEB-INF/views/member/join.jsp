@@ -205,10 +205,10 @@
 				<div class="row widget">
 					<div class="col-lg-12">
 						<div class="col-lg-6">
-							<a href="#" class="btn btn-primary btn-block" id="cancle">Cancle</a>
+							<a href="#" class="btn btn-primary btn-block" id="cancle">취소</a>
 						</div>
 						<div class="col-lg-6">
-							<a href="#" class="btn btn-success btn-block" id="ok">Sing Up</a>
+							<a href="#" class="btn btn-success btn-block" id="ok">회원가입</a>
 						</div>
 					</div>
 				</div>
