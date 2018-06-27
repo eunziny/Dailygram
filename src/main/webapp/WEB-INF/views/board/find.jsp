@@ -22,11 +22,34 @@
 }
 
 #lookbottom {
-	margin-top: 80px;
 	margin-bottom: 70px;
 }
 
 </style>
+<!-- <link
+   href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+   rel="stylesheet" id="bootstrap-css">
+<script
+   src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
+<div class="row">
+	<div class="container">
+		<div class="col-lg-12" id="looktop">
+			<div class="col-lg-offset-1 col-lg-3" id="looktag_img">
+				<img class="img-circle"
+					src="http://item.ssgcdn.com/83/19/94/item/0000005941983_i1_500.jpg"
+					width="200" height="200" alt="No Image">
+			</div>
+			<div class="col-lg-8">
+				<br> <br>
+				<h2>
+					<a href="#" class="looktag">#김치만두</a>
+				</h2>
+				<h4>게시물 86,529</h4>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="row" id="lookbottom">
 	<div class="container">
 		<div class="col-lg-12">
