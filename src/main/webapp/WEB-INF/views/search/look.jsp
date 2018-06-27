@@ -2,9 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/container/header.jsp"%>
 <style>
-/* .container {
-	width: 1000px;
-} */
 .col-lg-12 {
 	padding:0;
 }
