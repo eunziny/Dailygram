@@ -1,5 +1,9 @@
 package com.kitri.daily.search;
 
-public interface SearchService {
+import java.util.List;
 
+import com.kitri.daily.board.Board;
+
+public interface SearchService {
+	List<Board> getLook(String id);
 }
