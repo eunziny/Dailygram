@@ -90,4 +90,9 @@ public class MemController {
 	void test17() {
 		
 	}
+	
+	@RequestMapping(value = "/admin/admin_header.do")
+	void test18() {
+		
+	}
 }

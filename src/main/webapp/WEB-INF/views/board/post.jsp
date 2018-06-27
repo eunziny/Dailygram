@@ -3,7 +3,13 @@
 <%@ include file="../container/header.jsp"%>
 <%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> --%>
 <link href="${pageContext.request.contextPath }/resources/css/post.css" rel="stylesheet">
-
+<script>
+	$(function() {
+		$(".top-insta #silen").click(function() {
+			alert("정말 해당 게시물을 신고하시겠습니까?");
+		});
+	});
+</script>
 <div class="container">
     <div class="row">
 		<div class="col-lg-offset-1 col-lg-10 col-lg-offset-1">
@@ -19,7 +25,7 @@
 						<li><a href="${pageContext.request.contextPath }/board/editForm.do">수정</a></li>
 						<li><a href="${pageContext.request.contextPath }/board/del.do">삭제</a></li>
 						<li class="divider"></li>
-						<li><a href="#">신고</a></li>
+						<li><a id="silen">신고</a></li>
 					  </ul>
                     </div>
                     
@@ -27,7 +33,7 @@
                         <div class="overlay">
                         <span></span>
                         </div>
-                      <img src="http://fakeimg.pl/365x365/">
+                      <img src="http://www.bibigo.com/img/kr/img_delightful_mandu5_1.jpg">
                     </div>
                     
                     <div class='footer'>

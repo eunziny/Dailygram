@@ -13,10 +13,10 @@
 
 <!------ Include the above in your HEAD tag ---------->
 
- <div id='nav-cntainer'>
+ <div id='nav-cntainer' style="box-shadow: 0 0 10px #666666">
   <div id='navbar'>
     <div id='left'>
-      <a href='#'><img src='${pageContext.request.contextPath }/resources/img/logo.png' id='logo-name'></a>
+      <a href='${pageContext.request.contextPath}/board/list.do'><img src='${pageContext.request.contextPath }/resources/img/logo.png' id='logo-name'></a>
     </div>
     <div id='center'><input id="input-field" type="text" placeholder='Search' style="text-align: center"></div>
     <div id='right'>
