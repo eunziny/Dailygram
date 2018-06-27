@@ -12,13 +12,13 @@ public class Board {
 	private String img3;
 	private String img4;
 	private String img5;
-	
+	private String public_yn;
 	public Board() {
 	
 	}
 	
 	public Board(int board_seq, String writer, String content, Date posted, String img1, String img2, String img3,
-			String img4, String img5) {
+			String img4, String img5,  String public_yn) {
 		super();
 		this.board_seq = board_seq;
 		this.writer = writer;
@@ -29,15 +29,17 @@ public class Board {
 		this.img3 = img3;
 		this.img4 = img4;
 		this.img5 = img5;
+		this.public_yn = public_yn;
 	}
 
 	
-	public Board(int board_seq, String writer, Date posted, String img1) {
+	public Board(int board_seq, String writer, Date posted, String img1, String public_yn) {
 		super();
 		this.board_seq = board_seq;
 		this.writer = writer;
 		this.posted = posted;
 		this.img1 = img1;
+		this.public_yn = public_yn;
 	}
 
 	public int getBoard_seq() {
@@ -93,6 +95,14 @@ public class Board {
 	}
 	public void setImg5(String img5) {
 		this.img5 = img5;
+	}
+	
+	public String getPublic_yn() {
+		return public_yn;
+	}
+
+	public void setPublic_yn(String public_yn) {
+		this.public_yn = public_yn;
 	}
 	@Override
 	public String toString() {
