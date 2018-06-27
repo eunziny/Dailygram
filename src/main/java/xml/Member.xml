@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kitri.daily.member.MemberMapper">
+
+	<resultMap id="MemberResult" type="com.kitri.daily.member.Member">
+		<result column="id" property="id" />
+		<result column="pwd" property="pwd" />
+		<result column="name" property="name" />
+		<result column="birthday" property="birthday" />
+		<result column="email" property="email" />
+		<result column="address" property="address" />
+		<result column="gender" property="gender" />
+		<result column="joindate" property="joindate" />
+		<result column="useyn" property="useyn" />
+		<result column="profile_img" property="profile_img" />
+		<result column="publicyn" property="publicyn" />
+		<result column="intro" property="intro" />
+	</resultMap>
+	
+	<select id="getMember" resultMap="MemberResult" 
+	parameterType="String">
+		SELECT *
+		FROM MEMBER where id = #{id}
+	</select>
+	
+	<!-- <insert id="insertMember" parameterType="com.kitri.daily.member.Member">
+		INSERT INTO
+		MEMBER
+		VALUES (#{id}, #{pwd}, #{name}, #{birthday}, #{email}, #{address}
+		, #{gender}, #{joindate}, #{useyn}, #{profile_img}, #{publicyn}, #{intro})
+	</insert> -->
+	
+</mapper>

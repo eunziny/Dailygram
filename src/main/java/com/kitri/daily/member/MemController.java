@@ -1,11 +1,40 @@
 package com.kitri.daily.member;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class MemController {
+	@Resource(name="memService")
+	private MemService service;
+
+	public void setService(MemService service) {
+		this.service = service;
+	}
+	
+	@RequestMapping(value = "/member/loginForm.do")
+	public String loginForm() {
+		return "member/login";
+	}
+	
+	@RequestMapping(value = "/member/login.do")
+	public String login(HttpServletRequest req, Member m) {
+		Member mem = service.getMember(m.getId());
+	
+		if (mem == null || !mem.getPwd().equals(m.getPwd())) {
+			System.out.println("로그인 실패");
+			return "redirect:/member/loginForm.do";
+		} else {
+			HttpSession session = req.getSession();
+			session.setAttribute("id", m.getId());
+			return "board/list";
+		}
+	}
+	
 	@RequestMapping(value = "/container/header.do")
 	void test() {
 		
@@ -78,11 +107,6 @@ public class MemController {
 	
 	@RequestMapping(value = "/board/editForm.do")
 	void test15() {
-		
-	}
-	
-	@RequestMapping(value = "/member/login.do")
-	void test16() {
 		
 	}
 	
