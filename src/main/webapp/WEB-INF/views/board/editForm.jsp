@@ -22,7 +22,7 @@
       </div>
    </div>
   <div class="row">
-    <form class="form-horizontal" action="${pageContext.request.contextPath }/board/upload.do">
+    <form class="form-horizontal" action="${pageContext.request.contextPath }/board/edit.do" method="post">
         <div class="form-group">
 			<div class="col-lg-offset-3 col-lg-6 col-lg-offset-3">
           		<label>내용</label>
