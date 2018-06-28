@@ -34,36 +34,46 @@
 		in ('y','r')
 	</select>
 
-	<select id="getLook" resultMap="LookResult">
+	<select id="getLook" resultMap="LookResult" parameterType="java.lang.Integer">
+		select c.* from
+		(
 		select @rownum:=@rownum+1 As
 		row,b.board_seq , b.img from
-		(select * from board
+		(select * from
+		board
 		where board_seq in(
 		select a.board_seq from
-		(select board_seq, count(sender) AS likecnt from like_siren
+		(select board_seq,
+		count(sender) AS likecnt from like_siren
 		where board_seq in(
-		select board_seq from board
+		select
+		board_seq from board
 		where posted >= date_add(now(), interval -1 month)
 		and public_yn = 'y'
 		order by posted desc
 		)
 		group by board_seq
-		order by likecnt desc) a
+		order by
+		likecnt desc) a
 		)
 		order by field(board_seq,
 		'select a.board_seq from
 		(select board_seq, count(sender) AS likecnt from like_siren
-		where board_seq in(
+		where
+		board_seq in(
 		select board_seq from board
-		where posted >= date_add(now(), interval -1 month)
+		where posted >=
+		date_add(now(), interval -1 month)
 		and public_yn = ''y''
-		order by posted desc
+		order by posted
+		desc
 		)
 		group by board_seq
 		order by likecnt desc) a
 		'
-		)) b , (select @rownum:=0) tmp
-		limit 0,9;
+		)) b , (select
+		@rownum:=0) tmp
+		)c limit #{row},9;
 	</select>
-
+	
 </mapper>

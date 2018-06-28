@@ -5,6 +5,6 @@ import java.util.List;
 import com.kitri.daily.board.Board;
 
 public interface SearchService {
-	List<Look> getLook();
+	List<Look> getLook(int row);
 	List<String> getLookCnt(String id);
 }

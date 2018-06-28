@@ -9,6 +9,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kitri.daily.board.Board;
@@ -38,7 +41,7 @@ public class SearchController {
 		cntList = service.getLookCnt("abc");
 		int i = 0; //index용
 		if(cntList.size() == 1) { //아무 활동도 하지 않은 상태  cnt=0 1줄
-			lookList = service.getLook();
+			lookList = service.getLook(0);
 			System.out.println("변경 전 리스트:"+lookList.get(0));
 			for(Look b : lookList) {
 				String originpath = b.getImg();
@@ -64,6 +67,20 @@ public class SearchController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/search/infiLoad.do")
-	public 
+	@RequestMapping(value = "/search/infiLoad.do" , method = RequestMethod.POST)
+	public @ResponseBody List<Look> infiLoad(@RequestParam(value="row") int row){
+		List<Look> lookList= service.getLook(row-1);
+		int i = 0; //index용
+			for(Look b : lookList) {
+				String originpath = b.getImg();
+				int index = originpath.lastIndexOf("\\");
+				String path = originpath.substring(index+1); //파일명만 가져온다.
+				b.setImg(path);
+				lookList.set(i, b);
+				System.out.println("파일명:"+path);
+				i++;//index용
+			}
+		return lookList;
+	}
+		
 }

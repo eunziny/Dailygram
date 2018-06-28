@@ -20,9 +20,9 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public List<Look> getLook() {
+	public List<Look> getLook(int row) {
 		searchMapper = sqlSession.getMapper(SearchMapper.class);
-		return searchMapper.getLook();
+		return searchMapper.getLook(row);
 	}
 
 	@Override
