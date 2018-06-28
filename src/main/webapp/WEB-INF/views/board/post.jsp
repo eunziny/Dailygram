@@ -17,7 +17,7 @@
                   <div class= 'insta'>
                     <div class='top-insta'>
                       <a href='${pageContext.request.contextPath }/board/list.do'><img id='user_img' src='https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w'></a>
-                      <a href='${pageContext.request.contextPath }/board/list.do' class='user'>uncle_oreo</a>
+                      <a href='${pageContext.request.contextPath }/board/list.do' class='user'>${b.writer}</a>
 					  <a href='#' id='menu' class="dropdown-toggle" data-toggle="dropdown">
 						<i class="fas fa-ellipsis-v fa-2x"></i>
 					  </a>
@@ -33,7 +33,7 @@
                         <div class="overlay">
                         <span></span>
                         </div>
-                      <img src="http://www.bibigo.com/img/kr/img_delightful_mandu5_1.jpg">
+                      <img src="/board/${path}">
                     </div>
                     
                     <div class='footer'>
@@ -45,8 +45,8 @@
                       </div>
                       
                       <div class='caption'>
-                        <a href='${pageContext.request.contextPath }/board/list.do'>uncle_oreo</a>
-                        <span>Done Safe and Sound</span>
+                        <a href='${pageContext.request.contextPath }/board/list.do'>${b.writer}</a>
+                        <span>${b.content}</span>
                       </div>
                       
                       <div class='comment-list'>

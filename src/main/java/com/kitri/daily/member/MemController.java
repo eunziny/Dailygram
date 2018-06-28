@@ -75,10 +75,10 @@ public class MemController {
 		
 	}
 	
-	@RequestMapping(value = "/board/post.do")
+/*	@RequestMapping(value = "/board/post.do")
 	void test9() {
 		
-	}
+	}*/
 	
 	@RequestMapping(value = "/board/look.do")
 	void test10() {
