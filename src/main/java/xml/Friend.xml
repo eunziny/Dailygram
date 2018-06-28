@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kitri.daily.friend.FriendMapper">
+
+	<resultMap id="FriendResult" type="com.kitri.daily.friend.Friend">
+		<result column="id" property="id" />
+		<result column="profile_img" property="profile_img" />
+		<result column="intro" property="intro" />
+	</resultMap>
+	
+	<select id="selectFriendRelationshipCount" resultType="java.util.HashMap" parameterType="String">
+		select count(*) cnt from like_siren
+	      where sender = #{id}
+	      union
+	      select count(*) from relationship
+	      where sender = #{id}
+	      and status
+	      in ('y','r')
+	</select>
+	
+	<select id="selectRecommend" resultMap="FriendResult" >
+		SELECT DISTINCT m.id, m.profile_img
+		FROM member m,(SELECT b.board_seq, b.posted, b.writer
+						FROM board b, (SELECT board_seq, count(*) 'like', date
+									FROM like_siren
+		                            WHERE type='L'
+									GROUP BY board_seq
+									ORDER BY count(*) DESC) l
+						WHERE DATE(posted) >= date_add(now(), interval -7 day)
+						AND b.board_seq = l.board_seq
+						ORDER BY posted DESC) b
+		WHERE m.id = b.writer
+		AND m.publicyn='y'
+		AND m.useyn='y'
+	</select>
+	
+</mapper>

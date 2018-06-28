@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/views/container/header.jsp"%>
 <style>
 div.panel-group {
@@ -22,46 +23,17 @@ ul.list-group>li>button{
 		<hr>
 		<div class="panel-body">
 			<ul class="list-group">
+			<c:if test="${empty list }">다시한번 조회해주시기 바랍니다. </c:if>
+			<c:if test="${not empty list }">
+			<c:forEach var="p" items="${list }">
 				<li class="list-group-item"><img alt="" class="img-circle"
 					src="https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w"
-					width="30"> <a href=# style="color: black"><span>User1</span></a>
+					width="30"> 
+					<a href=# style="color: black"><span>${p.id }</span></a>
 					<button type="button" class="btn btn-xs">팔로우</button>
 				</li>
-				<li class="list-group-item"><img alt="" class="img-circle"
-					src="https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w"
-					width="30"> <a href=# style="color: black"><span>User2</span></a>
-					<button type="button" class="btn btn-xs">팔로우</button>
-				</li>
-				<li class="list-group-item"><img alt="" class="img-circle"
-					src="https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w"
-					width="30"> <a href=# style="color: black"><span>User3</span></a>
-					<button type="button" class="btn btn-xs ">팔로우</button>
-				</li>
-				<li class="list-group-item"><img alt="" class="img-circle"
-					src="https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w"
-					width="30"> <a href=# style="color: black"><span>User4</span></a>
-					<button type="button"  class="btn btn-xs">팔로우</button>
-				</li>
-				<li class="list-group-item"><img alt="" class="img-circle"
-					src="https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w"
-					width="30"> <a href=# style="color: black"><span>User5</span></a>
-					<button class="btn btn-xs">팔로우</button>
-				</li>
-				<li class="list-group-item"><img alt="" class="img-circle"
-					src="https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w"
-					width="30"> <a href=# style="color: black"><span>User6</span></a>
-					<button class="btn btn-xs">팔로우</button>
-				</li>
-				<li class="list-group-item"><img alt="" class="img-circle"
-					src="https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w"
-					width="30"> <a href=# style="color: black"><span>User7</span></a>
-					<button class="btn btn-xs">팔로우</button>
-				</li>
-				<li class="list-group-item"><img alt="" class="img-circle"
-					src="https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w"
-					width="30"> <a href=# style="color: black"><span>User8</span></a>
-					<button class="btn btn-xs">팔로우</button>
-				</li>
+			</c:forEach>
+			</c:if>
 			</ul>
 		</div>
 	</div>

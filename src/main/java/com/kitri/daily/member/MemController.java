@@ -40,11 +40,6 @@ public class MemController {
 		
 	}
 	
-	@RequestMapping(value = "/friend/knownfriend.do")
-	void test2() {
-		
-	}
-	
 	@RequestMapping(value = "/friend/followinglist.do")
 	void test3() {
 		
