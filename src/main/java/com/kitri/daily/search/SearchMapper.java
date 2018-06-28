@@ -5,5 +5,6 @@ import java.util.List;
 import com.kitri.daily.board.Board;
 
 public interface SearchMapper {
-	List<Board> getLook(String id);
+	List<Look> getLook();
+	List<String> getLookCnt(String id);
 }

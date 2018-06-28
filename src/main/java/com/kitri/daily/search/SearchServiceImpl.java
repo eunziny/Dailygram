@@ -20,9 +20,15 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public List<Board> getLook(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Look> getLook() {
+		searchMapper = sqlSession.getMapper(SearchMapper.class);
+		return searchMapper.getLook();
+	}
+
+	@Override
+	public List<String> getLookCnt(String id) {
+		searchMapper = sqlSession.getMapper(SearchMapper.class);
+		return searchMapper.getLookCnt(id);
 	}
 
 }
