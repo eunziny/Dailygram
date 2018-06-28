@@ -43,13 +43,12 @@
                         <a role='button'><i class="far fa-comments fa-2x"></i></a>
                         <a role='button'><i class="far fa-share-square fa-2x"></i></a>
                       </div>
-                      <!-- 게시일  -->
-                      <input class="date" type = "date" hidden="hidden" name="posted" value="${update.posted}">
                       <div class='caption'>
                         <a href='${pageContext.request.contextPath }/board/list.do'>${b.writer}</a>
                         <span>${b.content}</span>
                       </div>
-                      
+                      <!-- 게시일 -->
+                      <input class="public_yn" type = "text" hidden="hidden" name="public_yn" value="${b.public_yn}">
                       <div class='comment-list'>
                         <a href='${pageContext.request.contextPath }/board/list.do' id='a1'><img id='user_img' src='https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w'></a>
                         <a href='${pageContext.request.contextPath }/board/list.do' class='user' id='a2'>uncle_oreo</a>

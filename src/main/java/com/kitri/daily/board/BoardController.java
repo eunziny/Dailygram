@@ -33,8 +33,8 @@ public class BoardController {
 
 	@RequestMapping(value = "/board/edit.do")
 	public String edit(Board b) {
-		service.uploadBoard(b);
-		return "redirect:/post.do";
+		service.editBoard(b);
+		return "redirect:/board/post.do";
 	}
 
 	/*

@@ -52,7 +52,7 @@ var x = document.getElementsByName("upload");
 	    	<div class="col-lg-offset-3 col-lg-6 col-lg-offset-3">
 	    		<label>첨부파일</label>
 	    		<br>
-	    		<input type="file" name="file" id = "file" value="${path}"><br>
+	    		<input type="file" name="file" id = "file" value="${path}">${path}<br>
 	    	</div>
 		
 			<div class="col-lg-offset-3 col-lg-6 col-lg-offset-3">
