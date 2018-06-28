@@ -27,26 +27,28 @@ public class BoardController {
 		
 	}
 	
-	public void saveImg(@RequestParam(value ="img") MultipartFile img) {
-		String fileName = img.getOriginalFilename();
-		if (fileName != null && !fileName.equals("")) {
+	@RequestMapping(value = "/board/upload.do")
+	public String upload(HttpServletRequest req, Board b) {
+		MultipartFile file = b.getFile();
+		if (file != null && !file.equals("")) {
 			File dir = new File(basePath);
 			if (!dir.exists()) {
 				dir.mkdirs();
 			}
-			File f = new File(basePath + "\\" + fileName);
+			int thumbnail_width = 300;
+			int thumbnail_height = 300;
+			String fileName = file.getOriginalFilename();
+			String img = fileName /*+ System.currentTimeMillis() + file.getSize()*/;
+			File f = new File(basePath + "\\" + img);
+			b.setImg(img);
 			try {
-				img.transferTo(f);
+				file.transferTo(f);
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-	}
-	
-	@RequestMapping(value = "/board/upload.do")
-	public String upload(HttpServletRequest req, Board b) {
 		service.uploadBoard(b);
 		return "redirect:/board/list.do";
 	} 
