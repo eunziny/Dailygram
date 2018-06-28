@@ -22,7 +22,7 @@
 						<i class="fas fa-ellipsis-v fa-2x"></i>
 					  </a>
 					  <ul class="dropdown-menu dropdown-menu-right">
-						<li><a href="${pageContext.request.contextPath }/board/editForm.do">수정</a></li>
+						<li><a href="${pageContext.request.contextPath }/board/updateBoard.do?board_seq=${b.board_seq}&writer=${b.writer}">수정</a></li>
 						<li><a href="${pageContext.request.contextPath }/board/del.do">삭제</a></li>
 						<li class="divider"></li>
 						<li><a id="silen">신고</a></li>
@@ -43,7 +43,8 @@
                         <a role='button'><i class="far fa-comments fa-2x"></i></a>
                         <a role='button'><i class="far fa-share-square fa-2x"></i></a>
                       </div>
-                      
+                      <!-- 게시일  -->
+                      <input class="date" type = "date" hidden="hidden" name="posted" value="${update.posted}">
                       <div class='caption'>
                         <a href='${pageContext.request.contextPath }/board/list.do'>${b.writer}</a>
                         <span>${b.content}</span>

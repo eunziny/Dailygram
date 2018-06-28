@@ -17,17 +17,24 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/board/updateBoard.do")
-	public ModelAndView editBoard(HttpSession session, HttpServletRequest req) {
+	public ModelAndView editBoard(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView("board/editForm");
-		session = req.getSession(false);
+		HttpSession session = req.getSession(false);
 		String id = (String) session.getAttribute("id");
+		Board update = service.detailBoard(29, id);
+		mav.addObject("update", update);
+		String originpath = update.getImg(); // 파일경로를 가져옴
+		int index = originpath.lastIndexOf("\\");
+		String path = originpath.substring(index + 1); // 파일명만 가져온다.
+		System.out.println(path);
+		mav.addObject("path",path);
 		return mav;
 	}
 
-	@RequestMapping(value = "/board/update.do")
+	@RequestMapping(value = "/board/edit.do")
 	public String edit(Board b) {
 		service.uploadBoard(b);
-		return "redirect:/list.do";
+		return "redirect:/post.do";
 	}
 
 	/*
@@ -44,7 +51,7 @@ public class BoardController {
 		String id = (String) session.getAttribute("id");
 		Board b = service.detailBoard(29, id);
 		mav.addObject("b", b);
-		String originpath = b.getImg1(); // 파일경로를 가져옴
+		String originpath = b.getImg(); // 파일경로를 가져옴
 		int index = originpath.lastIndexOf("\\");
 		String path = originpath.substring(index + 1); // 파일명만 가져온다.
 		System.out.println(path);
