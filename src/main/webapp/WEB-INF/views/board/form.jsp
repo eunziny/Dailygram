@@ -9,10 +9,6 @@
   text-align: center;
   margin-right:5px;
 }
- #can {
- color: white;
- text-decoration:none;
- }
 </style>
 
 <div class="container">
@@ -26,7 +22,8 @@
       </div>
    </div>
   <div class="row">
-    <form class="form-horizontal" action="${pageContext.request.contextPath }/board/upload.do">
+    <form class="form-horizontal" action="${pageContext.request.contextPath }/board/upload.do"
+    	method="post" enctype="multipart/form-data">
         <div class="form-group">
 			<div class="col-lg-offset-3 col-lg-6 col-lg-offset-3">
           		<label>내용</label>
@@ -38,7 +35,7 @@
 	    	<div class="col-lg-offset-3 col-lg-6 col-lg-offset-3">
 	    		<label>첨부파일</label>
 	    		<br>
-	    		<input type="file" name="img1" multiple><br>
+	    		<input type="file" name="img" multiple><br>
 	    	</div>
 		
 			<div class="col-lg-offset-3 col-lg-6 col-lg-offset-3">

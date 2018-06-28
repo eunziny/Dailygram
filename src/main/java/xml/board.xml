@@ -9,11 +9,7 @@
 		<result column="writer" property="writer" />
 		<result column="content" property="content" />
 		<result column="posted" property="posted" />
-		<result column="img1" property="img1" />
-		<result column="img2" property="img2" />
-		<result column="img3" property="img3" />
-		<result column="img4" property="img4" />
-		<result column="img5" property="img5" />
+		<result column="img" property="img" />
 		<result column="public_yn" property="public_yn" />
 	</resultMap>
 
@@ -24,9 +20,8 @@
 	</select>
 -->
 	<insert id="insert" parameterType="com.kitri.daily.board.Board">
-		insert into board 
-		values (#{writer}, #{content}, sysdate, #{img1}, 
-		#{img2}, #{img3}, #{img4}, #{img5}, #{public_yn})
+		insert into board (`writer`, `content`, `posted`, `img`, `public_yn`)
+		values (#{writer}, #{content}, now(), #{img}, #{public_yn})
 	</insert>
 <!-- 	
 	<update id="update" parameterType="com.kitri.daily.board.Board">
