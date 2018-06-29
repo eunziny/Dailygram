@@ -2,6 +2,10 @@ package com.kitri.daily.board;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
+
+
 public class Board {
 	private int board_seq;
 	private String writer;
@@ -9,6 +13,8 @@ public class Board {
 	private Date posted;
 	private String img;
 	private String public_yn;
+	private MultipartFile file;
+
 	public Board() {
 	
 	}
@@ -63,7 +69,15 @@ public class Board {
 	public void setPublic_yn(String public_yn) {
 		this.public_yn = public_yn;
 	}
+	
+	public MultipartFile getFile() {
+		return file;
+	}
 
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+	
 	@Override
 	public String toString() {
 		return "Board [board_seq=" + board_seq + ", writer=" + writer + ", content=" + content + ", posted=" + posted

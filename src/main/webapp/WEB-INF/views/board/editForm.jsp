@@ -40,7 +40,8 @@ var x = document.getElementsByName("upload");
       </div>
    </div>
   <div class="row">
-    <form class="form-horizontal" action="${pageContext.request.contextPath }/board/edit.do?writer=${update.writer}&board_seq=${update.board_seq}&img=${path}" method="post">
+    <form class="form-horizontal" action="${pageContext.request.contextPath }/board/edit.do?writer=${update.writer}&board_seq=${update.board_seq}" 
+    	  method="post" enctype="multipart/form-data">
         <div class="form-group">
 			<div class="col-lg-offset-3 col-lg-6 col-lg-offset-3">
           		<label>내용</label>
@@ -52,7 +53,7 @@ var x = document.getElementsByName("upload");
 	    	<div class="col-lg-offset-3 col-lg-6 col-lg-offset-3">
 	    		<label>첨부파일</label>
 	    		<br>
-	    		<input type="file" name="file" id = "file" value="${path}">${path}<br>
+	    		<input type="file" name="file" id = "file" value="file"><br>
 	    	</div>
 		
 			<div class="col-lg-offset-3 col-lg-6 col-lg-offset-3">
@@ -64,7 +65,7 @@ var x = document.getElementsByName("upload");
 	    <input class="public_yn" type = "text" hidden="hidden" name="public_yn" value="${update.public_yn}">
 		<div class="col-lg-offset-8">
 	    	<button type="submit" class="btn btn-primary" id = "ok">수정</button>
-	    	<button type="reset" class="btn btn-primary" id = "cancel">취소</button>
+	    	<button type="button" class="btn btn-primary" id = "cancel" onclick="location.href='${pageContext.request.contextPath }/board/post.do'">취소</button>
 	    </div>
   	</form>
   </div>

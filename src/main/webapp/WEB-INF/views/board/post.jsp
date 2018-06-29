@@ -33,7 +33,7 @@
                         <div class="overlay">
                         <span></span>
                         </div>
-                      <img src="/board/${path}">
+                      <img src="/board/${b.img}">
                     </div>
                     
                     <div class='footer'>

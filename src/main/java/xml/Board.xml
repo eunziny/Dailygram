@@ -19,7 +19,7 @@
 	</select>
 
 	<insert id="insert" parameterType="com.kitri.daily.board.Board">
-		insert into board values (writer, content, postedm,img, public_yn)
+		insert into board values (writer, content, posted,img, public_yn)
 		(#{writer}, #{content}, #{posted}, #{img},#{public_yn})
 	</insert>
 
