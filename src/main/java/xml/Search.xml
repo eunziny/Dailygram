@@ -144,7 +144,8 @@
 		select e.* from
 		(
 		select @rownum:=@rownum+1 As
-		row , d.board_seq , d.img from
+		row ,
+		d.board_seq , d.img from
 		(
 		( select a.board_seq , a.img , a.posted from
 		(
@@ -153,13 +154,16 @@
 		select aa.board_seq from
 		(
 		select board_seq , count(sender) sender from like_siren
-		where sender in (
+		where sender in
+		(
 		select receiver from relationship
 		where sender = #{id}
-		and status in ('y','r')
+		and status in
+		('y','r')
 		)
 		and date >= date_add(now(), interval -7 day)
-		group by board_seq
+		group by
+		board_seq
 		order by sender desc
 		) aa
 		)
@@ -168,7 +172,8 @@
 
 		union
 
-		( select c.board_seq , c.img , c.posted from
+		(
+		select c.board_seq , c.img , c.posted from
 		(
 		select b.board_seq , b.img
 		,b.posted from
@@ -214,7 +219,79 @@
 		@rownum:=0) tmp
 		)c )
 		) d order by d.posted desc , (select @rownum:=0)
-		)e limit #{row},9;
+		)e
+		limit #{row},9;
 	</select>
 
+	<!-- 좋아요 1개 이상 친구0명 -->
+	<select id="getLikeLook" resultMap="LookResult" parameterType="com.kitri.daily.search.Look">
+		select b.row , b.board_seq, b.img from
+		(
+		select @rownum:=@rownum+1 As
+		row , a.* from
+		(
+		select * from board
+		where board_seq in(
+		select distinct
+		board_seq from hashtag
+		where tagname in
+		(
+		select distinct tagname from
+		hashtag
+		where board_seq in
+		(select board_seq from like_siren
+		where sender
+		= #{id} )
+		)
+		)and public_yn = 'y'
+		order by posted desc
+		)a ,(select @rownum:=0) tmp
+		)b limit #{row},9;
+	</select>
+
+	<!-- 좋아요 + 친구 1개 이상씩 -->
+	<select id="getFrLiLook" resultMap="LookResult" parameterType="com.kitri.daily.search.Look">
+		select c.* from
+		(select @rownum:=@rownum+1 As row ,b.board_seq , b.img from
+		(select a.board_seq , a.img ,a.posted from
+		(
+		select * from board
+		where board_seq
+		in(
+		select aa.board_seq from
+		(
+		select board_seq , count(sender) sender
+		from like_siren
+		where sender in (
+		select receiver from relationship
+		where sender = #{id}
+		and status in ('y','r')
+		)
+		and date >=
+		date_add(now(), interval -7 day)
+		group by board_seq
+		order by sender desc
+		) aa
+		)
+		and public_yn = 'y'
+		) a
+		union
+		select a.board_seq , a.img ,a.posted from
+		(
+		select * from board
+		where board_seq in(
+		select distinct board_seq from hashtag
+		where tagname in
+		(
+		select distinct tagname from hashtag
+		where board_seq in
+		(select board_seq from like_siren
+		where sender = #{id} )
+		)
+		)and public_yn = 'y'
+		order by posted desc
+		)a
+		)b ,(select @rownum:=0) tmp order by posted desc
+		)c limit #{row},9
+	</select>
 </mapper>

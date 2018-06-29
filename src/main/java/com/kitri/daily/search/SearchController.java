@@ -55,9 +55,21 @@ public class SearchController {
 			mav.addObject("flag",1);
 		}else {
 			if(Integer.parseInt(cntArr[0]) > 1 && Integer.parseInt(cntArr[1]) == 0) {//좋아요 1이상 친구 0
-				//TO-DO
+				List <Look> likeLookList = new ArrayList<Look>();
+				Look lo = new Look(id,0);
+				likeLookList = service.getLikeLook(lo);
+				i = 0; //index용
+				for(Look b : likeLookList) {
+					String originpath = b.getImg();
+					int index = originpath.lastIndexOf("\\");
+					String path = originpath.substring(index+1); //파일명만 가져온다.
+					b.setImg(path);
+					likeLookList.set(i, b);
+					i++;//index용
+				}
 				
-				
+				mav.addObject("lookList",likeLookList);
+				mav.addObject("flag",2);
 			}else if(Integer.parseInt(cntArr[0]) == 0 && Integer.parseInt(cntArr[1]) > 1 ) {//좋아요 0 친구 1이상
 				String friCnt = service.getFriLookCnt(id);
 				List <Look> friLookList = new ArrayList<Look>();
@@ -65,10 +77,10 @@ public class SearchController {
 				
 				if(Integer.parseInt(friCnt) <= 100) {
 					friLookList = service.getFriLookDown(lo);
-					mav.addObject("flag",2);
+					mav.addObject("flag",3);
 				}else {//100개 이상이라면
 					friLookList = service.getFriLookUp(lo);
-					mav.addObject("flag",3);
+					mav.addObject("flag",4);
 				}
 				
 				i = 0; //index용
@@ -82,7 +94,20 @@ public class SearchController {
 				}
 				mav.addObject("lookList",friLookList);
 			}else {
-				
+				List <Look> frliLookList = new ArrayList<Look>();
+				Look lo = new Look(id,0);
+				frliLookList = service.getFrLiLook(lo);
+				i = 0; //index용
+				for(Look b : frliLookList) {
+					String originpath = b.getImg();
+					int index = originpath.lastIndexOf("\\");
+					String path = originpath.substring(index+1); //파일명만 가져온다.
+					b.setImg(path);
+					frliLookList.set(i, b);
+					i++;//index용
+				}
+				mav.addObject("lookList",frliLookList);
+				mav.addObject("flag",5);
 			}
 		}
 		return mav;
@@ -102,15 +127,16 @@ public class SearchController {
 			lookList= service.getLook(row-1);
 			break;
 		case 2:
-			
-			lookList= service.getFriLookDown(lo);
+			lookList = service.getLikeLook(lo);
 			break;
 		case 3:
-			lookList= service.getFriLookUp(lo);
+			lookList= service.getFriLookDown(lo);
 			break;
 		case 4:
+			lookList= service.getFriLookUp(lo);			
 			break;
 		case 5:
+			lookList = service.getFrLiLook(lo);
 			break;
 		}
 		

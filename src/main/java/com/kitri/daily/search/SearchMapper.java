@@ -10,4 +10,6 @@ public interface SearchMapper {
 	String getFriLookCnt(String id);
 	List<Look> getFriLookDown(Look lo);
 	List<Look> getFriLookUp(Look lo);
+	List<Look> getLikeLook(Look lo);
+	List<Look> getFrLiLook(Look lo);
 }

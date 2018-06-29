@@ -49,4 +49,16 @@ public class SearchServiceImpl implements SearchService {
 		return searchMapper.getFriLookUp(lo);
 	}
 
+	@Override
+	public List<Look> getLikeLook(Look lo) {
+		searchMapper = sqlSession.getMapper(SearchMapper.class);
+		return searchMapper.getLikeLook(lo);
+	}
+
+	@Override
+	public List<Look> getFrLiLook(Look lo) {
+		searchMapper = sqlSession.getMapper(SearchMapper.class);
+		return searchMapper.getFrLiLook(lo);
+	}
+
 }
