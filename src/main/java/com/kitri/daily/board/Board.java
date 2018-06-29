@@ -4,7 +4,6 @@ import java.sql.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
-
 public class Board {
 	private int board_seq;
 	private String writer;
@@ -14,8 +13,8 @@ public class Board {
 	private String public_yn;
 	
 	private MultipartFile file;
-	
-	public Board() {}	
+
+	public Board() {}
 	public Board(int board_seq, String writer, String content, Date posted, String img, String public_yn) {
 		super();
 		this.board_seq = board_seq;
@@ -24,14 +23,6 @@ public class Board {
 		this.posted = posted;
 		this.img = img;
 		this.public_yn = public_yn;
-	}
-	
-	
-	public MultipartFile getFile() {
-		return file;
-	}
-	public void setFile(MultipartFile file) {
-		this.file = file;
 	}
 	public int getBoard_seq() {
 		return board_seq;
@@ -69,10 +60,16 @@ public class Board {
 	public void setPublic_yn(String public_yn) {
 		this.public_yn = public_yn;
 	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
 	@Override
 	public String toString() {
 		return "Board [board_seq=" + board_seq + ", writer=" + writer + ", content=" + content + ", posted=" + posted
 				+ ", img=" + img + ", public_yn=" + public_yn + "]";
-	}
+	}	
 	
 }

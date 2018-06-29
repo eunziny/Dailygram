@@ -20,4 +20,28 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
 		boardMapper.insert(b);
 	}
+
+	@Override
+	public Board detailBoard(int board_seq, String writer) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.select(board_seq, writer);
+	}
+
+	@Override
+	public void delBoard(int board_seq, String writer) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.delete(board_seq, writer);
+	}
+
+	@Override
+	public void editBoard(Board b) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.update(b);
+	}
+
+/*	@Override
+	public List getAll() {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.selectAll();
+	}*/
 }
