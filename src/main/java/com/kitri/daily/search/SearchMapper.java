@@ -6,5 +6,8 @@ import com.kitri.daily.board.Board;
 
 public interface SearchMapper {
 	List<Look> getLook(int row);
-	List<String> getLookCnt(String id);
+	String[] getLookCnt(String id);
+	String getFriLookCnt(String id);
+	List<Look> getFriLookDown(Look lo);
+	List<Look> getFriLookUp(Look lo);
 }

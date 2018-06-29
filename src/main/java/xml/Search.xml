@@ -23,42 +23,72 @@
 		<result column="public_yn" property="public_yn" />
 	</resultMap>
 
-	<select id="getLookCnt" resultType="java.util.Map"
-		parameterType="String">
+	<select id="getLookCnt" resultType="String" parameterType="String">
 		select count(*) cnt from like_siren
 		where sender = #{id}
 		union
-		select count(*) from relationship
+		select
+		count(*) from relationship
 		where sender = #{id}
 		and status
 		in ('y','r')
+	</select>
+
+	<select id="getFriLookCnt" resultType="String" parameterType="String">
+		select count(*) from
+		(
+		select * from board
+		where board_seq in(
+		select
+		distinct board_seq from like_siren
+		where sender in
+		(
+		select receiver from
+		relationship
+		where sender = #{id}
+		and status in ('y','r')
+		)
+		and date >=
+		date_add(now(), interval -7 day)
+		order by date desc
+		)
+		and public_yn = 'y'
+		order by posted desc
+		) a
+		,(select @rownum:=0) tmp
 	</select>
 
 	<select id="getLook" resultMap="LookResult" parameterType="java.lang.Integer">
 		select c.* from
 		(
 		select @rownum:=@rownum+1 As
-		row,b.board_seq , b.img from
+		row,b.board_seq , b.img
+		from
 		(select * from
 		board
 		where board_seq in(
 		select a.board_seq from
 		(select board_seq,
 		count(sender) AS likecnt from like_siren
-		where board_seq in(
+		where
+		board_seq in(
 		select
 		board_seq from board
-		where posted >= date_add(now(), interval -1 month)
+		where posted >= date_add(now(),
+		interval -1 month)
 		and public_yn = 'y'
 		order by posted desc
 		)
-		group by board_seq
+		group by
+		board_seq
 		order by
 		likecnt desc) a
 		)
 		order by field(board_seq,
-		'select a.board_seq from
-		(select board_seq, count(sender) AS likecnt from like_siren
+		'select
+		a.board_seq from
+		(select board_seq, count(sender) AS likecnt from
+		like_siren
 		where
 		board_seq in(
 		select board_seq from board
@@ -75,5 +105,116 @@
 		@rownum:=0) tmp
 		)c limit #{row},9;
 	</select>
-	
+
+	<!-- 친구 1명 이상이면서 게시물 100개 이상 -->
+	<select id="getFriLookUp" resultMap="LookResult"
+		parameterType="com.kitri.daily.search.Look">
+		select b.* from
+		(
+		select @rownum:=@rownum+1 As row,
+		a.board_seq , a.img , a.posted from
+		(
+		select * from board
+		where board_seq
+		in(
+		select aa.board_seq from
+		(
+		select board_seq , count(sender) sender
+		from like_siren
+		where sender in (
+		select receiver from relationship
+		where sender = #{id}
+		and status in ('y','r')
+		)
+		and date >=
+		date_add(now(), interval -7 day)
+		group by board_seq
+		order by sender desc
+		) aa
+		)
+		and public_yn = 'y'
+		) a
+		,(select @rownum:=0) tmp
+		)b limit #{row},9
+	</select>
+
+	<!-- 친구 1명 이상이면서 게시물 100개 이하 -->
+	<select id="getFriLookDown" resultMap="LookResult"
+		parameterType="com.kitri.daily.search.Look">
+		select e.* from
+		(
+		select @rownum:=@rownum+1 As
+		row , d.board_seq , d.img from
+		(
+		( select a.board_seq , a.img , a.posted from
+		(
+		select * from board
+		where board_seq in(
+		select aa.board_seq from
+		(
+		select board_seq , count(sender) sender from like_siren
+		where sender in (
+		select receiver from relationship
+		where sender = #{id}
+		and status in ('y','r')
+		)
+		and date >= date_add(now(), interval -7 day)
+		group by board_seq
+		order by sender desc
+		) aa
+		)
+		and public_yn = 'y'
+		) a )
+
+		union
+
+		( select c.board_seq , c.img , c.posted from
+		(
+		select b.board_seq , b.img
+		,b.posted from
+		(select * from
+		board
+		where board_seq in(
+		select a.board_seq
+		from
+		(select board_seq,
+		count(sender) AS likecnt from like_siren
+		where
+		board_seq in(
+		select
+		board_seq from board
+		where posted >= date_add(now(),
+		interval -1 month)
+		and public_yn = 'y'
+		order by posted desc
+		)
+		group by
+		board_seq
+		order by
+		likecnt desc) a
+		)
+		order by field(board_seq,
+		'select
+		a.board_seq from
+		(select board_seq, count(sender) AS likecnt from
+		like_siren
+		where
+		board_seq in(
+		select board_seq from board
+		where posted >=
+		date_add(now(), interval -1 month)
+		and public_yn = ''y''
+		order by posted
+		desc
+		)
+		group by board_seq
+		order by likecnt desc) a
+		'
+		)) b , (select
+		@rownum:=0) tmp
+		)c )
+		) d order by d.posted desc , (select @rownum:=0)
+		)e limit #{row},9;
+	</select>
+
 </mapper>

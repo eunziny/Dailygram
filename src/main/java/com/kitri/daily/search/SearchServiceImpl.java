@@ -26,9 +26,27 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public List<String> getLookCnt(String id) {
+	public String[] getLookCnt(String id) {
 		searchMapper = sqlSession.getMapper(SearchMapper.class);
 		return searchMapper.getLookCnt(id);
+	}
+
+	@Override
+	public String getFriLookCnt(String id) {
+		searchMapper = sqlSession.getMapper(SearchMapper.class);		
+		return searchMapper.getFriLookCnt(id);
+	}
+
+	@Override
+	public List<Look> getFriLookDown(Look lo) {
+		searchMapper = sqlSession.getMapper(SearchMapper.class);
+		return searchMapper.getFriLookDown(lo);
+	}
+
+	@Override
+	public List<Look> getFriLookUp(Look lo) {
+		searchMapper = sqlSession.getMapper(SearchMapper.class);
+		return searchMapper.getFriLookUp(lo);
 	}
 
 }

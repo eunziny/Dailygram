@@ -23,6 +23,7 @@ import com.kitri.daily.member.Member;
 public class SearchController {
 	@Resource(name="searchService")
 	private SearchService service;
+	private int i;
 
 	public void setService(SearchService service) {
 		this.service = service;
@@ -31,35 +32,55 @@ public class SearchController {
 	@RequestMapping(value = "/search/look.do")
 	public ModelAndView look(HttpServletRequest req) {
 		//로그인 한 사람의 id 값 session 에서 가져오기.
-		//HttpSession session = req.getSession(false);
-		//String id = (String)session.getAttribute("id");
-		//Member m = new Member();
-		//m.setId(id);
+		HttpSession session = req.getSession(false);
+		String id = (String)session.getAttribute("id");
 		ModelAndView mav = new ModelAndView("search/look");
-		List <String> cntList = new ArrayList<String>();
+		//List <String> cntList = new ArrayList<String>();
+		String [] cntArr = {};
 		List <Look> lookList = new ArrayList<Look>();
-		cntList = service.getLookCnt("abc");
-		int i = 0; //index용
-		if(cntList.size() == 1) { //아무 활동도 하지 않은 상태  cnt=0 1줄
+		cntArr = service.getLookCnt(id);
+		System.out.println(cntArr.length);
+		i = 0; //index용
+		if(cntArr.length == 1) { //아무 활동도 하지 않은 상태  cnt=0 1줄
 			lookList = service.getLook(0);
-			System.out.println("변경 전 리스트:"+lookList.get(0));
 			for(Look b : lookList) {
 				String originpath = b.getImg();
 				int index = originpath.lastIndexOf("\\");
 				String path = originpath.substring(index+1); //파일명만 가져온다.
 				b.setImg(path);
 				lookList.set(i, b);
-				System.out.println("파일명:"+path);
-				
 				i++;//index용
 			}
-			System.out.println("변경후 리스트:"+lookList.get(0));
 			mav.addObject("lookList",lookList);
+			mav.addObject("flag",1);
 		}else {
-			if(Integer.parseInt(cntList.get(0)) > 1 && Integer.parseInt(cntList.get(1)) == 0) {
+			if(Integer.parseInt(cntArr[0]) > 1 && Integer.parseInt(cntArr[1]) == 0) {//좋아요 1이상 친구 0
+				//TO-DO
 				
-			}else if(Integer.parseInt(cntList.get(0)) == 0 && Integer.parseInt(cntList.get(1)) > 1 ) {
 				
+			}else if(Integer.parseInt(cntArr[0]) == 0 && Integer.parseInt(cntArr[1]) > 1 ) {//좋아요 0 친구 1이상
+				String friCnt = service.getFriLookCnt(id);
+				List <Look> friLookList = new ArrayList<Look>();
+				Look lo = new Look(id,0);
+				
+				if(Integer.parseInt(friCnt) <= 100) {
+					friLookList = service.getFriLookDown(lo);
+					mav.addObject("flag",2);
+				}else {//100개 이상이라면
+					friLookList = service.getFriLookUp(lo);
+					mav.addObject("flag",3);
+				}
+				
+				i = 0; //index용
+				for(Look b : friLookList) {
+					String originpath = b.getImg();
+					int index = originpath.lastIndexOf("\\");
+					String path = originpath.substring(index+1); //파일명만 가져온다.
+					b.setImg(path);
+					friLookList.set(i, b);
+					i++;//index용
+				}
+				mav.addObject("lookList",friLookList);
 			}else {
 				
 			}
@@ -68,19 +89,40 @@ public class SearchController {
 	}
 	
 	@RequestMapping(value = "/search/infiLoad.do" , method = RequestMethod.POST)
-	public @ResponseBody List<Look> infiLoad(@RequestParam(value="row") int row){
-		List<Look> lookList= service.getLook(row-1);
-		int i = 0; //index용
+	public @ResponseBody List<Look> infiLoad(@RequestParam(value="row") int row,
+			@RequestParam(value="flag") int flag ,HttpServletRequest req){
+		List<Look> lookList = new ArrayList<Look>();
+		HttpSession session = req.getSession(false);
+		String id = (String)session.getAttribute("id");
+		Look lo = new Look(id,row-1);
+		System.out.println("flag갑 ㅅ잘와씬?:"+flag);
+		System.out.println("id값도 잘 왔니?"+id);
+		switch (flag) {
+		case 1:
+			lookList= service.getLook(row-1);
+			break;
+		case 2:
+			
+			lookList= service.getFriLookDown(lo);
+			break;
+		case 3:
+			lookList= service.getFriLookUp(lo);
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		}
+		
+		i = 0; //index용
 			for(Look b : lookList) {
 				String originpath = b.getImg();
 				int index = originpath.lastIndexOf("\\");
 				String path = originpath.substring(index+1); //파일명만 가져온다.
 				b.setImg(path);
 				lookList.set(i, b);
-				System.out.println("파일명:"+path);
 				i++;//index용
 			}
 		return lookList;
 	}
-		
 }

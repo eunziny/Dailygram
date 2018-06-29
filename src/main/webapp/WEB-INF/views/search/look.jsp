@@ -31,6 +31,21 @@
 	margin-top: 80px;
 	margin-bottom: 70px;
 }
+.ScrollButton {
+  position: fixed;   /* 버튼의 위치 고정 */
+  right: 10px;       /* x 위치 입력 */
+  cursor: pointer;   /* 호버링 했을 때 커서 모양 변경 */
+  z-index: 10;       /* 다른 태그에 가려지지 않게 우선순위 변경 */
+  display: none;     /* 스크롤 위치에 상관없이 보이게 하려면 생략 */
+}
+/* 두 태그에 각각 y 위치 입력 */
+#TopButton {
+  bottom: 108px;        
+}
+#BottomButton {
+  bottom: 75px;
+}
+
 </style>
 <div class="row" id="lookbottom">
 	<div class="container">
@@ -41,21 +56,42 @@
 						type="hidden" class="scrolling" value="${lo.row }">
 				</div>
 				
-			</c:forEach>	
-			<button class='btn btn-primary' id="firstbtn"onclick="firstgo()">처음으로</button>
+			</c:forEach>
 		</div>
 	</div>
 </div>
+<a id="TopButton" class="ScrollButton" ><img src="${pageContext.request.contextPath }/resources/img/topbtn.png"></a>
+<a id="BottomButton" class="ScrollButton"><img src="${pageContext.request.contextPath }/resources/img/downbtn.png"></a>
+<a id="footer"></a>
 <script>
-	function firstgo(){
-		$("body").scrollTop(0);
-	}
+
+	// Top버튼 클릭시
+	$("#TopButton").click(function() {   
+	$('html, body').animate({
+	  scrollTop : 0    // 0 까지 animation 이동합니다.
+	 }, 400);          // 속도 400
+	 return false;
+	 });
+
+	// Bottom버튼 클릭시
+		$("#BottomButton").click(function() {   
+		$('html, body').animate({
+		scrollTop : ($('#footer').offset().top)}, 400);
+		return false;
+		});
+
 	
 	<%--이전 스크롤 좌표--%>
 	var lastScrollTop = 0;
 	var flag;
 	<%-- 1. 스크롤 이벤트 최초 발생 --%>
 	$(window).scroll(function(){
+        
+		if ($(this).scrollTop() > 250) {
+            $('.ScrollButton').fadeIn();
+        } else {
+            $('.ScrollButton').fadeOut();
+        }
 		
 		<%-- 현재 스크롤 좌표--%>
 		var currentScrollTop = $(window).scrollTop();
@@ -80,7 +116,7 @@
 					type : 'post',
 					url : "infiLoad.do",
 					dataType : 'json',
-					data : {row : lastrow} ,
+					data : {row : lastrow , flag : ${flag} } ,
 					success : function(data){
 						var str = "";
 						console.log("데이터 길이:"+data.length);
@@ -99,7 +135,6 @@
 							if(data.length <9){
 								flag = false;
 							}else{
-								str += "<button class='btn btn-primary' id='firstbtn' onclick='firstgo()'>처음으로</button>";
 								flag = true;
 							}
 							$(".scrollingtop").append(str);
