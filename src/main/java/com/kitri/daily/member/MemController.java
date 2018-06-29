@@ -30,7 +30,7 @@ public class MemController {
 			return "redirect:/member/loginForm.do";
 		} else {
 			HttpSession session = req.getSession();
-			session.setAttribute("id", m.getId());
+			session.setAttribute("memInfo",mem);
 			return "board/list";
 		}
 	}
