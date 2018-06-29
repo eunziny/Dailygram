@@ -35,5 +35,5 @@
 		AND m.publicyn='y'
 		AND m.useyn='y'
 	</select>
-	
+
 </mapper>
