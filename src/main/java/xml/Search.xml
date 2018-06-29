@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kitri.daily.search.SearchMapper">
+   <resultMap id="SearchResult" type="com.kitri.daily.search.Search">
+      <result column="board_seq" property="board_seq" />
+      <result column="img" property="img" />
+      <result column="posted" property="posted" />
+      <result column="tagname" property="tagname" />
+      <result column="id" property="id" />
+      <result column="profile_img" property="profile_img" />
+   </resultMap>
+   
+    <select id="selectByUser" parameterType="String" resultMap="SearchResult">
+      select id, profile_img 
+      from member
+      where id like CONCAT(#{searchValue},'%')
+      order by id 
+   </select>
+   <select id="selectByTag" parameterType="String" resultMap="SearchResult">
+	  select b.img
+      from board AS b
+      join hashtag AS h
+      on b.board_seq = h.board_seq
+      where tagname = #{searchValue}
+      order by b.posted desc;
+   </select>
+   
+   
+</mapper>

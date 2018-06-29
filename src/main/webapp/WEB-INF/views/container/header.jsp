@@ -10,7 +10,38 @@
 <!-- Custom CSS -->
 <link href="${pageContext.request.contextPath }/resources/css/header.css" rel="stylesheet">
 
+<script>
+$(document).ready(function(e){
+         $( document ).on( 'click', '.bs-dropdown-to-select-group .dropdown-menu li', function( event ) {
+            var $target = $( event.currentTarget );
+           $target.closest('.bs-dropdown-to-select-group')
+              /* .find('[data-bind="bs-drp-sel-value"]').val($target.attr('value'))
+              .end() */
+              .children('.dropdown-toggle').dropdown('toggle');
+           $target.closest('.bs-dropdown-to-select-group')
+              .find('[data-bind="bs-drp-sel-label"]').text($target.attr('value'));/*$target.text()*/
+              console.log($target.text());
+      
+              var v = $target.text(); //아이디 or 해시태그 라는 글자(searchType) 얻어오기
+              var v2 = $('<input type="hidden" id="searchType" name="searchType" value="' + v + '" />');
+              v2.appendTo($("#searchform")); //
+              
+              $("#searchBtn").click(function(e) { //searchType의 값을 form태그에 넣어서 같이 전달
+              	$("#searchform").submit();
+              });
+              
+              $('input[name=searchValue]').keypress(function(e){
+          		if(e.which == 13){ //enter	
+          			$("#searchform").submit();
+          		}
+          	});
+              
+           return false;
+      
+       }); 
 
+});
+</script>
 <!------ Include the above in your HEAD tag ---------->
 
  <div id='nav-cntainer' style="box-shadow: 0 0 10px #666666">
@@ -18,8 +49,43 @@
     <div id='left'>
       <a href='${pageContext.request.contextPath}/board/list.do'><img src='${pageContext.request.contextPath }/resources/img/logo.png' id='logo-name'></a>
     </div>
-    <div id='center'><input id="input-field" type="text" placeholder='Search' style="text-align: center"></div>
-    <div id='right'>
+	<div id='center'>
+			<!-- <input id="input-field" type="text" placeholder='Search' style="text-align: center"> -->
+			<!-- <div class="container">
+				<div class="row">
+					<div class="col-md-4"> -->
+						<div class="col-md-4">
+						<form id="searchform" action="${pageContext.request.contextPath }/container/search.do" method="post">
+						<div class="input-group">
+							<div class="input-group-btn bs-dropdown-to-select-group">
+								<button type="button"
+									class="btn btn-search btn-default dropdown-toggle"
+									data-toggle="dropdown" >
+									<span class="glyphicon glyphicon-search"></span>
+									<span data-bind="bs-drp-sel-label">검색</span> 
+									<span class="caret"></span>
+								</button>
+								<ul name="searchType" class="dropdown-menu" role="menu" style="max-height: 300px;" value="mimi">
+									<!-- Loop -->
+									<li id="user" value="아이디"><a href="#">아이디</a></li>
+									<li id="tag" value="해시태그"><a href="#">해시태그</a></li>
+									<!-- END Loop -->
+								</ul>
+							</div>
+							<!-- /btn-group -->
+							<input type="text" id="text_id" class="form-control" name="searchValue" placeholder='Search' style="text-align: center">
+							<span class="input-group-btn">
+								<button id="searchBtn" class="btn btn-default" type="submit">검색</button>
+							</span>
+						</div>
+						</form>	
+						</div>
+						<!-- /input-group -->
+<!-- 					</div>
+				</div>
+			</div> -->
+	</div>
+	<div id='right'>
       <ul class="nav navbar-right pull-right top-nav">
       	<li class="dropdown dropdown-notification">
 			<a href="${pageContext.request.contextPath }/board/look.do"><span class="glyphicon glyphicon-globe"></span></a>	
@@ -57,7 +123,7 @@
 			</ul>
 		</li>
 	</ul>
-    </div>
+	</div>
   </div>
 </div>
 
