@@ -6,6 +6,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MemController {
@@ -33,6 +35,24 @@ public class MemController {
 			session.setAttribute("memInfo",mem);
 			return "board/list";
 		}
+	}
+	
+	@RequestMapping(value = "/member/logout.do")
+	public String logout(HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+		session.removeAttribute("id");
+		session.invalidate();
+		return "redirect:/member/loginForm.do";
+	}
+	
+	@RequestMapping(value="/member/out.do")
+	  public String out(HttpServletRequest req, 
+			  			@RequestParam(value="id") String id) {
+		HttpSession session = req.getSession(false);
+		service.delete(id);
+		session.removeAttribute("id");
+		session.invalidate();
+		return "redirect:/member/loginForm.do";
 	}
 	
 	@RequestMapping(value = "/container/header.do")
