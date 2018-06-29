@@ -8,6 +8,11 @@
 		<result column="id" property="id" />
 		<result column="profile_img" property="profile_img" />
 		<result column="intro" property="intro" />
+		<result column="tag1" property="tag1" />
+		<result column="tag2" property="tag2" />
+		<result column="tag3" property="tag3" />
+		<result column="tag4" property="tag4" />
+		<result column="tag5" property="tag5" />
 	</resultMap>
 	
 	<select id="selectFriendRelationshipCount" resultType="java.util.HashMap" parameterType="String">
@@ -34,6 +39,42 @@
 		WHERE m.id = b.writer
 		AND m.publicyn='y'
 		AND m.useyn='y'
+	</select>
+	
+	<select id="selectUserIntro" resultType="String" parameterType="String">
+		SELECT intro FROM member WHERE id = #{id}
+	</select>
+	
+	<select id="selectRecommendHT1" resultMap="FriendResult" parameterType="String">
+		SELECT id, profile_img FROM member 
+		WHERE intro like CONCAT('%', #{tag1}, '%') AND id NOT LIKE #{id}
+	</select>
+	
+	<select id="selectRecommendHT2" resultMap="FriendResult" parameterType="com.kitri.daily.friend.Friend">
+		SELECT id, profile_img FROM member 
+		WHERE (intro like CONCAT('%', #{tag1}, '%') OR intro like CONCAT('%', #{tag2}, '%')) 
+		AND id NOT LIKE #{id} 
+	</select>
+	
+	<select id="selectRecommendHT3" resultMap="FriendResult" parameterType="com.kitri.daily.friend.Friend">
+		SELECT id, profile_img FROM member 
+		WHERE (intro like CONCAT('%', #{tag1}, '%') OR intro like CONCAT('%', #{tag2}, '%') OR intro like CONCAT('%', #{tag3}, '%')) 
+		AND id NOT LIKE #{id} 
+	</select>
+	
+	<select id="selectRecommendHT4" resultMap="FriendResult" parameterType="com.kitri.daily.friend.Friend">
+		SELECT id, profile_img FROM member 
+		WHERE (intro like CONCAT('%', #{tag1}, '%') OR intro like CONCAT('%', #{tag2}, '%') 
+				OR intro like CONCAT('%', #{tag3}, '%') OR intro like CONCAT('%', #{tag4}, '%')) 
+		AND id NOT LIKE #{id} 
+	</select>
+	
+	<select id="selectRecommendHT5" resultMap="FriendResult" parameterType="com.kitri.daily.friend.Friend">
+		SELECT id, profile_img FROM member 
+		WHERE (intro like CONCAT('%', #{tag1}, '%') OR intro like CONCAT('%', #{tag2}, '%')) 
+				OR intro like CONCAT('%', #{tag3}, '%') OR intro like CONCAT('%', #{tag4}, '%')
+				OR intro like CONCAT('%', #{tag5}, '%')) 
+		AND id NOT LIKE #{id} 
 	</select>
 
 </mapper>
