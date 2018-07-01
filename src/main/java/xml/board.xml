@@ -13,9 +13,9 @@
 		<result column="public_yn" property="public_yn" />
 	</resultMap>
 
-	<select id="select" resultMap="BoardResult">
+	<select id="select" resultMap="BoardResult" parameterType="java.lang.Integer">
 		select * from board where
-		board_seq = #{board_seq} and writer= #{writer}
+		board_seq = #{board_seq}
 	</select>
 
 	<insert id="insert" parameterType="com.kitri.daily.board.Board">

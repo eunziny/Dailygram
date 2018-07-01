@@ -20,9 +20,45 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public List<Board> getLook(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Look> getLook(int row) {
+		searchMapper = sqlSession.getMapper(SearchMapper.class);
+		return searchMapper.getLook(row);
+	}
+
+	@Override
+	public String[] getLookCnt(String id) {
+		searchMapper = sqlSession.getMapper(SearchMapper.class);
+		return searchMapper.getLookCnt(id);
+	}
+
+	@Override
+	public String getFriLookCnt(String id) {
+		searchMapper = sqlSession.getMapper(SearchMapper.class);		
+		return searchMapper.getFriLookCnt(id);
+	}
+
+	@Override
+	public List<Look> getFriLookDown(Look lo) {
+		searchMapper = sqlSession.getMapper(SearchMapper.class);
+		return searchMapper.getFriLookDown(lo);
+	}
+
+	@Override
+	public List<Look> getFriLookUp(Look lo) {
+		searchMapper = sqlSession.getMapper(SearchMapper.class);
+		return searchMapper.getFriLookUp(lo);
+	}
+
+	@Override
+	public List<Look> getLikeLook(Look lo) {
+		searchMapper = sqlSession.getMapper(SearchMapper.class);
+		return searchMapper.getLikeLook(lo);
+	}
+
+	@Override
+	public List<Look> getFrLiLook(Look lo) {
+		searchMapper = sqlSession.getMapper(SearchMapper.class);
+		return searchMapper.getFrLiLook(lo);
 	}
 
 }

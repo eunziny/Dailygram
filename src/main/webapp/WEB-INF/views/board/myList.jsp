@@ -69,7 +69,7 @@
 		<div class="col-lg-12">
 		<c:forEach var="i" items="${list}">
 			<div class="gallery_product col-lg-4">
-				<a href="${pageContext.request.contextPath}/board/post.do?board_seq=${i.board_seq}">
+				<a href="${pageContext.request.contextPath}/board/post.do?bseq=${i.board_seq}">
 				<img src="/thumbnail/${i.img}"></a>
 			</div>
 		</c:forEach>

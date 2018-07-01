@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -80,7 +81,7 @@ public class BoardController {
 			}
 		}
 		service.uploadBoard(b);
-		return "redirect:/board/list.do";
+		return "redirect:/board/myList.do";
 	} 
 
    @RequestMapping(value = "/board/updateBoard.do")
@@ -89,7 +90,7 @@ public class BoardController {
       HttpSession session = req.getSession(false);
       Member mem  = (Member) session.getAttribute("memInfo");
       String id = mem.getId();
-      Board update = service.detailBoard(b.getBoard_seq(), id);
+      Board update = service.detailBoard(b.getBoard_seq());
       mav.addObject("update", update);
       /*
        * String originpath = update.getImg(); // 파일경로를 가져옴 int index =
@@ -106,7 +107,7 @@ public class BoardController {
       MultipartFile file = b.getFile(); // form.jsp에서 선택한 파일 가져오기
       if (file != null && !file.equals("")) {
          File dir = new File(originPath);
-         Board d = service.detailBoard(b.getBoard_seq(), b.getWriter());
+         Board d = service.detailBoard(b.getBoard_seq());
          String del = originPath + d.getImg(); // 원본파일 경로와 파일명
          System.out.println("파일" + del);
          File delete = new File(del);
@@ -156,14 +157,9 @@ public class BoardController {
    }
 
    @RequestMapping(value = "/board/post.do")
-   public ModelAndView detail(HttpServletRequest req,
-		   					@RequestParam(value = "board_seq") int b_seq) {
+   public ModelAndView detail(HttpSession session, HttpServletRequest req ,@RequestParam(value="bseq") int bseq) {
       ModelAndView mav = new ModelAndView("board/post");
-      HttpSession session = req.getSession(false);
-      Member mem  = (Member) session.getAttribute("memInfo");
-      String id = mem.getId();
-      System.out.println("id ~~~~~" + id);
-      Board b = service.detailBoard(b_seq, id);
+      Board b = service.detailBoard(bseq);
       mav.addObject("b", b);
       String upfolder = basePath + "\\thumbnail\\"; // img 가져올 파일 경로
       System.out.println("이미지~~~~~~!! "+b.getImg());
@@ -173,13 +169,13 @@ public class BoardController {
       return mav;
    }
    
-   @RequestMapping(value = "/board/list.do")
+   @RequestMapping(value = "/board/myList.do")
    public ModelAndView list(HttpServletRequest req) {
 	   HttpSession session = req.getSession(false);
 	   Member mem  = (Member) session.getAttribute("memInfo");
 	   String id = mem.getId();
 	   List<Board> boardlist = (ArrayList<Board>) service.getMyList(id);
-	   ModelAndView mav = new ModelAndView("board/list");
+	   ModelAndView mav = new ModelAndView("board/myList");
 	   mav.addObject("list", boardlist);
 	   return mav;
    }
