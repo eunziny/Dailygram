@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kitri.daily.member.Member;
+
 @Controller
 public class BoardController {
-   String basePath = "D:\\apache-tomcat-8.5.30-windows-x64\\apache-tomcat-8.5.30\\webapps";
+   String basePath = "D:\\driver\\apache-tomcat-8.5.30\\webapps";
 
    @Resource(name = "boardService")
    private BoardService service;
@@ -83,7 +85,8 @@ public class BoardController {
    public ModelAndView editBoard(Board b, HttpServletRequest req) {
       ModelAndView mav = new ModelAndView("board/editForm");
       HttpSession session = req.getSession(false);
-      String id = (String) session.getAttribute("id");
+      Member mem  = (Member) session.getAttribute("memInfo");
+      String id = mem.getId();
       Board update = service.detailBoard(b.getBoard_seq(), id);
       mav.addObject("update", update);
       /*
@@ -154,14 +157,15 @@ public class BoardController {
    public ModelAndView detail(HttpSession session, HttpServletRequest req) {
       ModelAndView mav = new ModelAndView("board/post");
       session = req.getSession(false);
-      String id = (String) session.getAttribute("id");
-//      String id = "ryeonzzang";
-      System.out.println("id ~~~~~" +id);
-      Board b = service.detailBoard(145, id);
+      Member mem  = (Member) session.getAttribute("memInfo");
+      String id = mem.getId();
+      System.out.println("id ~~~~~" + id);
+      Board b = service.detailBoard(3, id);
       mav.addObject("b", b);
-      /*int index = originpath.lastIndexOf("\\");
-      String path = originpath.substring(index + 1); // 파일명만 가져온다. */
-      String upfolder = basePath + "\\board\\"; // 썸네일 처리한 파일 경로
+  /*    int index = basePath.lastIndexOf("\\");
+      String path = basePath.substring(index + 1); // 파일명만 가져온다. */
+      String upfolder = basePath + "\\thumbnail\\"; // 썸네일 처리한 파일 경로
+      System.out.println("이미지~~~~~~!! "+b.getImg());
       String path = upfolder + b.getImg();
       System.out.println(path);
       mav.addObject("path", path);

@@ -69,7 +69,7 @@
 	<div class="container">
 		<div class="col-lg-12">
 			<div class="gallery_product col-lg-4">
-				<img src="${i.img1}">
+				<img src="${i.img}">
 			</div>
 		</div>
 	</div>
