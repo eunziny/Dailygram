@@ -36,7 +36,8 @@
 		writer=#{writer} and board_seq=#{board_seq}
 	</delete>
 
-	<!-- <select id="selectAll" resultMap="BoardResult" parameterType="String"> 
-		select * from board where writer=#{writer} </select> -->
+	<select id="myList" resultMap="BoardResult" parameterType="String"> 
+		select * from board where writer=#{writer}
+	</select>
 
 </mapper>

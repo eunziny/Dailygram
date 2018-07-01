@@ -3,6 +3,8 @@ package com.kitri.daily.board;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -30,7 +32,7 @@ public class BoardController {
 	void form() {
 		
 	}
-   
+      
    @RequestMapping(value = "/board/upload.do")
 	public String upload(HttpServletRequest req, Board b) {
 		String originPath = basePath + "\\board\\";		//원본파일 경로
@@ -78,7 +80,7 @@ public class BoardController {
 			}
 		}
 		service.uploadBoard(b);
-		return "redirect:/board/post.do";
+		return "redirect:/board/list.do";
 	} 
 
    @RequestMapping(value = "/board/updateBoard.do")
@@ -154,21 +156,31 @@ public class BoardController {
    }
 
    @RequestMapping(value = "/board/post.do")
-   public ModelAndView detail(HttpSession session, HttpServletRequest req) {
+   public ModelAndView detail(HttpServletRequest req,
+		   					@RequestParam(value = "board_seq") int b_seq) {
       ModelAndView mav = new ModelAndView("board/post");
-      session = req.getSession(false);
+      HttpSession session = req.getSession(false);
       Member mem  = (Member) session.getAttribute("memInfo");
       String id = mem.getId();
       System.out.println("id ~~~~~" + id);
-      Board b = service.detailBoard(3, id);
+      Board b = service.detailBoard(b_seq, id);
       mav.addObject("b", b);
-  /*    int index = basePath.lastIndexOf("\\");
-      String path = basePath.substring(index + 1); // 파일명만 가져온다. */
-      String upfolder = basePath + "\\thumbnail\\"; // 썸네일 처리한 파일 경로
+      String upfolder = basePath + "\\thumbnail\\"; // img 가져올 파일 경로
       System.out.println("이미지~~~~~~!! "+b.getImg());
       String path = upfolder + b.getImg();
       System.out.println(path);
       mav.addObject("path", path);
       return mav;
+   }
+   
+   @RequestMapping(value = "/board/list.do")
+   public ModelAndView list(HttpServletRequest req) {
+	   HttpSession session = req.getSession(false);
+	   Member mem  = (Member) session.getAttribute("memInfo");
+	   String id = mem.getId();
+	   List<Board> boardlist = (ArrayList<Board>) service.getMyList(id);
+	   ModelAndView mav = new ModelAndView("board/list");
+	   mav.addObject("list", boardlist);
+	   return mav;
    }
 }

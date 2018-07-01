@@ -1,5 +1,7 @@
 package com.kitri.daily.board;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
@@ -39,9 +41,9 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.update(b);
 	}
 
-/*	@Override
-	public List getAll() {
+	@Override
+	public List<Board> getMyList(String id) {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
-		return boardMapper.selectAll();
-	}*/
+		return boardMapper.myList(id);
+	}
 }
