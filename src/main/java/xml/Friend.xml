@@ -25,7 +25,7 @@
 	      in ('y','r')
 	</select>
 	
-	<select id="selectRecommend" resultMap="FriendResult" >
+	<select id="selectRecommend" resultMap="FriendResult" parameterType="String">
 		SELECT DISTINCT m.id, m.profile_img
 		FROM member m,(SELECT b.board_seq, b.posted, b.writer
 						FROM board b, (SELECT board_seq, count(*) 'like', date
@@ -33,33 +33,52 @@
 		                            WHERE type='L'
 									GROUP BY board_seq
 									ORDER BY count(*) DESC) l
-						WHERE DATE(posted) >= date_add(now(), interval -7 day)
+						WHERE DATE(posted) >= date_add(now(), interval -30 day)
 						AND b.board_seq = l.board_seq
-						ORDER BY posted DESC) b
-		WHERE m.id = b.writer
+						ORDER BY posted DESC) bb
+		WHERE m.id = bb.writer
 		AND m.publicyn='y'
 		AND m.useyn='y'
+		AND m.id NOT LIKE #{id} 
 	</select>
 	
 	<select id="selectUserIntro" resultType="String" parameterType="String">
-		SELECT intro FROM member WHERE id = #{id}
+		SELECT intro FROM member WHERE id = #{id} 
 	</select>
 	
 	<select id="selectRecommendHT1" resultMap="FriendResult" parameterType="String">
 		SELECT id, profile_img FROM member 
 		WHERE intro like CONCAT('%', #{tag1}, '%') AND id NOT LIKE #{id}
+		AND id not in( select receiver from relationship
+			  where sender = #{id}
+			  and status
+			  in ('y','r')
+			  )
+		AND useyn='y'
 	</select>
 	
 	<select id="selectRecommendHT2" resultMap="FriendResult" parameterType="com.kitri.daily.friend.Friend">
 		SELECT id, profile_img FROM member 
 		WHERE (intro like CONCAT('%', #{tag1}, '%') OR intro like CONCAT('%', #{tag2}, '%')) 
 		AND id NOT LIKE #{id} 
+		AND id not in( select receiver from relationship
+			  where sender = #{id}
+			  and status
+			  in ('y','r')
+			  )
+		AND useyn='y'
 	</select>
 	
 	<select id="selectRecommendHT3" resultMap="FriendResult" parameterType="com.kitri.daily.friend.Friend">
 		SELECT id, profile_img FROM member 
 		WHERE (intro like CONCAT('%', #{tag1}, '%') OR intro like CONCAT('%', #{tag2}, '%') OR intro like CONCAT('%', #{tag3}, '%')) 
 		AND id NOT LIKE #{id} 
+		AND id not in( select receiver from relationship
+			  where sender = #{id}
+			  and status
+			  in ('y','r')
+			  )
+		AND useyn='y'
 	</select>
 	
 	<select id="selectRecommendHT4" resultMap="FriendResult" parameterType="com.kitri.daily.friend.Friend">
@@ -67,6 +86,12 @@
 		WHERE (intro like CONCAT('%', #{tag1}, '%') OR intro like CONCAT('%', #{tag2}, '%') 
 				OR intro like CONCAT('%', #{tag3}, '%') OR intro like CONCAT('%', #{tag4}, '%')) 
 		AND id NOT LIKE #{id} 
+		AND id not in( select receiver from relationship
+			  where sender = #{id}
+			  and status
+			  in ('y','r')
+			  )
+		AND useyn='y'
 	</select>
 	
 	<select id="selectRecommendHT5" resultMap="FriendResult" parameterType="com.kitri.daily.friend.Friend">
@@ -75,6 +100,34 @@
 				OR intro like CONCAT('%', #{tag3}, '%') OR intro like CONCAT('%', #{tag4}, '%')
 				OR intro like CONCAT('%', #{tag5}, '%')) 
 		AND id NOT LIKE #{id} 
+		AND id not in( select receiver from relationship
+			  where sender = #{id}
+			  and status
+			  in ('y','r')
+			  )
+		AND useyn='y'
+	</select>
+	
+	<select id="selectRecommend2" resultMap="FriendResult" parameterType="String">
+		SELECT DISTINCT m.id, m.profile_img
+		FROM member m,(SELECT b.board_seq, b.posted, b.writer
+						FROM board b, (SELECT board_seq, count(*) 'like', date
+									FROM like_siren
+		                            WHERE type='L'
+									GROUP BY board_seq
+									ORDER BY count(*) DESC) l
+						WHERE DATE(posted) >= date_add(now(), interval -30 day)
+						AND b.board_seq = l.board_seq
+						ORDER BY posted DESC) bb
+		WHERE m.id = bb.writer
+		AND m.publicyn='y'
+		AND m.useyn='y'
+		AND m.id NOT LIKE #{id}
+		AND id not in( select receiver from relationship
+			  where sender = #{id}
+			  and status
+			  in ('y','r')
+			  )
 	</select>
 
 </mapper>

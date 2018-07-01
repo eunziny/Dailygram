@@ -28,9 +28,9 @@ public class FriServiceImpl implements FriService {
 	}
 	
 	@Override
-	public List getRecommend() {
+	public List getRecommend(String user_id) {
 		friendMapper = sqlSession.getMapper(FriendMapper.class);
-		return friendMapper.selectRecommend();
+		return friendMapper.selectRecommend(user_id);
 	}
 
 	@Override
@@ -67,5 +67,11 @@ public class FriServiceImpl implements FriService {
 	public ArrayList<Friend> getRecommendHT5(Friend friend) {
 		friendMapper = sqlSession.getMapper(FriendMapper.class);
 		return friendMapper.selectRecommendHT5(friend);
+	}
+	
+	@Override
+	public ArrayList<Friend> getRecommend2(String user_id) {
+		friendMapper = sqlSession.getMapper(FriendMapper.class);
+		return friendMapper.selectRecommend2(user_id);
 	}
 }
