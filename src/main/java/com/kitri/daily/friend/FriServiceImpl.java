@@ -74,4 +74,22 @@ public class FriServiceImpl implements FriService {
 		friendMapper = sqlSession.getMapper(FriendMapper.class);
 		return friendMapper.selectRecommend2(user_id);
 	}
+
+	@Override
+	public ArrayList<Friend> getsubscribeList(String user_id) {
+		friendMapper = sqlSession.getMapper(FriendMapper.class);
+		return friendMapper.selectSubscribeList(user_id);
+	}
+
+	@Override
+	public ArrayList<Friend> getfollowingList(String id) {
+		friendMapper = sqlSession.getMapper(FriendMapper.class);
+		return friendMapper.selectFollowingList(id);
+	}
+
+	@Override
+	public ArrayList<Friend> getfollowerList(String id) {
+		friendMapper = sqlSession.getMapper(FriendMapper.class);
+		return friendMapper.selectFollowerList(id);
+	}
 }

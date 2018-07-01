@@ -25,7 +25,7 @@
 			<a href="${pageContext.request.contextPath }/search/look.do"><span class="glyphicon glyphicon-globe"></span></a>	
       	</li>
       	<li class="dropdown dropdown-notification">
-			<a href="${pageContext.request.contextPath }/friend/knownfriend.do"><i class="fas fa-users"></i></a>	
+			<a href="${pageContext.request.contextPath }/friend/knownfriend.do?id=${sessionScope.memInfo.id }"><i class="fas fa-users"></i></a>	
       	</li>
 		<li class="dropdown dropdown-notification"> <a class="dropdown-toggle" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="true"> <i class="fas fa-bell"></i> <span class="badge badge-default"> 5 </span> </a>
 			<ul class="dropdown-menu dropdown-menu-alerm">

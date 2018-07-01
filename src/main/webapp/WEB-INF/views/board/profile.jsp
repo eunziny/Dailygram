@@ -56,15 +56,15 @@
                         </div>
                         <div class="col-md-3 follow">
                             <h4>팔로우</h4>
-                            <a href="${pageContext.request.contextPath }/friend/followerlist.do">25</a>
+                            <a href="${pageContext.request.contextPath }/friend/followerlist.do?id=${sessionScope.memInfo.id }">25</a>
                         </div>
                         <div class="col-md-3 follow">
                             <h4>팔로잉</h4>
-                            <a href="${pageContext.request.contextPath }/friend/followinglist.do">15</a>
+                            <a href="${pageContext.request.contextPath }/friend/followinglist.do?id=${sessionScope.memInfo.id }">15</a>
                         </div>
                         <div class="col-md-3 follow">
                             <h4>구독</h4>
-                            <a href="${pageContext.request.contextPath }/friend/subscribelist.do">5</a>
+                            <a href="${pageContext.request.contextPath }/friend/subscribelist.do?id=${sessionScope.memInfo.id }">5</a>
                         </div>
                     </div>
                     <br>

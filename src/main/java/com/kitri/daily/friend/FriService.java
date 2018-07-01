@@ -13,5 +13,8 @@ public interface FriService {
 	ArrayList<Friend> getRecommendHT3(Friend friend);
 	ArrayList<Friend> getRecommendHT4(Friend friend);
 	ArrayList<Friend> getRecommendHT5(Friend friend);
-	ArrayList<Friend> getRecommend2(String user_id);	
+	ArrayList<Friend> getRecommend2(String user_id);
+	ArrayList<Friend> getsubscribeList(String user_id);
+	ArrayList<Friend> getfollowingList(String id);
+	ArrayList<Friend> getfollowerList(String id);	
 }

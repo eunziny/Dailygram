@@ -9,6 +9,7 @@ public class Friend {
 	private String tag3;
 	private String tag4;
 	private String tag5;
+	private String status;
 	public Friend() {}
 
 	
@@ -24,9 +25,19 @@ public class Friend {
 		this.profile_img = profile_img;
 		this.intro = intro;
 	}
+	
+
+	public Friend(String id, String profile_img, String intro, String status) {
+		super();
+		this.id = id;
+		this.profile_img = profile_img;
+		this.intro = intro;
+		this.status = status;
+	}
+
 
 	public Friend(String id, String profile_img, String intro, String tag1, String tag2, String tag3, String tag4,
-			String tag5) {
+			String tag5, String status) {
 		super();
 		this.id = id;
 		this.profile_img = profile_img;
@@ -36,6 +47,7 @@ public class Friend {
 		this.tag3 = tag3;
 		this.tag4 = tag4;
 		this.tag5 = tag5;
+		this.status = status;
 	}
 
 
@@ -103,8 +115,18 @@ public class Friend {
 		this.tag5 = tag5;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
-		return "Friend [id=" + id + ", profile_img=" + profile_img + ", intro=" + intro + "]";
+		return "Friend [id=" + id + ", profile_img=" + profile_img + ", intro=" + intro + ", tag1=" + tag1 + ", tag2="
+				+ tag2 + ", tag3=" + tag3 + ", tag4=" + tag4 + ", tag5=" + tag5 + ", status=" + status + "]";
 	}
+
 }
