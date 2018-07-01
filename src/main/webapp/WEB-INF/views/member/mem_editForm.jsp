@@ -42,7 +42,7 @@
 								width="150" height="150" alt="Profile Image">
 						</div>
 						<div class="col-lg-6" >
-							<h3>dailygram</h3>
+							<h3>${sessionScope.memInfo.id }</h3>
 							<br> <a href="#" class="btn btn-info" id="imgedit">프로필	사진 수정</a>
 						</div>
 					</div>
@@ -55,7 +55,7 @@
     								<div class="input-group-addon">
     									<i class="glyphicon glyphicon-user"></i>
     								</div>
-    								<input type="text" placeholder="ID" name="id" class="form-control" readonly>
+    								<input type="text" name="id" class="form-control" value="${sessionScope.memInfo.id }" readonly>
     							</div>
 						</div>
 					</div>
@@ -194,6 +194,8 @@
 						</div>
 					</div>
 				</div>
+				<br>
+				<a href="${pageContext.request.contextPath }/member/out.do?id=${sessionScope.memInfo.id }" id="del">회원탈퇴</a>
 			</div>
 		</div>
 	</div>
