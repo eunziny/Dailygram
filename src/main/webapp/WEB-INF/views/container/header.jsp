@@ -16,7 +16,7 @@
  <div id='nav-cntainer' style="box-shadow: 0 0 10px #666666">
   <div id='navbar'>
     <div id='left'>
-      <a href='${pageContext.request.contextPath}/board/list.do'><img src='${pageContext.request.contextPath }/resources/img/logo.png' id='logo-name'></a>
+      <a href='${pageContext.request.contextPath}/board/myList.do'><img src='${pageContext.request.contextPath }/resources/img/logo.png' id='logo-name'></a>
     </div>
     <div id='center'><input id="input-field" type="text" placeholder='Search' style="text-align: center"></div>
     <div id='right'>
@@ -50,7 +50,7 @@
 				<span class="hidden-xs">Admin User</span> 
 			</a>
 			<ul class="dropdown-menu">
-				<li><a href="${pageContext.request.contextPath }/board/list.do"><i class="fa fa-fw fa-user"></i> My Page</a></li>
+				<li><a href="${pageContext.request.contextPath }/board/myList.do"><i class="fa fa-fw fa-user"></i> My Page</a></li>
 				<li><a href="${pageContext.request.contextPath }/member/mem_editForm.do"><i class="fa fa-fw fa-cog"></i> Edit Profile</a></li>
 				<li class="divider"></li>
 				<li><a href="${pageContext.request.contextPath }/member/logout.do"><i class="fa fa-fw fa-power-off"></i> Logout</a></li>

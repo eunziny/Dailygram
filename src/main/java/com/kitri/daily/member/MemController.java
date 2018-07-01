@@ -32,7 +32,7 @@ public class MemController {
 		} else {
 			HttpSession session = req.getSession();
 			session.setAttribute("memInfo",mem);
-			return "board/list";
+			return "redirect:/board/myList.do";
 		}
 	}
 	
@@ -56,11 +56,6 @@ public class MemController {
 	
 	@RequestMapping(value = "/container/header.do")
 	void test() {
-		
-	}
-	
-	@RequestMapping(value = "/friend/knownfriend.do")
-	void test2() {
 		
 	}
 	
