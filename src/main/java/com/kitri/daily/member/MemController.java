@@ -32,7 +32,7 @@ public class MemController {
 		} else {
 			HttpSession session = req.getSession();
 			session.setAttribute("memInfo",mem);
-			return "board/list";
+			return "redirect:/board/myList.do";
 		}
 	}
 	

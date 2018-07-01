@@ -64,69 +64,18 @@
 </div>
 </c:if>	
 <c:if test="${not empty list }">
- <c:forEach var="i" items="${list}">	
 	<div class="row" id="lookbottom">
 	<div class="container">
 		<div class="col-lg-12">
+		<c:forEach var="i" items="${list}">
 			<div class="gallery_product col-lg-4">
-				<img src="${i.img}">
+				<a href="${pageContext.request.contextPath}/board/post.do?bseq=${i.board_seq}">
+				<img src="/thumbnail/${i.img}"></a>
 			</div>
+		</c:forEach>
 		</div>
 	</div>
 </div>		
-</c:forEach>
 </c:if>
-<!-- <div class="row" id="lookbottom">
-	<div class="container">
-		<div class="col-lg-12">
-			<div class="gallery_product col-lg-4">
-				<img src="http://www.bibigo.com/img/kr/img_delightful_mandu5_1.jpg"
-					class="lookimg">
-			</div>
 
-			<div class="gallery_product col-lg-4">
-				<img src="http://uruma.co.kr/skin/upload/menu_5_1.jpg"
-					class="lookimg">
-			</div>
-
-			<div class="gallery_product col-lg-4">
-				<img
-					src="http://hanmandushop.com/web/product/small/201804/95_shop1_307843.jpg"
-					class="lookimg">
-			</div>
-
-			<div class="gallery_product col-lg-4">
-				<img src="http://uruma.co.kr/skin/upload/menu_5_1.jpg"
-					class="lookimg">
-			</div>
-
-			<div class="gallery_product col-lg-4">
-				<img
-					src="http://img.enews24.cjenm.skcdn.com/News/Contents/20180429/98306354.jpg"
-					class="lookimg">
-			</div>
-
-			<div class="gallery_product col-lg-4">
-				<img src="http://www.bibigo.com/img/kr/img_delightful_mandu5_1.jpg"
-					class="lookimg">
-			</div>
-
-			<div class="gallery_product col-lg-4">
-				<img
-					src="http://hanmandushop.com/web/product/small/201804/95_shop1_307843.jpg"
-					class="lookimg">
-			</div>
-
-			<div class="gallery_product col-lg-4">
-				<img src="http://uruma.co.kr/skin/upload/menu_5_1.jpg"
-					class="lookimg">
-			</div>
-
-			<div class="gallery_product col-lg-4">
-				<img src="http://www.bibigo.com/img/kr/img_delightful_mandu5_1.jpg"
-					class="lookimg">
-			</div>
-		</div>
-	</div>
-</div> -->
 <%@ include file="/WEB-INF/views/container/footer.jsp"%>
