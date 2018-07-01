@@ -22,9 +22,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public Board detailBoard(int board_seq, String writer) {
+	public Board detailBoard(int board_seq) {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
-		return boardMapper.select(board_seq, writer);
+		return boardMapper.select(board_seq);
 	}
 
 	@Override

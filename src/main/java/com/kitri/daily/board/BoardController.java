@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -87,7 +88,7 @@ public class BoardController {
       HttpSession session = req.getSession(false);
       Member mem  = (Member) session.getAttribute("memInfo");
       String id = mem.getId();
-      Board update = service.detailBoard(b.getBoard_seq(), id);
+      Board update = service.detailBoard(b.getBoard_seq());
       mav.addObject("update", update);
       /*
        * String originpath = update.getImg(); // 파일경로를 가져옴 int index =
@@ -104,7 +105,7 @@ public class BoardController {
       MultipartFile file = b.getFile(); // form.jsp에서 선택한 파일 가져오기
       if (file != null && !file.equals("")) {
          File dir = new File(originPath);
-         Board d = service.detailBoard(b.getBoard_seq(), b.getWriter());
+         Board d = service.detailBoard(b.getBoard_seq());
          String del = originPath + d.getImg(); // 원본파일 경로와 파일명
          System.out.println("파일" + del);
          File delete = new File(del);
@@ -154,13 +155,9 @@ public class BoardController {
    }
 
    @RequestMapping(value = "/board/post.do")
-   public ModelAndView detail(HttpSession session, HttpServletRequest req) {
+   public ModelAndView detail(HttpSession session, HttpServletRequest req ,@RequestParam(value="bseq") int bseq) {
       ModelAndView mav = new ModelAndView("board/post");
-      session = req.getSession(false);
-      Member mem  = (Member) session.getAttribute("memInfo");
-      String id = mem.getId();
-      System.out.println("id ~~~~~" + id);
-      Board b = service.detailBoard(3, id);
+      Board b = service.detailBoard(bseq);
       mav.addObject("b", b);
   /*    int index = basePath.lastIndexOf("\\");
       String path = basePath.substring(index + 1); // 파일명만 가져온다. */

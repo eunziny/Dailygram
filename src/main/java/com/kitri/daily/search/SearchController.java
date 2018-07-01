@@ -33,7 +33,8 @@ public class SearchController {
 	public ModelAndView look(HttpServletRequest req) {
 		//로그인 한 사람의 id 값 session 에서 가져오기.
 		HttpSession session = req.getSession(false);
-		String id = (String)session.getAttribute("id");
+		Member mem = (Member)session.getAttribute("memInfo");
+		String id = mem.getId();
 		ModelAndView mav = new ModelAndView("search/look");
 		//List <String> cntList = new ArrayList<String>();
 		String [] cntArr = {};
@@ -118,10 +119,9 @@ public class SearchController {
 			@RequestParam(value="flag") int flag ,HttpServletRequest req){
 		List<Look> lookList = new ArrayList<Look>();
 		HttpSession session = req.getSession(false);
-		String id = (String)session.getAttribute("id");
+		Member mem = (Member)session.getAttribute("memInfo");
+		String id = mem.getId();
 		Look lo = new Look(id,row-1);
-		System.out.println("flag갑 ㅅ잘와씬?:"+flag);
-		System.out.println("id값도 잘 왔니?"+id);
 		switch (flag) {
 		case 1:
 			lookList= service.getLook(row-1);

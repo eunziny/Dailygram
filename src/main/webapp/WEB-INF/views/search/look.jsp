@@ -51,8 +51,9 @@
 		<div class="col-lg-12 scrollingtop">
 			<c:forEach items="${lookList }" var="lo">
 				<div class="gallery_product col-lg-4 scrolling">
-					<img src="/board/${lo.img}" class="lookimg"> <input
-						type="hidden" class="scrolling" value="${lo.row }">
+					<img src="/board/${lo.img}" class="lookimg">
+					<input type="hidden" class="scrolling" value="${lo.row }">
+					<input type='hidden' class='board_seq' value='${lo.board_seq} '>
 				</div>
 				
 			</c:forEach>
@@ -66,7 +67,8 @@
 
 	//이미지 세부로 들어가기
 	$(document).on('click','.scrolling',function(event){
-		alert($(this).children(":last").val());
+		var board_seq = $(this).children(":last").val();
+		location.href="${pageContext.request.contextPath }/board/post.do?bseq="+board_seq;
 	});
 	
 	
@@ -135,6 +137,7 @@
 									str +=	"<div class="+"'gallery_product col-lg-4 scrolling'"+">" 
 										+	 "<img src="+"'/board/"+this.img+"'"+"class='lookimg'"+">"
 										+	 "<input type="+"'hidden'"+ "class='scrolling'"+ "value='"+this.row+"'"+">"
+										+    "<input type='hidden' class='board_seq' value='"+this.board_seq +"'>"
 										+	 "</div>";
 							});// each
 							if(data.length <9){
