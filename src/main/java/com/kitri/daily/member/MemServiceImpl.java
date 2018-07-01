@@ -21,4 +21,10 @@ public class MemServiceImpl implements MemService {
 		return memberMapper.getMember(id);
 	}
 
+	@Override
+	public void delete(String id) {
+		memberMapper = sqlSession.getMapper(MemberMapper.class);
+		memberMapper.delMember(id);
+	}
+
 }

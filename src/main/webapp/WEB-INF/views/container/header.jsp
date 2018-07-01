@@ -56,7 +56,7 @@ $(document).ready(function(e){
   <div class="row">
   <div class="col-md-12">
     <div id='left'>
-      <a href='${pageContext.request.contextPath}/board/list.do'><img src='${pageContext.request.contextPath }/resources/img/logo.png' id='logo-name'></a>
+      <a href='${pageContext.request.contextPath}/board/myList.do'><img src='${pageContext.request.contextPath }/resources/img/logo.png' id='logo-name'></a>
     </div>
 		<div class="col-md-offset-1 col-md-4">
 			<form id="searchform" action="${pageContext.request.contextPath }/container/search.do" method="post">
@@ -88,7 +88,7 @@ $(document).ready(function(e){
 	<div class="col-md-4">
       <ul class="nav navbar-right pull-right top-nav">
       	<li class="dropdown dropdown-notification">
-			<a href="${pageContext.request.contextPath }/board/look.do"><span class="glyphicon glyphicon-globe"></span></a>	
+			<a href="${pageContext.request.contextPath }/search/look.do"><span class="glyphicon glyphicon-globe"></span></a>	
       	</li>
       	<li class="dropdown dropdown-notification">
 			<a href="${pageContext.request.contextPath }/friend/knownfriend.do"><i class="fas fa-users"></i></a>	
@@ -116,10 +116,10 @@ $(document).ready(function(e){
 				<span class="hidden-xs">Admin User</span> 
 			</a>
 			<ul class="dropdown-menu">
-				<li><a href="${pageContext.request.contextPath }/board/list.do"><i class="fa fa-fw fa-user"></i> My Page</a></li>
+				<li><a href="${pageContext.request.contextPath }/board/myList.do"><i class="fa fa-fw fa-user"></i> My Page</a></li>
 				<li><a href="${pageContext.request.contextPath }/member/mem_editForm.do"><i class="fa fa-fw fa-cog"></i> Edit Profile</a></li>
 				<li class="divider"></li>
-				<li><a href="${pageContext.request.contextPath }/member/login.do"><i class="fa fa-fw fa-power-off"></i> Logout</a></li>
+				<li><a href="${pageContext.request.contextPath }/member/logout.do"><i class="fa fa-fw fa-power-off"></i> Logout</a></li>
 			</ul>
 		</li>
 	</ul>

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MemController {
@@ -30,18 +31,31 @@ public class MemController {
 			return "redirect:/member/loginForm.do";
 		} else {
 			HttpSession session = req.getSession();
-			session.setAttribute("id", m.getId());
-			return "board/list";
+			session.setAttribute("memInfo",mem);
+			return "redirect:/board/myList.do";
 		}
+	}
+	
+	@RequestMapping(value = "/member/logout.do")
+	public String logout(HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+		session.removeAttribute("id");
+		session.invalidate();
+		return "redirect:/member/loginForm.do";
+	}
+	
+	@RequestMapping(value="/member/out.do")
+	  public String out(HttpServletRequest req, 
+			  			@RequestParam(value="id") String id) {
+		HttpSession session = req.getSession(false);
+		service.delete(id);
+		session.removeAttribute("id");
+		session.invalidate();
+		return "redirect:/member/loginForm.do";
 	}
 	
 	@RequestMapping(value = "/container/header.do")
 	void test() {
-		
-	}
-	
-	@RequestMapping(value = "/friend/knownfriend.do")
-	void test2() {
 		
 	}
 	
@@ -75,10 +89,10 @@ public class MemController {
 		
 	}
 	
-	@RequestMapping(value = "/board/post.do")
+/*	@RequestMapping(value = "/board/post.do")
 	void test9() {
 		
-	}
+	}*/
 	
 	@RequestMapping(value = "/board/look.do")
 	void test10() {
@@ -95,15 +109,10 @@ public class MemController {
 		
 	}
 	
-	@RequestMapping(value = "/board/list.do")
+	/*@RequestMapping(value = "/board/list.do")
 	void test13() {
 		
-	}
-	
-	@RequestMapping(value = "/board/form.do")
-	void test14() {
-		
-	}
+	}*/
 	
 	@RequestMapping(value = "/board/editForm.do")
 	void test15() {
