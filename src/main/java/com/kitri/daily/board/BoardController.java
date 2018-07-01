@@ -11,12 +11,17 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kitri.daily.member.Member;
+import com.sun.media.jfxmedia.logging.Logger;
 
 @Controller
 public class BoardController {
@@ -180,14 +185,21 @@ public class BoardController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/board/newsfeed.do")
-	public ModelAndView newsfeed(HttpServletRequest req) {
+	@RequestMapping(value = "/board/newsfeed.do", method = RequestMethod.GET)
+	public void newsfeed(Model model, HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView("board/newsfeed");
 		HttpSession session = req.getSession(false);
 		Member mem = (Member) session.getAttribute("memInfo");
 		String id = mem.getId();
-		List<Newsfeed> feedList = (ArrayList<Newsfeed>) service.getNewsfeed(id, id);
-		mav.addObject("feed",feedList);
-		return mav;
+		List<Board> feedList = (ArrayList<Board>) service.getNewsfeed(id);
+		model.addAttribute("feed", feedList);
+	}
+	
+	@RequestMapping(value = "/board/infnScrollDown.do", method = RequestMethod.POST)
+	public @ResponseBody List<Board> 
+		infiniteScrollDown(@RequestBody Board b) {
+		Integer bno = b.getBoard_seq() -1;
+		return service.infiniteScrollDown(bno);
+		
 	}
 }

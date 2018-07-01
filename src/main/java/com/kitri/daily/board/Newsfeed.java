@@ -14,10 +14,14 @@ public class Newsfeed {
 	private String receiver;
 	private String status;
 	
+	private Board board;
+	
 	public Newsfeed() {	}
+	
+	
 
 	public Newsfeed(int board_seq, String writer, String content, Date posted, String img, String public_yn,
-			String sender, String receiver, String status) {
+			String sender, String receiver, String status, Board board) {
 		super();
 		this.board_seq = board_seq;
 		this.writer = writer;
@@ -28,6 +32,7 @@ public class Newsfeed {
 		this.sender = sender;
 		this.receiver = receiver;
 		this.status = status;
+		this.board = board;
 	}
 
 	public int getBoard_seq() {

@@ -20,8 +20,8 @@
 		<result column="posted" property="posted" />
 		<result column="img" property="img" />
 		<result column="public_yn" property="public_yn" />
-		<result column="sender" property="sender"/>
-		<result column="writer" property="writer"/>
+		<result column="id" property="sender"/>
+		<result column="id" property="writer"/>
 		<result column="status" property="stauts"/>
 	</resultMap>	
 	
@@ -52,14 +52,15 @@
 		select * from board where writer=#{writer}
 	</select>
 	
-	<select id="newsfeed" resultMap = "NewsfeedResult" parameterType="String">
+	<select id="newsfeed" resultMap = "BoardResult" parameterType="String">
 		select * from board b
 		where writer in(
 			select receiver from relationship
-			where sender = #{sender}
+			where sender = #{writer}
 			and status in ('Y','R')
 			)or writer = #{writer}
-			order by b.posted desc;
+			order by b.posted desc
+			limit 0, 20;
 	</select>
 
 </mapper>
