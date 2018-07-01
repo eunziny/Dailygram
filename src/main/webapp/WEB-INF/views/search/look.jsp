@@ -45,7 +45,6 @@
 #BottomButton {
   bottom: 75px;
 }
-
 </style>
 <div class="row" id="lookbottom">
 	<div class="container">
@@ -65,6 +64,12 @@
 <a id="footer"></a>
 <script>
 
+	//이미지 세부로 들어가기
+	$(document).on('click','.scrolling',function(event){
+		alert($(this).children(":last").val());
+	});
+	
+	
 	// Top버튼 클릭시
 	$("#TopButton").click(function() {   
 	$('html, body').animate({
