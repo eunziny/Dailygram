@@ -42,7 +42,7 @@
                 <div class="col-md-8">
                     <div class="row">
                         <div class="col-md-5">
-                            <h2 class="media-heading">John_8904</h2>
+                            <h2 class="media-heading">${sessionScope.memInfo.id }</h2>
                         </div>
                         <div class="col-md-4">
                             <a href="#" class="btn btn-default" id="edit">프로필 수정</a>
@@ -68,7 +68,8 @@
                         </div>
                     </div>
                     <br>
-                    <h4>이혜련</h4>
+                    <h4>${sessionScope.memInfo.name }</h4>
+                    <h4>${sessionScope.memInfo.intro }</h4>
                 </div>
             </div>
         </div>
