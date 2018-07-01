@@ -16,5 +16,7 @@ public interface FriService {
 	ArrayList<Friend> getRecommend2(String user_id);
 	ArrayList<Friend> getsubscribeList(String user_id);
 	ArrayList<Friend> getfollowingList(String id);
-	ArrayList<Friend> getfollowerList(String id);	
+	ArrayList<Friend> getfollowerList(String id);
+	int[] profileCount(String id);
+
 }

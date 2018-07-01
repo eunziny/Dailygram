@@ -188,4 +188,17 @@ public class FriController {
 		mav.addObject("list", list);
 		return mav;
 	}
+	
+	@RequestMapping(value="/board/profile.do")
+	public ModelAndView profileCount(@RequestParam(value = "id") String id) {//내가 구독하는 사람 리스트
+		ModelAndView mav = new ModelAndView("board/profile");
+		Friend friend = new Friend();
+		friend.setId(id);
+		System.out.println("로그인 한 아이디 : " + id);
+		int list[] =  service.profileCount(id);
+		for(int i=0;i<list.length;i++)
+			System.out.print(list[i] + ", ");
+		mav.addObject("list", list);
+		return mav;
+	}	
 }

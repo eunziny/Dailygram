@@ -92,4 +92,10 @@ public class FriServiceImpl implements FriService {
 		friendMapper = sqlSession.getMapper(FriendMapper.class);
 		return friendMapper.selectFollowerList(id);
 	}
+
+	@Override
+	public int[] profileCount(String id) {
+		friendMapper = sqlSession.getMapper(FriendMapper.class);
+		return friendMapper.selectProfileCount(id);
+	}
 }
