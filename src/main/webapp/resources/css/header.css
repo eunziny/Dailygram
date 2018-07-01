@@ -35,21 +35,6 @@ i.fas , span.glyphicon , span.hidden-xs{
     height: 20px;
 }
 
-/* #center {
-	padding-top:5px;
-    display: inline-block;
-    margin: 0 auto;
-    min-width: 600px;
-} */
-
-#center {
-    padding-top: 5px;
-    /* display: inline-block; */
-    margin: 0 auto;
-    min-width: 600px;
-    height: 50;
-}
-
 #right {
     float: right;
     width: 200px;

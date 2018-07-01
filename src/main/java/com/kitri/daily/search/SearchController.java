@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.swing.JOptionPane;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,7 +48,6 @@ public class SearchController {
 			int i=0;
 			for(Search s : list) {
 				String originpath = s.getImg();
-				/*System.out.println("originpath : " + originpath);*/
 				int index = originpath.lastIndexOf("\\");
 				String path = originpath.substring(index+1);
 				s.setImg(path);
