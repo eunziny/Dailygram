@@ -11,11 +11,14 @@ public class Board {
 	private Date posted;
 	private String img;
 	private String public_yn;
+	private String likecnt;
 	
 	private MultipartFile file;
+	
 
 	public Board() {}
-	public Board(int board_seq, String writer, String content, Date posted, String img, String public_yn) {
+	public Board(int board_seq, String writer, String content, Date posted, String img, String public_yn,
+			String likecnt) {
 		super();
 		this.board_seq = board_seq;
 		this.writer = writer;
@@ -23,7 +26,9 @@ public class Board {
 		this.posted = posted;
 		this.img = img;
 		this.public_yn = public_yn;
+		this.likecnt = likecnt;
 	}
+	
 	public int getBoard_seq() {
 		return board_seq;
 	}
@@ -66,10 +71,18 @@ public class Board {
 	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
+	public String getLikecnt() {
+		return likecnt;
+	}
+	public void setLikecnt(String likecnt) {
+		this.likecnt = likecnt;
+	}
+	
 	@Override
 	public String toString() {
 		return "Board [board_seq=" + board_seq + ", writer=" + writer + ", content=" + content + ", posted=" + posted
-				+ ", img=" + img + ", public_yn=" + public_yn + "]";
-	}	
+				+ ", img=" + img + ", public_yn=" + public_yn + ", likecnt=" + likecnt + "]";
+	}
+	
 	
 }

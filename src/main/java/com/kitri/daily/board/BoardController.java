@@ -157,15 +157,16 @@ public class BoardController {
    }
 
    @RequestMapping(value = "/board/post.do")
-   public ModelAndView detail(HttpSession session, HttpServletRequest req ,@RequestParam(value="bseq") int bseq) {
+   public ModelAndView detail(HttpServletRequest req ,@RequestParam(value="bseq") int bseq) {
       ModelAndView mav = new ModelAndView("board/post");
       Board b = service.detailBoard(bseq);
+      HttpSession session = req.getSession(false);
+	  Member mem  = (Member) session.getAttribute("memInfo");
+	  String id = mem.getId();
+	  Like like = new Like(bseq,id);
+      Like l = service.getType(like);
       mav.addObject("b", b);
-      String upfolder = basePath + "\\thumbnail\\"; // img 가져올 파일 경로
-      System.out.println("이미지~~~~~~!! "+b.getImg());
-      String path = upfolder + b.getImg();
-      System.out.println(path);
-      mav.addObject("path", path);
+      mav.addObject("l", l);
       return mav;
    }
    
@@ -178,5 +179,26 @@ public class BoardController {
 	   ModelAndView mav = new ModelAndView("board/myList");
 	   mav.addObject("list", boardlist);
 	   return mav;
+   }
+   
+   @RequestMapping(value = "/board/delLike.do")
+   public String delLike (HttpServletRequest req ,@RequestParam(value="bseq") int bseq) {
+	   HttpSession session = req.getSession(false);
+	   Member mem  = (Member) session.getAttribute("memInfo");
+	   String id = mem.getId();
+	   Like like = new Like(bseq, id);
+	   service.delType(like);
+	   return "redirect:/board/post.do?bseq="+bseq;
+   }
+   
+   @RequestMapping(value = "/board/like.do")
+   public String like (HttpServletRequest req ,@RequestParam(value="bseq") int bseq) {
+	   HttpSession session = req.getSession(false);
+	   Member mem  = (Member) session.getAttribute("memInfo");
+	   String id = mem.getId();
+	   System.out.println("seq :   " + bseq + "    id :   " + id);
+	   Like like = new Like(bseq, id);
+	   service.addLike(like);
+	   return "redirect:/board/post.do?bseq="+bseq;
    }
 }

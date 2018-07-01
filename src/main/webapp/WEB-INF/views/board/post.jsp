@@ -16,8 +16,8 @@
             <section>
                   <div class= 'insta'>
                     <div class='top-insta'>
-                      <a href='${pageContext.request.contextPath }/board/list.do'><img id='user_img' src='https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w'></a>
-                      <a href='${pageContext.request.contextPath }/board/list.do' class='user'>${b.writer}</a>
+                      <a href='${pageContext.request.contextPath }/board/friList.do'><img id='user_img' src='https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w'></a>
+                      <a href='${pageContext.request.contextPath }/board/friList.do' class='user'>${b.writer}</a>
 					  <a href='#' id='menu' class="dropdown-toggle" data-toggle="dropdown">
 						<i class="fas fa-ellipsis-v fa-2x"></i>
 					  </a>
@@ -38,20 +38,27 @@
                     
                     <div class='footer'>
                       <div class='react'>
-                        <a role='button'><i class="far fa-heart fa-2x"></i></a>
-                        <a role='button'><i class="fas fa-heart fa-2x"></i></a>
+                      	<c:if test="${l.type eq null}">
+                        	<a role='button' href="${pageContext.request.contextPath }/board/like.do?bseq=${b.board_seq}">
+                        		<i class="far fa-heart fa-2x"></i></a>
+                        </c:if>
+                        <c:if test="${l.type eq 'L'}">
+                          	<a role='button' href="${pageContext.request.contextPath }/board/delLike.do?bseq=${b.board_seq}">
+                          		<i class="fas fa-heart fa-2x"></i></a>
+                        </c:if>
                         <a role='button'><i class="far fa-comments fa-2x"></i></a>
                         <a role='button'><i class="far fa-share-square fa-2x"></i></a>
                       </div>
+                      <p style="margin-top:10px; font-weight:bold;">좋아요  ${b.likecnt }개</p>
                       <div class='caption'>
-                        <a href='${pageContext.request.contextPath }/board/list.do'>${b.writer}</a>
+                        <a href='${pageContext.request.contextPath }/board/friList.do'>${b.writer}</a>
                         <span>${b.content}</span>
                       </div>
                       <!-- 게시일 -->
                       <input class="public_yn" type = "text" hidden="hidden" name="public_yn" value="${b.public_yn}">
                       <div class='comment-list'>
-                        <a href='${pageContext.request.contextPath }/board/list.do' id='a1'><img id='user_img' src='https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w'></a>
-                        <a href='${pageContext.request.contextPath }/board/list.do' class='user' id='a2'>uncle_oreo</a>
+                        <a href='${pageContext.request.contextPath }/board/friList.do' id='a1'><img id='user_img' src='https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w'></a>
+                        <a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>uncle_oreo</a>
                         <span id='p1'>안녕!!!!</span>
                         <a href="${pageContext.request.contextPath }/board/cmtDel.do" id='a3'>
                         	<i class="fas fa-times fa-2x"></i></a>

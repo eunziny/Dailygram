@@ -46,4 +46,22 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
 		return boardMapper.myList(id);
 	}
+
+	@Override
+	public Like getType(Like like) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.myType(like);
+	}
+
+	@Override
+	public void delType(Like like) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.delType(like);
+	}
+
+	@Override
+	public void addLike(Like like) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.addLike(like);
+	}
 }

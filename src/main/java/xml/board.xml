@@ -11,11 +11,20 @@
 		<result column="posted" property="posted" />
 		<result column="img" property="img" />
 		<result column="public_yn" property="public_yn" />
+		<result column="likecnt" property="likecnt" />
+	</resultMap>
+	
+	<resultMap id="LikeResult" type="com.kitri.daily.board.Like">
+		<result column="board_seq" property="board_seq" />
+		<result column="sender" property="sender" />
+		<result column="type" property="type" />
+		<result column="date" property="date" />
 	</resultMap>
 
 	<select id="select" resultMap="BoardResult" parameterType="java.lang.Integer">
-		select * from board where
-		board_seq = #{board_seq}
+		select b.* , count(ls.type) likecnt from board b
+		join like_siren ls on b.board_seq = ls.board_seq
+		where b.board_seq = #{board_seq}
 	</select>
 
 	<insert id="insert" parameterType="com.kitri.daily.board.Board">
@@ -39,5 +48,28 @@
 	<select id="myList" resultMap="BoardResult" parameterType="String"> 
 		select * from board where writer=#{writer}
 	</select>
+	
+	<select id="myType" resultMap="LikeResult" parameterType="com.kitri.daily.board.Like"> 
+		select * from like_siren
+		where board_seq = #{board_seq}
+		and sender = #{sender}
+		and type = 'L'
+		union
+		select * from like_siren
+		where board_seq = #{board_seq}
+		and sender = #{sender}
+		and type = 'S'
+	</select>
+	
+	<delete id="delType" parameterType="com.kitri.daily.board.Like">
+		delete
+		from like_siren
+		where board_seq = #{board_seq} and sender = #{sender}
+	</delete>
+	
+	<insert id="addLike" parameterType="com.kitri.daily.board.Like">
+		INSERT INTO like_siren (`board_seq`, `sender`, `type`, `date`) 
+		VALUES (#{board_seq},  #{sender}, 'L', now());
+	</insert>
 
 </mapper>
