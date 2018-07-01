@@ -13,10 +13,24 @@
 }
 </style>
 <script>
-$(function() {
-
-}); 
-
+$(function(){
+	$("button[type=submit]").click(function(){
+		if( $("input[type=file]").val() == "" ){
+	         alert('업로드할 이미지를 선택해주세요.');
+	         return false;
+	      }
+	});
+	$("input[type=file]").change(function(){
+    	if( $("input[type=file]").val() != "" ){
+        	var ext = $('#file').val().split('.').pop().toLowerCase();
+        	if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+            	alert('gif,png,jpg,jpeg 파일만 업로드 할수 있습니다.');
+            	$("input[type=file]").val("");
+            	return;
+            }
+        }
+   });
+});
 </script>
 
 <div class="container">
@@ -46,25 +60,21 @@ $(function() {
 	    		<input type="file" name="file" id = "file" value="file"><br>
 	    	</div>
 		
-		    <c:set var="public_yn" value="${sessionScope.memInfo.publicyn }" /> <!--비공개/공개 계정 여부 -->
-		    <c:set var="check" value="${update.public_yn}"/> <!-- 게시물 공개 여부 -->
+		    <c:set var="public_yn" value="${sessionScope.memInfo.publicyn }" /> 
+		    <c:set var="check" value="${update.public_yn}"/> 
 		    <c:choose>
-		    	<!-- 공개 계정이고, 해당 게시물이 전체공개일 때  -->
 				<c:when test="${public_yn eq 'y' and check eq 'y'}"> 
 				     <div class="col-lg-offset-3 col-lg-6 col-lg-offset-3">
 						<label><input type="radio" name="public_yn" value="y" checked>전체공개</label>&nbsp;&nbsp;
 						<label><input type="radio" name="public_yn" value="n">친구공개</label>
 				     </div>
 					</c:when>
-					
-					<!-- 공개 계정이고, 해당 게시물이 친구공개일 때  -->
 					<c:when test="${public_yn eq 'y' and check eq 'n' }">
 				     <div class="col-lg-offset-3 col-lg-6 col-lg-offset-3">
 						<label><input type="radio" name="public_yn" value="y">전체공개</label>&nbsp;&nbsp;
 						<label><input type="radio" name="public_yn" value="n" checked>친구공개</label>
 				     </div>
-					</c:when>	
-					<!-- 비공개 계정일 때  -->		
+					</c:when>			
 				<c:otherwise>
 				    <input type="hidden" name="public_yn" value="n">
 				    <div class="col-lg-offset-3 col-lg-6 col-lg-offset-3">
