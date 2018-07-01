@@ -8,4 +8,5 @@ public interface BoardMapper {
 	void update(Board b);
 	void delete(int board_seq, String writer);
 	List<Board> myList(String id);
+	List<Newsfeed> newsfeed(String sender, String writer);
 }

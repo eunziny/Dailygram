@@ -8,4 +8,5 @@ public interface BoardService {
 	void editBoard(Board b);
 	void delBoard(int board_seq, String writer);
 	List<Board> getMyList(String id);
+	List<Newsfeed> getNewsfeed(String sender, String writer);
 }

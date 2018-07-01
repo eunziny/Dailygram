@@ -46,4 +46,10 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
 		return boardMapper.myList(id);
 	}
+
+	@Override
+	public List<Newsfeed> getNewsfeed(String sender, String writer) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.newsfeed(sender, writer);
+	}
 }
