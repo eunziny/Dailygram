@@ -10,9 +10,13 @@
 <!-- Custom CSS -->
 <link href="${pageContext.request.contextPath }/resources/css/header.css" rel="stylesheet">
 
+<!-- 자동완성 -->
+<!-- <script src="http://code.jquery.com/jquery-1.7.js" type="text/javascript"></script> -->
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui-css" rel="stylesheet" type="text/s-css" />
+
 <script>
 $(document).ready(function(e){
-	
 		var $target = "";
 
 		$( document ).on( 'click', '.bs-dropdown-to-select-group .dropdown-menu li', function( event ) {
@@ -29,13 +33,35 @@ $(document).ready(function(e){
               var v2 = $('<input type="hidden" id="searchType" name="searchType" value="' + v + '" />');
               v2.appendTo($("#searchform")); //searchType의 값을 form태그에 넣어서 같이 전달
                    
-              $('input[name=searchValue]').keypress(function(e){
-          		if(e.which == 13){ //enter	
-          			$("#searchform").submit();
-          		}
-          	  });
-  				return false;
-         }); 
+           $('input[name=searchValue]').keypress(function(e){
+       		if(e.which == 13){ //enter	
+       			$("#searchform").submit();
+       		}
+       	  });
+			return false;
+         });
+		
+		 /* 검색 자동완성 */
+		 $("#searchValue").autocomplete({
+			 source : function(request, response) {
+				 $.ajax({
+					 type : "post",
+					 url : "${pageContext.request.contextPath }/container/autocomplete.do",
+					 data : {
+						 term : request.term
+					 },
+					 dataType : "json",
+					 success : function(data) {
+						 console.log("자동완성 data : " + data);
+						 var autoList = data;
+						 console.log(autoList.searchlist);
+						 //response($.map(autoList, function(item) {
+						//	 return item.tagname;
+						 //}));
+					 }
+				 });
+			 }
+		 });
               
          $("#searchBtn").click(function(e) { 
        	  if ($target == "") { //검색타입을 아무것도 선택하지 않았을 때
@@ -76,8 +102,7 @@ $(document).ready(function(e){
 						<!-- END Loop -->
 					</ul>
 				</div>
-				<!-- /btn-group -->
-				<input type="text" id="text_id" class="form-control" name="searchValue" placeholder='Search' style="text-align: center">
+				<input type="text" id="searchValue" class="form-control" name="searchValue" placeholder='Search' style="text-align: center">
 				<span class="input-group-btn">
 					<button id="searchBtn" class="btn btn-default">검색</button>
 				</span>

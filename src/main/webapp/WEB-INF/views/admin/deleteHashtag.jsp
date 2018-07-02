@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/views/admin/admin_header.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -84,8 +85,10 @@ body {
 						<h2 class="panel-heading panel-danger">Delete HashTag List</h2>
 						<hr>
 						<div align="center">
-							<input type="text" placeholder="금지할 해시태그를 입력하세요." style="width:300px; height:35px; vertical-align:middle;">
-							<button id="add" class="btn btn-danger" style="height:35px; vertical-align:middle;"><i class="glyphicon glyphicon-eye-close"></i>추가</button>
+							<form action="${pageContext.request.contextPath}/admin/tagblock.do" method="post">
+							<input type="text" name="tagname" placeholder="금지할 해시태그를 입력하세요." style="width:300px; height:35px; vertical-align:middle;">
+							<button id="add" type="submit" class="btn btn-danger" style="height:35px; vertical-align:middle;"><i class="glyphicon glyphicon-eye-close"></i>추가</button>
+							</form>
 						</div>
 						<hr>
 						<div>
@@ -94,17 +97,18 @@ body {
 						<br> <br>
 						<div class="panel-body">
 							<ul class="list-group">
+								<c:forEach var="bl" items="${blocklist}">
 								<li class="list-group-item">
 									<div class="checkbox">
 										<input type="checkbox" class="checkb" name="checkbox[]"
-											id="checkbox1" value="1" /> <label for="checkbox1">몰카</label>
+											id="checkbox1" value="1" /> <label for="checkbox1">${bl.tagname}</label>
 									</div>
 									<div class="pull-right action-buttons">
 										<a href="#" class="eye"><span class="glyphicon glyphicon-eye-open"></span></a>
 									</div>
-																		
 								</li>
-								<li class="list-group-item">
+								</c:forEach>
+								<!-- <li class="list-group-item">
 									<div class="checkbox">
 										<input type="checkbox" class="checkb" name="checkbox[]"
 											id="checkbox2" value="2" /> <label for="checkbox2">
@@ -201,7 +205,7 @@ body {
 									<div class="pull-right action-buttons">
 										<a href="#" class="eye"><span
 											class="glyphicon glyphicon-eye-open"></span></a>
-								</li>
+								</li> -->
 							</ul>
 						</div>
 					</div>

@@ -60,49 +60,6 @@
 				<img src="/board/${s.img }" class="lookimg">
 			</div>
 			</c:forEach>
-
-			<!-- <div class="gallery_product col-lg-4">
-				<img src="http://uruma.co.kr/skin/upload/menu_5_1.jpg"
-					class="lookimg">
-			</div>
-
-			<div class="gallery_product col-lg-4">
-				<img
-					src="http://hanmandushop.com/web/product/small/201804/95_shop1_307843.jpg"
-					class="lookimg">
-			</div>
-
-			<div class="gallery_product col-lg-4">
-				<img src="http://uruma.co.kr/skin/upload/menu_5_1.jpg"
-					class="lookimg">
-			</div>
-
-			<div class="gallery_product col-lg-4">
-				<img
-					src="http://img.enews24.cjenm.skcdn.com/News/Contents/20180429/98306354.jpg"
-					class="lookimg">
-			</div>
-
-			<div class="gallery_product col-lg-4">
-				<img src="http://www.bibigo.com/img/kr/img_delightful_mandu5_1.jpg"
-					class="lookimg">
-			</div>
-
-			<div class="gallery_product col-lg-4">
-				<img
-					src="http://hanmandushop.com/web/product/small/201804/95_shop1_307843.jpg"
-					class="lookimg">
-			</div>
-
-			<div class="gallery_product col-lg-4">
-				<img src="http://uruma.co.kr/skin/upload/menu_5_1.jpg"
-					class="lookimg">
-			</div>
-
-			<div class="gallery_product col-lg-4">
-				<img src="http://www.bibigo.com/img/kr/img_delightful_mandu5_1.jpg"
-					class="lookimg">
-			</div> -->
 		</div>
 	</div>
 </div>
