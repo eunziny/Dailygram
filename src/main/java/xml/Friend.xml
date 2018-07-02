@@ -13,6 +13,7 @@
 		<result column="tag3" property="tag3" />
 		<result column="tag4" property="tag4" />
 		<result column="tag5" property="tag5" />
+		<result column="status" property="status"/>
 	</resultMap>
 	
 	<select id="selectFriendRelationshipCount" resultType="java.util.HashMap" parameterType="String">
@@ -129,5 +130,34 @@
 			  in ('y','r')
 			  )
 	</select>
+	
+	<select id="selectSubscribeList" resultMap="FriendResult" parameterType="String">
+		SELECT id, profile_img
+		FROM member
+		WHERE id in(SELECT receiver
+					FROM relationship
+					WHERE sender=#{id}
+					AND status='r')
+	</select>
+	
+	<select id="selectFollowingList" resultMap="FriendResult" parameterType="String">
+		SELECT id, profile_img
+		FROM member
+		WHERE id in(SELECT receiver
+					FROM relationship
+					WHERE sender=#{id}
+					AND status='y')
+	</select>
+	
+	<select id="selectFollowerList" resultMap="FriendResult" parameterType="String">
+		SELECT distinct id, profile_img
+		FROM member 
+		WHERE id in(SELECT sender
+						FROM relationship
+						WHERE receiver=#{id}
+						AND status='y');
+	</select>
+	
+
 
 </mapper>
