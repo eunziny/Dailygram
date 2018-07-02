@@ -35,7 +35,7 @@
          <a href="${pageContext.request.contextPath }/admin/chargelist.do"><i class="fas fa-bullhorn"></i>신고게시물</a>
          </li>
          <li>
-         <a href="#"><i class="fa fa-fw fa-power-off"></i> Logout</a>
+         <a href="${pageContext.request.contextPath }/member/logout.do"><i class="fa fa-fw fa-power-off"></i> Logout</a>
          </li>
          </ul>
     </div>
