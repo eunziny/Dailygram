@@ -50,11 +50,18 @@
                       <!-- 게시일 -->
                       <input class="public_yn" type = "text" hidden="hidden" name="public_yn" value="${b.public_yn}">
                       <div class='comment-list'>
+                      	<c:forEach var="co" items="${coList }">
                         <a href='${pageContext.request.contextPath }/board/list.do' id='a1'><img id='user_img' src='https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w'></a>
-                        <a href='${pageContext.request.contextPath }/board/list.do' class='user' id='a2'>uncle_oreo</a>
-                        <span id='p1'>안녕!!!!</span>
+                        <a href='${pageContext.request.contextPath }/board/list.do' class='user' id='a2'>${co.writer }</a>
+                        <span id='p1'>${co.content }</span>
                         <a href="${pageContext.request.contextPath }/board/cmtDel.do" id='a3'>
-                        	<i class="fas fa-times fa-2x"></i></a>
+                        	<i class="fas fa-times fa-2x"></i></a><br>
+                        </c:forEach>
+                        <a href='${pageContext.request.contextPath }/board/list.do' id='a1'><img id='user_img' src='https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w'></a>
+                        <a href='${pageContext.request.contextPath }/board/list.do' class='user' id='a2'>작성자</a>
+                        <span id='p1'>내용</span>
+                        <a href="${pageContext.request.contextPath }/board/cmtDel.do" id='a3'>
+                        	<i class="fas fa-times fa-2x"></i></a><br>	
                       </div>
                       
                       

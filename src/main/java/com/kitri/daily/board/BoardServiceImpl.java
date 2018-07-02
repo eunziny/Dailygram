@@ -46,4 +46,10 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
 		return boardMapper.myList(id);
 	}
+
+	@Override
+	public List<Comment> getComments(int board_seq) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.selectComments(board_seq);
+	}
 }
