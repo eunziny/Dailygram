@@ -11,6 +11,8 @@ import javax.imageio.ImageIO;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -186,21 +188,20 @@ public class BoardController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/board/newsfeed.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/board/newsfeed.do")
 	public ModelAndView newsfeed(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView("board/newsfeed");
 		HttpSession session = req.getSession(false);
 		Member mem = (Member) session.getAttribute("memInfo");
 		String id = mem.getId();
-		List<Board> feedList = new ArrayList<Board> ();
+		List<Board> feedList = new ArrayList<Board>();
 		feedList = service.getNewsfeed(id, 0);
 		mav.addObject("feed", feedList);
 		return mav;
 	}
 	
 	@RequestMapping(value = "/board/infnScrollDown.do", method = RequestMethod.POST)
-	public @ResponseBody List<Board> 
-		infiniteScrollDown(@RequestParam(value="row") int row, HttpServletRequest req) {
+	public @ResponseBody List<Board> infiniteScrollDown(@RequestParam("row") int row, HttpServletRequest req) {
 		List<Board> flist = new ArrayList<Board>();
 		HttpSession session = req.getSession(false);
 		Member mem = (Member)session.getAttribute("memInfo");

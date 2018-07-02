@@ -10,6 +10,7 @@
 		<result column="content" property="content" />
 		<result column="posted" property="posted" />
 		<result column="img" property="img" />
+		<result column="row" property="row"/>
 		<result column="public_yn" property="public_yn" />
 	</resultMap>
 	
@@ -40,16 +41,15 @@
 		select * from board where writer=#{writer}
 	</select>
 	
-	<select id="newsfeed" resultMap = "BoardResult" parameterType="String">
+	<select id="newsfeed" resultMap = "BoardResult">
 		select @rownum:=@rownum+1 As
 			row, b.*  from board b
 		where writer in(
 			select receiver from relationship
-			where sender = #{b.writer}
+			where sender=#{writer}
 			and status in ('Y','R')
-			)or writer = #{b.writer}
+			)or writer=#{writer}
 		order by b.posted desc, (select @rownum:=0)
-        limit #{row},19;
+        limit #{row},9;
 	</select>
-	
 </mapper>

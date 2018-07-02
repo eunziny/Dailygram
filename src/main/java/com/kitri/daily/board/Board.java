@@ -86,7 +86,6 @@ public class Board {
 		this.file = file;
 	}
 	
-	
 	public int getRow() {
 		return row;
 	}
