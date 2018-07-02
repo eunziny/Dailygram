@@ -14,4 +14,8 @@ public interface FriendMapper {
 	ArrayList<Friend> selectRecommendHT4(Friend friend);
 	ArrayList<Friend> selectRecommendHT5(Friend friend);
 	ArrayList<Friend> selectRecommend2(String user_id);
+	ArrayList<Friend> selectSubscribeList(String user_id);
+	ArrayList<Friend> selectFollowingList(String id);
+	ArrayList<Friend> selectFollowerList(String id);
+	//int[] selectProfileCount(String id);
 }

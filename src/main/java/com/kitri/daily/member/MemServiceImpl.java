@@ -1,5 +1,7 @@
 package com.kitri.daily.member;
 
+import java.util.ArrayList;
+
 import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
@@ -25,6 +27,13 @@ public class MemServiceImpl implements MemService {
 	public void delete(String id) {
 		memberMapper = sqlSession.getMapper(MemberMapper.class);
 		memberMapper.delMember(id);
+	}
+	
+	@Override
+	public ArrayList<Integer> profileCount(String id) {
+		memberMapper = sqlSession.getMapper(MemberMapper.class);
+		ArrayList<Integer> count = memberMapper.selectProfileCount(id);
+		return count;
 	}
 
 }

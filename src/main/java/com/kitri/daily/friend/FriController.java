@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -22,36 +23,44 @@ public class FriController {
 	}
 	
 	@RequestMapping(value="/friend/knownfriend.do")
-	public ModelAndView recommend(HttpServletRequest req) {
+	public ModelAndView recommend(HttpServletRequest req, @RequestParam(value = "id") String id) {
 		ModelAndView mav = new ModelAndView("friend/knownfriend");
-		HttpSession session = req.getSession(false);
+		//HttpSession session = req.getSession(false);
 		Friend friend = new Friend();
-		String user_id = (String) session.getAttribute("id");
-		friend.setId(user_id);
-		System.out.println("로그인 한 아이디 : " + user_id);
+		//String user_id = (String) session.getAttribute("id");
+		friend.setId(id);
+		System.out.println("로그인 한 아이디 : " + id);
 		
 		//로그인한 사람의 친구 수 구하기
-		List<HashMap<String, Object>> count = service.getFriendRelationshipCount(user_id);
+		List<HashMap<String, Object>> count = service.getFriendRelationshipCount(id);
 		ArrayList<Friend> list = null;
 		if(count.size()==1) {//친구 수가 0이고 좋아요 한 글이 없다면 최신글순으로 좋아요 많이 받은 회원 추천하기
 			System.out.println("친구 0명");
-			list = (ArrayList<Friend>) service.getRecommend(user_id);
+			list = (ArrayList<Friend>) service.getRecommend(id);
 			mav.addObject("list", list);
 			return mav;
 		}else{//친구 수가 1명 이상 있으면
 			System.out.println("친구 여러명");
 			//로그인한 회원의 intro 가져오기
-			String user_intro = service.getUserIntro(user_id);
+			String user_intro = service.getUserIntro(id);
 			System.out.println("로그인한 회원의 소개글 : " + user_intro);
+			
 			//-> 해시태그 단위로 잘라서 배열로 만들기
-			String[] introArray = user_intro.split(" ");
-			System.out.println("해시태그 갯수 : " + introArray.length);
-			for(int i=0;i<introArray.length;i++) System.out.println(introArray[i]);
+			String[] introArray = null;
+			if(user_intro != null) {
+				introArray = user_intro.split(" ");
+				System.out.println("해시태그 갯수 : " + introArray.length);
+				for(int i=0;i<introArray.length;i++) System.out.println(introArray[i]);
+			}
 			
 			
 			// intro 해시태그 기준으로 회원 추천해주기
-			if(introArray.length == 0) {//소개글이 null 일경우 || 해시태그로 이루어져있지 않은 경우(좋아요 기준으로 회원 추천)
-				list = (ArrayList<Friend>) service.getRecommend2(user_id);
+			if(user_intro==null) {
+				list = (ArrayList<Friend>) service.getRecommend2(id);
+				mav.addObject("list", list);
+			}
+			else if(introArray.length == 0) {//소개글이 null 일경우 || 해시태그로 이루어져있지 않은 경우(좋아요 기준으로 회원 추천)
+				list = (ArrayList<Friend>) service.getRecommend2(id);
 				mav.addObject("list", list);
 
 			}else if(introArray.length == 1) {//해시태그가 1개 있을 경우
@@ -113,7 +122,7 @@ public class FriController {
 			System.out.println("");
 			
 			
-			ArrayList<Friend> list2 = (ArrayList<Friend>) service.getRecommend2(user_id);
+			ArrayList<Friend> list2 = (ArrayList<Friend>) service.getRecommend2(id);
 			
 			System.out.print("list2 : ");
 			for(int i=0;i<list2.size();i++) {
@@ -136,4 +145,69 @@ public class FriController {
 		}
 		return mav;
 	}
+	
+	@RequestMapping(value="/friend/subscribelist.do")
+	public ModelAndView subscribeList(@RequestParam(value = "id") String id) {//내가 구독하는 사람 리스트
+		ModelAndView mav = new ModelAndView("friend/subscribelist");
+		Friend friend = new Friend();
+		friend.setId(id);
+		System.out.println("로그인 한 아이디 : " + id);
+		
+		ArrayList<Friend> list = (ArrayList<Friend>) service.getsubscribeList(id);
+		mav.addObject("list", list);
+		return mav;
+	}
+	
+	@RequestMapping(value="/friend/followinglist.do")
+	public ModelAndView followingList(@RequestParam(value = "id") String id) {//내가 구독하는 사람 리스트
+		ModelAndView mav = new ModelAndView("friend/followinglist");
+		Friend friend = new Friend();
+		friend.setId(id);
+		System.out.println("로그인 한 아이디 : " + id);
+		
+		ArrayList<Friend> list = (ArrayList<Friend>) service.getfollowingList(id);
+		mav.addObject("list", list);
+		return mav;
+	}
+	
+	@RequestMapping(value="/friend/followerlist.do")
+	public ModelAndView followerList(@RequestParam(value = "id") String id) {//내가 구독하는 사람 리스트
+		ModelAndView mav = new ModelAndView("friend/followerlist");
+		Friend friend = new Friend();
+		friend.setId(id);
+		System.out.println("로그인 한 아이디 : " + id);
+		
+		ArrayList<Friend> list = (ArrayList<Friend>) service.getfollowerList(id);//팔로워 리스트 받아옴
+		
+		ArrayList<Friend> mylist = (ArrayList<Friend>)service.getfollowingList(id);//내가 팔로잉 하는사람
+		
+		for(int i=0;i<list.size();i++) {
+			for(int j=0;j<mylist.size();j++) {
+				if(list.get(i).getId().equals(mylist.get(j).getId())) {
+					list.get(i).setStatus("y");//내 팔로우 리스트에 있으면 상태값 y로 바꿔줌
+				}		
+			}
+			if(list.get(i).getStatus()==null)
+				list.get(i).setStatus("no");
+		}
+		System.out.println("list : ");
+		for(int i=0;i<list.size();i++)
+			System.out.print(list.get(i) + ", ");
+		mav.addObject("list", list);
+		return mav;
+	}
+	
+	/*@RequestMapping(value="/board/profile.do")
+	public ModelAndView profileCount(@RequestParam(value = "id") String id) {//내가 구독하는 사람 리스트
+		ModelAndView mav = new ModelAndView("board/profile");
+		Friend friend = new Friend();
+		friend.setId(id);
+		System.out.println("로그인 한 아이디 : " + id);
+		
+		int list[] =  service.profileCount(id);
+		for(int i=0;i<list.length;i++)
+			System.out.print(list[i] + ", ");
+		mav.addObject("list", list);
+		return mav;
+	}*/	
 }
