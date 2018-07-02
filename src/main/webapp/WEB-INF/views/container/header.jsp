@@ -52,12 +52,22 @@ $(document).ready(function(e){
 					 },
 					 dataType : "json",
 					 success : function(data) {
-						 console.log("자동완성 data : " + data);
-						 var autoList = data;
-						 console.log(autoList.searchlist);
+						 //console.log("자동완성 data : " + JSON.stringify(data));
+						 //var autoList = JSON.stringify(data);
+						 //console.log("자동완성 data : " + autoList);
+						 var autoList = data.searchlist;
+						 //console.log(">>>>>>" + autoList[0].tagname);
+						 var len = autoList.length;
+						 for(var i=0;i<len;i++) {
+							 console.log(autoList[i].board_seq + "         " + autoList[i].tagname);
+						 }
 						 //response($.map(autoList, function(item) {
 						//	 return item.tagname;
 						 //}));
+ 
+				 
+						 
+						 //makeList(data);
 					 }
 				 });
 			 }
@@ -73,6 +83,18 @@ $(document).ready(function(e){
          });  
 
 });
+
+/* function makeMemoList(memos) {
+    var memocnt = memos.memolist.length;
+    $('#memolist').children('div').remove();
+    var memostr = '';
+    for(var i=0;i<memocnt;i++) {
+       var memo = memos.memolist[i];
+       memostr += '<div class="col-sm-12" data-seq="' + memo.mseq + '" data-userid="' + memo.userid + '" style="border-bottom: 2px solid #ecf0f1; margin-top: 15px; margin-bottom: 15px;">';
+       memostr += '   <div class="pull-right">';
+    }
+    
+} */
 </script>
 <!------ Include the above in your HEAD tag ---------->
 

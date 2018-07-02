@@ -26,4 +26,11 @@ public class AdminServiceImpl implements AdminService {
 		return adminMapper.getBlockList();
 	}
 
+	@Override
+	public void addBlocktag(String tagname) {
+		// TODO Auto-generated method stub
+		adminMapper = sqlSession.getMapper(AdminMapper.class);
+		adminMapper.addBlock(tagname);
+	}
+
 }

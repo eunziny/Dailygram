@@ -62,16 +62,21 @@ body {
 }
 </style>
 <script>
-	$(function() {
-		$("button#add").click(function() {
-			alert("정말 해당 해시태그를 검색 금지어로 설정하시겠습니까?");
+	$(function(e) {
+		$("button#add").click(function(e) {
+			if($("input[name='tagname']").val() == "") {
+				alert("금지할 해시태그를 입력해주세요.");
+			} else {
+				alert("정말 해당 해시태그를 검색 금지어로 설정하시겠습니까?");
+			}
+
 		});
 		
-		$("a.eye").click(function() {
+		$("a.eye").click(function(e) {
 			alert("해당 해시태그를 다시 활성화 시키시겠습니까?");
 		});
 
-		$("button#delete").click(function() {
+		$("button#delete").click(function(e) {
 			alert("선택한  해시태그들을 다시 활성화 시키시겠습니까?");
 		});
 	});
@@ -86,7 +91,7 @@ body {
 						<hr>
 						<div align="center">
 							<form action="${pageContext.request.contextPath}/admin/tagblock.do" method="post">
-							<input type="text" name="tagname" placeholder="금지할 해시태그를 입력하세요." style="width:300px; height:35px; vertical-align:middle;">
+							<input type="text" id="tagname" name="tagname" placeholder="금지할 해시태그를 입력하세요." style="width:300px; height:35px; vertical-align:middle;">
 							<button id="add" type="submit" class="btn btn-danger" style="height:35px; vertical-align:middle;"><i class="glyphicon glyphicon-eye-close"></i>추가</button>
 							</form>
 						</div>

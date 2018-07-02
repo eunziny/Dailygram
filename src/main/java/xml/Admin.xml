@@ -17,5 +17,12 @@
 		where block_yn = 'y'
 		order by tagname
 	</select>
+	
+	<update id="addBlock" parameterType="String">
+		update hashtag
+		set
+		block_yn = 'y'
+		where tagname=#{tagname}	
+	</update>
 
 </mapper>

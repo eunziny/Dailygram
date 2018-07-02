@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kitri.daily.search.Hashtag;
@@ -33,10 +34,10 @@ public class AdminController {
 	}
 	
 	//금지할 해시태그 추가하기
-/*	@RequestMapping(value = "/admin/tagblock.do")
-	public String tagblock(tagname) {
-		service.
-		return "admin/deleteHahtag";
-	}*/
-
+	@RequestMapping(value = "/admin/tagblock.do")
+	public String tagblock(@RequestParam(value="tagname") String tagname) {
+		service.addBlocktag(tagname);
+		return "forward:/admin/deleteHashtag.do";
+	}
+	
 }
