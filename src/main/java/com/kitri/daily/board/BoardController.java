@@ -100,11 +100,6 @@ public class BoardController {
 		String id = mem.getId();
 		Board update = service.detailBoard(b.getBoard_seq());
 		mav.addObject("update", update);
-		/*
-		 * String originpath = update.getImg(); // 파일경로를 가져옴 int index =
-		 * originpath.lastIndexOf("\\"); String path = originpath.substring(index + 1);
-		 * System.out.println(path); mav.addObject("path", path);
-		 */
 		return mav;
 	}
 
@@ -187,26 +182,13 @@ public class BoardController {
 		mav.addObject("list", boardlist);
 		return mav;
 	}
-
-	@RequestMapping(value = "/board/newsfeed.do")
-	public ModelAndView newsfeed(HttpServletRequest req) {
-		ModelAndView mav = new ModelAndView("board/newsfeed");
-		HttpSession session = req.getSession(false);
-		Member mem = (Member) session.getAttribute("memInfo");
-		String id = mem.getId();
-		List<Board> feedList = new ArrayList<Board>();
-		feedList = service.getNewsfeed(id, 0);
-		mav.addObject("feed", feedList);
-		return mav;
-	}
-	
-	@RequestMapping(value = "/board/infnScrollDown.do", method = RequestMethod.POST)
-	public @ResponseBody List<Board> infiniteScrollDown(@RequestParam("row") int row, HttpServletRequest req) {
-		List<Board> flist = new ArrayList<Board>();
-		HttpSession session = req.getSession(false);
-		Member mem = (Member)session.getAttribute("memInfo");
-		String id = mem.getId();
-		flist = service.getNewsfeed(id, row-1);
-		return flist;
-	}
+    @RequestMapping(value = "/board/newsfeed.do", method= RequestMethod.GET)
+    public void newsfeed(Model model, HttpServletRequest req) {
+        ModelAndView mav = new ModelAndView("board/newsfeed");
+        HttpSession session = req.getSession(false);
+        Member mem = (Member) session.getAttribute("memInfo");
+        String id = mem.getId();
+        List<Board> feedList = (ArrayList<Board>) service.getNewsfeed(id);
+        model.addAttribute("feed", feedList);
+    }
 }

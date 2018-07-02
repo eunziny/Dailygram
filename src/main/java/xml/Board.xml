@@ -42,14 +42,12 @@
 	</select>
 	
 	<select id="newsfeed" resultMap = "BoardResult">
-		select @rownum:=@rownum+1 As
-			row, b.*  from board b
+		select *  from board
 		where writer in(
 			select receiver from relationship
 			where sender=#{writer}
 			and status in ('Y','R')
 			)or writer=#{writer}
-		order by b.posted desc, (select @rownum:=0)
-        limit #{row},9;
+		order by posted desc;
 	</select>
 </mapper>

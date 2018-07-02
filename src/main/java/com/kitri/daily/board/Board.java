@@ -11,7 +11,6 @@ public class Board {
 	private Date posted;
 	private String img;
 	private String public_yn;
-	private int row;
 	private MultipartFile file;
 
 	public Board() {}
@@ -24,25 +23,7 @@ public class Board {
 		this.img = img;
 		this.public_yn = public_yn;
 	}
-	
-	
-	public Board(int board_seq, String writer, String content, Date posted, String img, String public_yn, int row) {
-		super();
-		this.board_seq = board_seq;
-		this.writer = writer;
-		this.content = content;
-		this.posted = posted;
-		this.img = img;
-		this.public_yn = public_yn;
-		this.row = row;
-	}
-	
-	
-	public Board(String writer, int row) {
-		super();
-		this.writer = writer;
-		this.row = row;
-	}
+
 	public int getBoard_seq() {
 		return board_seq;
 	}
@@ -85,16 +66,9 @@ public class Board {
 	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
-	
-	public int getRow() {
-		return row;
-	}
-	public void setRow(int row) {
-		this.row = row;
-	}
 	@Override
 	public String toString() {
 		return "Board [board_seq=" + board_seq + ", writer=" + writer + ", content=" + content + ", posted=" + posted
-				+ ", img=" + img + ", public_yn=" + public_yn + ", row=" + row + "]";
+				+ ", img=" + img + ", public_yn=" + public_yn + "]";
 	}
 }
