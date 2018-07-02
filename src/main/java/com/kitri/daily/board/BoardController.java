@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -25,7 +26,7 @@ import com.sun.media.jfxmedia.logging.Logger;
 
 @Controller
 public class BoardController {
-	String basePath = "D:\\driver\\apache-tomcat-8.5.30\\webapps";
+	String basePath = "D:\\apache-tomcat-8.5.30-windows-x64\\apache-tomcat-8.5.30\\webapps";
 
 	@Resource(name = "boardService")
 	private BoardService service;
@@ -186,20 +187,25 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/board/newsfeed.do", method = RequestMethod.GET)
-	public void newsfeed(Model model, HttpServletRequest req) {
+	public ModelAndView newsfeed(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView("board/newsfeed");
 		HttpSession session = req.getSession(false);
 		Member mem = (Member) session.getAttribute("memInfo");
 		String id = mem.getId();
-		List<Board> feedList = (ArrayList<Board>) service.getNewsfeed(id);
-		model.addAttribute("feed", feedList);
+		List<Board> feedList = new ArrayList<Board> ();
+		feedList = service.getNewsfeed(id, 0);
+		mav.addObject("feed", feedList);
+		return mav;
 	}
 	
 	@RequestMapping(value = "/board/infnScrollDown.do", method = RequestMethod.POST)
 	public @ResponseBody List<Board> 
-		infiniteScrollDown(@RequestBody Board b) {
-		Integer bno = b.getBoard_seq() -1;
-		return service.infiniteScrollDown(bno);
-		
+		infiniteScrollDown(@RequestParam(value="row") int row, HttpServletRequest req) {
+		List<Board> flist = new ArrayList<Board>();
+		HttpSession session = req.getSession(false);
+		Member mem = (Member)session.getAttribute("memInfo");
+		String id = mem.getId();
+		flist = service.getNewsfeed(id, row-1);
+		return flist;
 	}
 }

@@ -13,18 +13,6 @@
 		<result column="public_yn" property="public_yn" />
 	</resultMap>
 	
-	<resultMap id="NewsfeedResult" type="com.kitri.daily.board.Newsfeed">
-		<result column="board_seq" property="board_seq" />
-		<result column="writer" property="writer" />
-		<result column="content" property="content" />
-		<result column="posted" property="posted" />
-		<result column="img" property="img" />
-		<result column="public_yn" property="public_yn" />
-		<result column="id" property="sender"/>
-		<result column="id" property="writer"/>
-		<result column="status" property="stauts"/>
-	</resultMap>	
-	
 	<select id="select" resultMap="BoardResult" parameterType="java.lang.Integer">
 		select * from board where
 		board_seq = #{board_seq}
@@ -53,14 +41,15 @@
 	</select>
 	
 	<select id="newsfeed" resultMap = "BoardResult" parameterType="String">
-		select * from board b
+		select @rownum:=@rownum+1 As
+			row, b.*  from board b
 		where writer in(
 			select receiver from relationship
-			where sender = #{writer}
+			where sender = #{b.writer}
 			and status in ('Y','R')
-			)or writer = #{writer}
-			order by b.posted desc
-			limit 0, 20;
+			)or writer = #{b.writer}
+		order by b.posted desc, (select @rownum:=0)
+        limit #{row},19;
 	</select>
-
+	
 </mapper>

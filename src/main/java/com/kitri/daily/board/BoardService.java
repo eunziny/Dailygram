@@ -8,6 +8,5 @@ public interface BoardService {
 	void editBoard(Board b);
 	void delBoard(int board_seq, String writer);
 	List<Board> getMyList(String id);
-	List<Board> getNewsfeed(String id);
-	List<Board> infiniteScrollDown(Integer bno);
+	List<Board> getNewsfeed(String id, int row);
 }

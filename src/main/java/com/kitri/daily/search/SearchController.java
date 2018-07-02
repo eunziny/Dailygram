@@ -157,8 +157,7 @@ public class SearchController {
 	}
 	
 	@RequestMapping(value = "/search/infiLoad.do" , method = RequestMethod.POST)
-	public @ResponseBody List<Look> infiLoad(@RequestParam(value="row") int row,
-			@RequestParam(value="flag") int flag ,HttpServletRequest req){
+	public @ResponseBody List<Look> infiLoad(@RequestParam(value="row") int row, HttpServletRequest req){
 		List<Look> lookList = new ArrayList<Look>();
 		HttpSession session = req.getSession(false);
 		Member mem = (Member)session.getAttribute("memInfo");

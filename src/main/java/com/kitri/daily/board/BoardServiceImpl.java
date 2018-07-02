@@ -48,14 +48,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<Board> getNewsfeed(String id) {
+	public List<Board> getNewsfeed(String id, int row) {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
-		return boardMapper.newsfeed(id);
-	}
-
-	@Override
-	public List<Board> infiniteScrollDown(Integer bno) {
-		boardMapper = sqlSession.getMapper(BoardMapper.class);
-		return null;
+		return boardMapper.newsfeed(id,row);
 	}
 }
