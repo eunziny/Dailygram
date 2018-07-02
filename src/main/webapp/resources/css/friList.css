@@ -44,15 +44,13 @@
 .follow {
     text-align: center;
 }
-
-#edit {
-    background-color: #9770f9;
-    font-weight: bold;
-}
-
 .follow a {
 	color: black;
 	font-weight:bold;
 	font-size: 20px;
 }
+div button{
+	font-weight: bold;
+	background-color: #9770f9;
+	color:white;
 }

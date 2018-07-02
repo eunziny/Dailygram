@@ -34,6 +34,7 @@
 							 	<c:if test="${l.type eq 'S'}">
 							  		<li><a href="${pageContext.request.contextPath }/board/delType.do?bseq=${b.board_seq}">신고 취소하기</a></li>
 		                      	</c:if>
+		                      	<li><a href="${pageContext.request.contextPath }/board/repost.do?bseq=${b.board_seq}">공유</a></li>
 					  		</c:otherwise>
 					  	</c:choose>
 					  </ul>

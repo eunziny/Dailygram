@@ -17,8 +17,14 @@
                 </div>
                 <div class="col-md-8">
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-3">
                             <h2 class="media-heading">${fri.id }</h2>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-md btn-block">팔로우</button>
+                        </div>
+                        <div class="col-md-3">
+                        	<button type="button" class="btn btn-md btn-block">구독</button>
                         </div>
                     </div>
                     <br>
@@ -28,7 +34,7 @@
                             <a>10</a>
                         </div>
                         <div class="col-md-3 follow">
-                            <h4>팔로우</h4>
+                            <h4>팔로워</h4>
                             <a href="${pageContext.request.contextPath }/friend/followerlist.do">25</a>
                         </div>
                         <div class="col-md-3 follow">
