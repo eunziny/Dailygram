@@ -202,4 +202,20 @@ public class BoardController {
 	   service.addSiren(like);
 	   return "redirect:/board/post.do?bseq="+bseq;
    }
+   
+   @RequestMapping(value = "/board/friList.do")
+   public ModelAndView friProfile(HttpServletRequest req ,
+		   						@RequestParam(value="writer") String writer) {
+	   HttpSession session = req.getSession(false);
+	   Member mem  = (Member) session.getAttribute("memInfo");
+	   String id = mem.getId();
+	   System.out.println("¿€∞° : " + writer + " id : " + id);
+	   Board board = new Board(writer, id);
+	   List<Board> list = (ArrayList<Board>) service.getList(board);
+	   Member fri = service.friend(writer);
+	   ModelAndView mav = new ModelAndView("board/friList");
+	   mav.addObject("list", list);
+	   mav.addObject("fri", fri);
+	   return mav;
+  	}
 }

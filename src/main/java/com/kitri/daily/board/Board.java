@@ -11,14 +11,28 @@ public class Board {
 	private Date posted;
 	private String img;
 	private String public_yn;
-	private String likecnt;
+	private int likecnt;
+	private String sender;
 	
 	private MultipartFile file;
 	
 
 	public Board() {}
-	public Board(int board_seq, String writer, String content, Date posted, String img, String public_yn,
-			String likecnt) {
+	public Board(String writer, String sender) {
+		super();
+		this.writer = writer;
+		this.sender = sender;
+	}
+	public Board(int board_seq, String writer, String content, Date posted, String img, String public_yn) {
+		super();
+		this.board_seq = board_seq;
+		this.writer = writer;
+		this.content = content;
+		this.posted = posted;
+		this.img = img;
+		this.public_yn = public_yn;
+	}
+	public Board(int board_seq, String writer, String content, Date posted, String img, String public_yn, int likecnt) {
 		super();
 		this.board_seq = board_seq;
 		this.writer = writer;
@@ -71,17 +85,17 @@ public class Board {
 	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
-	public String getLikecnt() {
+	public int getLikecnt() {
 		return likecnt;
 	}
-	public void setLikecnt(String likecnt) {
+	public void setLikecnt(int likecnt) {
 		this.likecnt = likecnt;
 	}
-	
-	@Override
-	public String toString() {
-		return "Board [board_seq=" + board_seq + ", writer=" + writer + ", content=" + content + ", posted=" + posted
-				+ ", img=" + img + ", public_yn=" + public_yn + ", likecnt=" + likecnt + "]";
+	public String getSender() {
+		return sender;
+	}
+	public void setSender(String sender) {
+		this.sender = sender;
 	}
 	
 	

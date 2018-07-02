@@ -1,59 +1,60 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/container/header.jsp"%>   
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
-<html>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<style>
-.col-lg-12 {
-	padding:0;
-}
-.col-lg-4 {
-	padding-right:0;
-	padding-left:5px;
-}
-.lookimg {
-	width:100%;height:350px;margin-bottom:5px
-}
+<link href="${pageContext.request.contextPath }/resources/css/friList.css" rel="stylesheet">
 
-#looktop {
-	margin-top: 30px;
-	margin-bottom: 50px;
-}
+<%@ include file="/WEB-INF/views/container/header.jsp"%>
 
-#lookbottom {
-	margin-bottom: 70px;
-}
-
-.post_register {
-	padding-bottom:5%;
-}
-
- #add {
-  background-color: #9770f9; 
-  border: none;
-  color: white;
-  text-align: center;
-}
-</style>
 <br>
-<%@ include file="/WEB-INF/views/board/profile.jsp"%>
 <div class="container">
- <div class="post_register">
- <div class="col-lg-offset-10 col-lg-2">
-  <button type="submit" class="btn btn-primary" id = "add" 
-  	onclick="location.href='${pageContext.request.contextPath}/board/form.do'">게시물 등록
- </button>
+    <div class="row">
+		<div class="col-lg-offset-1 col-lg-10 col-lg-offset-1">
+            <div class="well row">
+                <div class="col-md-4 useravatar">
+                    <a href="#">
+                        <img src="http://placehold.it/160">
+                    </a>
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h2 class="media-heading">${fri.id }</h2>
+                        </div>
+                    </div>
+                    <br>
+            		<div class="row">
+            		    <div class="col-md-3 follow">
+                            <h4>게시물</h4>
+                            <a>10</a>
+                        </div>
+                        <div class="col-md-3 follow">
+                            <h4>팔로우</h4>
+                            <a href="${pageContext.request.contextPath }/friend/followerlist.do">25</a>
+                        </div>
+                        <div class="col-md-3 follow">
+                            <h4>팔로잉</h4>
+                            <a href="${pageContext.request.contextPath }/friend/followinglist.do">15</a>
+                        </div>
+                        <div class="col-md-3 follow">
+                            <h4>구독</h4>
+                            <a href="${pageContext.request.contextPath }/friend/subscribelist.do">5</a>
+                        </div>
+                    </div>
+                    <br>
+                    <h4>${fri.name}</h4>
+                    <h4>${fri.intro }</h4>
+                </div>
+            </div>
+        </div>
+	</div>
 </div>
-</div>
-</div>
-
+<br>
 <c:if test="${empty list }">
 <div class="row" id="lookbottom">
 	<div class="container">
 		<div class="col-lg-12">
 			<div class="gallery_product col-lg-offset-4 col-lg-4 col-lg-offset-4">
-			<h4> 게시물이 없습니다.</h4>
+			<h4> 게시물이 없습니다. </h4>
 		   </div>
 		</div>
 	</div>
