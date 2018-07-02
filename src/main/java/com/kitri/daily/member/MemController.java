@@ -1,5 +1,7 @@
 package com.kitri.daily.member;
 
+import java.util.ArrayList;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -32,6 +34,15 @@ public class MemController {
 		} else {
 			HttpSession session = req.getSession();
 			session.setAttribute("memInfo",mem);
+			
+			 ArrayList<Integer> list =  service.profileCount(m.getId());
+			for(int i=0;i<list.size();i++)
+				System.out.print(list.get(i) + ", ");
+			
+			session.setAttribute("followerCount", list.get(0));
+			session.setAttribute("followingCount",list.get(1));
+			session.setAttribute("subscribeCount", list.get(2));
+			
 			return "redirect:/board/myList.do";
 		}
 	}

@@ -158,21 +158,6 @@
 						AND status='y');
 	</select>
 	
-	<select id="selectProfileCount" resultType="java.lang.Integer" parameterType="String">
-		SELECT count(*)
-		FROM relationship
-		WHERE receiver=#{id}
-		AND status='y'
-		union
-		SELECT count(*)
-		FROM relationship
-		WHERE sender=#{id}
-		AND status='y'
-		union
-		SELECT count(*)
-		FROM relationship
-		WHERE sender=#{id}
-		AND status='r'
-	</select>
+
 
 </mapper>

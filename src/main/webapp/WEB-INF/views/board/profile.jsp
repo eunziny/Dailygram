@@ -28,24 +28,6 @@
 	font-size: 20px;
 }
 </style>
-<script>
-
- $(function(){
-	 $.ajax({
-			method:"post",
-			url:"<%=request.getContextPath()%>/board/profile.do",
-			success : function(data) {
-				console.log(data);
-				if (data != null) {
-					//$('a[name=follow]') = data[0];
-					//$('a[name=following]') = data[1];
-					//$('a[name=subscribe]') = data[2];
-				}
-			}
-		});
-		return false;
-	});
-</script>
 <!------ Include the above in your HEAD tag ---------->
 <br>
 <div class="container">
@@ -74,17 +56,17 @@
 						<div class="col-md-3 follow">
 							<h4>팔로우</h4>
 							<a name="follow"
-								href="${pageContext.request.contextPath }/friend/followerlist.do?id=${sessionScope.memInfo.id }"></a>
+								href="${pageContext.request.contextPath }/friend/followerlist.do?id=${sessionScope.memInfo.id }">${sessionScope.followerCount }</a>
 						</div>
 						<div class="col-md-3 follow">
 							<h4>팔로잉</h4>
 							<a name="following"
-								href="${pageContext.request.contextPath }/friend/followinglist.do?id=${sessionScope.memInfo.id }"></a>
+								href="${pageContext.request.contextPath }/friend/followinglist.do?id=${sessionScope.memInfo.id }">${sessionScope.followingCount }</a>
 						</div>
 						<div class="col-md-3 follow">
 							<h4>구독</h4>
 							<a name="subscribe"
-								href="${pageContext.request.contextPath }/friend/subscribelist.do?id=${sessionScope.memInfo.id }"></a>
+								href="${pageContext.request.contextPath }/friend/subscribelist.do?id=${sessionScope.memInfo.id }">${sessionScope.subscribeCount }</a>
 						</div>
 					</div>
 					<br>
