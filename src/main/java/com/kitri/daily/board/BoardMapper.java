@@ -11,4 +11,5 @@ public interface BoardMapper {
 	Like myType(Like like);
 	void delType(Like like);
 	void addLike (Like like);
+	void addSiren (Like like);
 }

@@ -22,7 +22,7 @@
 	</resultMap>
 
 	<select id="select" resultMap="BoardResult" parameterType="java.lang.Integer">
-		select b.* , count(ls.type) likecnt from board b
+		select b.* , count(if(ls.type='L', ls.type, null)) likecnt from board b
 		join like_siren ls on b.board_seq = ls.board_seq
 		where b.board_seq = #{board_seq}
 	</select>
@@ -69,7 +69,14 @@
 	
 	<insert id="addLike" parameterType="com.kitri.daily.board.Like">
 		INSERT INTO like_siren (`board_seq`, `sender`, `type`, `date`) 
-		VALUES (#{board_seq},  #{sender}, 'L', now());
+		VALUES (#{board_seq},  #{sender}, 'L', now())
+		ON DUPLICATE KEY UPDATE board_seq=#{board_seq}, sender=#{sender}, type='L', date=now();
+	</insert>
+	
+	<insert id="addSiren" parameterType="com.kitri.daily.board.Like">
+		INSERT INTO like_siren (`board_seq`, `sender`, `type`, `date`) 
+		VALUES (#{board_seq},  #{sender}, 'S', now())
+		ON DUPLICATE KEY UPDATE board_seq=#{board_seq}, sender=#{sender}, type='S', date=now();
 	</insert>
 
 </mapper>

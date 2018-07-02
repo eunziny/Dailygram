@@ -22,10 +22,20 @@
 						<i class="fas fa-ellipsis-v fa-2x"></i>
 					  </a>
 					  <ul class="dropdown-menu dropdown-menu-right">
-						<li><a href="${pageContext.request.contextPath }/board/updateBoard.do?board_seq=${b.board_seq}&writer=${b.writer}">수정</a></li>
-						<li><a href="${pageContext.request.contextPath }/board/del.do">삭제</a></li>
-						<li class="divider"></li>
-						<li><a id="silen">신고</a></li>
+					  	<c:choose>
+					  		<c:when test="${b.writer eq sessionScope.memInfo.id }">
+					  			<li><a href="${pageContext.request.contextPath }/board/updateBoard.do?bseq=${b.board_seq}">수정</a></li>
+								<li><a href="${pageContext.request.contextPath }/board/del.do">삭제</a></li>
+					  		</c:when>  
+					  		<c:otherwise>
+					  			<c:if test="${l.type eq null or l.type eq 'L'}">
+							  		<li><a href="${pageContext.request.contextPath }/board/siren.do?bseq=${b.board_seq}">신고</a></li>
+							  	</c:if>
+							 	<c:if test="${l.type eq 'S'}">
+							  		<li><a href="${pageContext.request.contextPath }/board/delType.do?bseq=${b.board_seq}">신고 취소하기</a></li>
+		                      	</c:if>
+					  		</c:otherwise>
+					  	</c:choose>
 					  </ul>
                     </div>
                     
@@ -38,12 +48,12 @@
                     
                     <div class='footer'>
                       <div class='react'>
-                      	<c:if test="${l.type eq null}">
+                      	<c:if test="${l.type eq null or l.type eq 'S'}">
                         	<a role='button' href="${pageContext.request.contextPath }/board/like.do?bseq=${b.board_seq}">
                         		<i class="far fa-heart fa-2x"></i></a>
                         </c:if>
                         <c:if test="${l.type eq 'L'}">
-                          	<a role='button' href="${pageContext.request.contextPath }/board/delLike.do?bseq=${b.board_seq}">
+                          	<a role='button' href="${pageContext.request.contextPath }/board/delType.do?bseq=${b.board_seq}">
                           		<i class="fas fa-heart fa-2x"></i></a>
                         </c:if>
                         <a role='button'><i class="far fa-comments fa-2x"></i></a>

@@ -64,4 +64,10 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
 		boardMapper.addLike(like);
 	}
+
+	@Override
+	public void addSiren(Like like) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.addSiren(like);
+	}
 }
