@@ -9,4 +9,6 @@ public interface BoardMapper {
 	void delete(int board_seq, String writer);
 	List<Board> myList(String id);
 	List<Comment> selectComments(int board_seq);
+	void insertNewComment(Comment co);
+	void insertRepComment(Comment co);
 }

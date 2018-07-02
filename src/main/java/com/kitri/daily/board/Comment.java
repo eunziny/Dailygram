@@ -27,6 +27,20 @@ public class Comment {
 		this.content = content;
 		this.writer = writer;
 	}
+	
+	public Comment(int board_seq, int com_seq, String content, String writer) {
+		super();
+		this.board_seq = board_seq;
+		this.com_seq = com_seq;
+		this.content = content;
+		this.writer = writer;
+	}
+	public Comment(int board_seq, String content, String writer) {
+		super();
+		this.board_seq = board_seq;
+		this.content = content;
+		this.writer = writer;
+	}
 	public int getBoard_seq() {
 		return board_seq;
 	}

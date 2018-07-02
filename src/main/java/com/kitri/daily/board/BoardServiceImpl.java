@@ -52,4 +52,17 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
 		return boardMapper.selectComments(board_seq);
 	}
+
+	@Override
+	public void insertNewComment(Comment co) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.insertNewComment(co);
+	}
+
+	@Override
+	public void insertRepComment(Comment co) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.insertRepComment(co);
+		
+	}
 }

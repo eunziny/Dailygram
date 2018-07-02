@@ -9,4 +9,6 @@ public interface BoardService {
 	void delBoard(int board_seq, String writer);
 	List<Board> getMyList(String id);
 	List<Comment> getComments(int bseq);
+	void insertNewComment(Comment co);
+	void insertRepComment(Comment co);
 }

@@ -61,4 +61,15 @@
 		order by step
 	</select>
 
+	<insert id="insertNewComment" parameterType="com.kitri.daily.board.Comment">
+		insert into comment
+		(`board_seq`,`ref`,`lev`,`step`,`pseq`,`reply`,`content`,`writer`)
+		select #{board_seq} ,ifnull(max(ref),0)+1, 0 , ifnull(max(step)+1,0) , 0 , 0
+		,#{content},#{writer} from comment
+		where board_seq = #{board_seq};
+	</insert>
+
+	<insert id="insertRepComment" parameterType="com.kitri.daily.board.Comment">
+		<!-- 자 여기부터 트렌젝션 처리해야한다.... -->
+	</insert>
 </mapper>
