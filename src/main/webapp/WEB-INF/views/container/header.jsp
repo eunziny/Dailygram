@@ -131,7 +131,12 @@ $(document).ready(function(e){
 			</div>
 			</form>	
 		</div>
-	<div id='right'>
+		<!-- <div class="col-md-offset-1 col-md-4"> -->
+		<div id="search" style="display: none; border: #a4a6a5 solid 1px; width: 100px">
+			<div id="searchlist"></div>
+		</div>
+		<!-- </div> -->
+		<div id='right'>
 	<div class="col-md-4">
       <ul class="nav navbar-right pull-right top-nav">
       	<li class="dropdown dropdown-notification">
