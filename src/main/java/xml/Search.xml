@@ -38,7 +38,7 @@
       from board AS b
       join hashtag AS h
       on b.board_seq = h.board_seq
-      where tagname = #{searchValue}
+      where tagname = #{searchValue} and block_yn = 'N'
       order by b.posted desc;
    </select>
 
