@@ -44,14 +44,22 @@ public class FriController {
 			//로그인한 회원의 intro 가져오기
 			String user_intro = service.getUserIntro(id);
 			System.out.println("로그인한 회원의 소개글 : " + user_intro);
+			
 			//-> 해시태그 단위로 잘라서 배열로 만들기
-			String[] introArray = user_intro.split(" ");
-			System.out.println("해시태그 갯수 : " + introArray.length);
-			for(int i=0;i<introArray.length;i++) System.out.println(introArray[i]);
+			String[] introArray = null;
+			if(user_intro != null) {
+				introArray = user_intro.split(" ");
+				System.out.println("해시태그 갯수 : " + introArray.length);
+				for(int i=0;i<introArray.length;i++) System.out.println(introArray[i]);
+			}
 			
 			
 			// intro 해시태그 기준으로 회원 추천해주기
-			if(introArray.length == 0) {//소개글이 null 일경우 || 해시태그로 이루어져있지 않은 경우(좋아요 기준으로 회원 추천)
+			if(user_intro==null) {
+				list = (ArrayList<Friend>) service.getRecommend2(id);
+				mav.addObject("list", list);
+			}
+			else if(introArray.length == 0) {//소개글이 null 일경우 || 해시태그로 이루어져있지 않은 경우(좋아요 기준으로 회원 추천)
 				list = (ArrayList<Friend>) service.getRecommend2(id);
 				mav.addObject("list", list);
 
