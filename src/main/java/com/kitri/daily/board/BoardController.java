@@ -20,7 +20,7 @@ import com.kitri.daily.member.Member;
 
 @Controller
 public class BoardController {
-   String basePath = "D:\\driver\\apache-tomcat-8.5.30\\webapps";
+   String basePath = "D:\\apache-tomcat-8.5.30\\webapps";
 
    @Resource(name = "boardService")
    private BoardService service;
@@ -150,14 +150,23 @@ public class BoardController {
    @RequestMapping(value = "/board/post.do")
    public ModelAndView detail(HttpServletRequest req ,@RequestParam(value="bseq") int bseq) {
       ModelAndView mav = new ModelAndView("board/post");
-      Board b = service.detailBoard(bseq);
       HttpSession session = req.getSession(false);
 	  Member mem  = (Member) session.getAttribute("memInfo");
 	  String id = mem.getId();
 	  Like like = new Like(bseq,id);
-      Like l = service.getType(like);
-      mav.addObject("b", b);
+	  Like l = service.getType(like);
       mav.addObject("l", l);
+	  Board b = service.detailBoard(bseq);
+      List<Comment> coList = service.getComments(bseq);//해당글의 코멘트 리스트들 가져오기.
+      System.out.println("댓글 개수:"+coList.size());
+      mav.addObject("b", b);
+      mav.addObject("coList",coList);
+      String upfolder = basePath + "\\thumbnail\\"; // img 가져올 파일 경로
+      System.out.println("이미지~~~~~~!! "+b.getImg());
+      String path = upfolder + b.getImg();
+      System.out.println(path);
+      mav.addObject("path", path);
+      
       return mav;
    }
    
@@ -234,9 +243,18 @@ public class BoardController {
 	   Board board = new Board(writer, id);
 	   List<Board> list = (ArrayList<Board>) service.getList(board);
 	   Member fri = service.friend(writer);
+	   session.setAttribute("friendId", writer);
 	   ModelAndView mav = new ModelAndView("board/friList");
 	   mav.addObject("list", list);
 	   mav.addObject("fri", fri);
+	 
+	   ArrayList<Integer> count =  service.FriendprofileCount(writer);
+		for(int i=0;i<count.size();i++)
+			System.out.print(count.get(i) + ", ");
+		
+		session.setAttribute("friendfollowerCount", count.get(0));
+		session.setAttribute("friendfollowingCount",count.get(1));
+		session.setAttribute("friendsubscribeCount", count.get(2));
 	   return mav;
   	}
 }

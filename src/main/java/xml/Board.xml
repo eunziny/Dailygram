@@ -144,6 +144,23 @@
 		group by m.id
 	</select>
 	
+	<select id="selectFriendProfileCount" resultType="Integer" parameterType="String">
+		SELECT count(*)
+		FROM relationship
+		WHERE receiver=#{id}
+		AND status='y'
+		union
+		SELECT count(*)
+		FROM relationship
+		WHERE sender=#{id}
+		AND status='y'
+		union
+		SELECT count(*)
+		FROM relationship
+		WHERE sender=#{id}
+		AND status='r'
+	</select>
+	
 	<!-- <update id="delayUdate" parameterType="com.kitri.daily.board.Board">
 		set sql_safe_updates = 0;
 		update board
@@ -151,5 +168,4 @@
 		where public_yn='yd' or public_yn='nd'
 		and board_seq=#{board_seq}
 	</update> -->
-
 </mapper>
