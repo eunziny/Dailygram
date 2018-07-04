@@ -11,5 +11,5 @@ public interface BoardService {
 	void delBoard(int board_seq, String writer);
 	List<Board> getMyList(String id);
 	List<Board> getNewsfeed(String id);
-	List<Hashtag>insertHashtag(Hashtag h);
+	void insertHashtag(Hashtag h);
 }

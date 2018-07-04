@@ -5,27 +5,24 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.kitri.daily.member.Member;
 import com.kitri.daily.search.Hashtag;
-import com.sun.media.jfxmedia.logging.Logger;
 
 @Controller
 public class BoardController {
@@ -90,7 +87,41 @@ public class BoardController {
 			}
 		}
 		service.uploadBoard(b);
+		return "redirect:/board/tagInsert.do";
+	}
+
+	@RequestMapping(value = "/board/tagInsert.do")
+	public String hashTag(HttpServletRequest req, Board b) {
+		// ÇØ½ÃÅÂ±× Ã³¸®
+		if (b.getContent().contains("#")) {
+			String block_yn = "N";
+			String content = b.getContent(); // ±âÁ¸¿¡ board¿¡ ÀÖ´Â ³»¿ëÀ» °¡Á®¿Â´Ù.
+			System.out.println("±Û³»¿ë: " + content);
+			System.out.println("±Û¹øÈ£ : " + b.getBoard_seq());
+
+			// Á¤±ÔÇ¥Çö½ÄÀ» ÀÌ¿ëÇÑ ÇØ½ÃÅÂ±× ÃßÃâ
+			Pattern p = Pattern.compile("\\#([0-9a-zA-Z°¡-ÆR]*)");
+			Matcher m = p.matcher(content);
+			String extTag = null;
+			// #ÀÌ ºÙÀº ¹®ÀÚ¿­À» Ã£¾Æ¼­ insert
+			while (m.find()) {
+				extTag = ch_replace(m.group());
+				if (extTag != null) {
+					Hashtag h = new Hashtag(b.getBoard_seq(), extTag, block_yn);
+					service.insertHashtag(h);
+					System.out.println("ÇØ½ÃÅÂ±× : " + extTag);
+				}
+			}
+		}
 		return "redirect:/board/myList.do";
+	}
+
+	public String ch_replace(String str) {
+		str = StringUtils.replace(str, "-_+=!@#$%^&*()[]{}|\\;:'\"<>,.?/~`£© ", "");
+		if (str.length() < 1) {
+			return null;
+		}
+		return str;
 	}
 
 	@RequestMapping(value = "/board/updateBoard.do")
@@ -170,12 +201,6 @@ public class BoardController {
 		String path = upfolder + b.getImg();
 		System.out.println(path);
 		mav.addObject("path", path);
-		if (b.getContent().contains("#")) {
-			String block_yn = "N";
-			Hashtag h = new Hashtag(bseq, b.getContent(), block_yn);
-			List<Hashtag> taglist = (ArrayList<Hashtag>) service.insertHashtag(h);
-			mav.addObject("tag", taglist);
-		}
 		return mav;
 	}
 

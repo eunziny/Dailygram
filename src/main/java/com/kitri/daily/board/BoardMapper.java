@@ -11,5 +11,5 @@ public interface BoardMapper {
 	void delete(int board_seq, String writer);
 	List<Board> myList(String id);
 	List<Board> newsfeed(String id);
-	List<Hashtag>insertTag(Hashtag h);
+	void insertTag(Hashtag h);
 }
