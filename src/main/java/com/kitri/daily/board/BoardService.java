@@ -15,5 +15,5 @@ public interface BoardService {
 	void delType(Like like);
 	void addLike(Like like);
 	void addSiren(Like like);
-	Member friend (String writer);
+	Member friend(String writer);
 }

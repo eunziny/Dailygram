@@ -13,7 +13,7 @@ public interface BoardMapper {
 	List<Board> list(Board board);
 	Like myType(Like like);
 	void delType(Like like);
-	void addLike (Like like);
-	void addSiren (Like like);
-	Member friend (String writer);
+	void addLike(Like like);
+	void addSiren(Like like);
+	Member friend(String writer);
 }

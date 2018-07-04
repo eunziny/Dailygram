@@ -63,6 +63,7 @@
 
 	<select id="myList" resultMap="BoardResult" parameterType="String"> 
 		select * from board where writer=#{writer}
+		order by posted desc
 	</select>
 	
 	<!-- 구독이거나 아무사이도 아닐 때 공개계정 공개게시물만 리스트로 뿌림 -->
@@ -81,6 +82,7 @@
 		and b.public_yn='y'
 		and m.publicyn='y'
 		and r.status!='y'
+        and now() >= date_add(b.posted, interval 1 minute)
 		group by b.board_seq
 		union
 		SELECT b.*
@@ -89,6 +91,7 @@
 		where b.writer=#{writer}
 		and r.sender =#{sender}
 		and r.status='y'
+        and now() >= date_add(b.posted, interval 1 minute)
 		group by b.board_seq
 		union
 		SELECT b.*
@@ -97,6 +100,7 @@
 		where b.writer=#{writer}
 		and b.public_yn='y'
 		and m.publicyn='y'
+        and now() >= date_add(b.posted, interval 1 minute)
 		group by b.board_seq
 		) a
 		order by a.posted desc
@@ -139,5 +143,13 @@
 		where b.writer = #{writer}
 		group by m.id
 	</select>
+	
+	<!-- <update id="delayUdate" parameterType="com.kitri.daily.board.Board">
+		set sql_safe_updates = 0;
+		update board
+		set public_yn=#{public_yn}
+		where public_yn='yd' or public_yn='nd'
+		and board_seq=#{board_seq}
+	</update> -->
 
 </mapper>
