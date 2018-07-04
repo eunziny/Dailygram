@@ -85,18 +85,11 @@ public class BoardController {
 	} 
 
    @RequestMapping(value = "/board/updateBoard.do")
-   public ModelAndView editBoard(Board b, HttpServletRequest req) {
+   public ModelAndView editBoard(@RequestParam(value="bseq") int bseq,
+		   						HttpServletRequest req) {
       ModelAndView mav = new ModelAndView("board/editForm");
-      HttpSession session = req.getSession(false);
-      Member mem  = (Member) session.getAttribute("memInfo");
-      String id = mem.getId();
-      Board update = service.detailBoard(b.getBoard_seq());
+      Board update = service.detailBoard(bseq);
       mav.addObject("update", update);
-      /*
-       * String originpath = update.getImg(); // 파일경로를 가져옴 int index =
-       * originpath.lastIndexOf("\\"); String path = originpath.substring(index + 1);
-       * System.out.println(path); mav.addObject("path", path);
-       */
       return mav;
    }
 
@@ -106,14 +99,11 @@ public class BoardController {
       String upfolder = basePath + "\\thumbnail\\"; // 썸네일 처리한 파일 경로
       MultipartFile file = b.getFile(); // form.jsp에서 선택한 파일 가져오기
       if (file != null && !file.equals("")) {
-         File dir = new File(originPath);
          Board d = service.detailBoard(b.getBoard_seq());
          String del = originPath + d.getImg(); // 원본파일 경로와 파일명
-         System.out.println("파일" + del);
+         String del2 = upfolder + d.getImg(); // 원본파일 경로와 파일명
          File delete = new File(del);
-         if (!dir.exists()) {
-            dir.mkdirs();
-         }
+         File delete2 = new File(del2);
          // 파일 중복방지 처리
          String[] extension = file.getOriginalFilename().split("\\.");
          String FileType = extension[extension.length - 1];
@@ -124,6 +114,7 @@ public class BoardController {
          try {
             file.transferTo(f); // 새로운 파일을 넣음
             delete.delete();
+            delete2.delete();
          } catch (IllegalStateException e) {
             e.printStackTrace();
          } catch (IOException e) {
@@ -153,13 +144,20 @@ public class BoardController {
          }
       }
       service.editBoard(b);
-      return "redirect:/board/post.do";
+      System.out.println(b);
+      return "redirect:/board/post.do?bseq="+b.getBoard_seq();
    }
 
    @RequestMapping(value = "/board/post.do")
-   public ModelAndView detail(HttpSession session, HttpServletRequest req ,@RequestParam(value="bseq") int bseq) {
+   public ModelAndView detail(HttpServletRequest req ,@RequestParam(value="bseq") int bseq) {
       ModelAndView mav = new ModelAndView("board/post");
-      Board b = service.detailBoard(bseq);
+      HttpSession session = req.getSession(false);
+	  Member mem  = (Member) session.getAttribute("memInfo");
+	  String id = mem.getId();
+	  Like like = new Like(bseq,id);
+	  Like l = service.getType(like);
+      mav.addObject("l", l);
+	  Board b = service.detailBoard(bseq);
       List<Comment> coList = service.getComments(bseq);//해당글의 코멘트 리스트들 가져오기.
       System.out.println("댓글 개수:"+coList.size());
       mav.addObject("b", b);
@@ -169,6 +167,7 @@ public class BoardController {
       String path = upfolder + b.getImg();
       System.out.println(path);
       mav.addObject("path", path);
+      
       return mav;
    }
    
@@ -182,4 +181,50 @@ public class BoardController {
 	   mav.addObject("list", boardlist);
 	   return mav;
    }
+   
+   @RequestMapping(value = "/board/delType.do")
+   public String delType (HttpServletRequest req ,@RequestParam(value="bseq") int bseq) {
+	   HttpSession session = req.getSession(false);
+	   Member mem  = (Member) session.getAttribute("memInfo");
+	   String id = mem.getId();
+	   Like like = new Like(bseq, id);
+	   service.delType(like);
+	   return "redirect:/board/post.do?bseq="+bseq;
+   }
+   
+   @RequestMapping(value = "/board/like.do")
+   public String like (HttpServletRequest req ,@RequestParam(value="bseq") int bseq) {
+	   HttpSession session = req.getSession(false);
+	   Member mem  = (Member) session.getAttribute("memInfo");
+	   String id = mem.getId();
+	   Like like = new Like(bseq, id);
+	   service.addLike(like);
+	   return "redirect:/board/post.do?bseq="+bseq;
+   }
+   
+   @RequestMapping(value = "/board/siren.do")
+   public String siren (HttpServletRequest req ,@RequestParam(value="bseq") int bseq) {
+	   HttpSession session = req.getSession(false);
+	   Member mem  = (Member) session.getAttribute("memInfo");
+	   String id = mem.getId();
+	   Like like = new Like(bseq, id);
+	   service.addSiren(like);
+	   return "redirect:/board/post.do?bseq="+bseq;
+   }
+   
+   @RequestMapping(value = "/board/friList.do")
+   public ModelAndView friProfile(HttpServletRequest req ,
+		   						@RequestParam(value="writer") String writer) {
+	   HttpSession session = req.getSession(false);
+	   Member mem  = (Member) session.getAttribute("memInfo");
+	   String id = mem.getId();
+	   System.out.println("작가 : " + writer + " id : " + id);
+	   Board board = new Board(writer, id);
+	   List<Board> list = (ArrayList<Board>) service.getList(board);
+	   Member fri = service.friend(writer);
+	   ModelAndView mav = new ModelAndView("board/friList");
+	   mav.addObject("list", list);
+	   mav.addObject("fri", fri);
+	   return mav;
+  	}
 }

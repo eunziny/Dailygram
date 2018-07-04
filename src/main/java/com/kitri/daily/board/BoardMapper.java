@@ -2,6 +2,8 @@ package com.kitri.daily.board;
 
 import java.util.List;
 
+import com.kitri.daily.member.Member;
+
 public interface BoardMapper {
 	void insert(Board b);
 	Board select(int board_seq);
@@ -11,4 +13,10 @@ public interface BoardMapper {
 	List<Comment> selectComments(int board_seq);
 	void insertNewComment(Comment co);
 	void insertRepComment(Comment co);
+	List<Board> list(Board board);
+	Like myType(Like like);
+	void delType(Like like);
+	void addLike (Like like);
+	void addSiren (Like like);
+	Member friend (String writer);
 }

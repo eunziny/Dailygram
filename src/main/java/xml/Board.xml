@@ -36,17 +36,6 @@
 		<result column="publicyn" property="publicyn" />
 		<result column="intro" property="intro" />
 	</resultMap>
-	
-	<resultMap id="CommentResult" type="com.kitri.daily.board.Comment">
-		<result column="board_seq" property="board_seq" />
-		<result column="com_seq" property="com_seq" />
-		<result column="ref" property="ref" />
-		<result column="lev" property="lev" />
-		<result column="step" property="step" />
-		<result column="pseq" property="pseq" />
-		<result column="reply" property="reply" />
-		<result column="content" property="content" />
-	</resultMap>
 
 	<select id="select" resultMap="BoardResult" parameterType="java.lang.Integer">
 		select b.* , count(if(ls.type='L', ls.type, null)) likecnt from board b
@@ -150,24 +139,5 @@
 		where b.writer = #{writer}
 		group by m.id
 	</select>
-	
-	<select id="selectComments" resultMap="CommentResult"
-		parameterType="java.lang.Integer">
-		select * from comment
-		where board_seq = #{board_seq}
-		order by step
-	</select>
-
-	<insert id="insertNewComment" parameterType="com.kitri.daily.board.Comment">
-		insert into comment
-		(`board_seq`,`ref`,`lev`,`step`,`pseq`,`reply`,`content`,`writer`)
-		select #{board_seq} ,ifnull(max(ref),0)+1, 0 , ifnull(max(step)+1,0) , 0 , 0
-		,#{content},#{writer} from comment
-		where board_seq = #{board_seq};
-	</insert>
-
-	<insert id="insertRepComment" parameterType="com.kitri.daily.board.Comment">
-		<!-- 자 여기부터 트렌젝션 처리해야한다.... -->
-	</insert>
 
 </mapper>

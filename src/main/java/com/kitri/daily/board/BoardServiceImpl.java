@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
+import com.kitri.daily.member.Member;
+
 @Component("boardService")
 public class BoardServiceImpl implements BoardService {
 	@Resource(name="sqlSession")//의존성 주입
@@ -65,4 +67,39 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.insertRepComment(co);
 		
 	}
+	public Like getType(Like like) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.myType(like);
+	}
+
+	@Override
+	public void delType(Like like) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.delType(like);
+	}
+
+	@Override
+	public void addLike(Like like) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.addLike(like);
+	}
+
+	@Override
+	public void addSiren(Like like) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.addSiren(like);
+	}
+
+	@Override
+	public List<Board> getList(Board board) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.list(board);
+	}
+
+	@Override
+	public Member friend(String writer) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.friend(writer);
+	}
+
 }
