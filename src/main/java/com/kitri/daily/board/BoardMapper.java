@@ -13,10 +13,14 @@ public interface BoardMapper {
 	List<Comment> selectComments(int board_seq);
 	void insertNewComment(Comment co);
 	void insertRepComment(Comment co);
+	void updateStep(Comment co);
+	void updateReply(Comment co);
 	List<Board> list(Board board);
 	Like myType(Like like);
 	void delType(Like like);
 	void addLike (Like like);
 	void addSiren (Like like);
 	Member friend (String writer);
+	void updateComment(Comment co);
+	void deleteComment(Comment co);
 }
