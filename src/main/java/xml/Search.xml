@@ -5,7 +5,7 @@
 
 <mapper namespace="com.kitri.daily.search.SearchMapper">
 	
-	 <resultMap id="SearchResult" type="com.kitri.daily.search.Search">
+   <resultMap id="SearchResult" type="com.kitri.daily.search.Search">
       <result column="board_seq" property="board_seq" />
       <result column="img" property="img" />
       <result column="posted" property="posted" />
@@ -19,6 +19,13 @@
 		<result column="board_seq" property="board_seq" />
 		<result column="img1" property="img1" />
 	</resultMap>
+	
+	<select id="selectByAuto" parameterType="String" resultMap="SearchResult">
+		select tagname
+		from hashtag
+		where tagname like CONCAT(#{term},'%')
+		order by tagname
+	</select>
 
 	<select id="selectByUser" parameterType="String" resultMap="SearchResult">
       select id, profile_img 
@@ -31,7 +38,7 @@
       from board AS b
       join hashtag AS h
       on b.board_seq = h.board_seq
-      where tagname = #{searchValue}
+      where tagname = #{searchValue} and block_yn = 'N'
       order by b.posted desc;
    </select>
 
