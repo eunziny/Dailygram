@@ -27,7 +27,8 @@
 	font-weight: bold;
 	font-size: 20px;
 }
-</style>
+</style> 
+
 <!------ Include the above in your HEAD tag ---------->
 <br>
 <div class="container">
@@ -40,38 +41,41 @@
 				</div>
 				<div class="col-md-8">
 					<div class="row">
-						<div class="col-md-5">
-							<h2 class="media-heading">${sessionScope.memInfo.id }</h2>
+						<div class="col-md-3">
+							<h2 class="media-heading">${sessionScope.friendId }</h2>
 						</div>
-						<div class="col-md-4">
-							<a href="#" class="btn btn-default" id="edit">프로필 수정</a>
+						<div class="col-md-6">
+							<button type="button" class="btn btn-md btn-block">팔로우</button>
+						</div>
+						<div class="col-md-3">
+							<button type="button" class="btn btn-md btn-block">구독</button>
 						</div>
 					</div>
 					<br>
 					<div class="row">
 						<div class="col-md-3 follow">
 							<h4>게시물</h4>
-							<a href="#">10</a>
+							<a>10</a>
 						</div>
 						<div class="col-md-3 follow">
 							<h4>팔로워</h4>
 							<a name="follow"
-								href="${pageContext.request.contextPath }/friend/followerlist.do?id=${sessionScope.memInfo.id }">${sessionScope.followerCount }</a>
+								href="${pageContext.request.contextPath }/friend/friendfollowerlist.do?id=${sessionScope.friendId }&user_id=${sessionScope.memInfo.id }">${sessionScope.friendfollowerCount }</a>
 						</div>
 						<div class="col-md-3 follow">
 							<h4>팔로잉</h4>
 							<a name="following"
-								href="${pageContext.request.contextPath }/friend/followinglist.do?id=${sessionScope.memInfo.id }">${sessionScope.followingCount }</a>
+								href="${pageContext.request.contextPath }/friend/friendfollowinglist.do?id=${sessionScope.friendId }&user_id=${sessionScope.memInfo.id }">${sessionScope.friendfollowingCount }</a>
 						</div>
 						<div class="col-md-3 follow">
 							<h4>구독</h4>
-							<a name="subscribe"
-								href="${pageContext.request.contextPath }/friend/subscribelist.do?id=${sessionScope.memInfo.id }">${sessionScope.subscribeCount }</a>
+							<a name="subscribe" href="#">${sessionScope.friendsubscribeCount }</a>
+								<!-- <a name="subscribe" href="${pageContext.request.contextPath }/friend/subscribelist.do?id=${sessionScope.memInfo.id }">${sessionScope.friendsubscribeCount }</a>  -->
 						</div>
+						<br>
+						<h4>${fri.name}</h4>
+						<h4>${fri.intro }</h4>
 					</div>
-					<br>
-					<h4>${sessionScope.memInfo.name }</h4>
-					<h4>${sessionScope.memInfo.intro }</h4>
 				</div>
 			</div>
 		</div>

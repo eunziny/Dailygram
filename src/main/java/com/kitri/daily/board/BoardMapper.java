@@ -1,5 +1,6 @@
 package com.kitri.daily.board;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.kitri.daily.member.Member;
@@ -16,4 +17,5 @@ public interface BoardMapper {
 	void addLike (Like like);
 	void addSiren (Like like);
 	Member friend (String writer);
+	ArrayList<Integer> selectFriendProfileCount(String id);
 }
