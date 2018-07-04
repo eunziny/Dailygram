@@ -151,14 +151,23 @@ public class BoardController {
    @RequestMapping(value = "/board/post.do")
    public ModelAndView detail(HttpServletRequest req ,@RequestParam(value="bseq") int bseq) {
       ModelAndView mav = new ModelAndView("board/post");
-      Board b = service.detailBoard(bseq);
       HttpSession session = req.getSession(false);
 	  Member mem  = (Member) session.getAttribute("memInfo");
 	  String id = mem.getId();
 	  Like like = new Like(bseq,id);
-      Like l = service.getType(like);
-      mav.addObject("b", b);
+	  Like l = service.getType(like);
       mav.addObject("l", l);
+	  Board b = service.detailBoard(bseq);
+      List<Comment> coList = service.getComments(bseq);//해당글의 코멘트 리스트들 가져오기.
+      System.out.println("댓글 개수:"+coList.size());
+      mav.addObject("b", b);
+      mav.addObject("coList",coList);
+      String upfolder = basePath + "\\thumbnail\\"; // img 가져올 파일 경로
+      System.out.println("이미지~~~~~~!! "+b.getImg());
+      String path = upfolder + b.getImg();
+      System.out.println(path);
+      mav.addObject("path", path);
+      
       return mav;
    }
    
