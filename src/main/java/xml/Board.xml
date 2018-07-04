@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kitri.daily.board.BoardMapper">
+
+	<resultMap id="BoardResult" type="com.kitri.daily.board.Board">
+		<result column="board_seq" property="board_seq" />
+		<result column="writer" property="writer" />
+		<result column="content" property="content" />
+		<result column="posted" property="posted" />
+		<result column="img" property="img" />
+		<result column="public_yn" property="public_yn" />
+		<result column="likecnt" property="likecnt" />
+		<result column="sender" property="sender" />
+	</resultMap>
+	
+	<resultMap id="LikeResult" type="com.kitri.daily.board.Like">
+		<result column="board_seq" property="board_seq" />
+		<result column="sender" property="sender" />
+		<result column="type" property="type" />
+		<result column="date" property="date" />
+	</resultMap>
+	
+	<resultMap id="MemberResult" type="com.kitri.daily.member.Member">
+		<result column="id" property="id" />
+		<result column="pwd" property="pwd" />
+		<result column="name" property="name" />
+		<result column="birthday" property="birthday" />
+		<result column="email" property="email" />
+		<result column="address" property="address" />
+		<result column="gender" property="gender" />
+		<result column="joindate" property="joindate" />
+		<result column="useyn" property="useyn" />
+		<result column="profile_img" property="profile_img" />
+		<result column="publicyn" property="publicyn" />
+		<result column="intro" property="intro" />
+	</resultMap>
+
+	<select id="select" resultMap="BoardResult" parameterType="java.lang.Integer">
+		select b.* , count(if(ls.type='L', ls.type, null)) likecnt from board b
+		join like_siren ls on b.board_seq = ls.board_seq
+		where b.board_seq = #{board_seq}
+	</select>
+
+	<insert id="insert" parameterType="com.kitri.daily.board.Board">
+		insert into board (`writer`, `content`, `posted`, `img`, `public_yn`)
+		values (#{writer}, #{content}, now(), #{img}, #{public_yn})
+	</insert>
+
+	<update id="update" parameterType="com.kitri.daily.board.Board">
+		update board
+		set
+		content=#{content}, img=#{img}, public_yn=#{public_yn}
+		where board_seq=#{board_seq}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		delete board
+		where
+		writer=#{writer} and board_seq=#{board_seq}
+	</delete>
+
+	<select id="myList" resultMap="BoardResult" parameterType="String"> 
+		select * from board where writer=#{writer}
+	</select>
+	
+	<!-- 구독이거나 아무사이도 아닐 때 공개계정 공개게시물만 리스트로 뿌림 -->
+	<!-- 친구일때 -->
+	<select id="list" resultMap="BoardResult" parameterType="com.kitri.daily.board.Board">
+		select a.*
+		from
+		(
+		SELECT b.*
+		FROM board b join relationship r
+		on b.writer = r.receiver
+		join member m
+		on r.receiver = m.id
+		where b.writer=#{writer}
+		and r.sender =#{sender}
+		and b.public_yn='y'
+		and m.publicyn='y'
+		and r.status!='y'
+		group by b.board_seq
+		union
+		SELECT b.*
+		FROM board b join relationship r
+		on b.writer = r.receiver
+		where b.writer=#{writer}
+		and r.sender =#{sender}
+		and r.status='y'
+		group by b.board_seq
+		union
+		SELECT b.*
+		FROM board b join member m
+		on b.writer = m.id
+		where b.writer=#{writer}
+		and b.public_yn='y'
+		and m.publicyn='y'
+		group by b.board_seq
+		) a
+		order by a.posted desc
+	</select>
+	
+	<select id="myType" resultMap="LikeResult" parameterType="com.kitri.daily.board.Like"> 
+		select * from like_siren
+		where board_seq = #{board_seq}
+		and sender = #{sender}
+		and type = 'L'
+		union
+		select * from like_siren
+		where board_seq = #{board_seq}
+		and sender = #{sender}
+		and type = 'S'
+	</select>
+	
+	<delete id="delType" parameterType="com.kitri.daily.board.Like">
+		delete
+		from like_siren
+		where board_seq = #{board_seq} and sender = #{sender}
+	</delete>
+	
+	<insert id="addLike" parameterType="com.kitri.daily.board.Like">
+		INSERT INTO like_siren (`board_seq`, `sender`, `type`, `date`) 
+		VALUES (#{board_seq},  #{sender}, 'L', now())
+		ON DUPLICATE KEY UPDATE board_seq=#{board_seq}, sender=#{sender}, type='L', date=now();
+	</insert>
+	
+	<insert id="addSiren" parameterType="com.kitri.daily.board.Like">
+		INSERT INTO like_siren (`board_seq`, `sender`, `type`, `date`) 
+		VALUES (#{board_seq},  #{sender}, 'S', now())
+		ON DUPLICATE KEY UPDATE board_seq=#{board_seq}, sender=#{sender}, type='S', date=now();
+	</insert>
+	
+	<select id="friend" resultMap="MemberResult" parameterType="String"> 
+		select m.*
+		from member m join board b
+		on m.id = b.writer
+		where b.writer = #{writer}
+		group by m.id
+	</select>
+
+</mapper>
