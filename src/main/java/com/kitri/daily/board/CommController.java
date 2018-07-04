@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +23,6 @@ public class CommController {
 	
 	   @Autowired
 	   private BoardService service;
-
 	   
 	   @PostMapping
    	   //@RequestMapping(value="/comments", method=RequestMethod.POST)
@@ -36,7 +37,6 @@ public class CommController {
 			  service.insertRepComment(co2);
 		  }
 		  List<Comment> coList = service.getComments(cmnt.getBoard_seq());
-		  System.out.println("¥Ò±€ ªÁ¿Ã¡Ó:"+coList.size());
 		  return coList;
 		  
 	   }
@@ -53,11 +53,15 @@ public class CommController {
 	   }
 	   
 	   @DeleteMapping
-	   public List<Comment> deleteComment(@RequestBody Comment cmnt) {
+	   public List<Comment> deleteComment(@RequestBody Comment cmnt) throws Exception {
 		   Comment co = new Comment();
 		   co.setCom_seq(cmnt.getCom_seq());
+		   co.setPseq(cmnt.getPseq());
+		   co.setBoard_seq(cmnt.getBoard_seq());
 		   service.deleteComment(co);
 		   List<Comment> coList = service.getComments(cmnt.getBoard_seq());
 		   return coList;
 	   }
+	   
+	 
 }

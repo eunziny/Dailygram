@@ -111,8 +111,10 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void deleteComment(Comment co) {
+	public void deleteComment(Comment co) throws Exception {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.updateDownReply(co);
+		boardMapper.updateDownStep(co);
 		boardMapper.deleteComment(co);
 	}
 

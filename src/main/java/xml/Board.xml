@@ -208,7 +208,21 @@
 		where com_seq = #{com_seq}
 	</update>
 	
+	<update id="updateDownReply" parameterType="com.kitri.daily.board.Comment">
+		update comment set reply = reply-1
+		where com_seq = (
+		select a.* from 
+		(select pseq from comment 
+		where com_seq =#{com_seq}) AS a
+		)
+	</update>
+	
 	<delete id="deleteComment" parameterType="com.kitri.daily.board.Comment">
 		delete from comment where com_seq = #{com_seq}
 	</delete>
+	<update id="updateDownStep" parameterType="com.kitri.daily.board.Comment">
+		update comment set step= step-1
+		where step > (select * from (select step from comment a where com_seq = #{com_seq}) a)
+		and board_seq = #{board_seq} 
+	</update>
 </mapper>

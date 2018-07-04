@@ -84,6 +84,7 @@ input{
                        		 	<a><i class='fas fa-times delbtn'></i></a>
                        		 </c:if>
                        		 <input id="com_seq" type="hidden" value="${co.com_seq }">
+                       		 <input id="replycnt" type="hidden" value="${co.reply} ">
                          </div>
                         </c:forEach>
                       <div class='comment-write'>
@@ -91,13 +92,14 @@ input{
                         <a><i class="fas fa-pen-nib fa-2x commwrite"></i></a>
                       </div>
                     </div> <!-- end Footer -->
-                    
                   </div> <!-- end Insta -->
                 </section> <!-- end section -->
         </div>
 	</div>
 </div>
 <script>
+
+    
 	var tempVal ="";
 	<%--수정버튼 클릭 시 v 띄우고 x 클릭--%>
 	$(document).on('click','.fa-edit',function(){
@@ -127,12 +129,9 @@ input{
 		$(this).parent().siblings('a').children('i.fa-edit').css("display","inline");
 		$(this).parents().children('input.commcontent').attr('readonly','readonly');
 		console.log("바뀐값이니:"+$(this).parents().children('input.commcontent').val());
-		
-		
 		var editdata = {"content":$(this).parents().children('input.commcontent').val(),
-					"com_seq":$(this).parents().children('input[type=hidden]').val(),
+					"com_seq":$(this).parents().children('input[id=com_seq]').val(),
 					"board_seq": ${b.board_seq}};
-		
 		$.ajax({
 			method : 'PUT',
 			url : '/daily/comments',
@@ -150,7 +149,8 @@ input{
 		                          +"<a href='${pageContext.request.contextPath }/board/friList.do' id='a1'><img id='user_img' src='https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w'></a>"
 		                          +"<a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>"+this.writer+"</a>"
 		                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
-		                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>";
+		                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
+		                       	  +"<input id='replycnt' type='hidden' value='"+this.reply+"'>";
 							if('${sessionScope.memInfo.id}' == this.writer){
 								str += "<a><i class='fas fa-edit '></i></a>"+
 								"<a><i class='fas fa-check okbtn' style='color:#9770f9; display:none'></i></a>"+
@@ -160,9 +160,6 @@ input{
 							str += "</div>";			                       	  
 		                    $('.comment-list').append(str);
 					});// each
-					var str2 = "<div class='comment-write'>"+
-					"<input type='text' id='cmnt' placeholder='Add a comment...'>"+
-					"<a><i class='fas fa-pen-nib fa-2x commwrite'></i></a></div>";						
                     $('.comment-list').append(str2);
 				}
 			},//success
@@ -178,8 +175,13 @@ input{
 	
 	<%-- 삭제 버튼 눌렀을 때--%>
 	$(document).on('click','.delbtn',function(){
+		console.log($(this).parents().children('input[id=replycnt]').val());
+		if($(this).parents().children('input[id=replycnt]').val() != 0){
+			alert('답댓글이 존재하여 삭제하지 못합니다!');
+			return;
+		}
 		var deletedata = {
-						"com_seq":$(this).parents().children('input[type=hidden]').val(),
+						"com_seq":$(this).parents().children('input[id=com_seq]').val(),
 						"board_seq": ${b.board_seq}
 						};
 		$.ajax({
@@ -199,7 +201,8 @@ input{
 		                          +"<a href='${pageContext.request.contextPath }/board/friList.do' id='a1'><img id='user_img' src='https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w'></a>"
 		                          +"<a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>"+this.writer+"</a>"
 		                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
-		                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>";
+		                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
+		                       	  +"<input id='replycnt' type='hidden' value='"+this.reply+"'>";
 							if('${sessionScope.memInfo.id}' == this.writer){
 								str += "<a><i class='fas fa-edit '></i></a>"+
 								"<a><i class='fas fa-check okbtn' style='color:#9770f9; display:none'></i></a>"+
@@ -208,10 +211,7 @@ input{
 		                    }     	  
 							str += "</div>";			                       	  
 		                    $('.comment-list').append(str);
-					});// each
-					var str2 = "<div class='comment-write'>"+
-					"<input type='text' id='cmnt' placeholder='Add a comment...'>"+
-					"<a><i class='fas fa-pen-nib fa-2x commwrite'></i></a></div>";						
+					});// each				
                     $('.comment-list').append(str2);
 				}
 			},//success
@@ -244,7 +244,7 @@ input{
 					board_seq : ${b.board_seq},
 					content : $('#cmnt').val(),
 					writer : '${sessionScope.memInfo.id}',
-					com_seq : $(this).parents().children("input[type='hidden']").val()
+					com_seq : $(this).parents().children("input[id=com_seq]").val()
 				},
 				dataType : 'json',
 				success : function(data){
@@ -258,7 +258,8 @@ input{
 			                          +"<a href='${pageContext.request.contextPath }/board/friList.do' id='a1'><img id='user_img' src='https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w'></a>"
 			                          +"<a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>"+this.writer+"</a>"
 			                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
-			                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>";
+			                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
+			                       	  +"<input id='replycnt' type='hidden' value='"+this.reply+"'>";
 								if('${sessionScope.memInfo.id}' == this.writer){
 									str += "<a><i class='fas fa-edit '></i></a>"+
 									"<a><i class='fas fa-check okbtn' style='color:#9770f9; display:none'></i></a>"+
@@ -268,10 +269,7 @@ input{
 								str += "</div>";			                       	  
 			                    $('.comment-list').append(str);
 			                    
-						});// each
-						var str2 = "<div class='comment-write'>"+
-						"<input type='text' id='cmnt' placeholder='Add a comment...'>"+
-						"<a><i class='fas fa-pen-nib fa-2x commwrite'></i></a></div>";						
+						});// each				
                         $('.comment-list').append(str2);
 					}
 				},//success
@@ -303,23 +301,22 @@ input{
 					$('.comment-write').remove();
 					$(data).each(function(){
 						var str = "";
-						str += "<div class='comment-body' style='padding-left: "+(this.lev *35)+"px'>"
-	                          +"<a href='${pageContext.request.contextPath }/board/friList.do' id='a1'><img id='user_img' src='https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w'></a>"
-	                          +"<a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>"+this.writer+"</a>"
-	                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
-	                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>";
-						if('${sessionScope.memInfo.id}' == this.writer){
-							str += "<a><i class='fas fa-edit '></i></a>"+
-							"<a><i class='fas fa-check okbtn' style='color:#9770f9; display:none'></i></a>"+
-							"<a><i class='fas fa-times canclebtn' style='color:gray;display:none'></i></a>"+
-							"<a><i class='fas fa-times delbtn'></i></a>";
-	                    }     	  
-						str += "</div>";			                       	  
-	                    $('.comment-list').append(str);
-					});// each
-					var str2 = "<div class='comment-write'>"+
-					"<input type='text' id='cmnt' placeholder='Add a comment...'>"+
-					"<a><i class='fas fa-pen-nib fa-2x commwrite'></i></a></div>";						
+							str += "<div class='comment-body' style='padding-left: "+(this.lev *35)+"px'>"
+		                          +"<a href='${pageContext.request.contextPath }/board/friList.do' id='a1'><img id='user_img' src='https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w'></a>"
+		                          +"<a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>"+this.writer+"</a>"
+		                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
+		                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
+		                       	  +"<input id='replycnt' type='hidden' value='"+this.reply+"'>";
+							if('${sessionScope.memInfo.id}' == this.writer){
+								str += "<a><i class='fas fa-edit '></i></a>"+
+								"<a><i class='fas fa-check okbtn' style='color:#9770f9; display:none'></i></a>"+
+								"<a><i class='fas fa-times canclebtn' style='color:gray;display:none'></i></a>"+
+								"<a><i class='fas fa-times delbtn'></i></a>";
+		                    }     	  
+							str += "</div>";			                       	  
+		                    $('.comment-list').append(str);
+		                    
+					});// each				
                     $('.comment-list').append(str2);
 				}
 			},//success
@@ -328,8 +325,12 @@ input{
 				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			}
 		});
+		
 	});
-
 	
+	var str2 = "<div class='comment-write'>"+
+	"<input type='text' id='cmnt' placeholder='Add a comment...'>"+
+	"<a><i class='fas fa-pen-nib fa-2x commwrite'></i></a></div>";
+
 </script>
 <%@ include file="../container/footer.jsp"%>

@@ -23,4 +23,6 @@ public interface BoardMapper {
 	Member friend (String writer);
 	void updateComment(Comment co);
 	void deleteComment(Comment co);
+	void updateDownReply(Comment co);
+	void updateDownStep(Comment co);
 }

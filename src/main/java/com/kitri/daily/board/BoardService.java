@@ -23,5 +23,6 @@ public interface BoardService {
 	void addSiren(Like like);
 	Member friend (String writer);
 	void updateComment(Comment co);
-	void deleteComment(Comment co);
+	@Transactional
+	void deleteComment(Comment co) throws Exception;
 }
