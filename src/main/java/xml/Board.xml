@@ -10,7 +10,6 @@
 		<result column="content" property="content" />
 		<result column="posted" property="posted" />
 		<result column="img" property="img" />
-		<result column="row" property="row"/>
 		<result column="public_yn" property="public_yn" />
 	</resultMap>
 	
@@ -61,4 +60,9 @@
 		insert into hashtag
 		values(#{board_seq}, #{tagname}, #{block_yn})
 	</insert> 
+	
+	<select id="selectById" resultMap="BoardResult" parameterType="String">
+		select max(board_seq) from board
+		where writer = #{writer}
+	</select>
 </mapper>

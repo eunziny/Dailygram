@@ -64,6 +64,6 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	</beans:bean>
 	
-	<tx:annotation-driven proxy-target-class="true"/>
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 	
 </beans:beans>

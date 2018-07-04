@@ -12,4 +12,5 @@ public interface BoardMapper {
 	List<Board> myList(String id);
 	List<Board> newsfeed(String id);
 	void insertTag(Hashtag h);
+	Board selectById(String id);
 }

@@ -56,6 +56,12 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+	public Board selectByid(String id){
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.selectById(id);
+	}
+
+	@Override
 	public void insertHashtag(Hashtag h) {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
 		boardMapper.insertTag(h);
