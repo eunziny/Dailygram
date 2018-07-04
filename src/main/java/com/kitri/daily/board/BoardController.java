@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kitri.daily.member.Member;
+import com.kitri.daily.search.Hashtag;
 import com.sun.media.jfxmedia.logging.Logger;
 
 @Controller
@@ -169,6 +170,12 @@ public class BoardController {
 		String path = upfolder + b.getImg();
 		System.out.println(path);
 		mav.addObject("path", path);
+		if (b.getContent().contains("#")) {
+			String block_yn = "N";
+			Hashtag h = new Hashtag(bseq, b.getContent(), block_yn);
+			List<Hashtag> taglist = (ArrayList<Hashtag>) service.insertHashtag(h);
+			mav.addObject("tag", taglist);
+		}
 		return mav;
 	}
 
@@ -182,13 +189,14 @@ public class BoardController {
 		mav.addObject("list", boardlist);
 		return mav;
 	}
-    @RequestMapping(value = "/board/newsfeed.do", method= RequestMethod.GET)
-    public void newsfeed(Model model, HttpServletRequest req) {
-        ModelAndView mav = new ModelAndView("board/newsfeed");
-        HttpSession session = req.getSession(false);
-        Member mem = (Member) session.getAttribute("memInfo");
-        String id = mem.getId();
-        List<Board> feedList = (ArrayList<Board>) service.getNewsfeed(id);
-        model.addAttribute("feed", feedList);
-    }
+
+	@RequestMapping(value = "/board/newsfeed.do", method = RequestMethod.GET)
+	public void newsfeed(Model model, HttpServletRequest req) {
+		ModelAndView mav = new ModelAndView("board/newsfeed");
+		HttpSession session = req.getSession(false);
+		Member mem = (Member) session.getAttribute("memInfo");
+		String id = mem.getId();
+		List<Board> feedList = (ArrayList<Board>) service.getNewsfeed(id);
+		model.addAttribute("feed", feedList);
+	}
 }

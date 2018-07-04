@@ -50,4 +50,9 @@
 			)or writer=#{writer}
 		order by posted desc;
 	</select>
+	
+	<insert id="insertTag">
+		insert into hashtag
+		values(#{board_seq}, #{tagname}, #{block_yn})
+	</insert>
 </mapper>

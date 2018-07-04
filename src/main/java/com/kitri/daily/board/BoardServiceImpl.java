@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
+import com.kitri.daily.search.Hashtag;
+
 @Component("boardService")
 public class BoardServiceImpl implements BoardService {
 	@Resource(name="sqlSession")//의존성 주입
@@ -51,5 +53,11 @@ public class BoardServiceImpl implements BoardService {
 	public List<Board> getNewsfeed(String id) {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
 		return boardMapper.newsfeed(id);
+	}
+
+	@Override
+	public List<Hashtag> insertHashtag(Hashtag h) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.insertTag(h);
 	}
 }
