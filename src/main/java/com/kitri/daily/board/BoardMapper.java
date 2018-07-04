@@ -11,6 +11,9 @@ public interface BoardMapper {
 	void update(Board b);
 	void delete(int board_seq, String writer);
 	List<Board> myList(String id);
+	List<Comment> selectComments(int board_seq);
+	void insertNewComment(Comment co);
+	void insertRepComment(Comment co);
 	List<Board> list(Board board);
 	Like myType(Like like);
 	void delType(Like like);

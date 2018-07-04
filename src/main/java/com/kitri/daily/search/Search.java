@@ -6,7 +6,7 @@ import com.kitri.daily.board.Board;
 import com.kitri.daily.member.Member;
 
 public class Search {
-	private int borad_seq;
+	private int board_seq;
 	private String img;
 	private Date posted;
 	private String tagname;
@@ -22,10 +22,10 @@ public class Search {
 	}
 	
 	
-	public Search(int borad_seq, String img, Date posted, String tagname, String id, String profile_img, Board board,
+	public Search(int board_seq, String img, Date posted, String tagname, String id, String profile_img, Board board,
 			Member member, Hashtag hashtag) {
 		super();
-		this.borad_seq = borad_seq;
+		this.board_seq = board_seq;
 		this.img = img;
 		this.posted = posted;
 		this.tagname = tagname;
@@ -37,11 +37,11 @@ public class Search {
 	}
 
 
-	public int getBorad_seq() {
-		return borad_seq;
+	public int getboard_seq() {
+		return board_seq;
 	}
-	public void setBorad_seq(int borad_seq) {
-		this.borad_seq = borad_seq;
+	public void setboard_seq(int board_seq) {
+		this.board_seq = board_seq;
 	}
 	public String getImg() {
 		return img;
@@ -93,7 +93,7 @@ public class Search {
 	}
 	@Override
 	public String toString() {
-		return "Search [borad_seq=" + borad_seq + ", img=" + img + ", posted=" + posted + ", tagname=" + tagname
+		return "Search [board_seq=" + board_seq + ", img=" + img + ", posted=" + posted + ", tagname=" + tagname
 				+ ", id=" + id + ", profile_img=" + profile_img + ", board=" + board + ", member=" + member
 				+ ", hashtag=" + hashtag + "]";
 	}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kitri.daily.admin.AdminMapper">
+
+	<resultMap id = "AdminResult" type="com.kitri.daily.search.Hashtag">
+		<result column="board_seq" property="board_seq" />
+		<result column="tagname" property="tagname" />
+		<result column="block_yn" property="block_yn" />
+	</resultMap>
+
+	<select id="getBlockList" resultMap="AdminResult" >
+		select distinct tagname
+		from hashtag
+		where block_yn = 'Y'
+		order by tagname
+	</select>
+	
+	<update id="addBlock" parameterType="String">
+		update hashtag
+		set
+		block_yn = 'Y'
+		where tagname=#{tagname}	
+	</update>
+	
+	<update id="cancleBlock" parameterType="String">
+		update hashtag
+		set
+		block_yn = 'N'
+		where tagname=#{tagcancle}	
+	</update>
+
+</mapper>
