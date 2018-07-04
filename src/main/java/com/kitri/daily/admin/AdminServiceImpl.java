@@ -33,4 +33,11 @@ public class AdminServiceImpl implements AdminService {
 		adminMapper.addBlock(tagname);
 	}
 
+	@Override
+	public void cancleblock(String tagcancle) {
+		// TODO Auto-generated method stub
+		adminMapper = sqlSession.getMapper(AdminMapper.class);
+		adminMapper.cancleBlock(tagcancle);
+	}
+
 }

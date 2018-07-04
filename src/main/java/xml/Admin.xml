@@ -14,15 +14,22 @@
 	<select id="getBlockList" resultMap="AdminResult" >
 		select distinct tagname
 		from hashtag
-		where block_yn = 'y'
+		where block_yn = 'Y'
 		order by tagname
 	</select>
 	
 	<update id="addBlock" parameterType="String">
 		update hashtag
 		set
-		block_yn = 'y'
+		block_yn = 'Y'
 		where tagname=#{tagname}	
+	</update>
+	
+	<update id="cancleBlock" parameterType="String">
+		update hashtag
+		set
+		block_yn = 'N'
+		where tagname=#{tagcancle}	
 	</update>
 
 </mapper>

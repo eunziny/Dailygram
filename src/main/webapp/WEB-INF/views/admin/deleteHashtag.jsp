@@ -74,6 +74,7 @@ body {
 		
 		$("a.eye").click(function(e) {
 			alert("해당 해시태그를 다시 활성화 시키시겠습니까?");
+			$("#eyeclick").submit();
 		});
 
 		$("button#delete").click(function(e) {
@@ -104,113 +105,17 @@ body {
 							<ul class="list-group">
 								<c:forEach var="bl" items="${blocklist}">
 								<li class="list-group-item">
+									<form id="eyeclick" action="${pageContext.request.contextPath}/admin/eyeclick.do" method="post">
 									<div class="checkbox">
-										<input type="checkbox" class="checkb" name="checkbox[]"
-											id="checkbox1" value="1" /> <label for="checkbox1">${bl.tagname}</label>
+										<input type="checkbox" class="checkb" name="tagcancle"
+											id="checkbox1" value="${bl.tagname}" /> <label for="checkbox1">${bl.tagname}</label>
 									</div>
 									<div class="pull-right action-buttons">
 										<a href="#" class="eye"><span class="glyphicon glyphicon-eye-open"></span></a>
 									</div>
+									</form>
 								</li>
 								</c:forEach>
-								<!-- <li class="list-group-item">
-									<div class="checkbox">
-										<input type="checkbox" class="checkb" name="checkbox[]"
-											id="checkbox2" value="2" /> <label for="checkbox2">
-											유영철 </label>
-									</div>
-									<div class="pull-right action-buttons">
-										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a>
-									</div>
-								</li>
-								<li class="list-group-item">
-									<div class="checkbox">
-										<input type="checkbox" class="checkb" name="checkbox[]"
-											id="checkbox3" value="3" /> <label for="checkbox3">
-											강호순 </label>
-									</div>
-									<div class="pull-right action-buttons">
-										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a>
-									</div>
-								</li>
-								<li class="list-group-item">
-									<div class="checkbox">
-										<input type="checkbox" class="checkb" name="checkbox[]"
-											id="checkbox4" value="4" /> <label for="checkbox4">
-											다단계 </label>
-									</div>
-									<div class="pull-right action-buttons">
-										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a>
-									</div>
-								</li>
-								<li class="list-group-item">
-									<div class="checkbox">
-										<input type="checkbox" class="checkb" name="checkbox[]"
-											id="checkbox5" value="50" /> <label for="checkbox5">
-											신천지 </label>
-									</div>
-									<div class="pull-right action-buttons">
-										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a>
-									</div>
-								</li>
-								<li class="list-group-item">
-									<div class="checkbox">
-										<input type="checkbox" class="checkb" name="checkbox[]"
-											id="checkbox6" value="50" /> <label for="checkbox6">
-											대마초 </label>
-									</div>
-									<div class="pull-right action-buttons">
-										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a>
-									</div>
-								</li>
-								<li class="list-group-item">
-									<div class="checkbox">
-										<input type="checkbox" class="checkb" name="checkbox[]"
-											id="checkbox7" value="50" /> <label for="checkbox7">
-											마약 </label>
-									</div>
-									<div class="pull-right action-buttons">
-										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a>
-									</div>
-								</li>
-								<li class="list-group-item">
-									<div class="checkbox">
-										<input type="checkbox" class="checkb" name="checkbox[]"
-											id="checkbox8" value="50" /> <label for="checkbox8">
-											곤지암 </label>
-									</div>
-									<div class="pull-right action-buttons">
-										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a>
-									</div>
-								</li>
-								<li class="list-group-item">
-									<div class="checkbox">
-										<input type="checkbox" class="checkb" name="checkbox[]"
-											id="checkbox9" value="50" /> <label for="checkbox9">
-											살인 </label>
-									</div>
-									<div class="pull-right action-buttons">
-										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a>
-									</div>
-								</li>
-								<li class="list-group-item">
-									<div class="checkbox">
-										<input type="checkbox" class="checkb" name="checkbox[]"
-											id="checkbox10" value="50" /> <label for="checkbox10">
-											혐오 </label>
-									</div>
-									<div class="pull-right action-buttons">
-										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a>
-								</li> -->
 							</ul>
 						</div>
 					</div>
@@ -223,4 +128,3 @@ body {
 <%@ include file="/WEB-INF/views/container/footer.jsp"%>
 </body>
 </html>
-
