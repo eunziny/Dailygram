@@ -17,9 +17,10 @@
 	text-align: center;
 }
 
-#edit {
+#read,#cancelread, button{
 	background-color: #9770f9;
 	font-weight: bold;
+	color:white;
 }
 
 .follow a {
@@ -28,8 +29,22 @@
 	font-size: 20px;
 }
 </style> 
-
-<!------ Include the above in your HEAD tag ---------->
+<script>
+$(function(){
+	$('a#read').click(function(){
+		alert("구독 성공하셨습니다.");
+		$('a#read').css('display', 'none');
+		$('a#cancelread').css('display', 'block');
+		
+	});
+	
+	$('a#cancelread').click(function(){
+		alert("구독 취소하였습니다.");
+		$('a#cancelread').css('display', 'none');
+		$('a#read').css('display', 'block');
+	});
+});
+</script>
 <br>
 <div class="container">
 	<div class="row">
@@ -48,7 +63,8 @@
 							<button type="button" class="btn btn-md btn-block">팔로우</button>
 						</div>
 						<div class="col-md-3">
-							<button type="button" class="btn btn-md btn-block">구독</button>
+							<a id="read" href="${pageContext.request.contextPath }/friend/subscribe.do?id=${sessionScope.friendId }" type="button" class="btn btn-md btn-block">구독</a>
+							<a id="cancelread" href="${pageContext.request.contextPath }/friend/canclesubscribe.do?id=${sessionScope.friendId }" type="button" class="btn btn-md btn-block" style="display:none;">구독 취소</a>
 						</div>
 					</div>
 					<br>
@@ -60,12 +76,12 @@
 						<div class="col-md-3 follow">
 							<h4>팔로워</h4>
 							<a name="follow"
-								href="${pageContext.request.contextPath }/friend/friendfollowerlist.do?id=${sessionScope.friendId }&user_id=${sessionScope.memInfo.id }">${sessionScope.friendfollowerCount }</a>
+								href="${pageContext.request.contextPath }/friend/friendfollowerlist.do?id=${sessionScope.friendId }">${sessionScope.friendfollowerCount }</a>
 						</div>
 						<div class="col-md-3 follow">
 							<h4>팔로잉</h4>
 							<a name="following"
-								href="${pageContext.request.contextPath }/friend/friendfollowinglist.do?id=${sessionScope.friendId }&user_id=${sessionScope.memInfo.id }">${sessionScope.friendfollowingCount }</a>
+								href="${pageContext.request.contextPath }/friend/friendfollowinglist.do?id=${sessionScope.friendId }">${sessionScope.friendfollowingCount }</a>
 						</div>
 						<div class="col-md-3 follow">
 							<h4>구독</h4>

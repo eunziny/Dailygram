@@ -56,7 +56,7 @@
 	</update>
 
 	<delete id="delete" parameterType="String">
-		delete board
+		delete from board
 		where
 		writer=#{writer} and board_seq=#{board_seq}
 	</delete>
@@ -145,12 +145,12 @@
 		FROM relationship
 		WHERE receiver=#{id}
 		AND status='y'
-		union
+		union all
 		SELECT count(*)
 		FROM relationship
 		WHERE sender=#{id}
 		AND status='y'
-		union
+		union all
 		SELECT count(*)
 		FROM relationship
 		WHERE sender=#{id}

@@ -15,9 +15,15 @@ div.panel-group {
 	margin: auto;
 	margin-top: 30px;
 }
-ul.list-group>li>button{
+ul.list-group>li>a[type=button]{
 	float:right;
 	background-color: #9770f9;
+	color:white;
+}
+
+ul.list-group>li>a[name=wait]{
+	float:right;
+	background-color: #808080;
 	color:white;
 }
 </style>
@@ -36,10 +42,13 @@ ul.list-group>li>button{
 					width="30"> 
 					<a href='${pageContext.request.contextPath }/board/friList.do?writer=${p.id }' style="color: black"><span>${p.id }</span></a>
 					<c:if test="${p.status eq 'y' }">
-						<button type="button" class="btn btn-xs">팔로잉 취소</button>
+						<a type="button" href='${pageContext.request.contextPath }/friend/cancelFollow.do?writer=${p.id }&type=2' class="btn btn-xs">팔로잉 취소</a>
 					</c:if>
 					<c:if test="${p.status eq 'no' }">
-						<button type="button" class="btn btn-xs">팔로우</button>
+						<a type="button" href='${pageContext.request.contextPath }/friend/addFollow.do?writer=${p.id }&type=1' class="btn btn-xs">팔로우</a>
+					</c:if>
+					<c:if test="${p.status eq 'wait' }">
+						<a type="button" name="wait" href='${pageContext.request.contextPath }/friend/cancelFollow.do?writer=${p.id }&type=2' class="btn btn-xs">팔로우 요청 취소</a>
 					</c:if>
 				</li>
 			</c:forEach>

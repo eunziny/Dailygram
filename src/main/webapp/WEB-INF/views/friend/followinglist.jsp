@@ -15,12 +15,13 @@ div.panel-group {
 	margin: auto;
 	margin-top: 30px;
 }
-ul.list-group>li>button{
+ul.list-group>li>a[type=button]{
 	float:right;
 	background-color: #9770f9;
 	color:white;
 }
 </style>
+
 <body>
 <div class="panel-group">
 	<div class="panelspace">
@@ -35,7 +36,7 @@ ul.list-group>li>button{
 						src="https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w"
 						width="30"> 
 						<a href='${pageContext.request.contextPath }/board/friList.do?writer=${p.id }' style="color: black"><span>${p.id }</span></a>
-						<button type="button" class="btn btn-xs">팔로잉 취소</button>
+						<a type="button" href='${pageContext.request.contextPath }/friend/cancelFollow.do?writer=${p.id }&type=1' class="btn btn-xs">팔로잉 취소</a>
 					</li>
 				</c:forEach>
 				</c:if>

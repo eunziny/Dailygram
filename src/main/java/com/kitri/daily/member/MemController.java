@@ -36,9 +36,7 @@ public class MemController {
 			session.setAttribute("memInfo",mem);
 			
 			if(!m.getId().equals("admin")) {//관리자(admin)는 관리자 화면으로 넘어가도록  추루 구현 해야함.
-				ArrayList<Integer> list =  service.profileCount(m.getId());
-				for(int i=0;i<list.size();i++)
-					System.out.print(list.get(i) + ", ");
+				ArrayList<Integer> list =  service.profileCount(m.getId());			
 				
 				session.setAttribute("followerCount", list.get(0));
 				session.setAttribute("followingCount",list.get(1));
