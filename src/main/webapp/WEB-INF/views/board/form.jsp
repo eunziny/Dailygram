@@ -81,7 +81,7 @@ $(function(){
 		<div class="col-lg-offset-8">
 			<input type="hidden" name="writer" value="${sessionScope.memInfo.id }">
 	    	<button type="submit" class="btn btn-primary" id = "ok">등록</button>
-	    	<button type="button" onclick="location.href='${pageContext.request.contextPath }/board/list.do'"
+	    	<button type="button" onclick="location.href='${pageContext.request.contextPath }/board/myList.do'"
 	    		 class="btn btn-primary" id = "cancel">취소</button>
 	    </div>
   	</form>

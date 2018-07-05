@@ -1,5 +1,7 @@
 package com.kitri.daily.friend;
 
+import java.sql.Date;
+
 public class Friend {
 	private String id;
 	private String profile_img;
@@ -10,9 +12,10 @@ public class Friend {
 	private String tag4;
 	private String tag5;
 	private String status;
+	
+	
 	public Friend() {}
 
-	
 	public Friend(String id, String intro) {
 		super();
 		this.id = id;
@@ -25,7 +28,6 @@ public class Friend {
 		this.profile_img = profile_img;
 		this.intro = intro;
 	}
-	
 
 	public Friend(String id, String profile_img, String intro, String status) {
 		super();
@@ -34,7 +36,6 @@ public class Friend {
 		this.intro = intro;
 		this.status = status;
 	}
-
 
 	public Friend(String id, String profile_img, String intro, String tag1, String tag2, String tag3, String tag4,
 			String tag5, String status) {
@@ -128,5 +129,4 @@ public class Friend {
 		return "Friend [id=" + id + ", profile_img=" + profile_img + ", intro=" + intro + ", tag1=" + tag1 + ", tag2="
 				+ tag2 + ", tag3=" + tag3 + ", tag4=" + tag4 + ", tag5=" + tag5 + ", status=" + status + "]";
 	}
-
 }

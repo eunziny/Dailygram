@@ -54,7 +54,7 @@
 							<a href="#">10</a>
 						</div>
 						<div class="col-md-3 follow">
-							<h4>팔로우</h4>
+							<h4>팔로워</h4>
 							<a name="follow"
 								href="${pageContext.request.contextPath }/friend/followerlist.do?id=${sessionScope.memInfo.id }">${sessionScope.followerCount }</a>
 						</div>

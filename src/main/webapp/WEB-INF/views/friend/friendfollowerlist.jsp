@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/views/container/header.jsp"%>
-<%@ include file="/WEB-INF/views/board/profile.jsp"%>
+<%@ include file="/WEB-INF/views/board/friprofile.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -40,15 +40,20 @@ ul.list-group>li>a[name=wait]{
 				<li class="list-group-item"><img alt="" class="img-circle"
 					src="https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w"
 					width="30"> 
-					<a href='${pageContext.request.contextPath }/board/friList.do?writer=${p.id }' style="color: black"><span>${p.id }</span></a>
 					<c:if test="${p.status eq 'y' }">
-						<a type="button" href='${pageContext.request.contextPath }/friend/cancelFollow.do?writer=${p.id }&type=2' class="btn btn-xs">팔로잉 취소</a>
+						<a href='${pageContext.request.contextPath }/board/friList.do?writer=${p.id }' style="color: black"><span>${p.id }</span></a>
+						<a type="button" href='${pageContext.request.contextPath }/friend/cancelFollow.do?writer=${p.id }&type=3' class="btn btn-xs">팔로잉 취소</a>
 					</c:if>
 					<c:if test="${p.status eq 'no' }">
-						<a type="button" href='${pageContext.request.contextPath }/friend/addFollow.do?writer=${p.id }&type=1' class="btn btn-xs">팔로우</a>
+					<a href='${pageContext.request.contextPath }/board/friList.do?writer=${p.id }' style="color: black"><span>${p.id }</span></a>
+						<a type="button" href='${pageContext.request.contextPath }/friend/addFollow.do?writer=${p.id }&type=2' class="btn btn-xs">팔로우</a>
+					</c:if>
+					<c:if test="${p.status eq 'me' }">
+					<a href='${pageContext.request.contextPath }/board/myList.do' style="color: black"><span>${p.id }</span></a>
 					</c:if>
 					<c:if test="${p.status eq 'wait' }">
-						<a type="button" name="wait" href='${pageContext.request.contextPath }/friend/cancelFollow.do?writer=${p.id }&type=2' class="btn btn-xs">팔로우 요청 취소</a>
+					<a href='${pageContext.request.contextPath }/board/friList.do?writer=${p.id }' style="color: black"><span>${p.id }</span></a>
+						<a type="button" name="wait" href='${pageContext.request.contextPath }/friend/cancelFollow.do?writer=${p.id }&type=3' class="btn btn-xs">팔로우 요청 취소</a>
 					</c:if>
 				</li>
 			</c:forEach>

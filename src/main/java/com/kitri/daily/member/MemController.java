@@ -35,14 +35,13 @@ public class MemController {
 			HttpSession session = req.getSession();
 			session.setAttribute("memInfo",mem);
 			
-			 ArrayList<Integer> list =  service.profileCount(m.getId());
-			for(int i=0;i<list.size();i++)
-				System.out.print(list.get(i) + ", ");
-			
-			session.setAttribute("followerCount", list.get(0));
-			session.setAttribute("followingCount",list.get(1));
-			session.setAttribute("subscribeCount", list.get(2));
-			
+			if(!m.getId().equals("admin")) {//관리자(admin)는 관리자 화면으로 넘어가도록  추루 구현 해야함.
+				ArrayList<Integer> list =  service.profileCount(m.getId());			
+				
+				session.setAttribute("followerCount", list.get(0));
+				session.setAttribute("followingCount",list.get(1));
+				session.setAttribute("subscribeCount", list.get(2));
+			}
 			return "redirect:/board/myList.do";
 		}
 	}
@@ -112,10 +111,10 @@ public class MemController {
 		
 	}
 	
-	@RequestMapping(value = "/admin/deleteHashtag.do")
+/*	@RequestMapping(value = "/admin/deleteHashtag.do")
 	void test17() {
 		
-	}
+	}*/
 	
 	@RequestMapping(value = "/admin/admin_header.do")
 	void test18() {

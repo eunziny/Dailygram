@@ -28,8 +28,14 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	public List getSearchByTag(String searchValue) {
 	// TODO Auto-generated method stub
-	searchMapper = sqlSession.getMapper(SearchMapper.class);
-	return searchMapper.selectByTag(searchValue);
+		searchMapper = sqlSession.getMapper(SearchMapper.class);
+		return searchMapper.selectByTag(searchValue);
+	}
+	
+	@Override
+	public List getAutoSearch(String term) {
+		searchMapper = sqlSession.getMapper(SearchMapper.class);
+		return searchMapper.selectByAuto(term);
 	}
 	
 	@Override

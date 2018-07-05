@@ -2,8 +2,10 @@ package com.kitri.daily.search;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.Resource;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +25,28 @@ public class SearchController {
 
 	public void setService(SearchService service) {
 		this.service = service;
+	}
+	
+/*   @RequestMapping(value = "/container/autocomplete.do")
+   public ModelAndView autoSearch(String term) {
+      ModelAndView mav = new ModelAndView("container/header");
+      List<Search> autoList = new ArrayList<Search>();
+      autoList = service.getAutoSearch(term);
+      mav.addObject("autoList", autoList);
+      System.out.println("자동완성 리스트 : " + autoList);
+      return mav;
+   }*/
+	
+	@RequestMapping(value = "/container/autocomplete.do")
+	public @ResponseBody String autoSearch(@RequestParam(value="term") String term, HttpServletRequest req) {
+		List<Search> autoList = new ArrayList<Search>();
+		autoList = service.getAutoSearch(term);
+		//System.out.println("자동완성 리스트 : " + autoList + "\n사이즈 : " + autoList.size());
+		JSONArray array = new JSONArray(autoList);
+	    JSONObject json = new JSONObject();
+	    json.put("searchlist", array);
+	    System.out.println("list :::: " + json.toString());
+		return json.toString();
 	}
 	
 	@RequestMapping(value = "/container/search.do")
@@ -157,7 +181,8 @@ public class SearchController {
 	}
 	
 	@RequestMapping(value = "/search/infiLoad.do" , method = RequestMethod.POST)
-	public @ResponseBody List<Look> infiLoad(@RequestParam(value="row") int row, HttpServletRequest req){
+	public @ResponseBody List<Look> infiLoad(@RequestParam(value="row") int row,
+			@RequestParam(value="flag") int flag ,HttpServletRequest req){
 		List<Look> lookList = new ArrayList<Look>();
 		HttpSession session = req.getSession(false);
 		Member mem = (Member)session.getAttribute("memInfo");
