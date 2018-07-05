@@ -127,30 +127,6 @@ public class BoardController {
 		return str;
 	}
 
-	@RequestMapping(value = "/board/updateBoard.do")
-	public ModelAndView editBoard(Board b, HttpServletRequest req) {
-		ModelAndView mav = new ModelAndView("board/editForm");
-		HttpSession session = req.getSession(false);
-		Member mem = (Member) session.getAttribute("memInfo");
-		String id = mem.getId();
-		Board update = service.detailBoard(b.getBoard_seq());
-		mav.addObject("update", update);
-		return mav;
-	}
-	
-	@RequestMapping(value = "/board/post.do")
-	public ModelAndView detail(HttpSession session, HttpServletRequest req, @RequestParam(value = "bseq") int bseq) {
-		ModelAndView mav = new ModelAndView("board/post");
-		Board b = service.detailBoard(bseq);
-		mav.addObject("b", b);
-		String upfolder = basePath + "\\thumbnail\\"; // img 가져올 파일 경로
-		System.out.println("이미지~~~~~~!! " + b.getImg());
-		String path = upfolder + b.getImg();
-		System.out.println(path);
-		mav.addObject("path", path);
-		return mav;
-	}
-
 	@RequestMapping(value = "/board/newsfeed.do", method = RequestMethod.GET)
 	public void newsfeed(Model model, HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView("board/newsfeed");
