@@ -7,7 +7,8 @@ import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
-
+import com.kitri.daily.search.Hashtag;
+import com.kitri.daily.friend.Relationship;
 import com.kitri.daily.member.Member;
 
 @Component("boardService")
@@ -33,12 +34,6 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void delBoard(int board_seq, String writer) {
-		boardMapper = sqlSession.getMapper(BoardMapper.class);
-		boardMapper.delete(board_seq, writer);
-	}
-
-	@Override
 	public void editBoard(Board b) {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
 		boardMapper.update(b);
@@ -50,6 +45,32 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.myList(id);
 	}
 
+	@Override
+	public List<Board> getNewsfeed(String id) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.newsfeed(id);
+	}
+
+	@Override
+	public Board selectByid(String id){
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.selectById(id);
+	}
+
+	@Override
+	public void insertHashtag(Hashtag h) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.insertTag(h);
+	}
+	@Override
+	public void deleteBoard(int board_seq) throws Exception {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.dellikeSiren(board_seq);
+		boardMapper.delHashtag(board_seq);
+		boardMapper.delComment(board_seq);
+		boardMapper.delBoard(board_seq);
+	}
+	
 	@Override
 	public List<Comment> getComments(int board_seq) {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
@@ -70,6 +91,7 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.updateReply(co);
 		
 	}
+	
 	public Like getType(Like like) {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
 		return boardMapper.myType(like);
@@ -124,5 +146,9 @@ public class BoardServiceImpl implements BoardService {
 		ArrayList<Integer> count = boardMapper.selectFriendProfileCount(id);
 		return count;
 	}
-
+	@Override
+	public String checkRelation(Relationship relation) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.selectcheckRelation(relation);
+	}
 }

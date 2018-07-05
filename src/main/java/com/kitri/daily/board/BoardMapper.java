@@ -2,15 +2,21 @@ package com.kitri.daily.board;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import com.kitri.daily.search.Hashtag;
+import com.kitri.daily.friend.Relationship;
 import com.kitri.daily.member.Member;
-
 public interface BoardMapper {
 	void insert(Board b);
 	Board select(int board_seq);
 	void update(Board b);
-	void delete(int board_seq, String writer);
 	List<Board> myList(String id);
+	List<Board> newsfeed(String id);
+	void insertTag(Hashtag h);
+	Board selectById(String id);
+	void delHashtag(int board_seq);
+	void delComment(int board_seq);
+	void dellikeSiren(int board_seq);
+	void delBoard(int board_seq);
 	List<Comment> selectComments(int board_seq);
 	void insertNewComment(Comment co);
 	void insertRepComment(Comment co);
@@ -27,4 +33,5 @@ public interface BoardMapper {
 	void updateDownReply(Comment co);
 	void updateDownStep(Comment co);
 	ArrayList<Integer> selectFriendProfileCount(String id);
+	String selectcheckRelation(Relationship relation);
 }

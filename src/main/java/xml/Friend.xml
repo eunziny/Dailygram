@@ -13,7 +13,16 @@
 		<result column="tag3" property="tag3" />
 		<result column="tag4" property="tag4" />
 		<result column="tag5" property="tag5" />
-		<result column="status" property="status"/>
+		<result column="status" property="status" />
+		<result column="date" property="date" />
+		<result column="user_id" property="user_id" />
+	</resultMap>
+	
+	<resultMap id="subscribeResult" type="com.kitri.daily.friend.Relationship">
+		<result column="sender" property="sender" />
+		<result column="receiver" property="receiver" />
+		<result column="status" property="status" />
+		<result column="date" property="date" />
 	</resultMap>
 	
 	<select id="selectFriendRelationshipCount" resultType="java.util.HashMap" parameterType="String">
@@ -23,7 +32,7 @@
 	      select count(*) from relationship
 	      where sender = #{id}
 	      and status
-	      in ('y','r')
+	      in ('y','r','n')
 	</select>
 	
 	<select id="selectRecommend" resultMap="FriendResult" parameterType="String">
@@ -53,7 +62,7 @@
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status
-			  in ('y','r')
+			  in ('y','r','n')
 			  )
 		AND useyn='y'
 	</select>
@@ -65,7 +74,7 @@
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status
-			  in ('y','r')
+			  in ('y','r','n')
 			  )
 		AND useyn='y'
 	</select>
@@ -77,7 +86,7 @@
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status
-			  in ('y','r')
+			  in ('y','r','n')
 			  )
 		AND useyn='y'
 	</select>
@@ -90,7 +99,7 @@
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status
-			  in ('y','r')
+			  in ('y','r','n')
 			  )
 		AND useyn='y'
 	</select>
@@ -104,7 +113,7 @@
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status
-			  in ('y','r')
+			  in ('y','r','n')
 			  )
 		AND useyn='y'
 	</select>
@@ -127,7 +136,7 @@
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status
-			  in ('y','r')
+			  in ('y','r','n')
 			  )
 	</select>
 	
@@ -155,9 +164,54 @@
 		WHERE id in(SELECT sender
 						FROM relationship
 						WHERE receiver=#{id}
-						AND status='y');
+						AND status='y')
 	</select>
 	
-
-
+	<select id="selectProfileCount" resultType="Integer" parameterType="String">
+		SELECT count(*)
+		FROM relationship
+		WHERE receiver=#{id}
+		AND status='y'
+		union all
+		SELECT count(*)
+		FROM relationship
+		WHERE sender=#{id}
+		AND status='y'
+		union all
+		SELECT count(*)
+		FROM relationship
+		WHERE sender=#{id}
+		AND status='r'
+	</select>
+	
+	<insert id="insertSubscribe" parameterType="com.kitri.daily.friend.Relationship">
+		INSERT INTO relationship
+		VALUES (#{sender}, #{receiver}, 'R', now())
+		ON DUPLICATE KEY UPDATE sender=#{sender}, receiver=#{receiver}, status='R', date=now()
+	</insert>
+	
+	<delete id="deletefollow" parameterType="com.kitri.daily.friend.Relationship">
+		DELETE FROM relationship
+		WHERE sender=#{sender} AND receiver=#{receiver} AND (status='Y' OR status='N')
+	</delete>
+	
+	<delete id="deletesubscribe" parameterType="com.kitri.daily.friend.Relationship">
+		DELETE FROM relationship
+		WHERE sender=#{sender} AND receiver=#{receiver} AND status='R'
+	</delete>
+	
+	<insert id="insertfollow" parameterType="com.kitri.daily.friend.Relationship">
+		INSERT INTO relationship
+		VALUES (#{sender}, #{receiver}, 'N', now())
+		ON DUPLICATE KEY UPDATE sender=#{sender}, receiver=#{receiver}, status='N', date=now()
+	</insert>
+	
+	<select id="selectFollowwaitList" resultMap="FriendResult" parameterType="String">
+		SELECT id, profile_img
+		FROM member
+		WHERE id in(SELECT receiver
+					FROM relationship
+					WHERE sender=#{id}
+					AND status='N')
+	</select>
 </mapper>
