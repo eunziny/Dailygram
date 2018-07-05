@@ -23,7 +23,7 @@
 					  </a>
 					  <ul class="dropdown-menu dropdown-menu-right">
 						<li><a href="${pageContext.request.contextPath }/board/updateBoard.do?board_seq=${b.board_seq}&writer=${b.writer}">수정</a></li>
-						<li><a href="${pageContext.request.contextPath }/board/del.do">삭제</a></li>
+						<li><a href="${pageContext.request.contextPath }/board/del.do?bseq=${b.board_seq}">삭제</a></li>
 						<li class="divider"></li>
 						<li><a id="silen">신고</a></li>
 					  </ul>

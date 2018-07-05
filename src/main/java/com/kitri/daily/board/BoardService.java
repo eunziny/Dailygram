@@ -10,9 +10,16 @@ public interface BoardService {
 	void uploadBoard(Board b);
 	Board detailBoard(int board_seq);
 	void editBoard(Board b);
-	void delBoard(int board_seq, String writer);
 	List<Board> getMyList(String id);
 	List<Board> getNewsfeed(String id);
 	void insertHashtag(Hashtag h);
 	Board selectByid(String id);
+	@Transactional
+	void deleteLikeSiren(int board_seq) throws Exception;
+	@Transactional
+	void deleteHashtag(int board_seq) throws Exception;
+	@Transactional
+	void deleteComment(int board_seq) throws Exception;
+	@Transactional
+	void deleteBoard(int board_seq) throws Exception;
 }

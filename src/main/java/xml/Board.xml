@@ -29,13 +29,7 @@
 		content=#{content}, img=#{img}, public_yn=#{public_yn}
 		where board_seq=#{board_seq}
 	</update>
-
-	<delete id="delete" parameterType="String">
-		delete board  
-		where
-		writer=#{writer} and board_seq=#{board_seq}
-	</delete>
-
+	
 	<select id="myList" resultMap="BoardResult" parameterType="String"> 
 		select * from board where writer=#{writer}
 	</select>
@@ -59,4 +53,24 @@
 		select * from board
 		where board_seq = (select max(board_seq) from board where writer=#{writer}) 
 	</select>
+	
+	<delete id="dellikeSiren" parameterType="java.lang.Integer">
+		delete from like_siren
+		where board_seq = #{board_seq};
+	</delete>
+	
+	<delete id="delHashtag" parameterType="java.lang.Integer">
+		delete from hashtag
+		where board_seq = #{board_seq};
+	</delete>
+	
+	<delete id="delComment" parameterType="java.lang.Integer">
+		delete from comment
+		where board_seq = #{board_seq};
+	</delete>
+	
+	<delete id="delBoard" parameterType="java.lang.Integer">
+		delete from board
+		where board_seq = #{board_seq};
+	</delete>
 </mapper>

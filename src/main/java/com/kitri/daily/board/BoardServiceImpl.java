@@ -32,12 +32,6 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void delBoard(int board_seq, String writer) {
-		boardMapper = sqlSession.getMapper(BoardMapper.class);
-		boardMapper.delete(board_seq, writer);
-	}
-
-	@Override
 	public void editBoard(Board b) {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
 		boardMapper.update(b);
@@ -65,5 +59,32 @@ public class BoardServiceImpl implements BoardService {
 	public void insertHashtag(Hashtag h) {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
 		boardMapper.insertTag(h);
+	}
+
+	@Override
+	public void deleteLikeSiren(int board_seq) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteHashtag(int board_seq) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteComment(int board_seq) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteBoard(int board_seq) throws Exception {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.dellikeSiren(board_seq);
+		boardMapper.delHashtag(board_seq);
+		boardMapper.delComment(board_seq);
+		boardMapper.delBoard(board_seq);
 	}
 }

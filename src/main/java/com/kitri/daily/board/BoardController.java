@@ -86,18 +86,16 @@ public class BoardController {
 				e.printStackTrace();
 			}
 		}
-		service.uploadBoard(b); //board테이블에 insert
-		/*return "forward:/board/tagInsert.do";*/
+		service.uploadBoard(b); // board테이블에 insert
 		return "redirect:/board/tagInsert.do";
-		/*return "redirect:/board/myList.do";*/
 	}
-	
+
 	@RequestMapping(value = "/board/tagInsert.do")
 	public String tagInsert(HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		Member mem = (Member) session.getAttribute("memInfo");
 		String id = mem.getId();
-		System.out.println("id?"+id);
+		System.out.println("id?" + id);
 		Board board = service.selectByid(id);
 		// 해시태그 처리
 		if (board.getContent().contains("#")) {
@@ -228,5 +226,14 @@ public class BoardController {
 		String id = mem.getId();
 		List<Board> feedList = (ArrayList<Board>) service.getNewsfeed(id);
 		model.addAttribute("feed", feedList);
+	}
+
+	@RequestMapping(value = "/board/del.do")
+	public String delete(HttpServletRequest req, @RequestParam(value = "bseq") int bseq) throws Exception {
+		HttpSession session = req.getSession(false);
+		Member mem = (Member) session.getAttribute("memInfo");
+		String id = mem.getId();
+		service.deleteBoard(bseq);
+		return "redirect:/board/myList.do";
 	}
 }
