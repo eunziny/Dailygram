@@ -144,7 +144,6 @@ public class BoardController {
          }
       }
       service.editBoard(b);
-      System.out.println(b);
       return "redirect:/board/post.do?bseq="+b.getBoard_seq();
    }
 
@@ -176,11 +175,33 @@ public class BoardController {
 	   Member mem  = (Member) session.getAttribute("memInfo");
 	   String id = mem.getId();
 	   List<Board> boardlist = (ArrayList<Board>) service.getMyList(id);
+	   /*
+	   Timer t = new Timer(true);
+	   TimerTask m_task = new TimerTask() {
+		   
+		   @Override
+		   public void run() {
+			   System.out.println("공개 게시물2 : " + boardlist);
+			   for(int i=0; i<boardlist.size(); i++) {
+				   System.out.println("공개 게시물"+i+" : " + boardlist.get(i).getPublic_yn());
+				   if(boardlist.get(i).getPublic_yn().trim().equals("yd") || 
+						   boardlist.get(i).getPublic_yn().trim().equals("nd")) {
+					   System.out.println("공개 게시물 : " + boardlist.get(i).getPublic_yn());
+					   String yn = boardlist.get(i).getPublic_yn().substring(0, 1);
+					   boardlist.get(i).setPublic_yn(yn);
+					   service.updelay(boardlist.get(i));
+				   }
+			   }
+		   }
+	   };
+		
+	   t.schedule(m_task, 10000);
+	   */
 	   ModelAndView mav = new ModelAndView("board/myList");
 	   mav.addObject("list", boardlist);
 	   return mav;
    }
-   
+
    @RequestMapping(value = "/board/delType.do")
    public String delType (HttpServletRequest req ,@RequestParam(value="bseq") int bseq) {
 	   HttpSession session = req.getSession(false);

@@ -52,15 +52,12 @@
 		select b.* , count(if(ls.type='L', ls.type, null)) likecnt from board
 		b
 		join like_siren ls on b.board_seq = ls.board_seq
-		where b.board_seq =
-		#{board_seq}
+		where b.board_seq = #{board_seq}
 	</select>
 
 	<insert id="insert" parameterType="com.kitri.daily.board.Board">
-		insert into board (`writer`,
-		`content`, `posted`, `img`, `public_yn`)
-		values (#{writer}, #{content},
-		now(), #{img}, #{public_yn})
+		insert into board (`writer`, `content`, `posted`, `img`, `public_yn`)
+		values (#{writer}, #{content}, now(), #{img}, #{public_yn})
 	</insert>
 
 	<update id="update" parameterType="com.kitri.daily.board.Board">
@@ -79,6 +76,7 @@
 
 	<select id="myList" resultMap="BoardResult" parameterType="String">
 		select * from board where writer=#{writer}
+		order by posted desc
 	</select>
 
 	<!-- 구독이거나 아무사이도 아닐 때 공개계정 공개게시물만 리스트로 뿌림 -->
@@ -98,8 +96,8 @@
 		and r.sender =#{sender}
 		and b.public_yn='y'
 		and m.publicyn='y'
-		and
-		r.status!='y'
+		and r.status!='y'
+        and now() >= date_add(b.posted, interval 1 minute)
 		group by b.board_seq
 		union
 		SELECT b.*
@@ -110,6 +108,7 @@
 		and
 		r.sender =#{sender}
 		and r.status='y'
+        and now() >= date_add(b.posted, interval 1 minute)
 		group by b.board_seq
 		union
 		SELECT b.*
@@ -118,10 +117,10 @@
 		where b.writer=#{writer}
 		and b.public_yn='y'
 		and m.publicyn='y'
+        and now() >= date_add(b.posted, interval 1 minute)
 		group by b.board_seq
 		) a
-		order by
-		a.posted desc
+		order by a.posted desc
 	</select>
 
 	<select id="myType" resultMap="LikeResult" parameterType="com.kitri.daily.board.Like">
@@ -185,6 +184,14 @@
 		WHERE sender=#{id}
 		AND status='r'
 	</select>
+	
+	<!-- <update id="delayUdate" parameterType="com.kitri.daily.board.Board">
+		set sql_safe_updates = 0;
+		update board
+		set public_yn=#{public_yn}
+		where public_yn='yd' or public_yn='nd'
+		and board_seq=#{board_seq}
+	</update> -->
 
 	<select id="selectComments" resultMap="CommentResult"
 		parameterType="java.lang.Integer">
@@ -237,6 +244,7 @@
 	<delete id="deleteComment" parameterType="com.kitri.daily.board.Comment">
 		delete from comment where com_seq = #{com_seq}
 	</delete>
+	
 	<update id="updateDownStep" parameterType="com.kitri.daily.board.Comment">
 		update comment set step= step-1
 		where step > (select * from (select step from comment a where com_seq = #{com_seq}) a)
