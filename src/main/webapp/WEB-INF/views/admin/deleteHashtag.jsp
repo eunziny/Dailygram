@@ -72,9 +72,8 @@ body {
 
 		});
 		
-  		$("a.eye").click(function(e) {
-			alert("해당 해시태그를 다시 활성화 시키시겠습니까?");
-			//$("#eyeclick").submit();
+ 		$("button#delete, a#eye").click(function(e) {
+			alert("해당  해시태그를 다시 활성화 시키시겠습니까?");
 			var checkArr = []; //배열 초기화
 			
 			$("input[name='tagcancle']:checked").each(function(e) {
@@ -87,32 +86,35 @@ body {
 				dataType: 'text',
 				data: {
 					valueArrTest:checkArr
+				},
+				dataType: 'json',
+				success: function(data) {
+ 					if(data != "") {
+						$('.list-group').remove();
+						$(data).each(function () {
+							console.log("뿌려질 태그>>>>>>" + this.tagname);
+							 var str = "";
+								str += "<ul class='list-group'>"
+									+ "<li class='list-group-item'>"
+									//+ "<form id='eyeclick' class='eyeclick'>"
+									+ "<div class='checkbox'>"
+									+ "<input type='checkbox' class='checkb' name='tagcancle' id='checkbox1'/>"
+									+ "<label for='checkbox1'>"+this.tagname+"</label>"
+									+ "</div>"
+									+ "<div class='pull-right action-buttons'>"
+									+ "<a href='#' class='eye' id='eye'><span class='glyphicon glyphicon-eye-open'></span></a>"
+									+ "</div>"
+									//+ "</form>"
+									+ "</li>"
+									+ "</ul>";
+							$(".panel-body").append(str);
+ 						});	
+					}
+				},
+				error : function(xhr, status, error) {
+	                 alert("에러발생");
 				}
 			});
- 			location.href="${pageContext.request.contextPath}/admin/deleteHashtag.do";
- 			
- 			return false;
-			
-		});
-
- 		$("button#delete").click(function(e) {
-			alert("선택한  해시태그들을 다시 활성화 시키시겠습니까?");
-			var checkArr = []; //배열 초기화
-			
-			$("input[name='tagcancle']:checked").each(function(e) {
-				checkArr.push($(this).val());
-			});
-			
- 			$.ajax ({
-				url: "${pageContext.request.contextPath}/admin/allclick.do",
-				type: 'post',
-				dataType: 'text',
-				data: {
-					valueArrTest:checkArr
-				}
-			});
- 			location.href="${pageContext.request.contextPath}/admin/deleteHashtag.do";
- 			return false;
 		});
 	});
 </script>
@@ -122,7 +124,7 @@ body {
 			<div class="row">
 				<div class="panel-group">
 					<div class="panelspace">
-						<h2 class="panel-heading panel-danger">Delete HashTag List</h2>
+						<h1 class="panel-heading panel-danger" align="center"><b>해시태그 관리</b></h1>
 						<hr>
 						<div align="center">
 							<form action="${pageContext.request.contextPath}/admin/tagblock.do" method="post">
@@ -130,7 +132,8 @@ body {
 							<button id="add" type="submit" class="btn btn-danger" style="height:35px; vertical-align:middle;"><i class="glyphicon glyphicon-eye-close"></i>추가</button>
 							</form>
 						</div>
-						<hr>
+						
+						<h4 class="panel-heading panel-danger" align="left"><b>검색 금지된 해시태그</b></h4>
 						<div>
 							<button id="delete" class="btn btn-success pull-right"><i class="glyphicon glyphicon-eye-open"></i>활성화</button>
 						</div>
@@ -154,11 +157,9 @@ body {
 						</div>
 					</div>
 				</div>
-			</div>
-			<!-- /.row -->
+			</div><!-- /.row -->
 		</div>
 	</div>
-	<br><br><br>
 <%@ include file="/WEB-INF/views/container/footer.jsp"%>
 </body>
 </html>
