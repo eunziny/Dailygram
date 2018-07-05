@@ -158,7 +158,6 @@ public class BoardController {
       mav.addObject("l", l);
 	  Board b = service.detailBoard(bseq);
       List<Comment> coList = service.getComments(bseq);//해당글의 코멘트 리스트들 가져오기.
-      System.out.println("댓글 개수:"+coList.size());
       mav.addObject("b", b);
       mav.addObject("coList",coList);
       String upfolder = basePath + "\\thumbnail\\"; // img 가져올 파일 경로
