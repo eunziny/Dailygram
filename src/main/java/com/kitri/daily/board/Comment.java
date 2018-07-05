@@ -41,6 +41,12 @@ public class Comment {
 		this.content = content;
 		this.writer = writer;
 	}
+	
+	public Comment(int com_seq, String content) {
+		super();
+		this.com_seq = com_seq;
+		this.content = content;
+	}
 	public int getBoard_seq() {
 		return board_seq;
 	}

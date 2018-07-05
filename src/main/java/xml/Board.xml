@@ -14,14 +14,14 @@
 		<result column="likecnt" property="likecnt" />
 		<result column="sender" property="sender" />
 	</resultMap>
-	
+
 	<resultMap id="LikeResult" type="com.kitri.daily.board.Like">
 		<result column="board_seq" property="board_seq" />
 		<result column="sender" property="sender" />
 		<result column="type" property="type" />
 		<result column="date" property="date" />
 	</resultMap>
-	
+
 	<resultMap id="MemberResult" type="com.kitri.daily.member.Member">
 		<result column="id" property="id" />
 		<result column="pwd" property="pwd" />
@@ -37,8 +37,20 @@
 		<result column="intro" property="intro" />
 	</resultMap>
 
+	<resultMap id="CommentResult" type="com.kitri.daily.board.Comment">
+		<result column="board_seq" property="board_seq" />
+		<result column="com_seq" property="com_seq" />
+		<result column="ref" property="ref" />
+		<result column="lev" property="lev" />
+		<result column="step" property="step" />
+		<result column="pseq" property="pseq" />
+		<result column="reply" property="reply" />
+		<result column="content" property="content" />
+	</resultMap>
+
 	<select id="select" resultMap="BoardResult" parameterType="java.lang.Integer">
-		select b.* , count(if(ls.type='L', ls.type, null)) likecnt from board b
+		select b.* , count(if(ls.type='L', ls.type, null)) likecnt from board
+		b
 		join like_siren ls on b.board_seq = ls.board_seq
 		where b.board_seq = #{board_seq}
 	</select>
@@ -52,7 +64,8 @@
 		update board
 		set
 		content=#{content}, img=#{img}, public_yn=#{public_yn}
-		where board_seq=#{board_seq}
+		where
+		board_seq=#{board_seq}
 	</update>
 
 	<delete id="delete" parameterType="String">
@@ -61,20 +74,22 @@
 		writer=#{writer} and board_seq=#{board_seq}
 	</delete>
 
-	<select id="myList" resultMap="BoardResult" parameterType="String"> 
+	<select id="myList" resultMap="BoardResult" parameterType="String">
 		select * from board where writer=#{writer}
 		order by posted desc
 	</select>
-	
+
 	<!-- 구독이거나 아무사이도 아닐 때 공개계정 공개게시물만 리스트로 뿌림 -->
 	<!-- 친구일때 -->
 	<select id="list" resultMap="BoardResult" parameterType="com.kitri.daily.board.Board">
-		select a.*
+		select
+		a.*
 		from
 		(
 		SELECT b.*
 		FROM board b join relationship r
-		on b.writer = r.receiver
+		on b.writer =
+		r.receiver
 		join member m
 		on r.receiver = m.id
 		where b.writer=#{writer}
@@ -86,10 +101,12 @@
 		group by b.board_seq
 		union
 		SELECT b.*
-		FROM board b join relationship r
+		FROM board b join
+		relationship r
 		on b.writer = r.receiver
 		where b.writer=#{writer}
-		and r.sender =#{sender}
+		and
+		r.sender =#{sender}
 		and r.status='y'
         and now() >= date_add(b.posted, interval 1 minute)
 		group by b.board_seq
@@ -105,42 +122,49 @@
 		) a
 		order by a.posted desc
 	</select>
-	
-	<select id="myType" resultMap="LikeResult" parameterType="com.kitri.daily.board.Like"> 
+
+	<select id="myType" resultMap="LikeResult" parameterType="com.kitri.daily.board.Like">
 		select * from like_siren
 		where board_seq = #{board_seq}
 		and sender = #{sender}
 		and type = 'L'
 		union
 		select * from like_siren
-		where board_seq = #{board_seq}
+		where board_seq =
+		#{board_seq}
 		and sender = #{sender}
 		and type = 'S'
 	</select>
-	
+
 	<delete id="delType" parameterType="com.kitri.daily.board.Like">
 		delete
 		from like_siren
-		where board_seq = #{board_seq} and sender = #{sender}
+		where
+		board_seq = #{board_seq} and sender = #{sender}
 	</delete>
-	
+
 	<insert id="addLike" parameterType="com.kitri.daily.board.Like">
-		INSERT INTO like_siren (`board_seq`, `sender`, `type`, `date`) 
-		VALUES (#{board_seq},  #{sender}, 'L', now())
-		ON DUPLICATE KEY UPDATE board_seq=#{board_seq}, sender=#{sender}, type='L', date=now();
+		INSERT INTO like_siren
+		(`board_seq`, `sender`, `type`, `date`)
+		VALUES (#{board_seq}, #{sender}, 'L', now())
+		ON DUPLICATE KEY UPDATE
+		board_seq=#{board_seq}, sender=#{sender}, type='L', date=now();
 	</insert>
-	
+
 	<insert id="addSiren" parameterType="com.kitri.daily.board.Like">
-		INSERT INTO like_siren (`board_seq`, `sender`, `type`, `date`) 
-		VALUES (#{board_seq},  #{sender}, 'S', now())
-		ON DUPLICATE KEY UPDATE board_seq=#{board_seq}, sender=#{sender}, type='S', date=now();
+		INSERT INTO like_siren
+		(`board_seq`, `sender`, `type`, `date`)
+		VALUES (#{board_seq}, #{sender}, 'S', now())
+		ON DUPLICATE KEY UPDATE
+		board_seq=#{board_seq}, sender=#{sender}, type='S', date=now();
 	</insert>
-	
-	<select id="friend" resultMap="MemberResult" parameterType="String"> 
+
+	<select id="friend" resultMap="MemberResult" parameterType="String">
 		select m.*
 		from member m join board b
 		on m.id = b.writer
-		where b.writer = #{writer}
+		where b.writer =
+		#{writer}
 		group by m.id
 	</select>
 	
@@ -168,4 +192,62 @@
 		where public_yn='yd' or public_yn='nd'
 		and board_seq=#{board_seq}
 	</update> -->
+
+	<select id="selectComments" resultMap="CommentResult"
+		parameterType="java.lang.Integer">
+		select * from comment
+		where board_seq = #{board_seq}
+		order by step
+	</select>
+
+	<insert id="insertNewComment" parameterType="com.kitri.daily.board.Comment">
+		insert into comment
+		(`board_seq`,`ref`,`lev`,`step`,`pseq`,`reply`,`content`,`writer`)
+		select #{board_seq} ,ifnull(max(ref),0)+1, 0 , ifnull(max(step)+1,0) ,
+		0 , 0
+		,#{content},#{writer} from comment
+		where board_seq = #{board_seq}
+	</insert>
+
+	<update id="updateStep" parameterType="com.kitri.daily.board.Comment">
+		update comment set step = step+1
+		where step > (select * from (select step from comment a where com_seq = #{com_seq}) a)
+		and board_seq = #{board_seq}
+	</update>
+	
+	<insert id="insertRepComment" parameterType="com.kitri.daily.board.Comment">
+		insert into comment(`board_seq`,`ref`,`lev`,`step`,`pseq`,`reply`,`content`,`writer`)
+		select #{board_seq} , ref , lev+1 , step+1 , #{com_seq} , 0 ,#{content} , #{writer} from comment
+		where board_seq = #{board_seq}
+		and com_seq =#{com_seq}
+	</insert>
+	
+	<update id="updateReply" parameterType="com.kitri.daily.board.Comment">
+		update comment set reply = reply+1
+		where com_seq = #{com_seq}
+	</update>
+
+	<update id="updateComment" parameterType="com.kitri.daily.board.Comment">
+		update comment set content = #{content}
+		where com_seq = #{com_seq}
+	</update>
+	
+	<update id="updateDownReply" parameterType="com.kitri.daily.board.Comment">
+		update comment set reply = reply-1
+		where com_seq = (
+		select a.* from 
+		(select pseq from comment 
+		where com_seq =#{com_seq}) AS a
+		)
+	</update>
+	
+	<delete id="deleteComment" parameterType="com.kitri.daily.board.Comment">
+		delete from comment where com_seq = #{com_seq}
+	</delete>
+	
+	<update id="updateDownStep" parameterType="com.kitri.daily.board.Comment">
+		update comment set step= step-1
+		where step > (select * from (select step from comment a where com_seq = #{com_seq}) a)
+		and board_seq = #{board_seq} 
+	</update>
 </mapper>
