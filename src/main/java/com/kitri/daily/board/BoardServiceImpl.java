@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
+import com.kitri.daily.friend.Relationship;
 import com.kitri.daily.member.Member;
 
 @Component("boardService")
@@ -123,6 +124,12 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
 		ArrayList<Integer> count = boardMapper.selectFriendProfileCount(id);
 		return count;
+	}
+
+	@Override
+	public String checkRelation(Relationship relation) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.selectcheckRelation(relation);
 	}
 
 }

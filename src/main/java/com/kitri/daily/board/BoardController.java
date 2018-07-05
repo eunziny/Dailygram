@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kitri.daily.friend.Relationship;
 import com.kitri.daily.member.Member;
 
 @Controller
@@ -31,7 +32,6 @@ public class BoardController {
    
    @RequestMapping(value = "/board/form.do")
 	void form() {
-		
 	}
       
    @RequestMapping(value = "/board/upload.do")
@@ -246,14 +246,14 @@ public class BoardController {
 	   ModelAndView mav = new ModelAndView("board/friList");
 	   mav.addObject("list", list);
 	   mav.addObject("fri", fri);
-	 
+	   
+	   Relationship relation = new Relationship(id, writer);
 	   ArrayList<Integer> count =  service.FriendprofileCount(writer);
-		for(int i=0;i<count.size();i++)
-			System.out.print(count.get(i) + ", ");
-		
-		session.setAttribute("friendfollowerCount", count.get(0));
-		session.setAttribute("friendfollowingCount",count.get(1));
-		session.setAttribute("friendsubscribeCount", count.get(2));
+	   String check = service.checkRelation(relation);
+	   session.setAttribute("check", check);//  나와 상대방의 관계
+	   session.setAttribute("friendfollowerCount", count.get(0));
+	   session.setAttribute("friendfollowingCount",count.get(1));
+	   session.setAttribute("friendsubscribeCount", count.get(2));
 	   return mav;
   	}
 }

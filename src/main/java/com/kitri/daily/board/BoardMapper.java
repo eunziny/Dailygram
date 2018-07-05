@@ -3,6 +3,7 @@ package com.kitri.daily.board;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kitri.daily.friend.Relationship;
 import com.kitri.daily.member.Member;
 
 public interface BoardMapper {
@@ -27,4 +28,5 @@ public interface BoardMapper {
 	void updateDownReply(Comment co);
 	void updateDownStep(Comment co);
 	ArrayList<Integer> selectFriendProfileCount(String id);
+	String selectcheckRelation(Relationship relation);
 }
