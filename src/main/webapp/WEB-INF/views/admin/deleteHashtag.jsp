@@ -72,13 +72,46 @@ body {
 
 		});
 		
-		$("a.eye").click(function(e) {
+  		$("a.eye").click(function(e) {
 			alert("해당 해시태그를 다시 활성화 시키시겠습니까?");
-			$("#eyeclick").submit();
+			//$("#eyeclick").submit();
+			var checkArr = []; //배열 초기화
+			
+			$("input[name='tagcancle']:checked").each(function(e) {
+				checkArr.push($(this).val());
+			});
+			
+ 			$.ajax ({
+				url: "${pageContext.request.contextPath}/admin/allclick.do",
+				type: 'post',
+				dataType: 'text',
+				data: {
+					valueArrTest:checkArr
+				}
+			});
+ 			location.href="${pageContext.request.contextPath}/admin/deleteHashtag.do";
+ 			
+ 			return false;
+			
 		});
 
-		$("button#delete").click(function(e) {
+ 		$("button#delete").click(function(e) {
 			alert("선택한  해시태그들을 다시 활성화 시키시겠습니까?");
+			var checkArr = []; //배열 초기화
+			
+			$("input[name='tagcancle']:checked").each(function(e) {
+				checkArr.push($(this).val());
+			});
+			
+ 			$.ajax ({
+				url: "${pageContext.request.contextPath}/admin/allclick.do",
+				type: 'post',
+				dataType: 'text',
+				data: {
+					valueArrTest:checkArr
+				}
+			});
+ 			location.href="${pageContext.request.contextPath}/admin/deleteHashtag.do";
 		});
 	});
 </script>
@@ -105,13 +138,13 @@ body {
 							<ul class="list-group">
 								<c:forEach var="bl" items="${blocklist}">
 								<li class="list-group-item">
-									<form id="eyeclick" action="${pageContext.request.contextPath}/admin/eyeclick.do" method="post">
+									<form id="eyeclick" class="eyeclick">
 									<div class="checkbox">
 										<input type="checkbox" class="checkb" name="tagcancle"
-											id="checkbox1" value="${bl.tagname}" /> <label for="checkbox1">${bl.tagname}</label>
+											id="checkbox1" value="${bl.tagname}" /><label for="checkbox1">${bl.tagname}</label>
 									</div>
 									<div class="pull-right action-buttons">
-										<a href="#" class="eye"><span class="glyphicon glyphicon-eye-open"></span></a>
+										<a href="#" class="eye" id="eye"><span class="glyphicon glyphicon-eye-open"></span></a>
 									</div>
 									</form>
 								</li>
