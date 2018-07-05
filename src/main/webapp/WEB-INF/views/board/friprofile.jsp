@@ -1,4 +1,5 @@
 <%@page import="java.util.List"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <style>
@@ -17,10 +18,10 @@
 	text-align: center;
 }
 
-#read,#cancelread, button{
+#read, #cancelread, a[type=button] {
 	background-color: #9770f9;
 	font-weight: bold;
-	color:white;
+	color: white;
 }
 
 .follow a {
@@ -28,22 +29,22 @@
 	font-weight: bold;
 	font-size: 20px;
 }
-</style> 
+</style>
 <script>
-$(function(){
-	$('a#read').click(function(){
-		alert("구독 성공하셨습니다.");
-		$('a#read').css('display', 'none');
-		$('a#cancelread').css('display', 'block');
-		
+	$(function() {
+		$('a#read').click(function() {
+			alert("구독 성공하셨습니다.");
+			$('a#read').css('display', 'none');
+			$('a#cancelread').css('display', 'block');
+
+		});
+
+		$('a#cancelread').click(function() {
+			alert("구독 취소하였습니다.");
+			$('a#cancelread').css('display', 'none');
+			$('a#read').css('display', 'block');
+		});
 	});
-	
-	$('a#cancelread').click(function(){
-		alert("구독 취소하였습니다.");
-		$('a#cancelread').css('display', 'none');
-		$('a#read').css('display', 'block');
-	});
-});
 </script>
 <br>
 <div class="container">
@@ -60,12 +61,29 @@ $(function(){
 							<h2 class="media-heading">${sessionScope.friendId }</h2>
 						</div>
 						<div class="col-md-6">
-							<button type="button" class="btn btn-md btn-block">팔로우</button>
+							<c:choose>
+								<c:when test="${sessionScope.check eq 'Y'}">
+									<a type="button" href='${pageContext.request.contextPath }/friend/cancelFollow.do?writer=${sessionScope.friendId }&type=5' class="btn btn-md btn-block">팔로우 취소</a>
+								</c:when>
+								<c:when test="${sessionScope.check eq 'N'}">
+									<a type="button" href='${pageContext.request.contextPath }/friend/cancelFollow.do?writer=${sessionScope.friendId }&type=5' class="btn btn-md btn-block">팔로우요청 취소</a>
+								</c:when>
+								<c:when test="${sessionScope.check eq 'R'}">
+									<a type="button" href='${pageContext.request.contextPath }/friend/cancelSubscribe.do?writer=${sessionScope.friendId }&type=2' class="btn btn-md btn-block">구독 취소</a>
+								</c:when>
+								<c:otherwise>
+									<div class="col-md-8">
+										<a type="button" href='${pageContext.request.contextPath }/friend/addFollow.do?writer=${sessionScope.friendId }&type=4' class="btn btn-md btn-block">팔로우</a>
+									</div>
+									<div class="col-md-4">
+										<a id="read"
+											href="${pageContext.request.contextPath }/friend/subscribe.do?writer=${sessionScope.friendId }"
+											type="button" class="btn btn-md btn-block">구독</a>
+									</div>
+								</c:otherwise>
+							</c:choose>
 						</div>
-						<div class="col-md-3">
-							<a id="read" href="${pageContext.request.contextPath }/friend/subscribe.do?id=${sessionScope.friendId }" type="button" class="btn btn-md btn-block">구독</a>
-							<a id="cancelread" href="${pageContext.request.contextPath }/friend/canclesubscribe.do?id=${sessionScope.friendId }" type="button" class="btn btn-md btn-block" style="display:none;">구독 취소</a>
-						</div>
+						<!-- <a id="cancelread" href="${pageContext.request.contextPath }/friend/canclesubscribe.do?id=${sessionScope.friendId }" type="button" class="btn btn-md btn-block" style="display:none;">구독 취소</a> -->
 					</div>
 					<br>
 					<div class="row">
@@ -86,7 +104,6 @@ $(function(){
 						<div class="col-md-3 follow">
 							<h4>구독</h4>
 							<a name="subscribe" href="#">${sessionScope.friendsubscribeCount }</a>
-								<!-- <a name="subscribe" href="${pageContext.request.contextPath }/friend/subscribelist.do?id=${sessionScope.memInfo.id }">${sessionScope.friendsubscribeCount }</a>  -->
 						</div>
 						<br>
 						<h4>${fri.name}</h4>

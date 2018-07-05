@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import com.kitri.daily.friend.Relationship;
 import com.kitri.daily.member.Member;
 import com.kitri.daily.search.Hashtag;
 
@@ -256,57 +257,59 @@ public class BoardController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/board/delType.do")
-	public String delType(HttpServletRequest req, @RequestParam(value = "bseq") int bseq) {
-		HttpSession session = req.getSession(false);
-		Member mem = (Member) session.getAttribute("memInfo");
-		String id = mem.getId();
-		Like like = new Like(bseq, id);
-		service.delType(like);
-		return "redirect:/board/post.do?bseq=" + bseq;
-	}
 
-	@RequestMapping(value = "/board/like.do")
-	public String like(HttpServletRequest req, @RequestParam(value = "bseq") int bseq) {
-		HttpSession session = req.getSession(false);
-		Member mem = (Member) session.getAttribute("memInfo");
-		String id = mem.getId();
-		Like like = new Like(bseq, id);
-		service.addLike(like);
-		return "redirect:/board/post.do?bseq=" + bseq;
-	}
-
-	@RequestMapping(value = "/board/siren.do")
-	public String siren(HttpServletRequest req, @RequestParam(value = "bseq") int bseq) {
-		HttpSession session = req.getSession(false);
-		Member mem = (Member) session.getAttribute("memInfo");
-		String id = mem.getId();
-		Like like = new Like(bseq, id);
-		service.addSiren(like);
-		return "redirect:/board/post.do?bseq=" + bseq;
-	}
-
-	@RequestMapping(value = "/board/friList.do")
-	public ModelAndView friProfile(HttpServletRequest req, @RequestParam(value = "writer") String writer) {
-		HttpSession session = req.getSession(false);
-		Member mem = (Member) session.getAttribute("memInfo");
-		String id = mem.getId();
-		System.out.println("작가 : " + writer + " id : " + id);
-		Board board = new Board(writer, id);
-		List<Board> list = (ArrayList<Board>) service.getList(board);
-		Member fri = service.friend(writer);
-		session.setAttribute("friendId", writer);
-		ModelAndView mav = new ModelAndView("board/friList");
-		mav.addObject("list", list);
-		mav.addObject("fri", fri);
-
-		ArrayList<Integer> count = service.FriendprofileCount(writer);
-		for (int i = 0; i < count.size(); i++)
-			System.out.print(count.get(i) + ", ");
-
-		session.setAttribute("friendfollowerCount", count.get(0));
-		session.setAttribute("friendfollowingCount", count.get(1));
-		session.setAttribute("friendsubscribeCount", count.get(2));
-		return mav;
-	}
+   @RequestMapping(value = "/board/delType.do")
+   public String delType (HttpServletRequest req ,@RequestParam(value="bseq") int bseq) {
+	   HttpSession session = req.getSession(false);
+	   Member mem  = (Member) session.getAttribute("memInfo");
+	   String id = mem.getId();
+	   Like like = new Like(bseq, id);
+	   service.delType(like);
+	   return "redirect:/board/post.do?bseq="+bseq;
+   }
+   
+   @RequestMapping(value = "/board/like.do")
+   public String like (HttpServletRequest req ,@RequestParam(value="bseq") int bseq) {
+	   HttpSession session = req.getSession(false);
+	   Member mem  = (Member) session.getAttribute("memInfo");
+	   String id = mem.getId();
+	   Like like = new Like(bseq, id);
+	   service.addLike(like);
+	   return "redirect:/board/post.do?bseq="+bseq;
+   }
+   
+   @RequestMapping(value = "/board/siren.do")
+   public String siren (HttpServletRequest req ,@RequestParam(value="bseq") int bseq) {
+	   HttpSession session = req.getSession(false);
+	   Member mem  = (Member) session.getAttribute("memInfo");
+	   String id = mem.getId();
+	   Like like = new Like(bseq, id);
+	   service.addSiren(like);
+	   return "redirect:/board/post.do?bseq="+bseq;
+   }
+   
+   @RequestMapping(value = "/board/friList.do")
+   public ModelAndView friProfile(HttpServletRequest req ,
+		   						@RequestParam(value="writer") String writer) {
+	   HttpSession session = req.getSession(false);
+	   Member mem  = (Member) session.getAttribute("memInfo");
+	   String id = mem.getId();
+	   System.out.println("작가 : " + writer + " id : " + id);
+	   Board board = new Board(writer, id);
+	   List<Board> list = (ArrayList<Board>) service.getList(board);
+	   Member fri = service.friend(writer);
+	   session.setAttribute("friendId", writer);
+	   ModelAndView mav = new ModelAndView("board/friList");
+	   mav.addObject("list", list);
+	   mav.addObject("fri", fri);
+	   
+	   Relationship relation = new Relationship(id, writer);
+	   ArrayList<Integer> count =  service.FriendprofileCount(writer);
+	   String check = service.checkRelation(relation);
+	   session.setAttribute("check", check);//  나와 상대방의 관계
+	   session.setAttribute("friendfollowerCount", count.get(0));
+	   session.setAttribute("friendfollowingCount",count.get(1));
+	   session.setAttribute("friendsubscribeCount", count.get(2));
+	   return mav;
+  	}
 }

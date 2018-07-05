@@ -32,7 +32,7 @@
 	      select count(*) from relationship
 	      where sender = #{id}
 	      and status
-	      in ('y','r')
+	      in ('y','r','n')
 	</select>
 	
 	<select id="selectRecommend" resultMap="FriendResult" parameterType="String">
@@ -62,7 +62,7 @@
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status
-			  in ('y','r')
+			  in ('y','r','n')
 			  )
 		AND useyn='y'
 	</select>
@@ -74,7 +74,7 @@
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status
-			  in ('y','r')
+			  in ('y','r','n')
 			  )
 		AND useyn='y'
 	</select>
@@ -86,7 +86,7 @@
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status
-			  in ('y','r')
+			  in ('y','r','n')
 			  )
 		AND useyn='y'
 	</select>
@@ -99,7 +99,7 @@
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status
-			  in ('y','r')
+			  in ('y','r','n')
 			  )
 		AND useyn='y'
 	</select>
@@ -113,7 +113,7 @@
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status
-			  in ('y','r')
+			  in ('y','r','n')
 			  )
 		AND useyn='y'
 	</select>
@@ -136,7 +136,7 @@
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status
-			  in ('y','r')
+			  in ('y','r','n')
 			  )
 	</select>
 	
@@ -185,9 +185,9 @@
 	</select>
 	
 	<insert id="insertSubscribe" parameterType="com.kitri.daily.friend.Relationship">
-		INSERT INTO relationship ('sender', 'receiver', 'status', 'date')
+		INSERT INTO relationship
 		VALUES (#{sender}, #{receiver}, 'R', now())
-		ON DUPLICATE KEY UPDATE sender=#{sender}, receiver=#{receiver}, status='R', date=now();
+		ON DUPLICATE KEY UPDATE sender=#{sender}, receiver=#{receiver}, status='R', date=now()
 	</insert>
 	
 	<delete id="deletefollow" parameterType="com.kitri.daily.friend.Relationship">

@@ -35,7 +35,7 @@ ul.list-group>li>a[type=button]{
 					src="https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w"
 					width="30"> 
 					<a href='${pageContext.request.contextPath }/board/friList.do?writer=${p.id }' style="color: black"><span>${p.id }</span></a>
-					<a type="button" href='${pageContext.request.contextPath }/friend/cancelSubscribe.do?writer=${p.id }' class="btn btn-xs">구독 취소</a>
+					<a type="button" href='${pageContext.request.contextPath }/friend/cancelSubscribe.do?writer=${p.id }&type=1' class="btn btn-xs">구독 취소</a>
 				</li>
 			</c:forEach>
 			</c:if>
