@@ -12,13 +12,7 @@
 		<result column="img" property="img" />
 		<result column="public_yn" property="public_yn" />
 	</resultMap>
-	
-	<!-- <resultMap id="tagResult" type="com.kitri.daily.search.Hashtag">
-		<result column="board_seq" property="board_seq" />
-		<result column="tagname" property="tagname" />
-		<result column="block_yn" property="block_yn" />
-	</resultMap> -->
-	
+
 	<select id="select" resultMap="BoardResult" parameterType="java.lang.Integer">
 		select * from board where
 		board_seq = #{board_seq}
@@ -53,16 +47,16 @@
 			where sender=#{writer}
 			and status in ('Y','R')
 			)or writer=#{writer}
-		order by posted desc;
+		order by posted desc
 	</select>
 	
 	<insert id="insertTag" parameterType="com.kitri.daily.search.Hashtag">
-		insert into hashtag
+    	insert into hashtag
 		values(#{board_seq}, #{tagname}, #{block_yn})
 	</insert> 
 	
 	<select id="selectById" resultMap="BoardResult" parameterType="String">
-		select max(board_seq) from board
-		where writer = #{writer}
+		select * from board
+		where board_seq = (select max(board_seq) from board where writer=#{writer}) 
 	</select>
 </mapper>

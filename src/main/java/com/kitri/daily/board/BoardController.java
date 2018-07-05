@@ -42,9 +42,6 @@ public class BoardController {
 
 	@RequestMapping(value = "/board/upload.do")
 	public String upload(HttpServletRequest req, Board b) {
-		HttpSession session = req.getSession(false);
-		Member mem = (Member) session.getAttribute("memInfo");
-		String id = mem.getId();
 		String originPath = basePath + "\\board\\"; // ¿øº»ÆÄÀÏ °æ·Î
 		String upfolder = basePath + "\\thumbnail\\"; // ½æ³×ÀÏ Ã³¸®ÇÑ ÆÄÀÏ °æ·Î
 		MultipartFile file = b.getFile(); // form.jsp¿¡¼­ ¼±ÅÃÇÑ ÆÄÀÏ °¡Á®¿À±â
@@ -90,11 +87,22 @@ public class BoardController {
 			}
 		}
 		service.uploadBoard(b); //boardÅ×ÀÌºí¿¡ insert
-		service.selectByid(id); //À§¿¡¼­ insertÇÑ °Ô½Ã¹°ÀÇ Á¤º¸¸¦ ºÒ·¯¿Â´Ù.
-	    // ÇØ½ÃÅÂ±× Ã³¸®
-		if (b.getContent().contains("#")) {
+		/*return "forward:/board/tagInsert.do";*/
+		return "redirect:/board/tagInsert.do";
+		/*return "redirect:/board/myList.do";*/
+	}
+	
+	@RequestMapping(value = "/board/tagInsert.do")
+	public String tagInsert(HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+		Member mem = (Member) session.getAttribute("memInfo");
+		String id = mem.getId();
+		System.out.println("id?"+id);
+		Board board = service.selectByid(id);
+		// ÇØ½ÃÅÂ±× Ã³¸®
+		if (board.getContent().contains("#")) {
 			String block_yn = "N";
-			String content = b.getContent(); // ±âÁ¸¿¡ board¿¡ ÀÖ´Â ³»¿ëÀ» °¡Á®¿Â´Ù.
+			String content = board.getContent(); // ±âÁ¸¿¡ board¿¡ ÀÖ´Â ³»¿ëÀ» °¡Á®¿Â´Ù.
 			System.out.println("±Û³»¿ë: " + content);
 			// Á¤±ÔÇ¥Çö½ÄÀ» ÀÌ¿ëÇÑ ÇØ½ÃÅÂ±× ÃßÃâ
 			Pattern p = Pattern.compile("\\#([0-9a-zA-Z°¡-ÆR]*)");
@@ -104,8 +112,7 @@ public class BoardController {
 			while (m.find()) {
 				extTag = ch_replace(m.group());
 				if (extTag != null) {
-					System.out.println("±Û¹øÈ£ : " + b.getBoard_seq());
-					Hashtag h = new Hashtag(b.getBoard_seq(), extTag, block_yn);
+					Hashtag h = new Hashtag(board.getBoard_seq(), extTag, block_yn);
 					service.insertHashtag(h);
 					System.out.println("ÇØ½ÃÅÂ±× : " + extTag);
 				}
