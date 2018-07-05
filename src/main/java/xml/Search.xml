@@ -72,6 +72,7 @@
 		order by date desc
 		)
 		and public_yn = 'y'
+        and now() >= date_add(posted, interval 1 minute)
 		order by posted desc
 		) a
 		,(select @rownum:=0) tmp
