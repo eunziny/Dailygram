@@ -112,6 +112,7 @@ body {
 				}
 			});
  			location.href="${pageContext.request.contextPath}/admin/deleteHashtag.do";
+ 			return false;
 		});
 	});
 </script>
