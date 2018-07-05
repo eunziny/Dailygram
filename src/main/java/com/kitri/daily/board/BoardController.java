@@ -20,7 +20,7 @@ import com.kitri.daily.member.Member;
 
 @Controller
 public class BoardController {
-   String basePath = "D:\\apache-tomcat-8.5.30\\webapps";
+   String basePath = System.getProperty("catalina.home")+"\\webapps";
 
    @Resource(name = "boardService")
    private BoardService service;
