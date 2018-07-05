@@ -63,9 +63,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void insertRepComment(Comment co) {
+	public void insertRepComment(Comment co) throws Exception {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.updateStep(co);
 		boardMapper.insertRepComment(co);
+		boardMapper.updateReply(co);
 		
 	}
 	public Like getType(Like like) {
@@ -104,6 +106,19 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+	public void updateComment(Comment co) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.updateComment(co);
+	}
+
+	@Override
+	public void deleteComment(Comment co) throws Exception {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.updateDownReply(co);
+		boardMapper.updateDownStep(co);
+		boardMapper.deleteComment(co);
+	}
+
 	public ArrayList<Integer> FriendprofileCount(String id) {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
 		ArrayList<Integer> count = boardMapper.selectFriendProfileCount(id);

@@ -32,7 +32,7 @@
 			<beans:value>com.mysql.jdbc.Driver</beans:value>
 		</beans:property>
 		<beans:property name="url">
-			<beans:value>jdbc:mysql://127.0.0.1:3306/dailygram?useSSL=false&amp;serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf8
+			<beans:value>jdbc:mysql://127.0.0.1:3306/dailygram?useSSL=false&amp;serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf8&amp;?allowMultiQueries=true
 			</beans:value>
 		</beans:property>
 		<beans:property name="username">
@@ -63,7 +63,7 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	</beans:bean>
 	
-	<tx:annotation-driven proxy-target-class="true"/>
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 	
 	<!-- @ResponseBody -->
      <mvc:annotation-driven>

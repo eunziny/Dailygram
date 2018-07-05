@@ -20,7 +20,7 @@ import com.kitri.daily.member.Member;
 
 @Controller
 public class BoardController {
-   String basePath = "D:\\apache-tomcat-8.5.30\\webapps";
+   String basePath = System.getProperty("catalina.home")+"\\webapps";
 
    @Resource(name = "boardService")
    private BoardService service;
@@ -144,7 +144,6 @@ public class BoardController {
          }
       }
       service.editBoard(b);
-      System.out.println(b);
       return "redirect:/board/post.do?bseq="+b.getBoard_seq();
    }
 
@@ -159,7 +158,6 @@ public class BoardController {
       mav.addObject("l", l);
 	  Board b = service.detailBoard(bseq);
       List<Comment> coList = service.getComments(bseq);//해당글의 코멘트 리스트들 가져오기.
-      System.out.println("댓글 개수:"+coList.size());
       mav.addObject("b", b);
       mav.addObject("coList",coList);
       String upfolder = basePath + "\\thumbnail\\"; // img 가져올 파일 경로
@@ -177,11 +175,33 @@ public class BoardController {
 	   Member mem  = (Member) session.getAttribute("memInfo");
 	   String id = mem.getId();
 	   List<Board> boardlist = (ArrayList<Board>) service.getMyList(id);
+	   /*
+	   Timer t = new Timer(true);
+	   TimerTask m_task = new TimerTask() {
+		   
+		   @Override
+		   public void run() {
+			   System.out.println("공개 게시물2 : " + boardlist);
+			   for(int i=0; i<boardlist.size(); i++) {
+				   System.out.println("공개 게시물"+i+" : " + boardlist.get(i).getPublic_yn());
+				   if(boardlist.get(i).getPublic_yn().trim().equals("yd") || 
+						   boardlist.get(i).getPublic_yn().trim().equals("nd")) {
+					   System.out.println("공개 게시물 : " + boardlist.get(i).getPublic_yn());
+					   String yn = boardlist.get(i).getPublic_yn().substring(0, 1);
+					   boardlist.get(i).setPublic_yn(yn);
+					   service.updelay(boardlist.get(i));
+				   }
+			   }
+		   }
+	   };
+		
+	   t.schedule(m_task, 10000);
+	   */
 	   ModelAndView mav = new ModelAndView("board/myList");
 	   mav.addObject("list", boardlist);
 	   return mav;
    }
-   
+
    @RequestMapping(value = "/board/delType.do")
    public String delType (HttpServletRequest req ,@RequestParam(value="bseq") int bseq) {
 	   HttpSession session = req.getSession(false);
