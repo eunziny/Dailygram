@@ -17,5 +17,4 @@ public interface FriendMapper {
 	ArrayList<Friend> selectSubscribeList(String user_id);
 	ArrayList<Friend> selectFollowingList(String id);
 	ArrayList<Friend> selectFollowerList(String id);
-	//int[] selectProfileCount(String id);
 }

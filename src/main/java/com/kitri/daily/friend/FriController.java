@@ -197,17 +197,62 @@ public class FriController {
 		return mav;
 	}
 	
-	/*@RequestMapping(value="/board/profile.do")
-	public ModelAndView profileCount(@RequestParam(value = "id") String id) {//내가 구독하는 사람 리스트
-		ModelAndView mav = new ModelAndView("board/profile");
+	@RequestMapping(value="/friend/friendfollowerlist.do")
+	public ModelAndView friendFollowerList(@RequestParam(value = "id") String id, @RequestParam(value = "user_id") String user_id) {//내가 구독하는 사람 리스트
+		ModelAndView mav = new ModelAndView("friend/friendfollowerlist");
 		Friend friend = new Friend();
 		friend.setId(id);
-		System.out.println("로그인 한 아이디 : " + id);
+		System.out.println("프로필 상 아이디(친구) : " + id);
+		System.out.println("로그인한 아이디 : " + user_id);
 		
-		int list[] =  service.profileCount(id);
-		for(int i=0;i<list.length;i++)
-			System.out.print(list[i] + ", ");
+		ArrayList<Friend> list = (ArrayList<Friend>) service.getfollowerList(id);//친구의팔로워 리스트 받아옴
+		
+		ArrayList<Friend> mylist = (ArrayList<Friend>)service.getfollowingList(user_id);//내가 팔로잉 하는사람
+		
+		for(int i=0;i<list.size();i++) {
+			for(int j=0;j<mylist.size();j++) {
+				if(list.get(i).getId().equals(mylist.get(j).getId())) {
+					list.get(i).setStatus("y");//내 팔로우 리스트에 있으면 상태값 y로 바꿔줌
+				}		
+			}
+			if(list.get(i).getStatus()==null)
+				list.get(i).setStatus("no");
+			if(list.get(i).getId().equals(user_id))
+				list.get(i).setStatus("me");
+		}
+		System.out.println("list : ");
+		for(int i=0;i<list.size();i++)
+			System.out.print(list.get(i) + ", ");
 		mav.addObject("list", list);
 		return mav;
-	}*/	
+	}
+	
+	@RequestMapping(value="/friend/friendfollowinglist.do")
+	public ModelAndView friendFollowingList(@RequestParam(value = "id") String id, @RequestParam(value = "user_id") String user_id) {//내가 구독하는 사람 리스트
+		ModelAndView mav = new ModelAndView("friend/friendfollowinglist");
+		Friend friend = new Friend();
+		friend.setId(id);
+		System.out.println("프로필 상 아이디(친구) : " + id);
+		System.out.println("로그인한 아이디 : " + user_id);
+		
+		ArrayList<Friend> list = (ArrayList<Friend>) service.getfollowingList(id);//친구의 팔로잉 리스트
+		ArrayList<Friend> mylist = (ArrayList<Friend>) service.getfollowingList(user_id);//내 팔로잉 리스트
+		
+		for(int i=0;i<list.size();i++) {
+			for(int j=0;j<mylist.size();j++) {
+				if(list.get(i).getId().equals(mylist.get(j).getId())) {
+					list.get(i).setStatus("y");//내 팔로우 리스트에 있으면 상태값 y로 바꿔줌
+				}		
+			}
+			if(list.get(i).getStatus()==null)
+				list.get(i).setStatus("no");
+			if(list.get(i).getId().equals(user_id))
+				list.get(i).setStatus("me");
+		}
+		System.out.println("list : ");
+		for(int i=0;i<list.size();i++)
+			System.out.print(list.get(i) + ", ");
+		mav.addObject("list", list);;
+		return mav;
+	}
 }

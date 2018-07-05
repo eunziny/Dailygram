@@ -1,5 +1,6 @@
 package com.kitri.daily.board;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -118,6 +119,10 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.deleteComment(co);
 	}
 
-	
+	public ArrayList<Integer> FriendprofileCount(String id) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		ArrayList<Integer> count = boardMapper.selectFriendProfileCount(id);
+		return count;
+	}
 
 }

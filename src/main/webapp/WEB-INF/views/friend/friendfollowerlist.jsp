@@ -2,12 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/views/container/header.jsp"%>
-<%@ include file="/WEB-INF/views/board/profile.jsp"%>
+<%@ include file="/WEB-INF/views/board/friprofile.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>구독 리스트</title>
+<title>팔로워 리스트</title>
 </head>
 <style>
 div.panel-group {
@@ -24,7 +24,7 @@ ul.list-group>li>button{
 <body>
 <div class="panel-group">
 	<div class="panelspace">
-		<h4 class="panel-heading panel-known" ><strong>나의 구독 리스트</strong></h4>
+		<h4 class="panel-heading panel-known" ><strong>팔로워</strong></h4>
 		<hr>
 		<div class="panel-body">
 			<ul class="list-group">
@@ -34,13 +34,21 @@ ul.list-group>li>button{
 				<li class="list-group-item"><img alt="" class="img-circle"
 					src="https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w"
 					width="30"> 
+					<c:if test="${p.status eq 'y' }">
 					<a href='${pageContext.request.contextPath }/board/friList.do?writer=${p.id }' style="color: black"><span>${p.id }</span></a>
-					<button type="button" class="btn btn-xs">구독 취소</button>
+						<button type="button" class="btn btn-xs">팔로잉 취소</button>
+					</c:if>
+					<c:if test="${p.status eq 'no' }">
+					<a href='${pageContext.request.contextPath }/board/friList.do?writer=${p.id }' style="color: black"><span>${p.id }</span></a>
+						<button type="button" class="btn btn-xs">팔로우</button>
+					</c:if>
+					<c:if test="${p.status eq 'me' }">
+					<a href='${pageContext.request.contextPath }/board/myList.do' style="color: black"><span>${p.id }</span></a>
+					</c:if>
 				</li>
 			</c:forEach>
 			</c:if>
 			</ul>
-		</div>
 		</div>
 	</div>
 </div>

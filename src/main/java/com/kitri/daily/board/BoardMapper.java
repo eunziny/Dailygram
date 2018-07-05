@@ -1,5 +1,6 @@
 package com.kitri.daily.board;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.kitri.daily.member.Member;
@@ -25,4 +26,5 @@ public interface BoardMapper {
 	void deleteComment(Comment co);
 	void updateDownReply(Comment co);
 	void updateDownStep(Comment co);
+	ArrayList<Integer> selectFriendProfileCount(String id);
 }

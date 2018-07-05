@@ -168,6 +168,23 @@
 		#{writer}
 		group by m.id
 	</select>
+	
+	<select id="selectFriendProfileCount" resultType="Integer" parameterType="String">
+		SELECT count(*)
+		FROM relationship
+		WHERE receiver=#{id}
+		AND status='y'
+		union
+		SELECT count(*)
+		FROM relationship
+		WHERE sender=#{id}
+		AND status='y'
+		union
+		SELECT count(*)
+		FROM relationship
+		WHERE sender=#{id}
+		AND status='r'
+	</select>
 
 	<select id="selectComments" resultMap="CommentResult"
 		parameterType="java.lang.Integer">

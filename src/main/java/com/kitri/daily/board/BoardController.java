@@ -20,7 +20,7 @@ import com.kitri.daily.member.Member;
 
 @Controller
 public class BoardController {
-   String basePath = "D:\\driver\\apache-tomcat-8.5.30\\webapps";
+   String basePath = "D:\\apache-tomcat-8.5.30\\webapps";
 
    @Resource(name = "boardService")
    private BoardService service;
@@ -222,9 +222,18 @@ public class BoardController {
 	   Board board = new Board(writer, id);
 	   List<Board> list = (ArrayList<Board>) service.getList(board);
 	   Member fri = service.friend(writer);
+	   session.setAttribute("friendId", writer);
 	   ModelAndView mav = new ModelAndView("board/friList");
 	   mav.addObject("list", list);
 	   mav.addObject("fri", fri);
+	 
+	   ArrayList<Integer> count =  service.FriendprofileCount(writer);
+		for(int i=0;i<count.size();i++)
+			System.out.print(count.get(i) + ", ");
+		
+		session.setAttribute("friendfollowerCount", count.get(0));
+		session.setAttribute("friendfollowingCount",count.get(1));
+		session.setAttribute("friendsubscribeCount", count.get(2));
 	   return mav;
   	}
 }

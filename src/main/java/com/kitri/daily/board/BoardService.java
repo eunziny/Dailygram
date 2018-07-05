@@ -1,5 +1,6 @@
 package com.kitri.daily.board;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -25,4 +26,5 @@ public interface BoardService {
 	void updateComment(Comment co);
 	@Transactional
 	void deleteComment(Comment co) throws Exception;
+	ArrayList<Integer> FriendprofileCount(String id);
 }
