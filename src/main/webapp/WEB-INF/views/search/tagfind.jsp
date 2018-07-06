@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/views/container/header.jsp"%>
 <style>
@@ -39,15 +40,13 @@
 		<div class="col-lg-12" id="looktop">
 			<div class="col-lg-offset-1 col-lg-3" id="looktag_img">
 				<img class="img-circle"
-					src="http://item.ssgcdn.com/83/19/94/item/0000005941983_i1_500.jpg"
+					src="/board/${list[0].img}"
 					width="200" height="200" alt="No Image">
 			</div>
 			<div class="col-lg-8">
 				<br> <br>
-				<h2>
-					<a href="#" class="looktag">${s.tagname}</a>
-				</h2>
-				<h4>게시물 86,529</h4>
+				<h2>${list[0].tagname}</h2>
+				<h4>게시물 ${fn:length(list)}</h4>
 			</div>
 		</div>
 	</div>

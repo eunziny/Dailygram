@@ -72,16 +72,41 @@ body {
 			alert("게시물로 이동");
 		});
 		
-/* 		$("a.badge").click(function() {
-			
-				window.open("${pageContext.request.contextPath}/admin/chargeperson.do?bseq=${cl.board_seq}",
+		
+/*   		$("a.badge").click(function() {
+  			var list1 = new Array();
+
+  			<c:forEach items="${chargeList}" var="item1">
+
+  			list1.push("${item1.board_seq}");
+
+  			</c:forEach>
+
+			console.log(list1);
+				window.open("${pageContext.request.contextPath}/admin/chargeperson.do?bseq=list1",
 						" 해당 게시물 신고자 리스트",
 						"width=450, height=550, top=70 left=400, scrollbars=yes");
 				
 		}); */
 		
 		$("button#delete").click(function() {
-			alert("정말 삭제하시겠습니까?");
+			//alert("정말 삭제하시겠습니까?");
+			
+			var checkArr = []; //배열 초기화
+			
+			$("input[name='chargedel']:checked").each(function(e) {
+				checkArr.push($(this).val());
+			});
+			
+			$.ajax ({
+				url: "${pageContext.request.contextPath}/admin/postdel.do",
+				type: 'post',
+				dataType: 'text',
+				data: {
+					valueArrTest:checkArr
+				}
+				
+			});
 		});
 	});
 </script>
@@ -103,8 +128,8 @@ body {
 								<c:forEach var="cl" items="${chargeList}">
 								<li class="list-group-item">
 									<div class="checkbox">
-										<input type="checkbox" class="checkb" name="checkbox[]"
-											id="checkbox1" value="1" /> <label for="checkbox1">${cl.writer}</label>
+										<input type="checkbox" class="checkb" name="chargedel"
+											id="checkbox1" value="${cl.board_seq}" /> <label for="checkbox1">${cl.writer}</label>
 									</div>
 									<div class="pull-right action-buttons">
 										<a href="${pageContext.request.contextPath}/board/post.do?bseq=${cl.board_seq}" class="eye"><span class="glyphicon glyphicon-eye-open"></span></a> 
