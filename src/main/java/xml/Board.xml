@@ -235,17 +235,17 @@
 		SELECT count(*)
 		FROM relationship
 		WHERE receiver=#{id}
-		AND status='y'
-		union
+		AND status='Y'
+		union all
 		SELECT count(*)
 		FROM relationship
 		WHERE sender=#{id}
-		AND status='y'
-		union
+		AND status='Y'
+		union all
 		SELECT count(*)
 		FROM relationship
 		WHERE sender=#{id}
-		AND status='r'
+		AND status='R'
 	</select>
 	
 	<!-- <update id="delayUdate" parameterType="com.kitri.daily.board.Board">
