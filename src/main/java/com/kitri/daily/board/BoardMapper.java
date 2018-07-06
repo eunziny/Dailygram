@@ -1,6 +1,7 @@
 package com.kitri.daily.board;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import com.kitri.daily.search.Hashtag;
 import com.kitri.daily.friend.Relationship;
@@ -37,4 +38,6 @@ public interface BoardMapper {
 	void updateDownStep(Comment co);
 	ArrayList<Integer> selectFriendProfileCount(String id);
 	String selectcheckRelation(Relationship relation);
+	List<Comment> getNewsComm(HashMap<String, List<Integer>> hm);
+	List<Member> getProfileImg(HashMap<String, List<String>> hm);
 }

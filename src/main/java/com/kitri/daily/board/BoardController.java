@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,6 +27,7 @@ import com.kitri.daily.friend.Friend;
 import com.kitri.daily.friend.Relationship;
 import com.kitri.daily.member.Member;
 import com.kitri.daily.search.Hashtag;
+import com.kitri.daily.search.Look;
 
 @Controller
 public class BoardController {
@@ -133,22 +135,30 @@ public class BoardController {
 	@RequestMapping(value = "/board/newsfeed.do", method = RequestMethod.GET)	
 	public ModelAndView newsfeed(@RequestParam String id) {
 		ModelAndView mav = new ModelAndView("board/newsfeed");
-		Board b = new Board();
-		b.setWriter(id);
-		b.setRow(0);
-		List <Board> boardList= service.getNewsfeed(b);//10개 + 해당글의 type가져온다 L,S,X 셋중하나.
-		
+		Board sendbo = new Board();
+		sendbo.setWriter(id);
+		sendbo.setRow(0);
+		List <Board> boardList= service.getNewsfeed(sendbo);//10개 + 해당글의 type가져온다 L,S,X 셋중하나.
 		mav.addObject("boardList", boardList);
 		
+		//댓글을 찾기위한 글번호 list 이다.
+		List <Integer> bseqList = new ArrayList<Integer>();
+		//프로필 사진 을 갖고오기 위한 해당 글번호 글쓴이 writer 보내기.
+		List <String> writerList = new ArrayList<String>();
+		//댓글을 가져오기 위한 위에서 번호 뽑기.
+		for(Board b : boardList) {
+			bseqList.add(b.getBoard_seq());
+			writerList.add(b.getWriter());
+		}
+		HashMap<String,List<Integer>> hm = new HashMap<String,List<Integer>>();
+		HashMap<String,List<String>> hm2 = new HashMap<String, List<String>>();
+		hm.put("bseq", bseqList);
+		hm2.put("writer",writerList);
+		List<Comment> coList = service.getNewsComm(hm); //댓글 가져와라
+		List<Member> proList = service.getProfileImg(hm2);
+		mav.addObject("coList",coList);
+		mav.addObject("proList",proList);
 		
-		//뉴스피드 안에 들어갈 좋아요, 댓글
-/*		Like like = new Like(bseq, id);
-		Like l = service.getType(like);
-		mav.addObject("l", l);
-		Board b = service.detailBoard(bseq);
-		List<Comment> coList = service.getComments(bseq);// 해당글의 코멘트 리스트들 가져오기.
-		mav.addObject("b", b);
-		mav.addObject("coList", coList);*/
 		return mav;
 	}
 
