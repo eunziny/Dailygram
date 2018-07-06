@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
@@ -26,6 +27,10 @@ public class MemController {
 
 	public void setService(MemService service) {
 		this.service = service;
+	}
+	
+	@RequestMapping(value = "/member/mem_editForm.do")
+	public void mem_editForm() {
 	}
 	
 	@RequestMapping(value = "/member/loginForm.do")
@@ -81,6 +86,7 @@ public class MemController {
 		MultipartFile file = m.getFile(); // mem_editForm.jsp에서 선택한 파일 가져오기
 		HttpSession session = req.getSession(false);
 		Member mem = (Member) session.getAttribute("memInfo");
+		
 		if (file != null && !file.equals("")) {
 			File dir = new File(originPath);
 			if (!dir.exists()) {
@@ -133,25 +139,34 @@ public class MemController {
 		return "redirect:/board/myList.do";
 	}
 	
-/*	@RequestMapping(value = "/admin/chargelist.do")
-	void test6() {
-		
-	} */
-	
-	@RequestMapping(value = "/admin/chargeMemList.do")
-	void test7() {
-		
+	@RequestMapping(value = "/member/joinForm.do")
+	public String joinForm() {
+		return "member/join";
 	}
-	
-	
+
 	@RequestMapping(value = "/member/join.do")
-	void test11() {
-		
+	public String join(Member m) {
+		service.insertMem(m);
+		return "redirect:/member/loginForm.do";
 	}
 	
-	@RequestMapping(value = "/member/mem_editForm.do")
-	void test12() {
-		
+	@RequestMapping(value = "/member/idCheck.do")
+	public ModelAndView idCheck(HttpServletRequest req, @RequestParam(value="id") String id) {
+		System.out.println(id);
+		HttpSession session = req.getSession(false);
+		ModelAndView mav = new ModelAndView("member/idCheck");
+		String result="";
+		Member m = service.getMember(id);
+		if(m == null) {
+			result = "사용가능한 아이디입니다.";
+			session.setAttribute("idCheck", true);
+		} else {
+			result = "이미 사용중인 아이디입니다.";
+			session.setAttribute("idCheck", false);
+		}
+		System.out.println(session.getAttribute("idCheck"));
+		mav.addObject("result", result);
+		return mav;
 	}
 
 }

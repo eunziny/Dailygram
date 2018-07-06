@@ -26,12 +26,11 @@
 		where id = #{id} and useyn='y'
 	</select>
 	
-	<!-- <insert id="insertMember" parameterType="com.kitri.daily.member.Member">
+	<insert id="insertMem" parameterType="com.kitri.daily.member.Member">
 		INSERT INTO
-		MEMBER
-		VALUES (#{id}, #{pwd}, #{name}, #{birthday}, #{email}, #{address}
-		, #{gender}, #{joindate}, #{useyn}, #{profile_img}, #{publicyn}, #{intro})
-	</insert> -->
+		MEMBER (`id`, `pwd`, `name`, `intro`, `birthday`, `email`, `address`, `gender`, `joindate`, `useyn`, `publicyn`)
+		VALUES (#{id}, #{pwd}, #{name, jdbcType=VARCHAR}, #{intro, jdbcType=VARCHAR}, #{birthday}, #{email}, #{address}, #{gender}, now(), 'y', 'y')
+	</insert>
 	
 	<update id="delMember" parameterType="com.kitri.daily.member.Member">
 		update member 
@@ -59,7 +58,7 @@
 	<update id="updateMem" parameterType="com.kitri.daily.member.Member">
 		update member 
 		set pwd=#{pwd}, name=#{name}, birthday=#{birthday}, email=#{email}, address=#{address},
-		gender=#{gender}, publicyn=#{publicyn}, profile_img=#{profile_img}, intro=#{intro}
+		gender=#{gender}, publicyn=#{publicyn}, profile_img=#{profile_img}, intro=concat(#{intro},' \n')
 		where id=#{id}
 	</update>
 	
