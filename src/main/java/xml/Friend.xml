@@ -28,7 +28,7 @@
 	<select id="selectFriendRelationshipCount" resultType="java.util.HashMap" parameterType="String">
 		select count(*) cnt from like_siren
 	      where sender = #{id}
-	      union
+	      union all
 	      select count(*) from relationship
 	      where sender = #{id}
 	      and status
@@ -56,9 +56,10 @@
 		SELECT intro FROM member WHERE id = #{id} 
 	</select>
 	
-	<select id="selectRecommendHT1" resultMap="FriendResult" parameterType="String">
+	<select id="selectRecommendHT1" resultMap="FriendResult" parameterType="com.kitri.daily.friend.Friend">
 		SELECT id, profile_img FROM member 
-		WHERE intro like CONCAT('%', #{tag1}, '%') AND id NOT LIKE #{id}
+		WHERE intro like CONCAT('%', #{tag1}, '%') 
+		AND id NOT LIKE #{id}
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status

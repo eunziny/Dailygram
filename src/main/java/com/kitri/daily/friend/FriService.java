@@ -8,7 +8,7 @@ public interface FriService {
 	List<HashMap<String, Object>> getFriendRelationshipCount(String user_id);
 	List getRecommend(String user_id);
 	String getUserIntro(String user_id);
-	ArrayList<Friend> getRecommendHT1(String tag1);
+	ArrayList<Friend> getRecommendHT1(Friend friend);
 	ArrayList<Friend> getRecommendHT2(Friend friend);
 	ArrayList<Friend> getRecommendHT3(Friend friend);
 	ArrayList<Friend> getRecommendHT4(Friend friend);
