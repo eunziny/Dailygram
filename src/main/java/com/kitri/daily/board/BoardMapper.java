@@ -22,7 +22,10 @@ public interface BoardMapper {
 	void insertRepComment(Comment co);
 	void updateStep(Comment co);
 	void updateReply(Comment co);
-	List<Board> list(Board board);
+	/*List<Board> list(Board board);*/
+	String[] getStatus(Board b);
+	List<Board> publicyn(Board board); //게시물 전부다(y,n)
+	List<Board> publicy(Board board); //공개 게시물만(y)
 	Like myType(Like like);
 	void delType(Like like);
 	void addLike (Like like);

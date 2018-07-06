@@ -60,7 +60,8 @@ input{
                           		<i class="fas fa-heart fa-2x"></i></a>
                         </c:if>
                         <a role='button'><i class="far fa-comments fa-2x"></i></a>
-                        <a role='button'><i class="far fa-share-square fa-2x"></i></a>
+                        <a role='button' href="${pageContext.request.contextPath }/board/repost.do?bseq=${b.board_seq}">
+                        		<i class="far fa-share-square fa-2x"></i></a>
                       </div>
                       <p style="margin-top:10px; font-weight:bold;">좋아요  ${b.likecnt }개</p>
                       <div class='caption'>
