@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- jQuery CDN -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>    
 <!-- bootstrap CDN -->
@@ -164,8 +165,16 @@ $(document).ready(function(e){
 		</li>
 		<li class="dropdown"> 
 			<a href="#" class="dropdown-toggle users" data-toggle="dropdown" aria-expanded="true">
-				<img alt="" class="img-circle" src="https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w" width="30"> 
-				<span class="hidden-xs">Admin User</span> 
+				<c:set var="profile" value="${sessionScope.memInfo.profile_img}" /> 
+				  <c:choose>
+					<c:when test="${profile ne null}"> 
+						<img class="img-circle" width="30" src="/dailygram/thumbnail_mem/${sessionScope.memInfo.profile_img}">
+					</c:when>
+					<c:otherwise>
+						<img class="img-circle" width="30" src="http://www.technifroid-pro.fr/wp-content/uploads/2014/02/Technifroid-F.jpg">
+					</c:otherwise>
+				  </c:choose>
+				<span class="hidden-xs">${sessionScope.memInfo.id }</span> 
 			</a>
 			<ul class="dropdown-menu">
 				<li><a href="${pageContext.request.contextPath }/board/myList.do"><i class="fa fa-fw fa-user"></i> My Page</a></li>
