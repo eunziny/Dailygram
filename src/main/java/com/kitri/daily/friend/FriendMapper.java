@@ -8,7 +8,7 @@ public interface FriendMapper {
 	List<HashMap<String, Object>> selectFriendRelationshipCount(String user_id);
 	List selectRecommend(String user_id);
 	String selectUserIntro(String user_id);
-	ArrayList<Friend> selectRecommendHT1(String tag1);
+	ArrayList<Friend> selectRecommendHT1(Friend friend);
 	ArrayList<Friend> selectRecommendHT2(Friend friend);
 	ArrayList<Friend> selectRecommendHT3(Friend friend);
 	ArrayList<Friend> selectRecommendHT4(Friend friend);
