@@ -104,7 +104,7 @@ $(document).ready(function(e){
   <div class="row">
   <div class="col-md-12">
     <div id='left'>
-      <a href='${pageContext.request.contextPath}/board/newsfeed.do'><img src='${pageContext.request.contextPath }/resources/img/logo.png' id='logo-name'></a>
+      <a href='${pageContext.request.contextPath}/board/newsfeed.do?id=${sessionScope.memInfo.id}'><img src='${pageContext.request.contextPath }/resources/img/logo.png' id='logo-name'></a>
     </div>
 		<div class="col-md-offset-1 col-md-4">
 			<form id="searchform" action="${pageContext.request.contextPath }/container/search.do" method="post">

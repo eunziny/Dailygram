@@ -10,7 +10,7 @@ public interface BoardMapper {
 	Board select(int board_seq);
 	void update(Board b);
 	List<Board> myList(String id);
-	List<Board> newsfeed(String id);
+	List<Board> newsfeed(Board b);
 	void insertTag(Hashtag h);
 	Board selectById(String id);
 	void delHashtag(int board_seq);

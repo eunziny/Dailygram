@@ -128,14 +128,17 @@ public class BoardController {
 		return str;
 	}
 
-	@RequestMapping(value = "/board/newsfeed.do", method = RequestMethod.GET)
-	public void newsfeed(Model model, HttpServletRequest req) {
+	@RequestMapping(value = "/board/newsfeed.do", method = RequestMethod.GET)	
+	public ModelAndView newsfeed(@RequestParam String id) {
 		ModelAndView mav = new ModelAndView("board/newsfeed");
-		HttpSession session = req.getSession(false);
-		Member mem = (Member) session.getAttribute("memInfo");
-		String id = mem.getId();
-		List<Board> feedList = (ArrayList<Board>) service.getNewsfeed(id);
-		model.addAttribute("feed", feedList);
+		Board b = new Board();
+		b.setWriter(id);
+		b.setRow(0);
+		List <Board> boardList= service.getNewsfeed(b);//10개 + 해당글의 type가져온다 L,S,X 셋중하나.
+		
+		mav.addObject("boardList", boardList);
+		
+		
 		//뉴스피드 안에 들어갈 좋아요, 댓글
 /*		Like like = new Like(bseq, id);
 		Like l = service.getType(like);
@@ -144,6 +147,7 @@ public class BoardController {
 		List<Comment> coList = service.getComments(bseq);// 해당글의 코멘트 리스트들 가져오기.
 		mav.addObject("b", b);
 		mav.addObject("coList", coList);*/
+		return mav;
 	}
 
 	@RequestMapping(value = "/board/del.do")
