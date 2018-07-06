@@ -114,13 +114,13 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
 		boardMapper.addSiren(like);
 	}
-
+/*
 	@Override
 	public List<Board> getList(Board board) {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
 		return boardMapper.list(board);
 	}
-
+*/
 	@Override
 	public Member friend(String writer) {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
@@ -146,6 +146,25 @@ public class BoardServiceImpl implements BoardService {
 		ArrayList<Integer> count = boardMapper.selectFriendProfileCount(id);
 		return count;
 	}
+
+	@Override
+	public String[] getStatus(Board b) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.getStatus(b);
+	}
+
+	@Override
+	public List<Board> publicyn(Board b) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.publicyn(b);
+	}
+	
+	@Override
+	public List<Board> publicy(Board b) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.publicy(b);
+	}
+
 	@Override
 	public String checkRelation(Relationship relation) {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);

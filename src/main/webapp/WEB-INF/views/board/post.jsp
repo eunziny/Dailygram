@@ -60,7 +60,8 @@ input{
                           		<i class="fas fa-heart fa-2x"></i></a>
                         </c:if>
                         <a role='button'><i class="far fa-comments fa-2x"></i></a>
-                        <a role='button'><i class="far fa-share-square fa-2x"></i></a>
+                        <a role='button' href="${pageContext.request.contextPath }/board/repost.do?bseq=${b.board_seq}">
+                        		<i class="far fa-share-square fa-2x"></i></a>
                       </div>
                       <p style="margin-top:10px; font-weight:bold;">좋아요  ${b.likecnt }개</p>
                       <div class='caption'>
@@ -189,9 +190,10 @@ input{
 			contentType : "application/json; charset=UTF-8",
 			dataType : 'json',
 			success : function(data){
+				$('.comment-body').remove(); //기존에 있던 댓글 전부 날리기.
 				alert('댓글삭제 성공!');
 				if(data != ""){
-					$('.comment-body').remove(); //기존에 있던 댓글 전부 날리기.
+					
 					$('.comment-write').remove();
 					$(data).each(function(){
 						var str = "";
