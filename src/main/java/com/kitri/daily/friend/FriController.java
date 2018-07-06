@@ -65,7 +65,9 @@ public class FriController {
 				mav.addObject("list", list);
 
 			} else if (introArray.length == 1) {// 해시태그가 1개 있을 경우
-				list = (ArrayList<Friend>) service.getRecommendHT1(introArray[0]);
+				friend.setTag1(introArray[0]);
+				friend.setId(id);
+				list = (ArrayList<Friend>) service.getRecommendHT1(friend);
 				mav.addObject("list", list);
 
 			} else if (introArray.length == 2) {// 해시태그가 2개있을 경우

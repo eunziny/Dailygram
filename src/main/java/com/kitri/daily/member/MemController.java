@@ -86,6 +86,7 @@ public class MemController {
 		MultipartFile file = m.getFile(); // mem_editForm.jsp에서 선택한 파일 가져오기
 		HttpSession session = req.getSession(false);
 		Member mem = (Member) session.getAttribute("memInfo");
+		
 		if (file != null && !file.equals("")) {
 			File dir = new File(originPath);
 			if (!dir.exists()) {
@@ -142,7 +143,7 @@ public class MemController {
 	public String joinForm() {
 		return "member/join";
 	}
-	
+
 	@RequestMapping(value = "/member/join.do")
 	public String join(Member m) {
 		service.insertMem(m);
