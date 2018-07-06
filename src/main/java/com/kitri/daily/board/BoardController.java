@@ -136,6 +136,14 @@ public class BoardController {
 		String id = mem.getId();
 		List<Board> feedList = (ArrayList<Board>) service.getNewsfeed(id);
 		model.addAttribute("feed", feedList);
+		//뉴스피드 안에 들어갈 좋아요, 댓글
+/*		Like like = new Like(bseq, id);
+		Like l = service.getType(like);
+		mav.addObject("l", l);
+		Board b = service.detailBoard(bseq);
+		List<Comment> coList = service.getComments(bseq);// 해당글의 코멘트 리스트들 가져오기.
+		mav.addObject("b", b);
+		mav.addObject("coList", coList);*/
 	}
 
 	@RequestMapping(value = "/board/del.do")
