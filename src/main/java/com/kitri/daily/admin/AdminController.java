@@ -1,6 +1,7 @@
 package com.kitri.daily.admin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -64,17 +65,17 @@ public class AdminController {
 	@RequestMapping(value = "/admin/chartlist.do")
 	public @ResponseBody ModelAndView chartList() {
 		ModelAndView mav = new ModelAndView("admin/chartlist");
-		List<Integer> join = new ArrayList<Integer>();
+		List<HashMap<Integer,Object>> join; 
 		join = service.selectJoin();
 		mav.addObject("join", join);
 		System.out.println("join"+join);
 		
-		List<Integer> age =  new ArrayList<Integer>();
+		List<HashMap<Integer,Object>> age;
 		age = service.selectAge();
 		mav.addObject("age", age);
 		System.out.println("age"+age);
 		
-		List<Integer> gender =  new ArrayList<Integer>(); 
+		List<HashMap<Integer,Object>> gender; 
 		gender = service.selectGender();
 		mav.addObject("gender", gender);
 		System.out.println("gender"+gender);

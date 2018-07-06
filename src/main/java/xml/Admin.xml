@@ -11,12 +11,6 @@
 		<result column="block_yn" property="block_yn" />
 	</resultMap>
 	
-	<resultMap id = "ChartResult" type="com.kitri.daily.member.Member">
-		<result column="birthday" property="birthday" />
-		<result column="joindate" property="joindate" />
-		<result column="gender" property="gender" />
-	</resultMap>
-
 	<resultMap id = "SirenResult" type="com.kitri.daily.admin.Like_Siren">
 		<result column="board_seq" property="board_seq" />
 		<result column="sender" property="sender" />
@@ -51,7 +45,7 @@
 		</foreach>
 	</update>
 	
-	<select id="joinCount" resultMap="ChartResult">
+	<select id="joinCount" resultType="java.util.HashMap">
 		select jan.*, feb.*, mar.*, apr.*, may.*, jun.*,
 				 jul.*, aug.*, sept.*, oct.*, nov.*, de.*
 		from (select count(month(joindate)) as jan from member
@@ -77,10 +71,11 @@
 		     (select count(month(joindate)) as nov from member
 				where month(joindate) = 11) nov,
 		     (select count(month(joindate)) as de from member
-				where month(joindate) = 12) de;
+				where month(joindate) = 12) de
+			 order by (select month(joindate) from member) desc;
 	</select>
 	
-	<select id="ageCount" resultMap="ChartResult">
+	<select id="ageCount" resultType="java.util.HashMap">
 		select
 		sum(if(date_format(now(),'%Y')-substring(birthday,1,4) between 10 and 19 , 1, 0)) as age_10,
 		
@@ -97,10 +92,10 @@
 		from member;
 	</select>
 	
-	<select id="genderCount" resultMap="ChartResult">
+	<select id="genderCount" resultType="java.util.HashMap">
 		select f.* , m.*
-		from (select count(*) from member where gender = 'f') f, 
-		(select count(*) from member where gender = 'm') m; 
+		from (select count(*) as f from member where gender = 'f') f, 
+		(select count(*) as m from member where gender = 'm') m; 
 	</select>
 
 	<select id="getChargeList" resultMap="SirenResult">

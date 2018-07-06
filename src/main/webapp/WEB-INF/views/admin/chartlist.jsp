@@ -14,52 +14,36 @@
 
 <script>
 $(function(){
-/* 	var joindata = {
-			"com_seq":$(this).parents().children('input[id=com_seq]').val(),
-			"board_seq": ${b.board_seq}
-			}; */
-	$.ajax({
+/* 	$.ajax({
         url: "${pageContext.request.contextPath}/admin/chartlist.do",
         type: 'GET',
-       /*  dataType: 'json', */
-        success: function(data) { 
+        dataType: 'json',
+        success: function(data) { */ 
         //월별 가입자 수 차트
-        var joinData = {
-        		labels : ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월",
-   	    		 "11월", "12월"],
-   	    		 datasets: [{
-	    	            data: j, //컨트롤러에서 보낸 값을 받음
-	    	            backgroundColor: [
-	    	                'rgba(54, 162, 235, 0.2)'
-
-	    	            ],
-	    	          	label: "월별 가입자 수",
-	    	            borderColor: [
-	    	                'rgba(54, 162, 235, 1)'
-
-	    	            ],
-	    	            borderWidth: 1
-	    	        }]
-   	    		 
-        };
-        
+  /*       console.log(data); */
+       /*  var j = [;
+        for(var i in data) {
+        	j.push(data[i].j);
+        } */
+      //차트 값 생성
+     var data = new Array();
+       <c:forEach items="${join}" var="j">
+       	var json = new Object();
+       	data.push("${j}");
+       </c:forEach>
         var lct = document.getElementById("lineChart");
-		var LineChart = new Chart(lct, {
-	    type: 'line', 
-	    data: j
-	    });
-        }
-       //연령대 차트
-/* 		var bct = document.getElementById("barChart");
-		var pieChart = new Chart(bct, {
-		    type: 'bar', 
+		var pieChart = new Chart(lct, {
+		    type: 'line',
 		    data : {
-		    	 labels: ["10대", "20대", "30대", "40대", "50대"],
+		    	 labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월",
+	   	    		 "11월", "12월"],	 
 		    	 datasets: [{
-		    		 [age],
-		    	 }
-		    	 label:"연령별 회원 수"
-		    },
+					data : data,
+					backgroundColor : ['rgba(255, 99, 132, 0.2)'],
+					 borderColor: ['rgba(255,99,132,1)'],
+					 borderWidth: 1
+					}] 
+		    	 },
 		    options: {
 		    	  animation: {
 		              duration: 0, // general animation time
@@ -70,28 +54,10 @@ $(function(){
 		          responsiveAnimationDuration: 0, // animation duration after a resize
 		      }
 		    });
-		
-        //성비 차트
-		var pct = document.getElementById("pieChart");
-		var pieChart = new Chart(pct, {
-		    type: 'pie', 
-		    data : {
-		    	 labels: ["여자","남자"],
-		    	 data: gender,
-		    	 label:"회원 성비"
-		    },
-		    options: {
-		    	  animation: {
-		              duration: 0, // general animation time
-		          },
-		          hover: {
-		              animationDuration: 0, // duration of animations when hovering an item
-		          },
-		          responsiveAnimationDuration: 0, // animation duration after a resize
-		      }
-		    }); */ 
-	});
-});
+        /* } */
+        console.log(data);
+    });
+/* }); */
 </script>
 
 <div class="container">

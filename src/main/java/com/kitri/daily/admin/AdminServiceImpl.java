@@ -1,5 +1,6 @@
 package com.kitri.daily.admin;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -41,19 +42,19 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Integer> selectJoin() {
+	public List<HashMap<Integer,Object>> selectJoin() {
 		adminMapper = sqlSession.getMapper(AdminMapper.class);
 		return adminMapper.joinCount();
 	}
 
 	@Override
-	public List<Integer> selectAge() {
+	public List<HashMap<Integer,Object>> selectAge() {
 		adminMapper = sqlSession.getMapper(AdminMapper.class);
 		return adminMapper.ageCount();
 	}
 
 	@Override
-	public List<Integer> selectGender() {
+	public List<HashMap<Integer,Object>> selectGender() {
 		adminMapper = sqlSession.getMapper(AdminMapper.class);
 		return adminMapper.genderCount();
 	}
