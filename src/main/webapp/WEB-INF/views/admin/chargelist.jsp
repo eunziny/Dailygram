@@ -72,13 +72,13 @@ body {
 			alert("게시물로 이동");
 		});
 		
-		$("a.badge").click(function() {
+/* 		$("a.badge").click(function() {
 			
 				window.open("${pageContext.request.contextPath}/admin/chargeperson.do?bseq=${cl.board_seq}",
 						" 해당 게시물 신고자 리스트",
 						"width=450, height=550, top=70 left=400, scrollbars=yes");
 				
-		});
+		}); */
 		
 		$("button#delete").click(function() {
 			alert("정말 삭제하시겠습니까?");
