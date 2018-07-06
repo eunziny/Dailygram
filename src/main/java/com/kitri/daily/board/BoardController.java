@@ -21,13 +21,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.kitri.daily.friend.Friend;
 import com.kitri.daily.friend.Relationship;
 import com.kitri.daily.member.Member;
 import com.kitri.daily.search.Hashtag;
 
 @Controller
 public class BoardController {
-	String basePath = System.getProperty("catalina.home") + "\\webapps";
+	String basePath = System.getProperty("catalina.home") + "\\webapps\\dailygram";
 
 	@Resource(name = "boardService")
 	private BoardService service;
@@ -43,7 +45,7 @@ public class BoardController {
 
 	@RequestMapping(value = "/board/upload.do")
 	public String upload(HttpServletRequest req, Board b) {
-		String originPath = basePath + "\\board\\"; // 원본파일 경로
+		String originPath = basePath + "\\Board\\"; // 원본파일 경로
 		String upfolder = basePath + "\\thumbnail\\"; // 썸네일 처리한 파일 경로
 		MultipartFile file = b.getFile(); // form.jsp에서 선택한 파일 가져오기
 		if (file != null && !file.equals("")) {
@@ -223,10 +225,10 @@ public class BoardController {
 		mav.addObject("b", b);
 		mav.addObject("coList", coList);
 		String upfolder = basePath + "\\thumbnail\\"; // img 가져올 파일 경로
-		System.out.println("이미지~~~~~~!! " + b.getImg());
 		String path = upfolder + b.getImg();
-		System.out.println(path);
 		mav.addObject("path", path);
+		Member fri = service.friend(b.getWriter());
+		mav.addObject("fri", fri);
 
 		return mav;
 	}

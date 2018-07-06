@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../container/header.jsp"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="${pageContext.request.contextPath }/resources/css/post.css" rel="stylesheet">
 <script>
 	$(function() {
@@ -21,7 +20,17 @@ input{
             <section>
                   <div class= 'insta'>
                     <div class='top-insta'>
-                      <a href='${pageContext.request.contextPath }/board/friList.do?writer=${b.writer}'><img id='user_img' src='https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w'></a>
+                      <a href='${pageContext.request.contextPath }/board/friList.do?writer=${b.writer}'>
+                      <c:set var="profile" value="${fri.profile_img}" /> 
+					  <c:choose>
+						<c:when test="${profile ne null}"> 
+							<img id='user_img' src="/dailygram/thumbnail_mem/${fri.profile_img}">
+						</c:when>
+						<c:otherwise>
+							<img id='user_img' src="http://www.technifroid-pro.fr/wp-content/uploads/2014/02/Technifroid-F.jpg">
+						</c:otherwise>
+					  </c:choose>
+                      </a>
                       <a href='${pageContext.request.contextPath }/board/friList.do?writer=${b.writer}' class='user'>${b.writer}</a>
 					  <a href='#' id='menu' class="dropdown-toggle" data-toggle="dropdown">
 						<i class="fas fa-ellipsis-v fa-2x"></i>
@@ -46,7 +55,7 @@ input{
 					  </ul>
                     </div>
                     <div class='post'>
-                      <img src="/thumbnail/${b.img}">
+                      <img src="/dailygram/thumbnail/${b.img}">
                     </div>
                     
                     <div class='footer'>

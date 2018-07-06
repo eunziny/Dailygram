@@ -2,6 +2,8 @@ package com.kitri.daily.member;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Member {
 	private String id;
 	private String pwd;
@@ -16,7 +18,13 @@ public class Member {
 	private String publicyn;
 	private String intro;
 	
+	private MultipartFile file;
+	
 	public Member() {}
+	public Member(String id) {
+		super();
+		this.id = id;
+	}
 	public Member(String id, String pwd, String name, Date birthday, String email, String address, String gender,
 			Date joindate, String useyn, String profile_img, String publicyn, String intro) {
 		super();
@@ -104,6 +112,12 @@ public class Member {
 	}
 	public void setIntro(String intro) {
 		this.intro = intro;
+	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 	@Override
 	public String toString() {
