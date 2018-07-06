@@ -47,4 +47,11 @@ public class AdminServiceImpl implements AdminService {
 		return adminMapper.getChargeList();
 	}
 
+	@Override
+	public List<Like_Siren> getPersonList(int bseq) {
+		// TODO Auto-generated method stub
+		adminMapper = sqlSession.getMapper(AdminMapper.class);
+		return adminMapper.getPersonList(bseq);
+	}
+
 }

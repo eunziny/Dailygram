@@ -66,15 +66,18 @@ body {
 }
 </style>
 <script>
+
 	$(function() {
 		$("a.eye").click(function() {
 			alert("게시물로 이동");
 		});
-
+		
 		$("a.badge").click(function() {
-				window.open("http://localhost:8080/daily/admin/chargeMemList.do",
+			
+				window.open("${pageContext.request.contextPath}/admin/chargeperson.do?bseq=${cl.board_seq}",
 						" 해당 게시물 신고자 리스트",
 						"width=450, height=550, top=70 left=400, scrollbars=yes");
+				
 		});
 		
 		$("button#delete").click(function() {
@@ -105,8 +108,7 @@ body {
 									</div>
 									<div class="pull-right action-buttons">
 										<a href="${pageContext.request.contextPath}/board/post.do?bseq=${cl.board_seq}" class="eye"><span class="glyphicon glyphicon-eye-open"></span></a> 
-										<!-- <a href="#" class="trash"><span class="glyphicon glyphicon-trash"></span></a> -->
-										<a href="#" class="badge badge-danger">99</a>	
+										<a href="${pageContext.request.contextPath}/admin/chargeperson.do?bseq=${cl.board_seq}" class="badge badge-danger">${cl.sirencnt}</a>	
 									</div>
 								</li>
 								</c:forEach>

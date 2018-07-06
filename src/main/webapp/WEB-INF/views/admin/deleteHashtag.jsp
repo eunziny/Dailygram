@@ -72,7 +72,8 @@ body {
 
 		});
 		
- 		$("button#delete, a#eye").click(function(e) {
+		//$("button#delete, a#eye").on('click', function(e) {
+		$(document).on('click', "button#delete, a#eye", function() {
 			alert("해당  해시태그를 다시 활성화 시키시겠습니까?");
 			var checkArr = []; //배열 초기화
 			
@@ -96,7 +97,7 @@ body {
 							 var str = "";
 								str += "<ul class='list-group'>"
 									+ "<li class='list-group-item'>"
-									//+ "<form id='eyeclick' class='eyeclick'>"
+									+ "<form id='eyeclick' class='eyeclick'>"
 									+ "<div class='checkbox'>"
 									+ "<input type='checkbox' class='checkb' name='tagcancle' id='checkbox1'/>"
 									+ "<label for='checkbox1'>"+this.tagname+"</label>"
@@ -104,7 +105,7 @@ body {
 									+ "<div class='pull-right action-buttons'>"
 									+ "<a href='#' class='eye' id='eye'><span class='glyphicon glyphicon-eye-open'></span></a>"
 									+ "</div>"
-									//+ "</form>"
+									+ "</form>"
 									+ "</li>"
 									+ "</ul>";
 							$(".panel-body").append(str);

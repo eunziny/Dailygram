@@ -46,14 +46,26 @@
 	</update>
 	
 	<select id="getChargeList" resultMap="SirenResult">
-		select writer, board_seq 
+		select a.writer, b.*
+        from
+        (select writer, board_seq 
 		from board
 		where board_seq in (
 		select distinct board_seq
 		from like_siren
-		where type='s'
-		)
-        order by writer
+		where type='S'
+		)) a,
+        (select board_seq, count(*) sirencnt from like_siren
+        where type='S'
+        group by board_seq) b
+        where a.board_seq = b.board_seq
 	</select>
-
+	
+	<select id="getPersonList" resultMap="SirenResult">
+		select sender
+        from like_siren
+        where board_seq = #{bseq}
+        and type = 'S';
+	</select>
+	
 </mapper>
