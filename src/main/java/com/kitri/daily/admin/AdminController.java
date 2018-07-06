@@ -52,4 +52,24 @@ public class AdminController {
 		return canList;
 	}
 	
+	//월별 가입자 수, 연령대, 성비 통계 
+	@RequestMapping(value = "/admin/chartlist.do")
+	public @ResponseBody ModelAndView chartList() {
+		ModelAndView mav = new ModelAndView("admin/chartlist");
+		List<Integer> join = new ArrayList<Integer>();
+		join = service.selectJoin();
+		mav.addObject("join", join);
+		System.out.println("join"+join);
+		
+		List<Integer> age =  new ArrayList<Integer>();
+		age = service.selectAge();
+		mav.addObject("age", age);
+		System.out.println("age"+age);
+		
+		List<Integer> gender =  new ArrayList<Integer>(); 
+		gender = service.selectGender();
+		mav.addObject("gender", gender);
+		System.out.println("gender"+gender);
+		return mav;
+	}
 }

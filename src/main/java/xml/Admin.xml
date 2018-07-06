@@ -10,6 +10,12 @@
 		<result column="tagname" property="tagname" />
 		<result column="block_yn" property="block_yn" />
 	</resultMap>
+	
+	<resultMap id = "ChartResult" type="com.kitri.daily.member.Member">
+		<result column="birthday" property="birthday" />
+		<result column="joindate" property="joindate" />
+		<result column="gender" property="gender" />
+	</resultMap>
 
 	<select id="getBlockList" resultMap="AdminResult" >
 		select distinct tagname
@@ -35,5 +41,56 @@
 		#{checkArr}		
 		</foreach>
 	</update>
+	
+	<select id="joinCount" resultMap="ChartResult">
+		select jan.*, feb.*, mar.*, apr.*, may.*, jun.*,
+				 jul.*, aug.*, sept.*, oct.*, nov.*, de.*
+		from (select count(month(joindate)) as jan from member
+	  			where month(joindate) = 1) jan, 
+		     (select count(month(joindate)) as feb from member
+			   	where month(joindate) = 2) feb, 
+		     (select count(month(joindate))  as mar from member
+				where month(joindate) = 3) mar, 
+		     (select count(month(joindate)) as apr from member
+				 where month(joindate) = 4) apr, 
+		     (select count(month(joindate)) as may from member
+				where month(joindate) = 5) may, 
+		     (select count(month(joindate)) as jun from member
+				where month(joindate) = 6) jun, 
+		     (select count(month(joindate)) as jul from member
+				where month(joindate) = 7) jul, 
+		     (select count(month(joindate)) as aug from member
+				where month(joindate) = 8) aug,
+			 (select count(month(joindate)) as sept from member
+				where month(joindate) = 9) sept,
+			 (select count(month(joindate)) as oct from member
+				where month(joindate) = 10) oct,
+		     (select count(month(joindate)) as nov from member
+				where month(joindate) = 11) nov,
+		     (select count(month(joindate)) as de from member
+				where month(joindate) = 12) de;
+	</select>
+	
+	<select id="ageCount" resultMap="ChartResult">
+		select
+		sum(if(date_format(now(),'%Y')-substring(birthday,1,4) between 10 and 19 , 1, 0)) as age_10,
+		
+		sum(if(date_format(now(),'%Y')-substring(birthday,1,4) between 20 and 29 , 1, 0)) as age_20,
 
+		sum(if(date_format(now(),'%Y')-substring(birthday,1,4) between 30 and 39 , 1, 0)) as age_30,
+		
+		sum(if(date_format(now(),'%Y')-substring(birthday,1,4) between 40 and 49 , 1, 0)) as age_40,
+		
+		sum(if(date_format(now(),'%Y')-substring(birthday,1,4) between 50 and 59 , 1, 0)) as age_50,
+		
+		sum(if(date_format(now(),'%Y')-substring(birthday,1,4) between 60 and 69 , 1, 0)) as age_60
+
+		from member;
+	</select>
+	
+	<select id="genderCount" resultMap="ChartResult">
+		select f.* , m.*
+		from (select count(*) from member where gender = 'f') f, 
+		(select count(*) from member where gender = 'm') m; 
+	</select>
 </mapper>

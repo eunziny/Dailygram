@@ -8,4 +8,7 @@ public interface AdminMapper {
 	List<Hashtag> getBlockList();
 	void addBlock(String tagname);
 	void cancleBlock(List<String> checkArr);
+	List<Integer> joinCount();
+	List<Integer> ageCount();
+	List<Integer> genderCount();
 }

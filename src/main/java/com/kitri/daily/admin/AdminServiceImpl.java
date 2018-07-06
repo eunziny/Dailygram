@@ -40,4 +40,21 @@ public class AdminServiceImpl implements AdminService {
 		adminMapper.cancleBlock(checkArr);
 	}
 
+	@Override
+	public List<Integer> selectJoin() {
+		adminMapper = sqlSession.getMapper(AdminMapper.class);
+		return adminMapper.joinCount();
+	}
+
+	@Override
+	public List<Integer> selectAge() {
+		adminMapper = sqlSession.getMapper(AdminMapper.class);
+		return adminMapper.ageCount();
+	}
+
+	@Override
+	public List<Integer> selectGender() {
+		adminMapper = sqlSession.getMapper(AdminMapper.class);
+		return adminMapper.genderCount();
+	}
 }
