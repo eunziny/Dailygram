@@ -5,9 +5,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kitri.daily.search.Hashtag;
@@ -40,12 +43,13 @@ public class AdminController {
 		return "forward:/admin/deleteHashtag.do";
 	}
 	
-	//금지 해시태그 낱개 활성화하기(눈 클릭했을 때)
-	@RequestMapping(value = "/admin/eyeclick.do")
-	public String blockcancle(@RequestParam(value="tagcancle") String tagcancle ) {
-		System.out.println("tagcancle : " + tagcancle);
-		service.cancleblock(tagcancle);
-		return "forward:/admin/deleteHashtag.do";
+	//금지한 해시태그 활성화하기(눈, 버튼 클릭 둘다)
+	@RequestMapping(value = "/admin/allclick.do")
+	public @ResponseBody List<Hashtag> blockcancle(@RequestParam(value="valueArrTest[]") List<String> checkArr ) {
+		System.out.println("checkArr >>>>>>> " + checkArr);
+		service.cancleblock(checkArr);
+		List<Hashtag> canList = service.getBlockList();
+		return canList;
 	}
 	
 }

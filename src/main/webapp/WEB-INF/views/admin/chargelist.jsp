@@ -91,7 +91,7 @@ body {
 			<div class="row">
 				<div class="panel-group">
 					<div class="panelspace">
-						<h2 class="panel-heading panel-danger">Charge List</h2>
+						<h1 class="panel-heading panel-danger" align="center"><b>신고 게시물 관리</b></h1>
 						<hr>
 						<div>
 							<button id="delete" class="btn btn-danger pull-right">삭제</button>
@@ -106,12 +106,12 @@ body {
 									</div>
 									<div class="pull-right action-buttons">
 										<a href="#" class="eye"><span class="glyphicon glyphicon-eye-open"></span></a> 
-										<a href="#" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
+										<!-- <a href="#" class="trash"><span class="glyphicon glyphicon-trash"></span></a> -->
 										<a href="#" class="badge badge-danger">99</a>	
 									</div>
 																		
 								</li>
-								<li class="list-group-item">
+								<!-- <li class="list-group-item">
 									<div class="checkbox">
 										<input type="checkbox" class="checkb" name="checkbox[]"
 											id="checkbox2" value="2" /> <label for="checkbox2">
@@ -235,7 +235,7 @@ body {
 											class="trash"><span class="glyphicon glyphicon-trash"></span></a>
 										<a href="#" class="badge badge-danger">1</a>
 									</div>
-								</li>
+								</li> -->
 							</ul>
 						</div>
 					</div>

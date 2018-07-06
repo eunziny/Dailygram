@@ -4,11 +4,8 @@ public class Hashtag {
 	private int board_seq;
 	private String tagname;
 	private String block_yn;
-	
-	public Hashtag() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	public Hashtag() {}
+
 	public Hashtag(int board_seq, String tagname, String block_yn) {
 		super();
 		this.board_seq = board_seq;
@@ -36,8 +33,5 @@ public class Hashtag {
 	@Override
 	public String toString() {
 		return "Hashtag [board_seq=" + board_seq + ", tagname=" + tagname + ", block_yn=" + block_yn + "]";
-	}
-	
-	
-
+	}	
 }

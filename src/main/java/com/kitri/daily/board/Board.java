@@ -13,7 +13,6 @@ public class Board {
 	private String public_yn;
 	private int likecnt;
 	private String sender;
-	
 	private MultipartFile file;
 	
 
@@ -42,7 +41,6 @@ public class Board {
 		this.public_yn = public_yn;
 		this.likecnt = likecnt;
 	}
-	
 	public int getBoard_seq() {
 		return board_seq;
 	}
@@ -85,6 +83,11 @@ public class Board {
 	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
+	@Override
+	public String toString() {
+		return "Board [board_seq=" + board_seq + ", writer=" + writer + ", content=" + content + ", posted=" + posted
+				+ ", img=" + img + ", public_yn=" + public_yn + "]";
+	}
 	public int getLikecnt() {
 		return likecnt;
 	}
@@ -96,7 +99,5 @@ public class Board {
 	}
 	public void setSender(String sender) {
 		this.sender = sender;
-	}
-	
-	
+	}	
 }

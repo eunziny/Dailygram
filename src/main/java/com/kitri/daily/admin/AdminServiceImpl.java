@@ -34,10 +34,10 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void cancleblock(String tagcancle) {
+	public void cancleblock(List<String> checkArr) {
 		// TODO Auto-generated method stub
 		adminMapper = sqlSession.getMapper(AdminMapper.class);
-		adminMapper.cancleBlock(tagcancle);
+		adminMapper.cancleBlock(checkArr);
 	}
 
 }

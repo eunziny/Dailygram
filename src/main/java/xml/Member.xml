@@ -44,12 +44,12 @@
 		FROM relationship
 		WHERE receiver=#{id}
 		AND status='y'
-		union
+		union all
 		SELECT count(*)
 		FROM relationship
 		WHERE sender=#{id}
 		AND status='y'
-		union
+		union all
 		SELECT count(*)
 		FROM relationship
 		WHERE sender=#{id}

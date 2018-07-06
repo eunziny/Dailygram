@@ -13,20 +13,24 @@
 }
 </style>
 <script>
-$(function() {
-	/* 전체공개/친구공개 여부 체크하기 */
-<c:set var="p" value="${update.public_yn}"/>
-var x = document.getElementsByName("upload");
-<c:choose>
-	<c:when test= "${p == 'y'}">
-	x[0].checked = true;
-	</c:when>
-	<c:when test= "${p == 'n'}">
-	x[1].checked = true;
-	</c:when>
-</c:choose>
+$(function(){
+	$("button[type=submit]").click(function(){
+		if( $("input[type=file]").val() == "" ){
+	         alert('업로드할 이미지를 선택해주세요.');
+	         return false;
+	      }
+	});
+	$("input[type=file]").change(function(){
+    	if( $("input[type=file]").val() != "" ){
+        	var ext = $('#file').val().split('.').pop().toLowerCase();
+        	if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+            	alert('gif,png,jpg,jpeg 파일만 업로드 할수 있습니다.');
+            	$("input[type=file]").val("");
+            	return;
+            }
+        }
+   });
 });
-
 </script>
 
 <div class="container">
@@ -56,10 +60,28 @@ var x = document.getElementsByName("upload");
 	    		<input type="file" name="file" id = "file" value="file"><br>
 	    	</div>
 		
-			<div class="col-lg-offset-3 col-lg-6 col-lg-offset-3">
-				<label><input type="radio" name="upload" value="public">전체공개</label>&nbsp;&nbsp;			
-				<label><input type="radio" name="upload" value="friend">친구공개</label>
-		    </div>
+		    <c:set var="public_yn" value="${sessionScope.memInfo.publicyn }" /> 
+		    <c:set var="check" value="${update.public_yn}"/> 
+		    <c:choose>
+				<c:when test="${public_yn eq 'y' and check eq 'y'}"> 
+				     <div class="col-lg-offset-3 col-lg-6 col-lg-offset-3">
+						<label><input type="radio" name="public_yn" value="y" checked>전체공개</label>&nbsp;&nbsp;
+						<label><input type="radio" name="public_yn" value="n">친구공개</label>
+				     </div>
+					</c:when>
+					<c:when test="${public_yn eq 'y' and check eq 'n' }">
+				     <div class="col-lg-offset-3 col-lg-6 col-lg-offset-3">
+						<label><input type="radio" name="public_yn" value="y">전체공개</label>&nbsp;&nbsp;
+						<label><input type="radio" name="public_yn" value="n" checked>친구공개</label>
+				     </div>
+					</c:when>			
+				<c:otherwise>
+				    <input type="hidden" name="public_yn" value="n">
+				    <div class="col-lg-offset-3 col-lg-6 col-lg-offset-3">
+				    	<p>* 업로드하신 게시물은 팔로워에게만 공개됩니다. *</p>
+				    </div>
+				</c:otherwise>	
+			</c:choose>
 	    </div>
 	    <input class="date" type = "date" hidden="hidden" name="posted" value="${update.posted}">
 	    <input type ="hidden" name="img" value="${update.img }">

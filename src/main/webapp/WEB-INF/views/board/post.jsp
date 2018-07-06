@@ -27,10 +27,11 @@ input{
 						<i class="fas fa-ellipsis-v fa-2x"></i>
 					  </a>
 					  <ul class="dropdown-menu dropdown-menu-right">
+
 					  	<c:choose>
 					  		<c:when test="${b.writer eq sessionScope.memInfo.id }">
 					  			<li><a href="${pageContext.request.contextPath }/board/updateBoard.do?bseq=${b.board_seq}">수정</a></li>
-								<li><a href="${pageContext.request.contextPath }/board/del.do">삭제</a></li>
+								<li><a href="${pageContext.request.contextPath }/board/del.do?bseq=${b.board_seq}">삭제</a></li>
 					  		</c:when>  
 					  		<c:otherwise>
 					  			<c:if test="${l.type eq null or l.type eq 'L'}">
@@ -98,7 +99,6 @@ input{
 </div>
 <script>
 
-    
 	var tempVal ="";
 	<%--수정버튼 클릭 시 v 띄우고 x 클릭--%>
 	$(document).on('click','.fa-edit',function(){

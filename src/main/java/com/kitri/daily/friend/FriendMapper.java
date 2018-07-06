@@ -17,4 +17,10 @@ public interface FriendMapper {
 	ArrayList<Friend> selectSubscribeList(String user_id);
 	ArrayList<Friend> selectFollowingList(String id);
 	ArrayList<Friend> selectFollowerList(String id);
+	void insertSubscribe(Relationship subscribe);
+	void deletefollow(Relationship relation);
+	void deletesubscribe(Relationship relation);
+	void insertfollow(Relationship relation);
+	ArrayList<Integer> selectProfileCount(String user_id);
+	ArrayList<Friend> selectFollowwaitList(String id);
 }

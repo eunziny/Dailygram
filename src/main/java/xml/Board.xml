@@ -47,6 +47,13 @@
 		<result column="reply" property="reply" />
 		<result column="content" property="content" />
 	</resultMap>
+	
+	<resultMap id="relationsResult" type="com.kitri.daily.friend.Relationship">
+		<result column="sender" property="sender" />
+		<result column="receiver" property="receiver" />
+		<result column="status" property="status" />
+		<result column="date" property="date" />
+	</resultMap>
 
 	<select id="select" resultMap="BoardResult" parameterType="java.lang.Integer">
 		select b.* , count(if(ls.type='L', ls.type, null)) likecnt from board
@@ -68,11 +75,7 @@
 		board_seq=#{board_seq}
 	</update>
 
-	<delete id="delete" parameterType="String">
-		delete board
-		where
-		writer=#{writer} and board_seq=#{board_seq}
-	</delete>
+
 
 	<select id="myList" resultMap="BoardResult" parameterType="String">
 		select * from board where writer=#{writer}
@@ -188,6 +191,46 @@
 		group by m.id
 	</select>
 	
+	<select id="newsfeed" resultMap = "BoardResult">
+		select *  from board
+		where writer in(
+			select receiver from relationship
+			where sender=#{writer}
+			and status in ('Y','R')
+			)or writer=#{writer}
+		order by posted desc
+	</select>
+	
+	<insert id="insertTag" parameterType="com.kitri.daily.search.Hashtag">
+    	insert into hashtag
+		values(#{board_seq}, #{tagname}, #{block_yn})
+	</insert> 
+	
+	<select id="selectById" resultMap="BoardResult" parameterType="String">
+		select * from board
+		where board_seq = (select max(board_seq) from board where writer=#{writer}) 
+	</select>
+	
+	<delete id="dellikeSiren" parameterType="java.lang.Integer">
+		delete from like_siren
+		where board_seq = #{board_seq};
+	</delete>
+	
+	<delete id="delHashtag" parameterType="java.lang.Integer">
+		delete from hashtag
+		where board_seq = #{board_seq};
+	</delete>
+	
+	<delete id="delComment" parameterType="java.lang.Integer">
+		delete from comment
+		where board_seq = #{board_seq};
+	</delete>
+	
+	<delete id="delBoard" parameterType="java.lang.Integer">
+		delete from board
+		where board_seq = #{board_seq};
+	</delete>
+	
 	<select id="selectFriendProfileCount" resultType="Integer" parameterType="String">
 		SELECT count(*)
 		FROM relationship
@@ -270,4 +313,11 @@
 		where step > (select * from (select step from comment a where com_seq = #{com_seq}) a)
 		and board_seq = #{board_seq} 
 	</update>
+	
+	<select id="selectcheckRelation" parameterType="com.kitri.daily.friend.Relationship" resultType="String">
+		SELECT status
+		FROM relationship
+		WHERE sender=#{sender}
+		AND receiver=#{receiver}
+	</select>
 </mapper>

@@ -38,7 +38,8 @@
       from board AS b
       join hashtag AS h
       on b.board_seq = h.board_seq
-      where tagname = #{searchValue} and block_yn = 'N'
+      where tagname = #{searchValue} and block_yn = 'N' 
+      		and public_yn = 'Y' and now() >= date_add(b.posted, interval 1 minute)
       order by b.posted desc;
    </select>
 

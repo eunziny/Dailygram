@@ -4,15 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
-
+import com.kitri.daily.search.Hashtag;
+import com.kitri.daily.friend.Relationship;
 import com.kitri.daily.member.Member;
-
 public interface BoardService {
 	void uploadBoard(Board b);
 	Board detailBoard(int board_seq);
 	void editBoard(Board b);
-	void delBoard(int board_seq, String writer);
 	List<Board> getMyList(String id);
+	List<Board> getNewsfeed(String id);
+	void insertHashtag(Hashtag h);
+	Board selectByid(String id);
+	@Transactional
+	void deleteBoard(int board_seq) throws Exception;
 	List<Comment> getComments(int bseq);
 	void insertNewComment(Comment co);
 	@Transactional
@@ -30,4 +34,5 @@ public interface BoardService {
 	@Transactional
 	void deleteComment(Comment co) throws Exception;
 	ArrayList<Integer> FriendprofileCount(String id);
+	String checkRelation(Relationship relation);
 }

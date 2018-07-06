@@ -22,14 +22,18 @@
 		update hashtag
 		set
 		block_yn = 'Y'
-		where tagname=#{tagname}	
+		where tagname = #{tagname}	
 	</update>
 	
-	<update id="cancleBlock" parameterType="String">
+ 	<update id="cancleBlock" parameterType="list">
 		update hashtag
 		set
 		block_yn = 'N'
-		where tagname=#{tagcancle}	
+		where tagname in 
+		<foreach collection="list" item="checkArr" index="index"
+				separator="," open="(" close=")">
+		#{checkArr}		
+		</foreach>
 	</update>
 
 </mapper>
