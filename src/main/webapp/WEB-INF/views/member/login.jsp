@@ -23,7 +23,7 @@
 			<div class="form-find">
 				<button class="button btn-lg">아이디 찾기</button>
 				<button class="button btn-lg">비밀번호 찾기</button>
-				<a href="${pageContext.request.contextPath }/member/join.do"
+				<a href="${pageContext.request.contextPath }/member/joinForm.do"
 					class="text-center new-account">회원가입</a>
 			</div>
 		</div>

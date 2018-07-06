@@ -10,7 +10,7 @@
 <div class="row" id="lookbottom">
 	<div class="container">
 		<div class="col-lg-12">
-			<div class="gallery_product col-lg-offset-4 col-lg-4 col-lg-offset-4">
+			<div class="gallery_product col-lg-offset-5 col-lg-4">
 			<h4> 게시물이 없습니다. </h4>
 		   </div>
 		</div>
