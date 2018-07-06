@@ -21,7 +21,10 @@ public interface BoardService {
 	void insertNewComment(Comment co);
 	@Transactional
 	void insertRepComment(Comment co) throws Exception;
-	List<Board> getList(Board board);
+	/*List<Board> getList(Board board);*/
+	String[] getStatus(Board b); //상대계정의 공개여부 & 나와 상대의 관계 가져오기
+	List<Board> publicyn(Board b); //게시물 전부다(y,n)
+	List<Board> publicy(Board board); //공개 게시물만(y)
 	Like getType(Like like);
 	void delType(Like like);
 	void addLike(Like like);
