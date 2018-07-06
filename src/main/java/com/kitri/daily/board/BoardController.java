@@ -161,7 +161,7 @@ public class BoardController {
       mav.addObject("b", b);
       mav.addObject("coList",coList);
       String upfolder = basePath + "\\thumbnail\\"; // img 가져올 파일 경로
-      System.out.println("이미지~~~~~~!! "+b.getImg());
+      System.out.println("(post.do)이미지~~~~~~!! "+b.getImg());
       String path = upfolder + b.getImg();
       System.out.println(path);
       mav.addObject("path", path);
@@ -240,7 +240,32 @@ public class BoardController {
 	   String id = mem.getId();
 	   System.out.println("작가 : " + writer + " id : " + id);
 	   Board board = new Board(writer, id);
-	   List<Board> list = (ArrayList<Board>) service.getList(board);
+	   List<Board> list = null;
+	   String[] statusArr = {};
+	   statusArr = service.getStatus(board);
+	   System.out.println("길이 " + statusArr.length + "  1번 " + statusArr[0]);
+	   if(statusArr.length ==1) {
+		   if(statusArr[0].equals("y")) {
+			   System.out.println("22" + statusArr[0]);
+			   list = (ArrayList<Board>) service.publicy(board);
+		   }else {
+			   System.out.println("공개된 게시물이 없습니다.");
+		   }
+		   
+	   }else {
+		   if((statusArr[0].equals("y") || statusArr[0].equals("n")) && statusArr[1].equals("Y")) {
+			   System.out.println("1 " + statusArr[1]);
+			   list = (ArrayList<Board>) service.publicyn(board);
+		   } else if(statusArr[0].equals("y") && 
+				   (statusArr[1].equals("N") ||statusArr[1].equals("R"))) {
+			   System.out.println("2" + statusArr[1]);
+			   list = (ArrayList<Board>) service.publicy(board);
+		   } else {
+			   System.out.println("공개된 게시물이 없습니다.");
+		   }
+	   }
+	   
+//	   List<Board> list = (ArrayList<Board>) service.getList(board);
 	   Member fri = service.friend(writer);
 	   session.setAttribute("friendId", writer);
 	   ModelAndView mav = new ModelAndView("board/friList");
@@ -256,4 +281,19 @@ public class BoardController {
 		session.setAttribute("friendsubscribeCount", count.get(2));
 	   return mav;
   	}
+   
+   @RequestMapping(value = "/board/repost.do")
+   public String repost(HttpServletRequest req ,
+		   @RequestParam(value="bseq") int bseq) {
+	   HttpSession session = req.getSession(false);
+	   Member mem  = (Member) session.getAttribute("memInfo");
+	   String id = mem.getId();
+	   Board b = service.detailBoard(bseq);
+	   b.setContent("@"+ b.getWriter() + "\n" + b.getContent());
+	   b.setPublic_yn("y");
+	   b.setImg(b.getImg());
+	   b.setWriter(id);
+	   service.uploadBoard(b);
+	   return "redirect:/board/myList.do";
+   }
 }
