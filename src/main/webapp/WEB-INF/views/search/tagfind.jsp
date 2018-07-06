@@ -34,7 +34,7 @@
 <script
    src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
-<!-- <div class="row">
+<div class="row">
 	<div class="container">
 		<div class="col-lg-12" id="looktop">
 			<div class="col-lg-offset-1 col-lg-3" id="looktag_img">
@@ -45,19 +45,19 @@
 			<div class="col-lg-8">
 				<br> <br>
 				<h2>
-					<a href="#" class="looktag">#김치만두</a>
+					<a href="#" class="looktag">${s.tagname}</a>
 				</h2>
 				<h4>게시물 86,529</h4>
 			</div>
 		</div>
 	</div>
-</div> -->
+</div>
 <div class="row" id="lookbottom">
 	<div class="container">
 		<div class="col-lg-12">
 			<c:forEach var="s" items="${list }">
 			<div class="gallery_product col-lg-4">
-				<img src="/board/${s.img }" class="lookimg">
+				<a href="${pageContext.request.contextPath}/board/post.do?bseq=${s.board_seq}"><img src="/board/${s.img }" class="lookimg"></a>
 			</div>
 			</c:forEach>
 		</div>

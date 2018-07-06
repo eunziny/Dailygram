@@ -51,7 +51,6 @@ public class AdminController {
 		List<Hashtag> canList = service.getBlockList();
 		return canList;
 	}
-	
 	//월별 가입자 수, 연령대, 성비 통계 
 	@RequestMapping(value = "/admin/chartlist.do")
 	public @ResponseBody ModelAndView chartList() {
@@ -70,6 +69,37 @@ public class AdminController {
 		gender = service.selectGender();
 		mav.addObject("gender", gender);
 		System.out.println("gender"+gender);
+		return mav;
+	}
+	//신고 게시물 리스트
+	@RequestMapping(value = "/admin/chargelist.do")
+	public ModelAndView chargelist() {
+		ModelAndView mav = new ModelAndView("admin/chargelist");
+		List<Like_Siren> chargeList = new ArrayList<Like_Siren>();
+		chargeList = service.getChargeList();
+		
+		mav.addObject("chargeList", chargeList);
+		System.out.println("chargeList : " + chargeList);
+		return mav;
+	}
+	
+	//해당 신고 게시물 보기
+	@RequestMapping(value = "/admin/chargepost.do")
+	public ModelAndView chargedetail(@RequestParam(value="bseq") int bseq) {
+		ModelAndView mav = new ModelAndView("board/post");
+		
+		return mav;
+	}
+	
+	//해당 게시물 신고자 리스트
+	@RequestMapping(value = "/admin/chargeperson.do")
+	public ModelAndView personlist(@RequestParam(value="bseq") int bseq) {
+		ModelAndView mav = new ModelAndView("admin/chargeMemList");
+		List<Like_Siren> personList = new ArrayList<Like_Siren>();
+		personList = service.getPersonList(bseq);
+		
+		mav.addObject("personList", personList);
+		System.out.println("personList : " + personList);
 		return mav;
 	}
 }

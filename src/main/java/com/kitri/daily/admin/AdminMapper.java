@@ -11,4 +11,6 @@ public interface AdminMapper {
 	List<Integer> joinCount();
 	List<Integer> ageCount();
 	List<Integer> genderCount();
+	List<Like_Siren> getChargeList();
+	List<Like_Siren> getPersonList(int bseq);
 }

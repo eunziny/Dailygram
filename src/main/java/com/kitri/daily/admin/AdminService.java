@@ -11,4 +11,6 @@ public interface AdminService {
 	List<Integer> selectJoin();
 	List<Integer> selectAge();
 	List<Integer> selectGender();
+	List<Like_Siren> getChargeList(); //신고된 게시물 리스트 불러오기
+	List<Like_Siren> getPersonList(int bseq); //해당 게시물 신고자 리스트
 }

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/container/header.jsp"%>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>    
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
 .well {
 	padding: 35px;
@@ -9,15 +11,6 @@
 	margin: 4% auto 0;
 	width: 450px;
 }
-
-/* body {
-	background-color: #dedede;
-}
-
-.input-group-addon {
-	background-color: #9770f9;
-	color: #d17d00;
-} */
 
 .profileimg {
 	text-align: center;
@@ -32,13 +25,28 @@
 	color: purple;
 }
 </style>
-<!-- <link
-	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
-	rel="stylesheet" id="bootstrap-css">
-<script
-	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
-<form action="#" name="myForm" method="post" onsubmit="return(validate());">
+<script>
+   $(document).ready(function(){
+	   $('#idCheck').click(function(){
+		   if($("#id").val()=="") {
+			   alert("먼저 id를 입력해주세요.");
+			   return false;
+		   }
+		   $.post("/daily/member/idCheck.do",{id:$("#id").val()})
+		   .done(function(data){
+			   $("#idResult").text(data);
+		   });
+	   });
+      $("#join").click(function(){
+         if($("#idResult").text().trim()=="사용가능한 아이디입니다."){
+            $("form").submit();
+         }else{
+            alert("id중복체크 먼저해주요.");
+         }
+      });
+   });
+</script>
+<form action="${pageContext.request.contextPath }/member/join.do" name="myForm" method="post" onsubmit="return(validate());">
 	<div class="container-fluid" id="joinbottom">
 		<div class="row">
 			<div class="well center-block">
@@ -69,20 +77,20 @@
 									<div class="input-group-addon">
 										<i class="glyphicon glyphicon-user"></i>
 									</div>
-									<input type="text" placeholder="ID" name="id"
+									<input type="text" placeholder="ID" name="id" id="id"
 										class="form-control" required>
 								</div>
 							</div>
 						</div>
 						<div class="col-lg-4">
 							<div class="form-group">
-								<a href="#" class="btn btn-info" id="idCheck">idCheck</a>
+								<a class="btn btn-info" id="idCheck">idCheck</a>
 							</div>
 						</div>
-						<div class="col-lg-12" id="dup"></div>
+						<div class="col-lg-12" id="idResult"></div>
 					</div>
 				</div>
-
+				
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="form-group">
@@ -147,7 +155,7 @@
 								<div class="input-group-addon">
 									<i class="glyphicon glyphicon-envelope"></i>
 								</div>
-								<input type="email" class="form-control" name="mail"
+								<input type="email" class="form-control" name="email"
 									placeholder="E-Mail" required>
 							</div>
 						</div>
@@ -192,11 +200,9 @@
 					<div class="col-lg-12">
 						<div class="form-group">
 							<div class="input-group">
-								<lable>
-								<b>Gender</b></lable>
-								&nbsp; <input name="gender" type="radio" value="Male" checked
-									required>Male&nbsp; <input name="gender" type="radio"
-									value="Female">Female
+								<b>Gender</b>&nbsp;
+								<label><input name="gender" type="radio" value="m" checked required>Male</label>&nbsp;
+								<label><input name="gender" type="radio" value="f">Female</label>
 							</div>
 						</div>
 					</div>
@@ -205,10 +211,10 @@
 				<div class="row widget">
 					<div class="col-lg-12">
 						<div class="col-lg-6">
-							<a href="#" class="btn btn-primary btn-block" id="cancle">취소</a>
+							<a href="${pageContext.request.contextPath }/member/loginForm.do" class="btn btn-primary btn-block" id="cancle">취소</a>
 						</div>
 						<div class="col-lg-6">
-							<a href="#" class="btn btn-success btn-block" id="ok">회원가입</a>
+							<button class="btn btn-success btn-block" id="join">회원가입</button>
 						</div>
 					</div>
 				</div>
