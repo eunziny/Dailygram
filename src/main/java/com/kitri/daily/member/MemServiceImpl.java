@@ -36,4 +36,10 @@ public class MemServiceImpl implements MemService {
 		return count;
 	}
 
+	@Override
+	public void editMem(Member m) {
+		memberMapper = sqlSession.getMapper(MemberMapper.class);
+		memberMapper.updateMem(m);
+	}
+
 }

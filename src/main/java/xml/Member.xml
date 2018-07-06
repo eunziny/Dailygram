@@ -56,4 +56,11 @@
 		AND status='r'
 	</select>
 	
+	<update id="updateMem" parameterType="com.kitri.daily.member.Member">
+		update member 
+		set pwd=#{pwd}, name=#{name}, birthday=#{birthday}, email=#{email}, address=#{address},
+		gender=#{gender}, publicyn=#{publicyn}, profile_img=#{profile_img}, intro=#{intro}
+		where id=#{id}
+	</update>
+	
 </mapper>

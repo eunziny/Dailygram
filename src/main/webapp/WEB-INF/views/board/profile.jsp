@@ -35,8 +35,15 @@
 		<div class="col-lg-offset-1 col-lg-10 col-lg-offset-1">
 			<div class="well row">
 				<div class="col-md-4 useravatar">
-					<a href="#"> <img src="http://placehold.it/160">
-					</a>
+					<c:set var="profile" value="${sessionScope.memInfo.profile_img}" /> 
+					  <c:choose>
+						<c:when test="${profile ne null}"> 
+							<img src="/dailygram/thumbnail_mem/${sessionScope.memInfo.profile_img}">
+						</c:when>
+						<c:otherwise>
+							<img src="http://www.technifroid-pro.fr/wp-content/uploads/2014/02/Technifroid-F.jpg">
+						</c:otherwise>
+					  </c:choose>
 				</div>
 				<div class="col-md-8">
 					<div class="row">
@@ -44,7 +51,8 @@
 							<h2 class="media-heading">${sessionScope.memInfo.id }</h2>
 						</div>
 						<div class="col-md-4">
-							<a href="#" class="btn btn-default" id="edit">프로필 수정</a>
+							<a href="${pageContext.request.contextPath }/member/mem_editForm.do" 
+								class="btn btn-default" id="edit">프로필 수정</a>
 						</div>
 					</div>
 					<br>
