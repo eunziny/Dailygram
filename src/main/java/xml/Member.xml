@@ -59,7 +59,7 @@
 	<update id="updateMem" parameterType="com.kitri.daily.member.Member">
 		update member 
 		set pwd=#{pwd}, name=#{name}, birthday=#{birthday}, email=#{email}, address=#{address},
-		gender=#{gender}, publicyn=#{publicyn}, profile_img=#{profile_img}, intro=#{intro}
+		gender=#{gender}, publicyn=#{publicyn}, profile_img=#{profile_img}, intro=concat(#{intro},' \n')
 		where id=#{id}
 	</update>
 	
