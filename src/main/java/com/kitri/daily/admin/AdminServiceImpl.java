@@ -40,4 +40,11 @@ public class AdminServiceImpl implements AdminService {
 		adminMapper.cancleBlock(checkArr);
 	}
 
+	@Override
+	public List<Like_Siren> getChargeList() {
+		// TODO Auto-generated method stub
+		adminMapper = sqlSession.getMapper(AdminMapper.class);
+		return adminMapper.getChargeList();
+	}
+
 }

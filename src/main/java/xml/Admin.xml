@@ -10,6 +10,15 @@
 		<result column="tagname" property="tagname" />
 		<result column="block_yn" property="block_yn" />
 	</resultMap>
+	<resultMap id = "SirenResult" type="com.kitri.daily.admin.Like_Siren">
+		<result column="board_seq" property="board_seq" />
+		<result column="sender" property="sender" />
+		<result column="type" property="type" />
+		<result column="date" property="date" />
+		<result column="sirencnt" property="sirencnt" />
+		<result column="writer" property="writer" />
+	</resultMap>
+	
 
 	<select id="getBlockList" resultMap="AdminResult" >
 		select distinct tagname
@@ -35,5 +44,16 @@
 		#{checkArr}		
 		</foreach>
 	</update>
+	
+	<select id="getChargeList" resultMap="SirenResult">
+		select writer, board_seq 
+		from board
+		where board_seq in (
+		select distinct board_seq
+		from like_siren
+		where type='s'
+		)
+        order by writer
+	</select>
 
 </mapper>

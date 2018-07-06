@@ -52,4 +52,25 @@ public class AdminController {
 		return canList;
 	}
 	
+	//신고 게시물 리스트
+	@RequestMapping(value = "/admin/chargelist.do")
+	public ModelAndView chargelist() {
+		ModelAndView mav = new ModelAndView("admin/chargelist");
+		List<Like_Siren> chargeList = new ArrayList<Like_Siren>();
+		chargeList = service.getChargeList();
+		
+		mav.addObject("chargeList", chargeList);
+		System.out.println("chargeList : " + chargeList);
+		return mav;
+	}
+	
+	
+	//해당 신고 게시물 보기
+	@RequestMapping(value = "/admin/chargepost.do")
+	public ModelAndView chargedetail(@RequestParam(value="bseq") int bseq) {
+		ModelAndView mav = new ModelAndView("board/post");
+		
+		return mav;
+	}
+	
 }

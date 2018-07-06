@@ -69,10 +69,10 @@ public class MemController {
 		
 	}
 	
-	@RequestMapping(value = "/admin/chargelist.do")
+/*	@RequestMapping(value = "/admin/chargelist.do")
 	void test6() {
 		
-	}
+	} */
 	
 	@RequestMapping(value = "/admin/chargeMemList.do")
 	void test7() {

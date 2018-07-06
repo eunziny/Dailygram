@@ -8,4 +8,5 @@ public interface AdminMapper {
 	List<Hashtag> getBlockList();
 	void addBlock(String tagname);
 	void cancleBlock(List<String> checkArr);
+	List<Like_Siren> getChargeList();
 }
