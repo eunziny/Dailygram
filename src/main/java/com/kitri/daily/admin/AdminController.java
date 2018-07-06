@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kitri.daily.board.BoardService;
 import com.kitri.daily.search.Hashtag;
 
 @Controller
@@ -20,8 +21,15 @@ public class AdminController {
 	@Resource(name="adminService")
 	private AdminService service;
 	
+	@Resource(name="boardService")
+	private BoardService service2;
+	
 	public void setService(AdminService service) {
 		this.service = service;
+	}
+	
+	public void setService(BoardService service2) {
+		this.service2 = service2;
 	}
 	
 	//금지된 해시태그 리스트
@@ -39,6 +47,7 @@ public class AdminController {
 	//금지할 해시태그 추가하기
 	@RequestMapping(value = "/admin/tagblock.do")
 	public String tagblock(@RequestParam(value="tagname") String tagname) {
+		System.out.println("모야"+tagname);
 		service.addBlocktag(tagname);
 		return "forward:/admin/deleteHashtag.do";
 	}
@@ -101,5 +110,18 @@ public class AdminController {
 		mav.addObject("personList", personList);
 		System.out.println("personList : " + personList);
 		return mav;
+	}
+	//신고 게시물 삭제
+	@RequestMapping(value = "/admin/postdel.do")
+	public String postdel(@RequestParam(value="valueArrTest[]") List<Integer> checkArr) {
+		System.out.println("들어오니? : " + checkArr);
+		for(int i=0; i<checkArr.size(); i++) {
+			try {
+				service2.deleteBoard(checkArr.get(i));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return "redirect:/admin/chargelist.do";
 	}
 }
