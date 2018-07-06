@@ -62,8 +62,9 @@ body {
 }
 </style>
 <script>
-	$(function(e) {
-		$("button#add").click(function(e) {
+	$(document).ready(function() {
+		//$("button#add").click(function(e) {
+		  $(document).on('click', 'button#add', function() {	
 			if($("input[name='tagname']").val() == "") {
 				alert("금지할 해시태그를 입력해주세요.");
 			} else {
@@ -73,7 +74,7 @@ body {
 		});
 		
 		//$("button#delete, a#eye").on('click', function(e) {
-		$(document).on('click', "button#delete, a#eye", function() {
+		$(document).on('click', 'button#delete, a#eye', function() {
 			alert("해당  해시태그를 다시 활성화 시키시겠습니까?");
 			var checkArr = []; //배열 초기화
 			
