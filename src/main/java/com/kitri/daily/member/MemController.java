@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -17,22 +16,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-
 @Controller
 public class MemController {
 	String basePath = System.getProperty("catalina.home") + "\\webapps\\dailygram";
-	
-	@Resource(name="memService")
+
+	@Resource(name = "memService")
 	private MemService service;
 
 	public void setService(MemService service) {
 		this.service = service;
 	}
-	
+
 	@RequestMapping(value = "/member/mem_editForm.do")
 	public void mem_editForm() {
 	}
-	
+
 	@RequestMapping(value = "/member/loginForm.do")
 	public String loginForm() {
 		return "member/login";
@@ -41,25 +39,27 @@ public class MemController {
 	@RequestMapping(value = "/member/login.do")
 	public String login(HttpServletRequest req, Member m) {
 		Member mem = service.getMember(m.getId());
-	
+
 		if (mem == null || !mem.getPwd().equals(m.getPwd())) {
 			System.out.println("로그인 실패");
 			return "redirect:/member/loginForm.do";
 		} else {
 			HttpSession session = req.getSession();
-			session.setAttribute("memInfo",mem);
-			
-			if(!m.getId().equals("admin")) {//관리자(admin)는 관리자 화면으로 넘어가도록  추루 구현 해야함.
-				ArrayList<Integer> list =  service.profileCount(m.getId());			
-				
+			session.setAttribute("memInfo", mem);
+
+			if (!m.getId().equals("admin")) {
+				ArrayList<Integer> list = service.profileCount(m.getId());
+
 				session.setAttribute("followerCount", list.get(0));
-				session.setAttribute("followingCount",list.get(1));
+				session.setAttribute("followingCount", list.get(1));
 				session.setAttribute("subscribeCount", list.get(2));
+			} else if (m.getId().equals("admin")) { // 관리자(admin)는 관리자 화면으로 넘어가도록 구현.
+				return "redirect:/admin/chartlist.do";
 			}
 			return "redirect:/board/myList.do";
 		}
 	}
-	
+
 	@RequestMapping(value = "/member/logout.do")
 	public String logout(HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
@@ -67,18 +67,16 @@ public class MemController {
 		session.invalidate();
 		return "redirect:/member/loginForm.do";
 	}
-	
-	@RequestMapping(value="/member/out.do")
-	public String out(HttpServletRequest req, 
-		  			@RequestParam(value="id") String id) {
+
+	@RequestMapping(value = "/member/out.do")
+	public String out(HttpServletRequest req, @RequestParam(value = "id") String id) {
 		HttpSession session = req.getSession(false);
 		service.delete(id);
 		session.removeAttribute("memInfo");
 		session.invalidate();
 		return "redirect:/member/loginForm.do";
 	}
-	
-	
+
 	@RequestMapping(value = "/member/memEdit.do")
 	public String memEdit(HttpServletRequest req, Member m) {
 		String originPath = basePath + "\\Member\\"; // 원본파일 경로
@@ -86,7 +84,7 @@ public class MemController {
 		MultipartFile file = m.getFile(); // mem_editForm.jsp에서 선택한 파일 가져오기
 		HttpSession session = req.getSession(false);
 		Member mem = (Member) session.getAttribute("memInfo");
-		
+
 		if (file != null && !file.equals("")) {
 			File dir = new File(originPath);
 			if (!dir.exists()) {
@@ -135,10 +133,10 @@ public class MemController {
 			}
 		}
 		service.editMem(m);
-		session.setAttribute("memInfo",m);
+		session.setAttribute("memInfo", m);
 		return "redirect:/board/myList.do";
 	}
-	
+
 	@RequestMapping(value = "/member/joinForm.do")
 	public String joinForm() {
 		return "member/join";
@@ -149,15 +147,15 @@ public class MemController {
 		service.insertMem(m);
 		return "redirect:/member/loginForm.do";
 	}
-	
+
 	@RequestMapping(value = "/member/idCheck.do")
-	public ModelAndView idCheck(HttpServletRequest req, @RequestParam(value="id") String id) {
+	public ModelAndView idCheck(HttpServletRequest req, @RequestParam(value = "id") String id) {
 		System.out.println(id);
 		HttpSession session = req.getSession(false);
 		ModelAndView mav = new ModelAndView("member/idCheck");
-		String result="";
+		String result = "";
 		Member m = service.getMember(id);
-		if(m == null) {
+		if (m == null) {
 			result = "사용가능한 아이디입니다.";
 			session.setAttribute("idCheck", true);
 		} else {
