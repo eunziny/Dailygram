@@ -22,7 +22,7 @@
     <div id='center'>
         <ul class="nav navbar-right pull-right top-nav">
          <li>
-         <a href="#"><i class="fas fa-chart-bar"></i>통계</a>
+         <a href="${pageContext.request.contextPath }/admin/chartlist.do"><i class="fas fa-chart-bar"></i>통계</a>
          </li>
          <li>
          <a href="${pageContext.request.contextPath }/admin/deleteHashtag.do"><i class="glyphicon glyphicon-eye-close"></i>해시태그 관리</a>
