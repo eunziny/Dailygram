@@ -37,9 +37,9 @@ public class SearchServiceImpl implements SearchService {
 	}
 	
 	@Override
-	public List<Search> getSearchInfiTag(int row) {
+	public List<Search> getSearchInfiTag(Search sc) {
 		searchMapper = sqlSession.getMapper(SearchMapper.class);
-		return searchMapper.getInfiTag(row);
+		return searchMapper.getInfiTag(sc);
 	}
 	
 	@Override

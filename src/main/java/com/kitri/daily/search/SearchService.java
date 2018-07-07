@@ -13,5 +13,5 @@ public interface SearchService {
 	List<Search> getSearchByUser(String tagname); //id로 사용자 검색 
 	List<Search> getSearchByTag(Search sc); //해시태그로 게시물 검색
 	List<Search> getAutoSearch(String term); //자동완성 리스트
-	List<Search> getSearchInfiTag(int row); //태그 검색결과 무한스크롤
+	List<Search> getSearchInfiTag(Search sc); //태그 검색결과 무한스크롤
 }

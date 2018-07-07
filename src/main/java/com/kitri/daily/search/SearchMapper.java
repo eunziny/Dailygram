@@ -13,5 +13,5 @@ public interface SearchMapper {
 	List<Search> selectByUser(String tagname);
 	List<Search> selectByTag(Search sc);
 	List<Search> selectByAuto(String term);
-	List<Search> getInfiTag(int row);
+	List<Search> getInfiTag(Search sc);
 }

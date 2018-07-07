@@ -79,17 +79,8 @@ public class SearchController {
 		} else if (searchType.equals("해시태그")) {
 			Search sc = new Search(0, tagname);
 			list = service.getSearchByTag(sc);
-			//list = service.getSearchByTag(tagname, 0);
-			int i=0;
-			for(Search s : list) {
-				String originpath = s.getImg();
-				int index = originpath.lastIndexOf("\\");
-				String path = originpath.substring(index+1);
-				s.setImg(path);
-				list.set(i, s);
-				i++;
-			}
 			mav2.addObject("list", list);
+			mav2.addObject("tagname", tagname);
 			System.out.println("tagList : " + list);
 			return mav2;
 		}
@@ -97,11 +88,12 @@ public class SearchController {
 	}
 	
 	@RequestMapping(value = "/search/infitag.do")
-	public @ResponseBody List<Search> infitag(@RequestParam(value="row") int row) {
+	public @ResponseBody List<Search> infitag(@RequestParam(value="row") int row , 
+			@RequestParam(value="tagname") String tagname) {
 		System.out.println("row :" + row );
 		List<Search> infiSearchList = new ArrayList<Search>();
-		//Search sc = new Search(row-1);
-		infiSearchList = service.getSearchInfiTag(row-1);
+		Search sc = new Search(row, tagname);
+		infiSearchList = service.getSearchInfiTag(sc);
 		System.out.println("무한스크롤 되냐!!" + infiSearchList);
 		int i=0;
 		for(Search s : infiSearchList) {

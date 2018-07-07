@@ -138,7 +138,7 @@
 					type : 'post',
 					url : "${pageContext.request.contextPath }/search/infitag.do",
 					dataType : 'json',
-					data : {row : lastrow},
+					data : {row : lastrow , tagname : '${tagname}'},
 					success : function(data){
 						var str = "";
 						console.log("데이터 길이:"+data.length);
