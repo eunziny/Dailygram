@@ -19,7 +19,7 @@ ul.list-group>li>button{
 </style>
 <div class="panel-group">
 	<div class="panelspace">
-		<h4 class="panel-heading panel-known">알 수도 있는 사람</h4>
+		<h4 class="panel-heading panel-known">원하는  친구를 찾으셨나요?</h4>
 		<hr>
 		<div class="panel-body">
 			<ul class="list-group">

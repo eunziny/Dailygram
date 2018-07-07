@@ -19,23 +19,27 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public List getSearchByUser(String searchValue) {
-		// TODO Auto-generated method stub
+	public List getSearchByUser(String tagname) {
 		searchMapper = sqlSession.getMapper(SearchMapper.class);
-		return searchMapper.selectByUser(searchValue);
+		return searchMapper.selectByUser(tagname);
 	}
 
 	@Override
-	public List getSearchByTag(String searchValue) {
-	// TODO Auto-generated method stub
+	public List getSearchByTag(Search sc) {
 		searchMapper = sqlSession.getMapper(SearchMapper.class);
-		return searchMapper.selectByTag(searchValue);
+		return searchMapper.selectByTag(sc);
 	}
 	
 	@Override
 	public List getAutoSearch(String term) {
 		searchMapper = sqlSession.getMapper(SearchMapper.class);
 		return searchMapper.selectByAuto(term);
+	}
+	
+	@Override
+	public List<Search> getSearchInfiTag(int row) {
+		searchMapper = sqlSession.getMapper(SearchMapper.class);
+		return searchMapper.getInfiTag(row);
 	}
 	
 	@Override
@@ -79,5 +83,6 @@ public class SearchServiceImpl implements SearchService {
 		searchMapper = sqlSession.getMapper(SearchMapper.class);
 		return searchMapper.getFrLiLook(lo);
 	}
+
 
 }

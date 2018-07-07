@@ -10,7 +10,8 @@ public interface SearchMapper {
 	List<Look> getFriLookUp(Look lo);
 	List<Look> getLikeLook(Look lo);
 	List<Look> getFrLiLook(Look lo);
-	List<Search> selectByUser(String searchValue);
-	List<Search> selectByTag(String searchValue);
+	List<Search> selectByUser(String tagname);
+	List<Search> selectByTag(Search sc);
 	List<Search> selectByAuto(String term);
+	List<Search> getInfiTag(int row);
 }

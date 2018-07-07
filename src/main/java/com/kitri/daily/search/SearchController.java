@@ -51,15 +51,15 @@ public class SearchController {
 	
 	@RequestMapping(value = "/container/search.do")
 	public ModelAndView searchList(@RequestParam(value = "searchType") String searchType,
-			@RequestParam(value = "searchValue") String searchValue) {
+			@RequestParam(value = "searchValue") String tagname) {
 		System.out.println("검색타입 :" + searchType);
-		System.out.println("검색내용: " + searchValue);
+		System.out.println("검색내용: " + tagname);
 		ModelAndView mav1 = new ModelAndView("search/userfind");
 		ModelAndView mav2 = new ModelAndView("search/tagfind");
 		/*ArrayList<Search> list = null;*/
 		List<Search> list = new ArrayList<Search>();
 		if (searchType.equals("아이디")) {
-			list = service.getSearchByUser(searchValue);
+			list = service.getSearchByUser(tagname);
 			int i=0;
 			for(Search s : list) {
 				String originpath = s.getProfile_img();
@@ -77,7 +77,9 @@ public class SearchController {
 			System.out.println("userList : " + list);
 			return mav1;
 		} else if (searchType.equals("해시태그")) {
-			list = service.getSearchByTag(searchValue);
+			Search sc = new Search(0, tagname);
+			list = service.getSearchByTag(sc);
+			//list = service.getSearchByTag(tagname, 0);
 			int i=0;
 			for(Search s : list) {
 				String originpath = s.getImg();
@@ -91,9 +93,28 @@ public class SearchController {
 			System.out.println("tagList : " + list);
 			return mav2;
 		}
-		return searchList(searchType, searchValue);
+		return searchList(searchType, tagname);
 	}
 	
+	@RequestMapping(value = "/search/infitag.do")
+	public @ResponseBody List<Search> infitag(@RequestParam(value="row") int row) {
+		System.out.println("row :" + row );
+		List<Search> infiSearchList = new ArrayList<Search>();
+		//Search sc = new Search(row-1);
+		infiSearchList = service.getSearchInfiTag(row-1);
+		System.out.println("무한스크롤 되냐!!" + infiSearchList);
+		int i=0;
+		for(Search s : infiSearchList) {
+			String originpath = s.getImg();
+			int index = originpath.lastIndexOf("\\");
+			String path = originpath.substring(index+1);
+			s.setImg(path);
+			infiSearchList.set(i, s);
+			i++;
+		}
+		return infiSearchList;
+		
+	}
 	
 	@RequestMapping(value = "/search/look.do")
 	public ModelAndView look(HttpServletRequest req) {
