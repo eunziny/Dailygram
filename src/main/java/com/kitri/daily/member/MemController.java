@@ -166,5 +166,14 @@ public class MemController {
 		mav.addObject("result", result);
 		return mav;
 	}
-
+	
+	@RequestMapping(value = "/member/searchID.do")
+	public String sId() {
+		return "member/searchID";
+	}
+	
+	@RequestMapping(value = "/member/searchPW.do")
+	public String sPW() {
+		return "member/searchPW";
+	}
 }
