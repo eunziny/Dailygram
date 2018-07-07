@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kitri.daily.board.BoardService;
+import com.kitri.daily.member.Member;
 import com.kitri.daily.search.Hashtag;
 
 @Controller
@@ -65,17 +66,17 @@ public class AdminController {
 	@RequestMapping(value = "/admin/chartlist.do")
 	public @ResponseBody ModelAndView chartList() {
 		ModelAndView mav = new ModelAndView("admin/chartlist");
-		List<HashMap<Integer,Object>> join; 
+		List<Member> join; 
 		join = service.selectJoin();
 		mav.addObject("join", join);
 		System.out.println("join"+join);
 		
-		List<HashMap<Integer,Object>> age;
+		List<Member> age;
 		age = service.selectAge();
 		mav.addObject("age", age);
 		System.out.println("age"+age);
 		
-		List<HashMap<Integer,Object>> gender; 
+		List<Member> gender; 
 		gender = service.selectGender();
 		mav.addObject("gender", gender);
 		System.out.println("gender"+gender);

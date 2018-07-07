@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
+import com.kitri.daily.member.Member;
 import com.kitri.daily.search.Hashtag;
 
 @Component("adminService")
@@ -42,19 +43,19 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<HashMap<Integer,Object>> selectJoin() {
+	public List<Member> selectJoin() {
 		adminMapper = sqlSession.getMapper(AdminMapper.class);
 		return adminMapper.joinCount();
 	}
 
 	@Override
-	public List<HashMap<Integer,Object>> selectAge() {
+	public List<Member> selectAge() {
 		adminMapper = sqlSession.getMapper(AdminMapper.class);
 		return adminMapper.ageCount();
 	}
 
 	@Override
-	public List<HashMap<Integer,Object>> selectGender() {
+	public List<Member> selectGender() {
 		adminMapper = sqlSession.getMapper(AdminMapper.class);
 		return adminMapper.genderCount();
 	}
