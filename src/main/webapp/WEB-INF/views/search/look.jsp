@@ -52,8 +52,8 @@
 			<c:forEach items="${lookList }" var="lo">
 				<div class="gallery_product col-lg-4 scrolling">
 					<img src="/board/${lo.img}" class="lookimg">
+					<input type='hidden' class='board_seq' value='${lo.board_seq}'>
 					<input type="hidden" class="scrolling" value="${lo.row }">
-					<input type='hidden' class='board_seq' value='${lo.board_seq} '>
 				</div>
 				
 			</c:forEach>
@@ -136,8 +136,8 @@
 									console.log(this);		
 									str +=	"<div class="+"'gallery_product col-lg-4 scrolling'"+">" 
 										+	 "<img src="+"'/board/"+this.img+"'"+"class='lookimg'"+">"
-										+	 "<input type="+"'hidden'"+ "class='scrolling'"+ "value='"+this.row+"'"+">"
 										+    "<input type='hidden' class='board_seq' value='"+this.board_seq +"'>"
+										+	 "<input type="+"'hidden'"+ "class='scrolling'"+ "value='"+this.row+"'"+">"
 										+	 "</div>";
 							});// each
 							if(data.length <9){
