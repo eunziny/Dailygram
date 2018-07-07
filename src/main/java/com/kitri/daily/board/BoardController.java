@@ -4,7 +4,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,6 +21,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,6 +29,7 @@ import com.kitri.daily.friend.Friend;
 import com.kitri.daily.friend.Relationship;
 import com.kitri.daily.member.Member;
 import com.kitri.daily.search.Hashtag;
+import com.kitri.daily.search.Look;
 
 @Controller
 public class BoardController {
@@ -130,24 +134,61 @@ public class BoardController {
 		return str;
 	}
 
-	@RequestMapping(value = "/board/newsfeed.do", method = RequestMethod.GET)
-	public void newsfeed(Model model, HttpServletRequest req) {
+	@RequestMapping(value = "/board/newsfeed.do", method = RequestMethod.GET)	
+	public ModelAndView newsfeed(@RequestParam String id) {
 		ModelAndView mav = new ModelAndView("board/newsfeed");
-		HttpSession session = req.getSession(false);
-		Member mem = (Member) session.getAttribute("memInfo");
-		String id = mem.getId();
-		List<Board> feedList = (ArrayList<Board>) service.getNewsfeed(id);
-		model.addAttribute("feed", feedList);
-		//뉴스피드 안에 들어갈 좋아요, 댓글
-/*		Like like = new Like(bseq, id);
-		Like l = service.getType(like);
-		mav.addObject("l", l);
-		Board b = service.detailBoard(bseq);
-		List<Comment> coList = service.getComments(bseq);// 해당글의 코멘트 리스트들 가져오기.
-		mav.addObject("b", b);
-		mav.addObject("coList", coList);*/
+		Board sendbo = new Board();
+		sendbo.setWriter(id);
+		sendbo.setRow(0);
+		List <Board> boardList= service.getNewsfeed(sendbo);//10개 + 해당글의 type가져온다 L,S,X 셋중하나.
+		mav.addObject("boardList", boardList);
+		//댓글을 찾기위한 글번호 list 이다.
+		List <Integer> bseqList = new ArrayList<Integer>();
+		//프로필 사진 을 갖고오기 위한 해당 글번호 글쓴이 writer 보내기.
+		List <String> writerList = new ArrayList<String>();
+		//댓글을 가져오기 위한 위에서 번호 뽑기.
+		for(Board b : boardList) {
+			bseqList.add(b.getBoard_seq());
+			writerList.add(b.getWriter());
+		}
+		HashMap<String,List<Integer>> hm = new HashMap<String,List<Integer>>();
+		HashMap<String,List<String>> hm2 = new HashMap<String, List<String>>();
+		hm.put("bseq", bseqList);
+		hm2.put("writer",writerList);
+		List<Comment> coList = service.getNewsComm(hm); //댓글 가져와라
+		List<Member> proList = service.getProfileImg(hm2);
+		mav.addObject("coList",coList);
+		mav.addObject("proList",proList);
+		return mav;
 	}
 
+	@RequestMapping(value = "/board/infiLoad.do" , method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> infiLoad(@RequestParam String id  , @RequestParam int row){
+		Map<String , Object> map = new HashMap<String, Object>();
+		System.out.println("현재 row:"+row);
+		Board sendbo = new Board();
+		sendbo.setWriter(id);
+		sendbo.setRow(row);
+		List <Board> boardList= service.getNewsfeed(sendbo);//10개 + 해당글의 type가져온다 L,S,X 셋중하나.
+		map.put("boardList", boardList);
+		List <Integer> bseqList = new ArrayList<Integer>();
+		List <String> writerList = new ArrayList<String>();
+		for(Board b : boardList) {
+			bseqList.add(b.getBoard_seq());
+			writerList.add(b.getWriter());
+		}
+		HashMap<String,List<Integer>> hm = new HashMap<String,List<Integer>>();
+		HashMap<String,List<String>> hm2 = new HashMap<String, List<String>>();
+		hm.put("bseq", bseqList);
+		hm2.put("writer",writerList);
+		List<Comment> coList = service.getNewsComm(hm); //댓글 가져와라
+		List<Member> proList = service.getProfileImg(hm2);
+		map.put("coList", coList);
+		map.put("proList", proList);
+		return map;
+	}
+	
 	@RequestMapping(value = "/board/del.do")
 	public String delete(HttpServletRequest req, @RequestParam(value = "bseq") int bseq) throws Exception {
 		HttpSession session = req.getSession(false);

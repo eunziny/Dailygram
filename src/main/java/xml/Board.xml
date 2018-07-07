@@ -5,6 +5,7 @@
 <mapper namespace="com.kitri.daily.board.BoardMapper">
 
 	<resultMap id="BoardResult" type="com.kitri.daily.board.Board">
+		<result column="row" property="row"/>
 		<result column="board_seq" property="board_seq" />
 		<result column="writer" property="writer" />
 		<result column="content" property="content" />
@@ -191,14 +192,60 @@
 		group by m.id
 	</select>
 	
-	<select id="newsfeed" resultMap = "BoardResult">
-		select *  from board
+	<select id="newsfeed" resultMap = "BoardResult" parameterType ="com.kitri.daily.board.Board">
+		select b.* from
+		(
+		select @rownum:=@rownum+1 As row, a.* from
+		(
+		(select distinct b.* , ifnull(ls.type,'X') type , count(if(ls.type='L',ls.type,null)) likecnt from board b
+		left outer join like_siren ls
+		on ls.board_seq = b.board_seq
 		where writer in(
-			select receiver from relationship
-			where sender=#{writer}
-			and status in ('Y','R')
-			)or writer=#{writer}
+		select receiver from relationship
+		where sender= #{writer}
+		and status = 'Y'
+		) or b.writer = #{writer}
+		or ls.sender = #{writer}
+        group by board_seq)
+		union
+		(select distinct b.* , ifnull(ls.type,'X') type , count(if(ls.type='L',ls.type,null)) likecnt from board b
+		left outer join like_siren ls
+		on ls.board_seq = b.board_seq
+		where writer in(
+		select receiver from relationship
+		where sender= #{writer}
+		and status = 'R'
+		) and public_yn = 'y'
+		or ls.sender = #{writer}
+        group by board_seq)
 		order by posted desc
+		) a , (select @rownum:=0) tmp
+		) b limit #{row},10
+	</select>
+	
+	<select id="getNewsComm" resultMap="CommentResult" parameterType="hashmap">
+		select * from comment
+		where board_seq in
+		<foreach collection="bseq" item="b"  open="(" close=")" separator=",">
+            #{b.value}
+        </foreach>
+		order by field(board_seq
+		<foreach collection="bseq" item="b"  open="," close=")" separator=",">
+            #{b.value}
+        </foreach> , step
+	</select>
+	
+	<select id="getProfileImg" resultMap="MemberResult" parameterType="hashmap">
+		select distinct m.id, m.profile_img from member m
+		join board b on m.id = b.writer
+		where m.id in
+		<foreach collection="writer" item="w" open="(" close=")" separator=",">
+            #{w}
+        </foreach>
+		order by field(m.id
+		<foreach collection="writer" item="w" open="," close=")" separator=",">
+            #{w}
+        </foreach>
 	</select>
 	
 	<insert id="insertTag" parameterType="com.kitri.daily.search.Hashtag">

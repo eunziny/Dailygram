@@ -1,6 +1,7 @@
 package com.kitri.daily.board;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -46,9 +47,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<Board> getNewsfeed(String id) {
+	public List<Board> getNewsfeed(Board b) {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
-		return boardMapper.newsfeed(id);
+		return boardMapper.newsfeed(b);
 	}
 
 	@Override
@@ -169,5 +170,17 @@ public class BoardServiceImpl implements BoardService {
 	public String checkRelation(Relationship relation) {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
 		return boardMapper.selectcheckRelation(relation);
+	}
+
+	@Override
+	public List<Comment> getNewsComm(HashMap<String, List<Integer>> hm) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.getNewsComm(hm);
+	}
+
+	@Override
+	public List<Member> getProfileImg(HashMap<String,List<String>> hm2) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.getProfileImg(hm2);
 	}
 }

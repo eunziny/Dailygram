@@ -82,7 +82,6 @@ input{
                       <div class='comment-list'>
                       	<c:forEach var="co" items="${coList }">
                       	<div class='comment-body' style="padding-left: ${co.lev*35}px">
-                        	 <a href='${pageContext.request.contextPath }/board/friList.do' id='a1'><img id='fri_img' src='https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w'></a>
                        		 <a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>${co.writer }</a>
                        		 <input class= 'commcontent' readonly="readonly" value="${co.content }">
                        		 <c:if test="${sessionScope.memInfo.id eq co.writer }">
@@ -154,7 +153,6 @@ input{
 					$(data).each(function(){
 						var str = "";
 							str += "<div class='comment-body' style='padding-left: "+(this.lev *35)+"px'>"
-		                          +"<a href='${pageContext.request.contextPath }/board/friList.do' id='a1'><img id='fri_img' src='https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w'></a>"
 		                          +"<a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>"+this.writer+"</a>"
 		                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
 		                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
@@ -207,7 +205,6 @@ input{
 					$(data).each(function(){
 						var str = "";
 							str += "<div class='comment-body' style='padding-left: "+(this.lev *35)+"px'>"
-		                          +"<a href='${pageContext.request.contextPath }/board/friList.do' id='a1'><img id='fri_img' src='https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w'></a>"
 		                          +"<a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>"+this.writer+"</a>"
 		                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
 		                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
@@ -264,7 +261,6 @@ input{
 						$(data).each(function(){
 							var str = "";
 								str += "<div class='comment-body' style='padding-left: "+(this.lev *35)+"px'>"
-			                          +"<a href='${pageContext.request.contextPath }/board/friList.do' id='a1'><img id='fri_img' src='https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w'></a>"
 			                          +"<a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>"+this.writer+"</a>"
 			                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
 			                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
@@ -311,7 +307,6 @@ input{
 					$(data).each(function(){
 						var str = "";
 							str += "<div class='comment-body' style='padding-left: "+(this.lev *35)+"px'>"
-		                          +"<a href='${pageContext.request.contextPath }/board/friList.do' id='a1'><img id='fri_img' src='https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w'></a>"
 		                          +"<a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>"+this.writer+"</a>"
 		                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
 		                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"

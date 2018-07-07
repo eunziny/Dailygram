@@ -27,7 +27,11 @@ public class CommController {
 	   @PostMapping
    	   //@RequestMapping(value="/comments", method=RequestMethod.POST)
 	   public List<Comment> addNewComment(@ModelAttribute Comment cmnt) throws Exception {
-		  if(cmnt.getCom_seq() == 0) {//새댓글
+		  System.out.println(cmnt.getBoard_seq());
+		  System.out.println(cmnt.getContent());
+		  System.out.println(cmnt.getWriter());
+		  System.out.println("정보 가져오기");
+		   if(cmnt.getCom_seq() == 0) {//새댓글
 			  Comment co = new Comment(cmnt.getBoard_seq(),cmnt.getContent(),cmnt.getWriter()); 
 			  service.insertNewComment(co);
 			  

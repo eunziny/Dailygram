@@ -1,6 +1,7 @@
 package com.kitri.daily.admin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kitri.daily.board.BoardService;
+import com.kitri.daily.member.Member;
 import com.kitri.daily.search.Hashtag;
 
 @Controller
@@ -60,7 +62,26 @@ public class AdminController {
 		List<Hashtag> canList = service.getBlockList();
 		return canList;
 	}
-	
+	//월별 가입자 수, 연령대, 성비 통계 
+	@RequestMapping(value = "/admin/chartlist.do")
+	public @ResponseBody ModelAndView chartList() {
+		ModelAndView mav = new ModelAndView("admin/chartlist");
+		List<Member> join; 
+		join = service.selectJoin();
+		mav.addObject("join", join);
+		System.out.println("join"+join);
+		
+		List<Member> age;
+		age = service.selectAge();
+		mav.addObject("age", age);
+		System.out.println("age"+age);
+		
+		List<Member> gender; 
+		gender = service.selectGender();
+		mav.addObject("gender", gender);
+		System.out.println("gender"+gender);
+		return mav;
+	}
 	//신고 게시물 리스트
 	@RequestMapping(value = "/admin/chargelist.do")
 	public ModelAndView chargelist() {
@@ -92,7 +113,6 @@ public class AdminController {
 		System.out.println("personList : " + personList);
 		return mav;
 	}
-	
 	//신고 게시물 삭제
 	@RequestMapping(value = "/admin/postdel.do")
 	public String postdel(@RequestParam(value="valueArrTest[]") List<Integer> checkArr) {
@@ -106,6 +126,4 @@ public class AdminController {
 		}
 		return "redirect:/admin/chargelist.do";
 	}
-	
-	
 }

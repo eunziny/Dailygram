@@ -1,6 +1,7 @@
 package com.kitri.daily.board;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +13,7 @@ public interface BoardService {
 	Board detailBoard(int board_seq);
 	void editBoard(Board b);
 	List<Board> getMyList(String id);
-	List<Board> getNewsfeed(String id);
+	List<Board> getNewsfeed(Board b);
 	void insertHashtag(Hashtag h);
 	Board selectByid(String id);
 	@Transactional
@@ -35,4 +36,6 @@ public interface BoardService {
 	void deleteComment(Comment co) throws Exception;
 	ArrayList<Integer> FriendprofileCount(String id);
 	String checkRelation(Relationship relation);
+	List<Comment> getNewsComm(HashMap<String, List<Integer>> hm);
+	List<Member> getProfileImg(HashMap<String, List<String>> hm2);
 }

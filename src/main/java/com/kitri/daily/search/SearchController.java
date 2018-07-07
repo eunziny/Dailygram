@@ -120,17 +120,17 @@ public class SearchController {
 		List <Look> lookList = new ArrayList<Look>();
 		cntArr = service.getLookCnt(id);
 		System.out.println(cntArr.length);
-		i = 0; //index용
+		/*i = 0; //index용*/
 		if(cntArr.length == 1) { //아무 활동도 하지 않은 상태  cnt=0 1줄
 			lookList = service.getLook(0);
-			for(Look b : lookList) {
+			/*for(Look b : lookList) {
 				String originpath = b.getImg();
 				int index = originpath.lastIndexOf("\\");
 				String path = originpath.substring(index+1); //파일명만 가져온다.
 				b.setImg(path);
 				lookList.set(i, b);
 				i++;//index용
-			}
+			}*/
 			mav.addObject("lookList",lookList);
 			mav.addObject("flag",1);
 		}else {
@@ -138,7 +138,7 @@ public class SearchController {
 				List <Look> likeLookList = new ArrayList<Look>();
 				Look lo = new Look(id,0);
 				likeLookList = service.getLikeLook(lo);
-				i = 0; //index용
+				/*i = 0; //index용
 				for(Look b : likeLookList) {
 					String originpath = b.getImg();
 					int index = originpath.lastIndexOf("\\");
@@ -146,7 +146,7 @@ public class SearchController {
 					b.setImg(path);
 					likeLookList.set(i, b);
 					i++;//index용
-				}
+				}*/
 				
 				mav.addObject("lookList",likeLookList);
 				mav.addObject("flag",2);
@@ -163,7 +163,7 @@ public class SearchController {
 					mav.addObject("flag",4);
 				}
 				
-				i = 0; //index용
+				/*i = 0; //index용
 				for(Look b : friLookList) {
 					String originpath = b.getImg();
 					int index = originpath.lastIndexOf("\\");
@@ -171,13 +171,13 @@ public class SearchController {
 					b.setImg(path);
 					friLookList.set(i, b);
 					i++;//index용
-				}
+				}*/
 				mav.addObject("lookList",friLookList);
 			}else {
 				List <Look> frliLookList = new ArrayList<Look>();
 				Look lo = new Look(id,0);
 				frliLookList = service.getFrLiLook(lo);
-				i = 0; //index용
+				/*i = 0; //index용
 				for(Look b : frliLookList) {
 					String originpath = b.getImg();
 					int index = originpath.lastIndexOf("\\");
@@ -185,7 +185,7 @@ public class SearchController {
 					b.setImg(path);
 					frliLookList.set(i, b);
 					i++;//index용
-				}
+				}*/
 				mav.addObject("lookList",frliLookList);
 				mav.addObject("flag",5);
 			}
@@ -219,7 +219,7 @@ public class SearchController {
 			break;
 		}
 		
-		i = 0; //index용
+		/*i = 0; //index용
 			for(Look b : lookList) {
 				String originpath = b.getImg();
 				int index = originpath.lastIndexOf("\\");
@@ -227,7 +227,7 @@ public class SearchController {
 				b.setImg(path);
 				lookList.set(i, b);
 				i++;//index용
-			}
+			}*/
 		return lookList;
 	}
 }

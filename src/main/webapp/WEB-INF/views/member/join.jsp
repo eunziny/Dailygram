@@ -24,6 +24,30 @@
 	text-align: center;
 	color: purple;
 }
+.captcha {
+	overflow:hidden;
+}
+.captcha_child {
+	float:left;
+}
+.captcha_child_two {
+	float:right;
+}
+.refreshBtn:hover {
+	background-color: #a8a8a8;
+	color: white;
+	border: 1px solid #a6a6a6;
+}
+.refreshBtn {
+	color: black;
+	border: 1px solid #888;
+	width: 110px;
+	border-radius: 5px;
+	height: 25px;
+	display: block;
+	padding: 2px 15px;
+	margin: 5px 0px;
+}
 </style>
 <script>
    $(document).ready(function(){
@@ -37,6 +61,7 @@
 			   $("#idResult").text(data);
 		   });
 	   });
+	   
       $("#join").click(function(){
          if($("#idResult").text().trim()=="사용가능한 아이디입니다."){
             $("form").submit();
@@ -45,6 +70,46 @@
          }
       });
    });
+   
+   function audio() {
+		var rand = Math.random();
+		var url = '/daily/member/captchaAudio.do';
+		$.ajax({
+			url: url,
+			type: 'POST',
+			dataType: 'text',
+			data: 'rand=' + rand,
+			async: false,
+			success: function(resp) {
+				var uAgent = navigator.userAgent;
+				var soundUrl = '/daily/member/captchaAudio.do?rand='+rand;
+				
+				//브라우저별 오디오 처리
+				if(uAgent.indexOf('Trident') > -1 || uAgent.indexOf('MSIE') > -1){
+					winPlayer(soundUrl);
+				} else if (!!document.createElement('audio').canPlayType){
+					try {
+						new Audio(soundUrl).play();
+					} catch(e) {
+						winPlayer(soundUrl);
+					}
+				} else {
+					window.open(soundUrl, '', 'width=1,height=1');
+				}
+			}
+		});
+   }
+   
+   function refreshBtn(type) {
+	   var rand = Math.random();
+	   var url = "/daily/member/captchaImg.do?rand="+rand;
+	   $('#captchaImg').attr("src", url);
+   }
+   
+   function winPlayer(objUrl) {
+	   $('#captchaAudio').html('<bgsound src="' + objUrl + '">');
+   }
+	
 </script>
 <form action="${pageContext.request.contextPath }/member/join.do" name="myForm" method="post" onsubmit="return(validate());">
 	<div class="container-fluid" id="joinbottom">
@@ -207,7 +272,31 @@
 						</div>
 					</div>
 				</div>
-
+				
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="form-group">
+						<label for="captcha" style="diplay:block;">자동 가입 방지</label>
+							<div class="captcha">
+								<div class="captcha_child">
+									<img id="captchaImg" title="캡차 이미지" alt="캡차 이미지" src="captchaImg.do">
+									<div id="captchaAudio" style="display: nene;"></div>
+								</div>
+								<div class="captcha_child_two">
+									<a onclick="javascript:refreshBtn()" class="refreshBtn">
+										<i class="fas fa-sync-alt" aria-hidden="true"></i>새로고침</a>
+									<a onclick="javascript:audio()" class="refreshBtn">
+										<i class="fas fa-volume-up" aria-hidden="true"></i>음성듣기</a>
+								</div>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<input type="text" id="captcha" name="captcha" autocomplete="off" required />
+						</div>
+					</div>
+				</div>
+				
 				<div class="row widget">
 					<div class="col-lg-12">
 						<div class="col-lg-6">
