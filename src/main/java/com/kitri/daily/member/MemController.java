@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -35,7 +36,7 @@ public class MemController {
 	public String loginForm() {
 		return "member/login";
 	}
-	
+
 	@RequestMapping(value = "/member/login.do")
 	public String login(HttpServletRequest req, Member m) {
 		Member mem = service.getMember(m.getId());
@@ -143,7 +144,11 @@ public class MemController {
 	}
 
 	@RequestMapping(value = "/member/join.do")
-	public String join(Member m) {
+	public String join(HttpSession session, Member m) {
+		String captchaValue = (String) session.getAttribute("captcha");
+		if (m.getCaptcha() == null || !captchaValue.equals(m.getCaptcha())) {
+			return "redirect:/member/joinForm.do"; // 글 작성 페이지로 이동
+		}
 		service.insertMem(m);
 		return "redirect:/member/loginForm.do";
 	}
@@ -167,4 +172,23 @@ public class MemController {
 		return mav;
 	}
 
+	@RequestMapping(value = "/member/searchID.do")
+	public String sId() {
+		return "member/searchID";
+	}
+
+	@RequestMapping(value = "/member/searchPW.do")
+	public String sPW() {
+		return "member/searchPW";
+	}
+
+	@RequestMapping(value = "/member/captchaImg.do")
+	public void captchaImg(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		new CaptchaUtil().captchaImg(req, res);
+	}
+
+	@RequestMapping(value = "/member/captchaAudio.do")
+	public void captchaAudio(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		new CaptchaUtil().captchaAudio(req, res);
+	}
 }
