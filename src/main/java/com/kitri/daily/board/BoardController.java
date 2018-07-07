@@ -288,6 +288,8 @@ public class BoardController {
 		Member mem = (Member) session.getAttribute("memInfo");
 		String id = mem.getId();
 		List<Board> boardlist = (ArrayList<Board>) service.getMyList(id);
+		String cnt = service.cntBoard(id);
+		req.setAttribute("cnt", cnt);
 		/*
 		 * Timer t = new Timer(true); TimerTask m_task = new TimerTask() {
 		 * 
@@ -349,10 +351,8 @@ public class BoardController {
 	   List<Board> list = null;
 	   String[] statusArr = {};
 	   statusArr = service.getStatus(board);
-	   System.out.println("길이 " + statusArr.length + "  1번 " + statusArr[0]);
 	   if(statusArr.length ==1) {
 		   if(statusArr[0].equals("y")) {
-			   System.out.println("22" + statusArr[0]);
 			   list = (ArrayList<Board>) service.publicy(board);
 		   }else {
 			   System.out.println("공개된 게시물이 없습니다.");
@@ -360,11 +360,9 @@ public class BoardController {
 		   
 	   }else {
 		   if((statusArr[0].equals("y") || statusArr[0].equals("n")) && statusArr[1].equals("Y")) {
-			   System.out.println("1 " + statusArr[1]);
 			   list = (ArrayList<Board>) service.publicyn(board);
 		   } else if(statusArr[0].equals("y") && 
 				   (statusArr[1].equals("N") ||statusArr[1].equals("R"))) {
-			   System.out.println("2" + statusArr[1]);
 			   list = (ArrayList<Board>) service.publicy(board);
 		   } else {
 			   System.out.println("공개된 게시물이 없습니다.");
@@ -373,6 +371,7 @@ public class BoardController {
 	   
 //	   List<Board> list = (ArrayList<Board>) service.getList(board);
 	   Member fri = service.friend(writer);
+	   System.out.println("카운트~~~~~~~!! " + fri.getCnt());
 	   session.setAttribute("friendId", writer);
 	   ModelAndView mav = new ModelAndView("board/friList");
 	   mav.addObject("list", list);

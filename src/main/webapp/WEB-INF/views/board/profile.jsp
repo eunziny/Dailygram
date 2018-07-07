@@ -59,7 +59,7 @@
 					<div class="row">
 						<div class="col-md-3 follow">
 							<h4>게시물</h4>
-							<a href="${pageContext.request.contextPath }/board/myList.do">10</a>
+							<a href="${pageContext.request.contextPath }/board/myList.do">${cnt }</a>
 						</div>
 						<div class="col-md-3 follow">
 							<h4>팔로워</h4>

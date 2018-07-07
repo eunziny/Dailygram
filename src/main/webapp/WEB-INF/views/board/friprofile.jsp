@@ -96,7 +96,7 @@
 					<div class="row">
 						<div class="col-md-3 follow">
 							<h4>게시물</h4>
-							<a>10</a>
+							<a href="${pageContext.request.contextPath }/board/friList.do?writer=${sessionScope.friendId }"> ${fri.cnt}</a>
 						</div>
 						<div class="col-md-3 follow">
 							<h4>팔로워</h4>

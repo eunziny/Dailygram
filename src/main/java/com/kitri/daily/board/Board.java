@@ -19,6 +19,10 @@ public class Board {
 	
 
 	public Board() {}
+	public Board(String writer) {
+		super();
+		this.writer = writer;
+	}
 	public Board(String writer, String sender) {
 		super();
 		this.writer = writer;

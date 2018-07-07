@@ -36,6 +36,7 @@
 		<result column="profile_img" property="profile_img" />
 		<result column="publicyn" property="publicyn" />
 		<result column="intro" property="intro" />
+		<result column="cnt" property="cnt" />
 	</resultMap>
 
 	<resultMap id="CommentResult" type="com.kitri.daily.board.Comment">
@@ -76,11 +77,15 @@
 		board_seq=#{board_seq}
 	</update>
 
-
-
 	<select id="myList" resultMap="BoardResult" parameterType="String">
 		select * from board where writer=#{writer}
 		order by posted desc
+	</select>
+	
+	<select id="cntBoard" resultType="String" parameterType="String">
+		select ifnull(count(board_seq), 0) cnt
+		from board
+		where writer=#{writer};
 	</select>
 <!-- 
 	구독이거나 아무사이도 아닐 때 공개계정 공개게시물만 리스트로 뿌림 
@@ -184,12 +189,11 @@
 	</insert>
 
 	<select id="friend" resultMap="MemberResult" parameterType="String">
-		select m.*
+		select m.*, ifnull(count(b.board_seq), 0) cnt
 		from member m join board b
 		on m.id = b.writer
-		where b.writer =
-		#{writer}
-		group by m.id
+		where b.writer = #{writer}
+		and now() >= date_add(b.posted, interval 1 minute)
 	</select>
 	
 	<select id="newsfeed" resultMap = "BoardResult" parameterType ="com.kitri.daily.board.Board">

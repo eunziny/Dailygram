@@ -183,4 +183,10 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
 		return boardMapper.getProfileImg(hm2);
 	}
+
+	@Override
+	public String cntBoard(String id) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.cntBoard(id);
+	}
 }

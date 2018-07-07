@@ -13,6 +13,7 @@ public interface BoardService {
 	Board detailBoard(int board_seq);
 	void editBoard(Board b);
 	List<Board> getMyList(String id);
+	String cntBoard(String id);
 	List<Board> getNewsfeed(Board b);
 	void insertHashtag(Hashtag h);
 	Board selectByid(String id);

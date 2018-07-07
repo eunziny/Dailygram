@@ -13,15 +13,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kitri.daily.board.BoardService;
 import com.kitri.daily.member.Member;
 
 @Controller
 public class FriController {
 	@Resource(name = "friService")
 	private FriService service;
+	@Resource(name = "boardService")
+	private BoardService service2;
 
 	public void setService(FriService service) {
 		this.service = service;
+	}
+	public void setService(BoardService service) {
+		this.service2 = service;
 	}
 
 	@RequestMapping(value = "/friend/knownfriend.do")
@@ -149,10 +155,12 @@ public class FriController {
 	}
 
 	@RequestMapping(value = "/friend/subscribelist.do")
-	public ModelAndView subscribeList(@RequestParam(value = "id") String id) {// 내가 구독하는 사람 리스트
+	public ModelAndView subscribeList(HttpServletRequest req, @RequestParam(value = "id") String id) {// 내가 구독하는 사람 리스트
 		ModelAndView mav = new ModelAndView("friend/subscribelist");
 		Friend friend = new Friend();
 		friend.setId(id);
+		String cnt = service2.cntBoard(id);
+		req.setAttribute("cnt", cnt);
 		System.out.println("로그인 한 아이디 : " + id);
 
 		ArrayList<Friend> list = (ArrayList<Friend>) service.getsubscribeList(id);
@@ -161,10 +169,12 @@ public class FriController {
 	}
 
 	@RequestMapping(value = "/friend/followinglist.do")
-	public ModelAndView followingList(@RequestParam(value = "id") String id) {// 내가 구독하는 사람 리스트
+	public ModelAndView followingList(HttpServletRequest req, @RequestParam(value = "id") String id) {// 내가 구독하는 사람 리스트
 		ModelAndView mav = new ModelAndView("friend/followinglist");
 		Friend friend = new Friend();
 		friend.setId(id);
+		String cnt = service2.cntBoard(id);
+		req.setAttribute("cnt", cnt);
 		System.out.println("로그인 한 아이디 : " + id);
 
 		ArrayList<Friend> list = (ArrayList<Friend>) service.getfollowingList(id);
@@ -173,10 +183,12 @@ public class FriController {
 	}
 
 	@RequestMapping(value = "/friend/followerlist.do")
-	public ModelAndView followerList(@RequestParam(value = "id") String id) {// 내가 구독하는 사람 리스트
+	public ModelAndView followerList(HttpServletRequest req, @RequestParam(value = "id") String id) {// 내가 구독하는 사람 리스트
 		ModelAndView mav = new ModelAndView("friend/followerlist");
 		Friend friend = new Friend();
 		friend.setId(id);
+		String cnt = service2.cntBoard(id);
+		req.setAttribute("cnt", cnt);
 		System.out.println("로그인 한 아이디 : " + id);
 
 		ArrayList<Friend> list = (ArrayList<Friend>) service.getfollowerList(id);// 팔로워 리스트 받아옴
@@ -213,6 +225,7 @@ public class FriController {
 		HttpSession session = req.getSession(false);
 		Member mem = (Member) session.getAttribute("memInfo");
 		String user_id = mem.getId();
+		Member fri = service2.friend(id);
 		System.out.println("프로필 상 아이디(친구) : " + id);
 		System.out.println("로그인한 아이디 : " + user_id);
 
@@ -235,6 +248,7 @@ public class FriController {
 			if (list.get(i).getId().equals(user_id))
 				list.get(i).setStatus("me");
 		}
+		mav.addObject("fri", fri);
 		mav.addObject("list", list);
 		return mav;
 	}
@@ -248,6 +262,7 @@ public class FriController {
 		HttpSession session = req.getSession(false);
 		Member mem = (Member) session.getAttribute("memInfo");
 		String user_id = mem.getId();
+		Member fri = service2.friend(id);
 		System.out.println("프로필 상 아이디(친구) : " + id);
 		System.out.println("로그인한 아이디 : " + user_id);
 
@@ -271,6 +286,7 @@ public class FriController {
 			if (list.get(i).getId().equals(user_id))
 				list.get(i).setStatus("me");
 		}
+		mav.addObject("fri", fri);
 		mav.addObject("list", list);
 		return mav;
 	}

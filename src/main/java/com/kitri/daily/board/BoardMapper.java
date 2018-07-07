@@ -11,6 +11,7 @@ public interface BoardMapper {
 	Board select(int board_seq);
 	void update(Board b);
 	List<Board> myList(String id);
+	String cntBoard(String id);
 	List<Board> newsfeed(Board b);
 	void insertTag(Hashtag h);
 	Board selectById(String id);
