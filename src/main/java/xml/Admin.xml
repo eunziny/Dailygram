@@ -18,6 +18,7 @@
 		<result column="date" property="date" />
 		<result column="sirencnt" property="sirencnt" />
 		<result column="writer" property="writer" />
+		<result column="profile_img" property="profile_img"/>
 	</resultMap>
 	
 	<select id="getBlockList" resultMap="AdminResult" >
@@ -115,8 +116,10 @@
 	</select>
 	
 	<select id="getPersonList" resultMap="SirenResult">
-		select sender
-        from like_siren
+		select sender, m.profile_img
+        from like_siren ls
+    	join member m 
+        on ls.sender = m.id
         where board_seq = #{bseq}
         and type = 'S';
 	</select>

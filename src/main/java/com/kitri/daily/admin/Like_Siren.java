@@ -12,7 +12,7 @@ public class Like_Siren {
 	private Date date;
 	private String writer;
 	private Board board;
-	
+	private String profile_img;
 	public Like_Siren() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -83,6 +83,15 @@ public class Like_Siren {
 
 	public void setBoard(Board board) {
 		this.board = board;
+	}
+	
+	
+	public String getProfile_img() {
+		return profile_img;
+	}
+
+	public void setProfile_img(String profile_img) {
+		this.profile_img = profile_img;
 	}
 
 	@Override
