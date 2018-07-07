@@ -7,4 +7,5 @@ public interface MemberMapper {
 	void delMember(String id);
 	ArrayList<Integer> selectProfileCount(String id);
 	void updateMem(Member m);
+	void insertMem(Member m);
 }

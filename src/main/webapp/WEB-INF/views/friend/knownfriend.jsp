@@ -27,9 +27,15 @@ ul.list-group>li>button{
 			<c:if test="${empty list }">다시한번 조회해주시기 바랍니다. </c:if>
 			<c:if test="${not empty list }">
 			<c:forEach var="p" items="${list }">
-				<li class="list-group-item"><img alt="" class="img-circle"
-					src="https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w"
-					width="30"> 
+				<li class="list-group-item">
+					<c:choose>
+						<c:when test="${p.profile_img ne null}"> 
+							<img alt="" class="img-circle" src="/dailygram/thumbnail_mem/${p.profile_img}" width="30"> 
+						</c:when>
+						<c:otherwise>
+							<img alt="" class="img-circle" src="http://www.technifroid-pro.fr/wp-content/uploads/2014/02/Technifroid-F.jpg" width="30">
+						</c:otherwise>
+					</c:choose>
 					<a href='${pageContext.request.contextPath }/board/friList.do?writer=${p.id }' style="color: black"><span>${p.id }</span></a>
 					<button type="button" class="btn btn-xs">팔로우</button>
 				</li>

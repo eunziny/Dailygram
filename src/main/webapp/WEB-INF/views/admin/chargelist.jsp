@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/views/admin/admin_header.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -65,23 +66,47 @@ body {
 }
 </style>
 <script>
+
 	$(function() {
 		$("a.eye").click(function() {
 			alert("게시물로 이동");
 		});
+		
+		
+/*   		$("a.badge").click(function() {
+  			var list1 = new Array();
 
-		$("a.trash").click(function() {
-			alert("해당 게시물 바로 삭제");
-		});
+  			<c:forEach items="${chargeList}" var="item1">
 
-		$("a.badge").click(function() {
-				window.open("http://localhost:8080/daily/admin/chargeMemList.do",
+  			list1.push("${item1.board_seq}");
+
+  			</c:forEach>
+
+			console.log(list1);
+				window.open("${pageContext.request.contextPath}/admin/chargeperson.do?bseq=list1",
 						" 해당 게시물 신고자 리스트",
 						"width=450, height=550, top=70 left=400, scrollbars=yes");
-		});
+				
+		}); */
 		
 		$("button#delete").click(function() {
-			alert("정말 삭제하시겠습니까?");
+			//alert("정말 삭제하시겠습니까?");
+			
+			var checkArr = []; //배열 초기화
+			
+			$("input[name='chargedel']:checked").each(function(e) {
+				checkArr.push($(this).val());
+			});
+			
+			$.ajax ({
+				url: "${pageContext.request.contextPath}/admin/postdel.do",
+				type: 'post',
+				dataType: 'text',
+				data: {
+					valueArrTest:checkArr
+				}
+				
+			});
 		});
 	});
 </script>
@@ -93,149 +118,25 @@ body {
 					<div class="panelspace">
 						<h1 class="panel-heading panel-danger" align="center"><b>신고 게시물 관리</b></h1>
 						<hr>
+						<h4 class="panel-heading panel-danger" align="left"><b>신고 게시물 작성자</b></h4>
 						<div>
 							<button id="delete" class="btn btn-danger pull-right">삭제</button>
 						</div>
 						<br> <br>
 						<div class="panel-body">
 							<ul class="list-group">
+								<c:forEach var="cl" items="${chargeList}">
 								<li class="list-group-item">
 									<div class="checkbox">
-										<input type="checkbox" class="checkb" name="checkbox[]"
-											id="checkbox1" value="1" /> <label for="checkbox1">신고1</label>
+										<input type="checkbox" class="checkb" name="chargedel"
+											id="checkbox1" value="${cl.board_seq}" /> <label for="checkbox1">${cl.writer}</label>
 									</div>
 									<div class="pull-right action-buttons">
-										<a href="#" class="eye"><span class="glyphicon glyphicon-eye-open"></span></a> 
-										<!-- <a href="#" class="trash"><span class="glyphicon glyphicon-trash"></span></a> -->
-										<a href="#" class="badge badge-danger">99</a>	
-									</div>
-																		
-								</li>
-								<!-- <li class="list-group-item">
-									<div class="checkbox">
-										<input type="checkbox" class="checkb" name="checkbox[]"
-											id="checkbox2" value="2" /> <label for="checkbox2">
-											신고2 </label>
-									</div>
-									<div class="pull-right action-buttons">
-										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a> <a href="#"
-											class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-										<a href="#" class="badge badge-danger">42</a>
-
+										<a href="${pageContext.request.contextPath}/board/post.do?bseq=${cl.board_seq}" class="eye"><span class="glyphicon glyphicon-eye-open"></span></a> 
+										<a href="${pageContext.request.contextPath}/admin/chargeperson.do?bseq=${cl.board_seq}" class="badge badge-danger">${cl.sirencnt}</a>	
 									</div>
 								</li>
-								<li class="list-group-item">
-									<div class="checkbox">
-										<input type="checkbox" class="checkb" name="checkbox[]"
-											id="checkbox3" value="3" /> <label for="checkbox3">
-											신고3 </label>
-									</div>
-									<div class="pull-right action-buttons">
-										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a> <a href="#"
-											class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-										<a href="#" class="badge badge-danger">3</a>
-
-									</div>
-								</li>
-								<li class="list-group-item">
-									<div class="checkbox">
-										<input type="checkbox" class="checkb" name="checkbox[]"
-											id="checkbox4" value="4" /> <label for="checkbox4">
-											신고4 </label>
-									</div>
-									<div class="pull-right action-buttons">
-										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a> <a href="#"
-											class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-										<a href="#" class="badge badge-danger">1</a>
-
-									</div>
-								</li>
-								<li class="list-group-item">
-									<div class="checkbox">
-										<input type="checkbox" class="checkb" name="checkbox[]"
-											id="checkbox5" value="50" /> <label for="checkbox5">
-											신고5 </label>
-									</div>
-									<div class="pull-right action-buttons">
-										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a> <a href="#"
-											class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-										<a href="#" class="badge badge-danger">1</a>
-
-									</div>
-								</li>
-								<li class="list-group-item">
-									<div class="checkbox">
-										<input type="checkbox" class="checkb" name="checkbox[]"
-											id="checkbox6" value="50" /> <label for="checkbox6">
-											신고6 </label>
-									</div>
-									<div class="pull-right action-buttons">
-										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a> <a href="#"
-											class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-										<a href="#" class="badge badge-danger">1</a>
-
-									</div>
-								</li>
-								<li class="list-group-item">
-									<div class="checkbox">
-										<input type="checkbox" class="checkb" name="checkbox[]"
-											id="checkbox7" value="50" /> <label for="checkbox7">
-											신고7 </label>
-									</div>
-									<div class="pull-right action-buttons">
-										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a> <a href="#"
-											class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-										<a href="#" class="badge badge-danger">1</a>
-
-									</div>
-								</li>
-								<li class="list-group-item">
-									<div class="checkbox">
-										<input type="checkbox" class="checkb" name="checkbox[]"
-											id="checkbox8" value="50" /> <label for="checkbox8">
-											신고8 </label>
-									</div>
-									<div class="pull-right action-buttons">
-										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a> <a href="#"
-											class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-										<a href="#" class="badge badge-danger">1</a>
-
-									</div>
-								</li>
-								<li class="list-group-item">
-									<div class="checkbox">
-										<input type="checkbox" class="checkb" name="checkbox[]"
-											id="checkbox9" value="50" /> <label for="checkbox9">
-											신고9 </label>
-									</div>
-									<div class="pull-right action-buttons">
-										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a> <a href="#"
-											class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-										<a href="#" class="badge badge-danger">1</a>
-
-									</div>
-								</li>
-								<li class="list-group-item">
-									<div class="checkbox">
-										<input type="checkbox" class="checkb" name="checkbox[]"
-											id="checkbox10" value="50" /> <label for="checkbox10">
-											신고10 </label>
-									</div>
-									<div class="pull-right action-buttons">
-										<a href="#" class="eye"><span
-											class="glyphicon glyphicon-eye-open"></span></a> <a href="#"
-											class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-										<a href="#" class="badge badge-danger">1</a>
-									</div>
-								</li> -->
+								</c:forEach>
 							</ul>
 						</div>
 					</div>
@@ -248,4 +149,3 @@ body {
 <%@ include file="/WEB-INF/views/container/footer.jsp"%>
 </body>
 </html>
-

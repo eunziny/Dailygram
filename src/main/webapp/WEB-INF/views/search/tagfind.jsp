@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/views/container/header.jsp"%>
 <style>
@@ -34,30 +35,28 @@
 <script
    src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
-<!-- <div class="row">
+<div class="row">
 	<div class="container">
 		<div class="col-lg-12" id="looktop">
 			<div class="col-lg-offset-1 col-lg-3" id="looktag_img">
 				<img class="img-circle"
-					src="http://item.ssgcdn.com/83/19/94/item/0000005941983_i1_500.jpg"
+					src="/board/${list[0].img}"
 					width="200" height="200" alt="No Image">
 			</div>
 			<div class="col-lg-8">
 				<br> <br>
-				<h2>
-					<a href="#" class="looktag">#김치만두</a>
-				</h2>
-				<h4>게시물 86,529</h4>
+				<h2>${list[0].tagname}</h2>
+				<h4>게시물 ${fn:length(list)}</h4>
 			</div>
 		</div>
 	</div>
-</div> -->
+</div>
 <div class="row" id="lookbottom">
 	<div class="container">
 		<div class="col-lg-12">
 			<c:forEach var="s" items="${list }">
 			<div class="gallery_product col-lg-4">
-				<img src="/board/${s.img }" class="lookimg">
+				<a href="${pageContext.request.contextPath}/board/post.do?bseq=${s.board_seq}"><img src="/board/${s.img }" class="lookimg"></a>
 			</div>
 			</c:forEach>
 		</div>

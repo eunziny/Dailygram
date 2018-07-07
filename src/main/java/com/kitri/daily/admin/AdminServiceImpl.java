@@ -1,5 +1,6 @@
 package com.kitri.daily.admin;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -7,6 +8,7 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
+import com.kitri.daily.member.Member;
 import com.kitri.daily.search.Hashtag;
 
 @Component("adminService")
@@ -40,4 +42,33 @@ public class AdminServiceImpl implements AdminService {
 		adminMapper.cancleBlock(checkArr);
 	}
 
+	@Override
+	public List<Member> selectJoin() {
+		adminMapper = sqlSession.getMapper(AdminMapper.class);
+		return adminMapper.joinCount();
+	}
+
+	@Override
+	public List<Member> selectAge() {
+		adminMapper = sqlSession.getMapper(AdminMapper.class);
+		return adminMapper.ageCount();
+	}
+
+	@Override
+	public List<Member> selectGender() {
+		adminMapper = sqlSession.getMapper(AdminMapper.class);
+		return adminMapper.genderCount();
+	}
+	public List<Like_Siren> getChargeList() {
+		// TODO Auto-generated method stub
+		adminMapper = sqlSession.getMapper(AdminMapper.class);
+		return adminMapper.getChargeList();
+	}
+
+	@Override
+	public List<Like_Siren> getPersonList(int bseq) {
+		// TODO Auto-generated method stub
+		adminMapper = sqlSession.getMapper(AdminMapper.class);
+		return adminMapper.getPersonList(bseq);
+	}
 }
