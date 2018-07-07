@@ -19,6 +19,10 @@
 </style>
 <script>
    $(document).ready(function(){
+	   $("#cancel").click(function(){
+		   alert("메일을 전송했습니다. 메일함을 확인하세요.");
+		 
+	   }));
    });
 </script>
 <form action="${pageContext.request.contextPath }/member/searchPW.do" name="myPW" method="post" onsubmit="return(validate());">
@@ -32,21 +36,7 @@
 					<h5 class="text-center">비밀번호를 잊어버리셨나요?</h5>
 					<hr>
 				</div>
-
-				<div class="row">
-					<div class="col-lg-12">
-						<!--<div class="form-group">-->
-						<div class="profileimg">
-							<img class="img-circle" src="http://www.technifroid-pro.fr/wp-content/uploads/2014/02/Technifroid-F.jpg"
-								width="150" height="150" alt="Profile Image">
-						</div>
-					</div>
-				</div>
-				<br>
-
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="col-lg-8" style="padding-left: 0px;">
+				<div class="col-lg-8" style="padding-left: 0px;">
 							<div class="form-group">
 								<div class="input-group">
 									<div class="input-group-addon">
@@ -57,66 +47,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-12" id="idResult"></div>
-					</div>
-				</div>
-				
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="form-group">
-							<div class="input-group">
-								<div class="input-group-addon">
-									<i class="glyphicon glyphicon-lock"></i>
-								</div>
-								<input type="password" minlength="8" maxlength="20"
-									placeholder="Password" name="pwd" class="form-control" required>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="form-group">
-							<div class="input-group">
-								<div class="input-group-addon">
-									<i class="glyphicon glyphicon-user"></i>
-								</div>
-								<input type="text" placeholder="User Name" name="name"
-									class="form-control">
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="form-group">
-							<div class="input-group">
-								<div class="input-group-addon">
-									<i class="glyphicon glyphicon-user"></i>
-								</div>
-								<input type="text" placeholder="Self-Introduction" name="intro"
-									class="form-control">
-							</div>
-						</div>
-					</div>
-				</div>
-
- 				<div class="row">
-					<div class="col-lg-12">
-						<div class="form-group">
-							<div class="input-group">
-								<div class="input-group-addon">
-									<i class="glyphicon glyphicon-calendar"></i>
-								</div>
-								<input type="date" name="birthday" placeholder="Date Of Birth"
-									class="form-control" id="birthday" required>
-							</div>
-						</div>
-					</div>
-				</div>
-				
+		
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="form-group">
@@ -130,60 +61,14 @@
 						</div>
 					</div>
 				</div>
-
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="col-lg-8" style="padding-left: 0px;">
-							<div class="form-group">
-								<div class="input-group">
-									<div class="input-group-addon">
-										<i class="glyphicon glyphicon-list-alt"></i>
-									</div>
-									<input type="text" class="form-control" name="address"
-										placeholder="Postal Code" required readonly>
-
-								</div>
-
-							</div>
-						</div>
-						<div class="col-lg-4">
-							<div class="form-group">
-								<a href="#" class="btn btn-info" id="search">우편번호 검색</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-12">
-						<div class="input-group">
-							<div class="input-group-addon">
-								<i class="glyphicon glyphicon-list-alt"></i>
-							</div>
-							<input type="text" class="form-control" name="address"
-								placeholder="Address" required readonly>
-
-						</div>
-					</div>
-				</div>
 				<br>
-				
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="form-group">
-							<div class="input-group">
-								<b>Gender</b>&nbsp;
-								<label><input name="gender" type="radio" value="m" checked required>Male</label>&nbsp;
-								<label><input name="gender" type="radio" value="f">Female</label>
-							</div>
-						</div>
-					</div>
-				</div>
-
 				<div class="row widget">
 					<div class="col-lg-12">
 						<div class="col-lg-6">
 							<a href="${pageContext.request.contextPath }/member/loginForm.do" class="btn btn-primary btn-block" id="cancle">취소</a>
 						</div>
 						<div class="col-lg-6">
-							<button class="btn btn-success btn-block" id="join">회원가입</button>
+							<button class="btn btn-success btn-block" id="ok" onclick="location.href='${pageContext.request.contextPath }/member/loginForm.do'" >확인</button>
 						</div>
 					</div>
 				</div>
