@@ -19,6 +19,7 @@ public class Member {
 	private String intro;
 	
 	private MultipartFile file;
+	private String captcha;
 	
 	public Member() {}
 	public Member(String id) {
@@ -40,6 +41,23 @@ public class Member {
 		this.profile_img = profile_img;
 		this.publicyn = publicyn;
 		this.intro = intro;
+	}
+	public Member(String id, String pwd, String name, Date birthday, String email, String address, String gender,
+			Date joindate, String useyn, String profile_img, String publicyn, String intro, String captcha) {
+		super();
+		this.id = id;
+		this.pwd = pwd;
+		this.name = name;
+		this.birthday = birthday;
+		this.email = email;
+		this.address = address;
+		this.gender = gender;
+		this.joindate = joindate;
+		this.useyn = useyn;
+		this.profile_img = profile_img;
+		this.publicyn = publicyn;
+		this.intro = intro;
+		this.captcha = captcha;
 	}
 	public String getId() {
 		return id;
@@ -118,6 +136,12 @@ public class Member {
 	}
 	public void setFile(MultipartFile file) {
 		this.file = file;
+	}
+	public String getCaptcha() {
+		return captcha;
+	}
+	public void setCaptcha(String captcha) {
+		this.captcha = captcha;
 	}
 	@Override
 	public String toString() {
