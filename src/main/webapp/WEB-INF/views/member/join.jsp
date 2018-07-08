@@ -51,6 +51,66 @@
 </style>
 <script>
    $(document).ready(function(){
+	   //우편번호 검색
+	   // 검색버튼 눌렸을 때 함수 실행
+	    $("#searchBtn").click(function(e){
+	        e.preventDefault();
+	        var query = $("input[name='query']").val();
+	        console.log("query :" + query);
+	        $.ajax({
+	            url : "${pageContext.request.contextPath}/member/zip_search.do",
+	            data : {query : query},
+	            type : "POST",
+	            dataType : "json",
+	            //dataType : "xml",
+	            success : function(result){
+	                $("#zip_codeList").empty();
+	                var html = "";
+	                if(result.errorCode != null && result.errorCode != ""){
+	                    html += "<tr>";
+	                    html += "    <td colspan='2'>";
+	                    html +=            result.errorMessage;
+	                    html += "    </td>";
+	                    html += "</tr>";
+	                }
+	                else{
+	                    var list = result.list;
+	                    
+	                    for(var i = 0; i < list.length; i++){
+	                        html += "<tr>";
+	                        html += "    <td>";
+	                        // 우편번호
+	                        //var zipcode = list[i].zipcode;
+	                        // 주소
+	                        var address = list[i].address;
+	 
+	                        //html +=         list[i].zipcode;
+	                        html += "    </td>";
+	                        html += "    <td>";
+	                        //html +=     '<a href="#" onclick="put(\'' + list[i].address + '\',\'' + zipcode + '\')">' + address + '</a>';
+	                        html +=     '<a href="#" onclick="put(\'' + list[i].address + '\')">' + address + '</a>';
+	                        html += "    </td>";
+	                        html += "</tr>";
+	                    }
+	                }
+	                // 완성된 html(우편번호 list)를 zip_codeList밑에 append
+	                $("#zip_codeList").append(html);
+	                
+	            }
+	        });
+	    });
+
+	// 원하는 우편번호 선택시 함수 실행
+/* 	function put(address,zipcode){
+	    var address = address;
+	    var zipcode = zipcode;
+	    // 모달창 닫기
+	    $("#zip_codeModal").modal("hide");
+	    $("#zip_code").val(zipcode);
+	    $("#address1").val(address);
+	} */
+	//우편번호 검색 end
+	   
 	   $('#idCheck').click(function(){
 		   if($("#id").val()=="") {
 			   alert("먼저 id를 입력해주세요.");
@@ -70,6 +130,16 @@
          }
       });
    });
+   
+	// 원하는 우편번호 선택시 함수 실행
+    	function put(address,zipcode){
+   	    var address = address;
+   	    var zipcode = zipcode;
+   	    // 모달창 닫기
+   	    $("#zip_codeModal").modal("hide");
+   	    $("#zip_code").val(zipcode);
+   	    $("#address1").val(address);
+   	}
    
    function audio() {
 		var rand = Math.random();
@@ -109,7 +179,7 @@
    function winPlayer(objUrl) {
 	   $('#captchaAudio').html('<bgsound src="' + objUrl + '">');
    }
-	
+   
 </script>
 <form action="${pageContext.request.contextPath }/member/join.do" name="myForm" method="post" onsubmit="return(validate());">
 	<div class="container-fluid" id="joinbottom">
@@ -235,7 +305,7 @@
 									<div class="input-group-addon">
 										<i class="glyphicon glyphicon-list-alt"></i>
 									</div>
-									<input type="text" class="form-control" name="address"
+									<input type="text" class="form-control" name="address" id="zip_code"
 										placeholder="Postal Code" required readonly>
 
 								</div>
@@ -244,17 +314,59 @@
 						</div>
 						<div class="col-lg-4">
 							<div class="form-group">
-								<a href="#" class="btn btn-info" id="search">우편번호 검색</a>
+								<a href="#" class="btn btn-info" id="search" data-toggle="modal" data-target="#zip_codeModal">우편번호 검색</a>
 							</div>
 						</div>
+						<!-- 모달창 -->
+						<div class="modal fade" id="zip_codeModal">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header text-center">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">×</span>
+										</button>
+										<h3 class="modal-title" id="myModalLabel"><b>우편번호 검색</b></h3>
+									</div>
+									<div class="modal-body text-center">
+										<form id="zip_codeForm">
+											<div class="input-group">
+												<span class="input-group-addon">동 입력</span> 
+													<input type="text" class="form-control" name="query" id="query">
+												<span class="input-group-btn">
+													<!-- <input type="button" class="btn btn-warning" value="검색" id="searchBtn" 	onkeydown="javascript:if(event.keyCode==13)"> -->
+													<!-- <input type="button" class="btn btn-warning" value="검색" id="searchBtn"> -->
+													<!-- <button class="btn btn-warning" id="searchBtn">검색</button> -->
+													<a class="btn btn-warning" id="searchBtn">검색</a>
+												</span>
+											</div>
+										</form>
+										<p></p>
+										<div>
+											<div style="width: 100%; height: 400px; overflow: auto">
+												<table class="table text-center">
+													<thead>
+														<tr>
+															<th style="width: 150px;">우편번호</th>
+															<th style="width: 600px;">주소</th>
+														</tr>
+													</thead>
+													<tbody id="zip_codeList"></tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 모달창 end -->
 					</div>
 					<div class="col-lg-12">
 						<div class="input-group">
 							<div class="input-group-addon">
 								<i class="glyphicon glyphicon-list-alt"></i>
 							</div>
-							<input type="text" class="form-control" name="address"
-								placeholder="Address" required readonly>
+							<input type="text" class="form-control" name="address" id="address1"
+								placeholder="Address" required>
 
 						</div>
 					</div>

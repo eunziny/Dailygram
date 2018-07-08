@@ -101,7 +101,7 @@ $(function(){
 							<div class="input-group-addon">
 								<i class="glyphicon glyphicon-lock"></i>
 							</div>
-							<input type="password" minlength="8" maxlength="20" placeholder="Password" name="pwd" class="form-control" required>
+							<input type="password" minlength="4" maxlength="20" placeholder="Password" name="pwd" class="form-control" required>
 						</div>
 					</div>
 				</div>

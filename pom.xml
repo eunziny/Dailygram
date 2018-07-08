@@ -171,6 +171,27 @@
 		    <scope>system</scope>
 		    <systemPath>${basedir}\src\main\webapp\WEB-INF\lib\simplecaptcha-1.2.1.jar</systemPath>
 		</dependency>
+		
+		<!-- jdom2 -->
+		<dependency>
+			<groupId>org.jdom</groupId>
+			<artifactId>jdom2</artifactId>
+			<version>2.0.6</version>	
+		</dependency>
+		
+		<!-- Jsoup -->
+		<dependency>
+	        <groupId>org.jsoup</groupId>
+	        <artifactId>jsoup</artifactId>
+	        <version>1.8.3</version>
+    	</dependency>
+
+		<!-- Gson -->
+		<dependency>
+	        <groupId>com.google.code.gson</groupId>
+	        <artifactId>gson</artifactId>
+	        <version>2.2.4</version>
+    	</dependency>
 
 	</dependencies>
 	<build>
