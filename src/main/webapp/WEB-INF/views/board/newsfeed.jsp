@@ -98,8 +98,7 @@ input{
 						<c:if test="${!empty coList}">
 							<c:forEach var="co" items="${coList }">
 								<c:if test="${co.board_seq eq b.board_seq }"> <!-- 현재 글번호와 댓글의 글번호가 같을때만  -->
-									<div class='comment-body ${b.board_seq }' style="padding-left: ${co.lev*35}px">
-		                        	 <a href='${pageContext.request.contextPath }/board/friList.do' id='a1'><img id='fri_img' src='https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w'></a>
+									<div class='comment-body ${b.board_seq }' style="padding-left: ${co.lev*30}px">
 		                       		 <a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>${co.writer }</a>
 		                       		 <input class= 'commcontent' readonly="readonly" value="${co.content }">
 		                       		 <c:if test="${sessionScope.memInfo.id eq co.writer }">
@@ -246,7 +245,7 @@ input{
 			                      	if(data.coList != "" || data.coList != null){
 			                      		$(data.coList).each(function(index,co){
 											if(co.board_seq == bo.board_seq){
-												str += "<div class='comment-body "+bo.board_seq+"' style='padding-left: "+co.lev * 35+"px'>"
+												str += "<div class='comment-body "+bo.board_seq+"' style='padding-left: "+co.lev * 30+"px'>"
 											     + "<a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>"+co.writer+"</a>"
 					                       		 + "<input class= 'commcontent' readonly='readonly' value='"+co.content+"'>";
 					                       		 if('${sessionScope.memInfo.id}' == co.writer){
@@ -347,8 +346,7 @@ input{
 					$(commwrite).remove();
 					$(data).each(function(){
 						var str = "";
-						str += "<div class='comment-body "+boseq+"' style='padding-left: "+(this.lev *35)+"px'>"
-	                          +"<a href='${pageContext.request.contextPath }/board/friList.do' id='a1'><img id='fri_img' src='https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w'></a>"
+						str += "<div class='comment-body "+boseq+"' style='padding-left: "+(this.lev *30)+"px'>"
 	                          +"<a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>"+this.writer+"</a>"
 	                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
 	                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
@@ -406,8 +404,7 @@ input{
 					$(commwrite).remove();
 					$(data).each(function(){
 						 var str = "";
-							str += "<div class='comment-body "+boseq+"' style='padding-left: "+(this.lev *35)+"px'>"
-		                          +"<a href='${pageContext.request.contextPath }/board/friList.do' id='a1'><img id='fri_img' src='https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w'></a>"
+							str += "<div class='comment-body "+boseq+"' style='padding-left: "+(this.lev *30)+"px'>"
 		                          +"<a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>"+this.writer+"</a>"
 		                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
 		                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
@@ -471,8 +468,7 @@ input{
 						$(commwrite).remove();
 						 $(data).each(function(){
 							 var str = "";
-								str += "<div class='comment-body "+boseq+"' style='padding-left: "+(this.lev *35)+"px'>"
-			                          +"<a href='${pageContext.request.contextPath }/board/friList.do' id='a1'><img id='fri_img' src='https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w'></a>"
+								str += "<div class='comment-body "+boseq+"' style='padding-left: "+(this.lev *30)+"px'>"
 			                          +"<a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>"+this.writer+"</a>"
 			                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
 			                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
@@ -526,8 +522,7 @@ input{
 					$(commwrite).remove();
 					 $(data).each(function(){
 						var str = "";
-							str += "<div class='comment-body "+boseq+"' style='padding-left: "+(this.lev *35)+"px'>"
-		                          +"<a href='${pageContext.request.contextPath }/board/friList.do' id='a1'><img id='fri_img' src='https://static1.squarespace.com/static/55198f1ce4b00c2cab3e5e30/t/5526d500e4b009f3ec94b422/1428608282728/600x600%26text%3Dprofile+img.gif?format=300w'></a>"
+							str += "<div class='comment-body "+boseq+"' style='padding-left: "+(this.lev *30)+"px'>"
 		                          +"<a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>"+this.writer+"</a>"
 		                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
 		                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
