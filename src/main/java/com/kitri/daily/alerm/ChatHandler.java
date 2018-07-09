@@ -52,6 +52,9 @@ public class ChatHandler extends TextWebSocketHandler{
 		users.put(session.getId(), id);  //session.getId()에 id를 넣는다.
 		sessionList.add(session);
 		System.out.println("채팅방 입장자 :"+id);
+		for(WebSocketSession sess: sessionList) {
+			sess.sendMessage(new TextMessage(id+"@님이 입장하였습니다."));
+		}	
 	}
 	
 	@Override
@@ -81,6 +84,7 @@ public class ChatHandler extends TextWebSocketHandler{
 		}else {
 			//연결된 모든 사용자한테 보내벌임..
 			for(WebSocketSession sess: sessionList) {
+			
 				sess.sendMessage(new TextMessage(id+"|"+message.getPayload()));
 			}	
 		}

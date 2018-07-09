@@ -2,47 +2,68 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ include file="../container/header.jsp"%>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>    
 <!-- SocketJS CDN -->    
 <script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
-<h2>Chatting</h2>
-<h3>id:${sessionScope.memInfo.id}</h3>
-<button id="joinList">참여자 리스트</button>
+<style>
+div.panel-group {
+	width:65%;
+	margin: auto;
+	margin-top: 30px;
+	margin-bottom: 50px;
+	min-height: 100%;
+}
+div.input-group{
+	margin-bottom: 15px;
+}
+div.joinList{
+	margin-top : 15px;
+	margin-bottom: 15px;
+}
+</style>
+<div class="panel-group">
+<h2><i class="far fa-comments"></i> Chat</h2>
+<button id="joinList" class="btn btn-light">채팅 참여자 리스트</button>
 <div id="joindata">
-	<ul class="list-group">
-	  <li class="list-group-item">hoho</li>
-	  <li class="list-group-item">ryeonzzang</li>
-	  <li class="list-group-item">roqkfwkman</li>
-	  <li class="list-group-item">bobo94</li>
-	  <li class="list-group-item">leeke</li>
-	</ul>
+	<ul class="list-group"></ul>
 </div>
-<input  type="text" id="message">
-<button id="sendBtn">입력</button>
-<div id="chatdata"></div>
+<div class="input-group">
+     <input id="message" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+     <span class="input-group-btn">
+         <button class="btn btn-primary btn-sm" id="sendBtn">
+             Send</button>
+     </span>
+</div>
+<div id="chatdata" style="overflow:auto"></div>
 <div id="data"></div>
+</div>
 <script type="text/javascript">
+$('#scrollDiv').scrollTop($('#scrollDiv').prop('scrollHeight'));
+
 var sock = new SockJS("<c:url value='/chat'/>");
- sock.onopen = function(evt){
-	onOpen(evt);
-} 
 sock.onmessage = onMessage;
 sock.onclose = onClose;
 $(function(){
 	$("#sendBtn").click(function(){
-		console.log('send message');
 		sendMessage();
+		$("#message").val("");
 	});
 	
 	$("#joinList").click(function(){
-		sock.send("joinList");
+		if($(".list-group").hasClass("active") == true){
+			$('.list-group-item').remove();
+			$(".list-group").removeClass("active");
+		}else{
+			$(".list-group").addClass("active");
+			sock.send("joinList");
+		}
+
+		
 	});
 })
 
-function onOpen(evt) 
-    {
-	sock.send('ryeonzzang'); //1:1 대화 하려고 하는 사람.
-    }
+
 function sendMessage(){
 	//websocket으로 메세지보내기
 	sock.send($("#message").val());
@@ -72,32 +93,53 @@ function onMessage(evt){
 		if(sessionid == currentuser_session){
 			var printHTML = "<div class='well'>";
 			printHTML += "<div class='alert alert-info'>";
-			printHTML += "<strong>["+sessionid+"] -> "+message+"</strong>";
+			printHTML += "<strong>@"+sessionid+" : "+message+"</strong>";
 			printHTML += "</div>";
-			printHTML += "</div>";	
-			
+			printHTML += "</div>";
 			$("#chatdata").append(printHTML);
 		}else{
 			var printHTML = "<div class='well'>";
 			printHTML += "<div class='alert alert-warning'>";
-			printHTML += "<strong>["+sessionid+"] ->"+message+"</strong>";
+			printHTML += "<strong>@"+sessionid+" : "+message+"</strong>";
 			printHTML += "</div>";
 			printHTML += "</div>";
 			$("#chatdata").append(printHTML);
 		}
 		
 		console.log('chatting data:' +data);
+	}else if(evt.data.indexOf("@") != -1){
+		var data = evt.data;
+		var connectId = null;
+		//현재 세션 id
+		var currentuser_session = '${sessionScope.memInfo.id}';
+		
+		//문자열 splite//
+		var strArray = data.split('@');
+		connectId = strArray[0]; //접속한 사용자
+		message = strArray[1];   // 메세지
+		
+		if(connectId == currentuser_session){
+			var printHTML = "<div class='well'>";
+			printHTML += "<div class='alert alert-info'>";
+			printHTML += "<strong>@"+connectId+" : "+message+"</strong>";
+			printHTML += "</div>";
+			printHTML += "</div>";
+			$("#chatdata").append(printHTML);
+		}else{
+			var printHTML = "<div class='well'>";
+			printHTML += "<div class='alert alert-warning'>";
+			printHTML += "<strong>@"+connectId+" : "+message+"</strong>";
+			printHTML += "</div>";
+			printHTML += "</div>";
+			$("#chatdata").append(printHTML);
+		}
+		
+				
 	}else{
 		var data = JSON.parse(evt.data);
 		$.each(data, function(key, val){ 
-			$(".list-group-item").each(function(index,item){
-				if(val == $(this).text()){
-					var one = "<button class='onetoone'>1:1</button>";
-					$(this).css("background","blue");
-					$(this).append(one);
-					console.log("this.val"+$(this).text());
-				}
-			})
+			var joinList = "<li class='list-group-item'>"+val+"</li>";
+			$("ul.list-group").append(joinList);
 			console.log("참여자:"+val);
 		});
 	}
@@ -107,9 +149,6 @@ function onClose(evt){
 	$("#data").append("연결이 종료됐습니다.");
 }
 
-/* 1:1 버튼 눌렀을 때 */
-$(document).on('click','.onetoone',function(){
-	alert('1:1 대화!');
-});
 
 </script>
+<%@ include file="../container/footer.jsp"%>
