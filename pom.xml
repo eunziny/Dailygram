@@ -172,13 +172,6 @@
 		    <systemPath>${basedir}\src\main\webapp\WEB-INF\lib\simplecaptcha-1.2.1.jar</systemPath>
 		</dependency>
 		
-		<!-- jdom2 -->
-		<dependency>
-			<groupId>org.jdom</groupId>
-			<artifactId>jdom2</artifactId>
-			<version>2.0.6</version>	
-		</dependency>
-		
 		<!-- Jsoup -->
 		<dependency>
 	        <groupId>org.jsoup</groupId>

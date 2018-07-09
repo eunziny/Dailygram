@@ -51,66 +51,6 @@
 </style>
 <script>
    $(document).ready(function(){
-	   //우편번호 검색
-	   // 검색버튼 눌렸을 때 함수 실행
-	    $("#searchBtn").click(function(e){
-	        e.preventDefault();
-	        var query = $("input[name='query']").val();
-	        console.log("query :" + query);
-	        $.ajax({
-	            url : "${pageContext.request.contextPath}/member/zip_search.do",
-	            data : {query : query},
-	            type : "POST",
-	            dataType : "json",
-	            //dataType : "xml",
-	            success : function(result){
-	                $("#zip_codeList").empty();
-	                var html = "";
-	                if(result.errorCode != null && result.errorCode != ""){
-	                    html += "<tr>";
-	                    html += "    <td colspan='2'>";
-	                    html +=            result.errorMessage;
-	                    html += "    </td>";
-	                    html += "</tr>";
-	                }
-	                else{
-	                    var list = result.list;
-	                    
-	                    for(var i = 0; i < list.length; i++){
-	                        html += "<tr>";
-	                        html += "    <td>";
-	                        // 우편번호
-	                        //var zipcode = list[i].zipcode;
-	                        // 주소
-	                        var address = list[i].address;
-	 
-	                        //html +=         list[i].zipcode;
-	                        html += "    </td>";
-	                        html += "    <td>";
-	                        //html +=     '<a href="#" onclick="put(\'' + list[i].address + '\',\'' + zipcode + '\')">' + address + '</a>';
-	                        html +=     '<a href="#" onclick="put(\'' + list[i].address + '\')">' + address + '</a>';
-	                        html += "    </td>";
-	                        html += "</tr>";
-	                    }
-	                }
-	                // 완성된 html(우편번호 list)를 zip_codeList밑에 append
-	                $("#zip_codeList").append(html);
-	                
-	            }
-	        });
-	    });
-
-	// 원하는 우편번호 선택시 함수 실행
-/* 	function put(address,zipcode){
-	    var address = address;
-	    var zipcode = zipcode;
-	    // 모달창 닫기
-	    $("#zip_codeModal").modal("hide");
-	    $("#zip_code").val(zipcode);
-	    $("#address1").val(address);
-	} */
-	//우편번호 검색 end
-	   
 	   $('#idCheck').click(function(){
 		   if($("#id").val()=="") {
 			   alert("먼저 id를 입력해주세요.");
@@ -131,15 +71,62 @@
       });
    });
    
-	// 원하는 우편번호 선택시 함수 실행
-    	function put(address,zipcode){
-   	    var address = address;
-   	    var zipcode = zipcode;
-   	    // 모달창 닫기
-   	    $("#zip_codeModal").modal("hide");
-   	    $("#zip_code").val(zipcode);
-   	    $("#address1").val(address);
-   	}
+   //우편번호 검색
+   $(function(){
+    $("#searchBtn").click(function(e){
+        e.preventDefault();
+        var query = $("input[name='query']").val();
+        console.log("query :" + query);
+        $.ajax({
+            url : "${pageContext.request.contextPath}/member/zip_search.do",
+            data : {query : query},
+            type : "POST",
+            dataType : "json",
+            //dataType : "xml",
+            success : function(result){
+                $("#zip_codeList").empty();
+                var html = "";
+                if(result.errorCode != null && result.errorCode != ""){
+                    html += "<tr>";
+                    html += "    <td colspan='2'>";
+                    html +=            result.errorMessage;
+                    html += "    </td>";
+                    html += "</tr>";
+                }
+                else{
+                    var list = result.list;
+                    
+                    for(var i = 0; i < list.length; i++){
+                        html += "<tr>";
+                        html += "    <td>";
+                        
+                        var zipcode = list[i].zip_code; //우편번호
+                        var address = list[i].address; //주소
+ 
+                        html += list[i].zip_code;
+                        html += "</td>";
+                        html += "<td>";
+                        html += '<a href="#" onclick="put(\'' + list[i].address + '\',\'' + list[i].zip_code + '\')">' + address + '</a>';
+                        html += "</td>";
+                        html += "</tr>";
+                    }
+                }
+                // 완성된 html(우편번호 list)를 zip_codeList밑에 append
+                $("#zip_codeList").append(html);
+			}
+        });
+      });
+	});    
+
+   //원하는 우편번호 선택시 함수 실행
+   function put(address,zip_code){
+  	    var address = address;
+  	    var zip_code = zip_code;
+  	    // 모달창 닫기
+  	    $("#zip_codeModal").modal("hide");
+  	    $("#address1").val(address);
+  	    $("#zip_code").val(zip_code);
+  	} //우편번호 검색 end
    
    function audio() {
 		var rand = Math.random();
@@ -305,7 +292,7 @@
 									<div class="input-group-addon">
 										<i class="glyphicon glyphicon-list-alt"></i>
 									</div>
-									<input type="text" class="form-control" name="address" id="zip_code"
+									<input type="text" class="form-control" name="zipcode" id="zip_code"
 										placeholder="Postal Code" required readonly>
 
 								</div>

@@ -214,18 +214,16 @@ public class MemController {
 	@RequestMapping(value = "/member/zip_search.do")
 	public @ResponseBody String zip_codeList(@RequestParam(value="query") String query ) throws Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		//List<Member> zipcode_List = new ArrayList<Member>();
 		StringBuilder queryUrl = new StringBuilder();
         queryUrl.append(ZIPCODE_API_URL);
         queryUrl.append(query.replaceAll(" ", ""));
         
-        // document 선언
+        //document 선언
         Document document = Jsoup.connect(queryUrl.toString()).get();
-        // errorCode 선언
+        //errorCode 선언
         String errorCode = document.select("errMsg").text();
         
-        if(errorCode == null || errorCode.equals(""))
-        {
+        if(errorCode == null || errorCode.equals("")) {
             Elements elements = document.select("newAddressListAreaCdSearchAll");
             List<Member> list = new ArrayList<Member>();
             Member m = null;
@@ -233,22 +231,21 @@ public class MemController {
             for(Element element : elements){
             	m = new Member();
             	//우편번호 검색
-            	//m.setZipcode(element.select("postcd").text());
-                // 지번 검색
+            	m.setZip_code(element.select("zipNo").text());
+                //도로명주소 검색
             	m.setAddress(element.select("lnmAdres").text());
                 list.add(m);
             }
-            // list 결과 put
+            //list 결과 put
             paramMap.put("list", list);
             System.out.println("우편번호 검색 성공???" + list);
-        }else{
+        } else {
             String errorMessage = document.select("errMsg").text();
             //paramMap.put("errorCode", errorCode);
             paramMap.put("errorMessage", errorMessage);
         }
-        // Gson형태로 paramMap 리턴
+        //Gson형태로 paramMap 리턴
         return (new Gson()).toJson(paramMap);
-
 	}
 	
 }
