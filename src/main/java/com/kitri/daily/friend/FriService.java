@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.kitri.daily.alerm.Alerm;
+
 public interface FriService {
 	List<HashMap<String, Object>> getFriendRelationshipCount(String user_id);
 	List getRecommend(String user_id);
@@ -23,6 +25,9 @@ public interface FriService {
 	void cancelsubscribe(Relationship relation);
 	void addfollow(Relationship relation);
 	ArrayList<Friend> getfollowwaitList(String id);
+	void addfollowalerm(Alerm alerm);
+	Alerm findAlerm(Alerm alerm);
+	void deleteAlerm(Alerm alerm);
 	
 
 }

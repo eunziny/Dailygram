@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
+import com.kitri.daily.alerm.Alerm;
 import com.kitri.daily.board.BoardMapper;
 
 @Component("friService")
@@ -116,7 +117,8 @@ public class FriServiceImpl implements FriService {
 	@Override
 	public void addfollow(Relationship relation) {
 		friendMapper = sqlSession.getMapper(FriendMapper.class);
-		friendMapper.insertfollow(relation);	
+		friendMapper.insertfollow(relation);
+		
 	}
 
 	@Override
@@ -130,5 +132,24 @@ public class FriServiceImpl implements FriService {
 	public ArrayList<Friend> getfollowwaitList(String id) {
 		friendMapper = sqlSession.getMapper(FriendMapper.class);
 		return friendMapper.selectFollowwaitList(id);
+	}
+
+	@Override
+	public void addfollowalerm(Alerm alerm) {
+		friendMapper = sqlSession.getMapper(FriendMapper.class);
+		friendMapper.insertFollowAlerm(alerm);
+		
+	}
+
+	@Override
+	public Alerm findAlerm(Alerm alerm) {
+		friendMapper = sqlSession.getMapper(FriendMapper.class);
+		return friendMapper.selectAlerm(alerm);
+	}
+
+	@Override
+	public void deleteAlerm(Alerm alerm) {
+		friendMapper = sqlSession.getMapper(FriendMapper.class);
+		friendMapper.deleteAlerm(alerm);
 	}
 }
