@@ -1,6 +1,7 @@
 package com.kitri.daily.member;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public interface MemService {
 	Member getMember(String id);
@@ -8,4 +9,5 @@ public interface MemService {
 	ArrayList<Integer> profileCount(String id);
 	void editMem(Member m);
 	void insertMem(Member m);
+	String getPw(Map<String, Object> paramMap);
 }

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ include file="/WEB-INF/views/container/header.jsp"%>
 <style>
 div.panel-group {
 	width: 65%;
@@ -43,4 +42,3 @@ ul.list-group>li>button {
 		</div>
 	</div>
 </div>
-<%@ include file="/WEB-INF/views/container/footer.jsp"%>

@@ -1,6 +1,7 @@
 package com.kitri.daily.member;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -46,5 +47,11 @@ public class MemServiceImpl implements MemService {
 	public void insertMem(Member m) {
 		memberMapper = sqlSession.getMapper(MemberMapper.class);
 		memberMapper.insertMem(m);
+	}
+
+	@Override
+	public String getPw(Map<String, Object> paramMap) {
+		memberMapper = sqlSession.getMapper(MemberMapper.class);
+		return memberMapper.getPw(paramMap);
 	}
 }

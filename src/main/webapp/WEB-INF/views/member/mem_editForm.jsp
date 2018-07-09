@@ -101,7 +101,7 @@ $(function(){
 							<div class="input-group-addon">
 								<i class="glyphicon glyphicon-lock"></i>
 							</div>
-							<input type="password" minlength="8" maxlength="20" placeholder="Password" name="pwd" class="form-control" required>
+							<input type="password" minlength="4" maxlength="20" placeholder="Password" name="pwd" class="form-control" required>
 						</div>
 					</div>
 				</div>
@@ -187,7 +187,7 @@ $(function(){
 							<i class="glyphicon glyphicon-list-alt"></i>
 						</div>
 						<input type="text" class="form-control" name="address"
-							placeholder="Address" value="${sessionScope.memInfo.address}" required readonly>
+							placeholder="Address" value="${sessionScope.memInfo.address}" required>
 
 					</div>
 				</div>

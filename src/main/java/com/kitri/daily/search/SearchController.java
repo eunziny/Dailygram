@@ -58,6 +58,7 @@ public class SearchController {
 		ModelAndView mav2 = new ModelAndView("search/tagfind");
 		/*ArrayList<Search> list = null;*/
 		List<Search> list = new ArrayList<Search>();
+		List<Search> list2 = new ArrayList<Search>();
 		if (searchType.equals("아이디")) {
 			list = service.getSearchByUser(tagname);
 			int i=0;
@@ -79,8 +80,10 @@ public class SearchController {
 		} else if (searchType.equals("해시태그")) {
 			Search sc = new Search(0, tagname);
 			list = service.getSearchByTag(sc);
+			list2 = service.getListSize(tagname);
 			mav2.addObject("list", list);
 			mav2.addObject("tagname", tagname);
+			mav2.addObject("list2", list2);
 			System.out.println("tagList : " + list);
 			return mav2;
 		}
