@@ -14,4 +14,5 @@ public interface SearchService {
 	List<Search> getSearchByTag(Search sc); //해시태그로 게시물 검색
 	List<Search> getAutoSearch(String term); //자동완성 리스트
 	List<Search> getSearchInfiTag(Search sc); //태그 검색결과 무한스크롤
+	List<Search> getListSize(String tagname); //검색한 태그 총 게시물 수 구하기
 }

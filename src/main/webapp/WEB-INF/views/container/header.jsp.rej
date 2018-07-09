@@ -1,0 +1,9 @@
+diff a/src/main/webapp/WEB-INF/views/container/header.jsp b/src/main/webapp/WEB-INF/views/container/header.jsp	(rejected hunks)
+@@ -25,6 +25,7 @@
+            $target.closest('.bs-dropdown-to-select-group')
+               /* .find('[data-bind="bs-drp-sel-value"]').val($target.attr('value'))
+               .end() */
++              .children('.dropdown-toggle').dropdown('toggle'); 
+            $target.closest('.bs-dropdown-to-select-group')
+               .find('[data-bind="bs-drp-sel-label"]').text($target.attr('value'));/*$target.text()*/
+               console.log($target.text());

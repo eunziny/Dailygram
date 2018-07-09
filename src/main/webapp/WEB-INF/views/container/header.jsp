@@ -25,7 +25,7 @@ $(document).ready(function(e){
            $target.closest('.bs-dropdown-to-select-group')
               /* .find('[data-bind="bs-drp-sel-value"]').val($target.attr('value'))
               .end() */
-              .children('.dropdown-toggle').dropdown('toggle'); 
+              .children('.dropdown-toggle').dropdown('toggle');
            $target.closest('.bs-dropdown-to-select-group')
               .find('[data-bind="bs-drp-sel-label"]').text($target.attr('value'));/*$target.text()*/
               console.log($target.text());
@@ -141,6 +141,9 @@ $(document).ready(function(e){
 	<div class="col-md-4">
       <ul class="nav navbar-right pull-right top-nav">
       	<li class="dropdown dropdown-notification">
+			<a href="${pageContext.request.contextPath }/chat/chatting.do"><i class="fas fa-comments"></i></a>	
+      	</li>
+      	<li class="dropdown dropdown-notification">
 			<a href="${pageContext.request.contextPath }/search/look.do"><span class="glyphicon glyphicon-globe"></span></a>	
       	</li>
       	<li class="dropdown dropdown-notification">
@@ -148,11 +151,12 @@ $(document).ready(function(e){
       	</li>
 		<li class="dropdown dropdown-notification"> <a class="dropdown-toggle" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="true"> <i class="fas fa-bell"></i> <span class="badge badge-default"> 5 </span> </a>
 			<ul class="dropdown-menu dropdown-menu-alerm">
-				<li class="external">
+				<!-- <li class="external">
 					<h3> <span class="bold">12 pending</span> notifications</h3>
 					<a href="page_user_profile_1.html">view all</a> 
-				</li>
-				<!-- <li>
+				</li> -->
+				<li>
+				<li>
 					<ul class="dropdown-menu-list">
 						<li> <a href="javascript:;"> <span class="time">just now</span> <span class="details"> <span class="label label-sm label-icon label-success"> <i class="fa fa-plus"></i> </span> abb님이 좋아요를 눌렀습니다</span> </a> </li>
 						<li> <a href="javascript:;"> <span class="time">3 mins</span> <span class="details"> <span class="label label-sm label-icon label-danger"> <i class="fa fa-bolt"></i> </span> good님이 댓글을 달았습니다:배고파!</span> </a> </li>
@@ -160,7 +164,6 @@ $(document).ready(function(e){
 						<li> <a href="javascript:;"> <span class="time">14 hrs</span> <span class="details"> <span class="label label-sm label-icon label-info"> <i class="fa fa-bullhorn"></i> </span> happy님이 댓글을 남겼습니다:안녕?</span> </a> </li>
 						<li> <a href="javascript:;"> <span class="time">14 hrs</span> <span class="details"> <span class="label label-sm label-icon label-info"> <i class="fa fa-bullhorn"></i> </span> hi님이 댓글을 남겼습니다:야호!</span> </a> </li>
 					</ul>
-				</li> -->
 			</ul>
 		</li>
 		<li class="dropdown"> 

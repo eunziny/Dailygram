@@ -19,13 +19,22 @@
 </style>
 <script>
    $(document).ready(function(){
-	   $("#cancel").click(function(){
-		   alert("메일을 전송했습니다. 메일함을 확인하세요.");
-		 
-	   }));
+	   function search() {
+		   if((myPW.id.value != null) && (myPW.email.value!=null)) {
+			   $("#ok").click(function(){
+				   alert("메일을 전송했습니다. 메일함을 확인하세요.");
+				 
+			   });
+			   myPW.submit();
+		   }else if(myPW.id.value == null) {
+			   alert("아이디를 입력하세요.")
+		   }else if(myPW.email.value == null) {
+			   alert("이메일주소를 입력하세요.")
+		   }
+	   } 
    });
 </script>
-<form action="${pageContext.request.contextPath }/member/searchPW.do" name="myPW" method="post" onsubmit="return(validate());">
+<form action="${pageContext.request.contextPath }/member/sendPW.do" name="myPW" method="post" onsubmit="return(validate());">
 	<div class="container-fluid" id="joinbottom">
 		<div class="row">
 			<div class="well center-block">
@@ -65,10 +74,10 @@
 				<div class="row widget">
 					<div class="col-lg-12">
 						<div class="col-lg-6">
-							<a href="${pageContext.request.contextPath }/member/loginForm.do" class="btn btn-primary btn-block" id="cancle">취소</a>
+							<a href="${pageContext.request.contextPath }/member/loginForm.do" class="btn btn-primary btn-block" id="cancel">취소</a>
 						</div>
 						<div class="col-lg-6">
-							<button class="btn btn-success btn-block" id="ok" onclick="location.href='${pageContext.request.contextPath }/member/loginForm.do'" >확인</button>
+							<button class="btn btn-success btn-block" id="ok" onclick="search()">확인</button>
 						</div>
 					</div>
 				</div>

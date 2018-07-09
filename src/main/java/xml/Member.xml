@@ -62,4 +62,12 @@
 		where id=#{id}
 	</update>
 	
+	<select id="getPw"  parameterType="java.util.Map" resultType="java.lang.String">
+		select pwd from member where id=#{id} and email=#{email} 
+	</select>
+	
+	<select id="getId"  parameterType="java.lang.String" resultType="java.lang.String">
+		select id from member where email=#{email} 
+	</select>
+	
 </mapper>
