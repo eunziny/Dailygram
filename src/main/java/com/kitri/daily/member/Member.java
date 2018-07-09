@@ -10,6 +10,7 @@ public class Member {
 	private String name;
 	private Date birthday;
 	private String email;
+	private String zip_code;
 	private String address;
 	private String gender;
 	private Date joindate;
@@ -76,6 +77,11 @@ public class Member {
 		this.publicyn = publicyn;
 		this.intro = intro;
 		this.cnt = cnt;
+	}
+	public Member(String zip_code, String address) {
+		super();
+		this.zip_code = zip_code;
+		this.address = address;
 	}
 	public String getId() {
 		return id;
@@ -167,11 +173,19 @@ public class Member {
 	public void setCnt(int cnt) {
 		this.cnt = cnt;
 	}
+	public String getZip_code() {
+		return zip_code;
+	}
+	public void setZip_code(String zip_code) {
+		this.zip_code = zip_code;
+	}
 	@Override
 	public String toString() {
 		return "Member [id=" + id + ", pwd=" + pwd + ", name=" + name + ", birthday=" + birthday + ", email=" + email
-				+ ", address=" + address + ", gender=" + gender + ", joindate=" + joindate + ", useyn=" + useyn
-				+ ", profile_img=" + profile_img + ", publicyn=" + publicyn + ", intro=" + intro + "]";
+				+ ", zip_code=" + zip_code + ", address=" + address + ", gender=" + gender + ", joindate=" + joindate
+				+ ", useyn=" + useyn + ", profile_img=" + profile_img + ", publicyn=" + publicyn + ", intro=" + intro
+				+ ", file=" + file + ", captcha=" + captcha + ", cnt=" + cnt + "]";
 	}
+	
 	
 }
