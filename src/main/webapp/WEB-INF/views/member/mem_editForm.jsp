@@ -187,7 +187,7 @@ $(function(){
 							<i class="glyphicon glyphicon-list-alt"></i>
 						</div>
 						<input type="text" class="form-control" name="address"
-							placeholder="Address" value="${sessionScope.memInfo.address}" required readonly>
+							placeholder="Address" value="${sessionScope.memInfo.address}" required>
 
 					</div>
 				</div>
