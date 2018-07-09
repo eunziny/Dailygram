@@ -83,11 +83,12 @@
    
 	
 	<websocket:handlers>
-        <websocket:mapping path="/count" handler="myHandler"/>
+        <websocket:mapping path="/chat" handler="chatHandler"/>
         <websocket:handshake-interceptors>
         <beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
         </websocket:handshake-interceptors>
+     	<websocket:sockjs></websocket:sockjs>
     </websocket:handlers>
-    <beans:bean id="myHandler" class="com.kitri.daily.alerm.SocketHandler"/>
+    <beans:bean id="chatHandler" class="com.kitri.daily.alerm.ChatHandler"/>
 	
 </beans:beans>

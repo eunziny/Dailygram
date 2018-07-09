@@ -1,7 +1,7 @@
 package com.kitri.daily.alerm;
 
-public interface AlermMapper {
+import java.util.List;
 
-	int getCount(String id);
+public interface AlermMapper {
 
 }

@@ -1,5 +1,7 @@
 package com.kitri.daily.alerm;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
@@ -16,11 +18,8 @@ public class AlermServiceImpl implements AlermService {
 		this.sqlSession = sqlSession;
 	}
 
-	@Override
-	public int getCount(String id) {
-		alermMapper = sqlSession.getMapper(AlermMapper.class);
-		return alermMapper.getCount(id);
-	}
+	
+
 	
 	
 }
