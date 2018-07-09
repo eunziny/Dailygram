@@ -171,7 +171,20 @@
 		    <scope>system</scope>
 		    <systemPath>${basedir}\src\main\webapp\WEB-INF\lib\simplecaptcha-1.2.1.jar</systemPath>
 		</dependency>
-
+		
+		<!-- mail 인증을  위한 설정-->
+        <!-- mail -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${org.springframework-version}</version>
+        </dependency>
+        
 	</dependencies>
 	<build>
 		<plugins>
