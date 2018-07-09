@@ -14,4 +14,5 @@ public interface SearchMapper {
 	List<Search> selectByTag(Search sc);
 	List<Search> selectByAuto(String term);
 	List<Search> getInfiTag(Search sc);
+	List<Search> getListSize(String tagname);
 }

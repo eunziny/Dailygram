@@ -49,6 +49,16 @@
 		) c limit #{row},9
    </select>
    
+   <select id="getListSize" parameterType="String" resultMap="SearchResult">
+   		select b.img, b.board_seq, h.tagname
+		from board AS b
+		join hashtag AS h
+		on b.board_seq = h.board_seq
+		where h.tagname = #{tagname} and h.block_yn = 'N' 
+		and b.public_yn = 'Y' and now() >= date_add(b.posted, interval 1 minute)
+		order by rand()
+   </select>
+   
    <select id="getInfiTag" parameterType="com.kitri.daily.search.Search" resultMap="SearchResult">
    	  select c.* from
 		(select @rownum:=@rownum+1 AS row , a.* from

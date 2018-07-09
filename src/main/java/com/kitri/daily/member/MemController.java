@@ -4,18 +4,27 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import com.google.gson.Gson;
 
 @Controller
 public class MemController {
@@ -178,8 +187,33 @@ public class MemController {
 	}
 
 	@RequestMapping(value = "/member/searchPW.do")
-	public String sPW() {
-		return "member/searchPW";
+	public void sPW(@RequestParam Map<String, Object> paramMap, ModelMap model) throws Exception {
+		model.addAttribute("msg",0);
+	}
+
+	@Autowired
+	private EmailSender emailSender;
+	@Autowired
+	private Email email;
+
+	@RequestMapping(value = "/member/sendPW.do")
+	public ModelAndView sendPW(@RequestParam Map<String, Object> paramMap, ModelMap model) throws Exception {
+		ModelAndView mav;
+		String id = (String) paramMap.get("id");
+		String e_mail = (String) paramMap.get("email");
+		String pw = service.getPw(paramMap);
+		System.out.println(pw);
+		if (pw != null) {
+			email.setContent("비밀번호는 " + pw + "입니다.");
+			email.setReceiver(e_mail);
+			email.setSubject(id + "님의 비밀번호 찾기 메일입니다.");
+			emailSender.SendEmail(email);
+			mav = new ModelAndView("redirect:/member/loginForm.do");
+			return mav;
+		} else {
+			mav = new ModelAndView("redirect:/member/searchPW.do");
+			return mav;
+		}
 	}
 
 	@RequestMapping(value = "/member/captchaImg.do")
@@ -191,4 +225,49 @@ public class MemController {
 	public void captchaAudio(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		new CaptchaUtil().captchaAudio(req, res);
 	}
+	
+	//우편번호 검색
+	//인증키
+	/*public static final String ZIPCODE_API_KEY = 
+			"ZRp1M9%2FW4tvJTR7kaHLhUGxrkMy1R0rB70aWUBuzc9WQTpIwygSrT%2BnplK2lQb2KqKbAb0K7ta8WPo1b54vkHw%3D%3D";*/
+	//api를 쓰기 위한 주소
+	public static final String ZIPCODE_API_URL = 
+			"http://openapi.epost.go.kr/postal/retrieveNewAdressAreaCdSearchAllService/retrieveNewAdressAreaCdSearchAllService/getNewAddressListAreaCdSearchAll?ServiceKey=ZRp1M9%2FW4tvJTR7kaHLhUGxrkMy1R0rB70aWUBuzc9WQTpIwygSrT%2BnplK2lQb2KqKbAb0K7ta8WPo1b54vkHw%3D%3D&countPerPage=10&currentPage=1&srchwrd=";
+	@RequestMapping(value = "/member/zip_search.do")
+	public @ResponseBody String zip_codeList(@RequestParam(value="query") String query ) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		StringBuilder queryUrl = new StringBuilder();
+        queryUrl.append(ZIPCODE_API_URL);
+        queryUrl.append(query.replaceAll(" ", ""));
+        
+        //document 선언
+        Document document = Jsoup.connect(queryUrl.toString()).get();
+        //errorCode 선언
+        String errorCode = document.select("errMsg").text();
+        
+        if(errorCode == null || errorCode.equals("")) {
+            Elements elements = document.select("newAddressListAreaCdSearchAll");
+            List<Member> list = new ArrayList<Member>();
+            Member m = null;
+            
+            for(Element element : elements){
+            	m = new Member();
+            	//우편번호 검색
+            	m.setZip_code(element.select("zipNo").text());
+                //도로명주소 검색
+            	m.setAddress(element.select("lnmAdres").text());
+                list.add(m);
+            }
+            //list 결과 put
+            paramMap.put("list", list);
+            System.out.println("우편번호 검색 성공???" + list);
+        } else {
+            String errorMessage = document.select("errMsg").text();
+            //paramMap.put("errorCode", errorCode);
+            paramMap.put("errorMessage", errorMessage);
+        }
+        //Gson형태로 paramMap 리턴
+        return (new Gson()).toJson(paramMap);
+	}
+	
 }

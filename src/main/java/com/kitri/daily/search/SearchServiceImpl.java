@@ -84,5 +84,11 @@ public class SearchServiceImpl implements SearchService {
 		return searchMapper.getFrLiLook(lo);
 	}
 
+	@Override
+	public List<Search> getListSize(String tagname) {
+		searchMapper = sqlSession.getMapper(SearchMapper.class);
+		return searchMapper.getListSize(tagname);
+	}
+
 
 }
