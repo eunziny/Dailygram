@@ -18,22 +18,35 @@
 
 </style>
 <script>
-   $(document).on('click', '#findId', function(){
-	  
-		  $.ajax({
-		  url : '/member/searchID.do',
-		  type: 'POST',
-		  data: data,
-		  contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-		  dataType : "json",
-		  
-		  success:function(data) {
-			  $("#emailList").append("<h1>" + "회원님의 정보로 등록된 아이디는 : " +idFind+ "입니다."+ "</h1>");
-		  }
-	  })
-   });
+$(document).ready(function() {
+	$("#findId").click(function() {
+		var email = $("#email").val();
+		if ($("#email").val() == '') {
+			alert("이메일을 입력하세요");
+			return;
+		} else {
+			$.ajax({
+				method:'POST',
+				data:{
+					'email':$('#email').val()
+					},
+				url:'member/idResult.do',
+				success:function(data){
+					data = data.trim();
+					if(data!= null){//data아이디 받아오기
+						var result = "회원님의 아이디는 " + data + " 입니다.";
+						$('span#resultdata').html(result).css('color', 'blue').show();
+					}else if(data == null){
+						var result = '위 정보에 맞는 아이디가 존재하지 않습니다. 다시 입력하세요'
+						$('span#resultdata').html(result).css('color', 'red').show();
+					}
+				}
+			});
+		}
+	});
+});
 </script>
-<form action="${pageContext.request.contextPath }/member/searchID.do" name="myID" method="post" onsubmit="return(validate());">
+<form action="${pageContext.request.contextPath }/member/idResult.do" name="myID" method="post" onsubmit="return(validate());">
 	<div class="container-fluid" id="joinbottom">
 		<div class="row">
 			<div class="well center-block">
@@ -43,21 +56,7 @@
 					</h2>
 					<h5 class="text-center">아이디를 잊어버리셨나요?</h5>
 					<hr>
-				</div>
- 				<div class="row">
-					<div class="col-lg-12">
-						<div class="form-group">
-							<div class="input-group">
-								<div class="input-group-addon">
-									<i class="glyphicon glyphicon-calendar"></i>
-								</div>
-								<input type="date" name="birthday" placeholder="Date Of Birth"
-									class="form-control" id="birthday" required>
-							</div>
-						</div>
-					</div>
-				</div>
-				
+				</div>				
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="form-group">
@@ -65,7 +64,7 @@
 								<div class="input-group-addon">
 									<i class="glyphicon glyphicon-envelope"></i>
 								</div>
-								<input type="email" class="form-control" name="email"
+								<input type="email" class="form-control" name="email" id="email"
 									placeholder="E-Mail" required>
 							</div>
 						</div>
@@ -75,10 +74,13 @@
 				<div class="row widget">
 					<div class="col-lg-12">
 						<div class="col-lg-6">
-							<a href="${pageContext.request.contextPath }/member/loginForm.do" class="btn btn-primary btn-block" id="cancle">취소</a>
+							<a href="${pageContext.request.contextPath }/member/loginForm.do" class="btn btn-primary btn-block" id="cancel">취소</a>
 						</div>
 						<div class="col-lg-6">
-							<button class="btn btn-success btn-block" id="findId" onclick="location.href='${pageContext.request.contextPath }/member/loginForm.do'" >확인</button>
+							<button class="btn btn-success btn-block" id="findId">확인</button>
+							<div align="center" id=result>
+							<strong><span id="resultdata"></span></strong>
+							</div>
 						</div>
 					</div>
 				</div>

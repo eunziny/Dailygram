@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import javax.annotation.Resource;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 

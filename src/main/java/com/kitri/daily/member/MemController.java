@@ -3,6 +3,7 @@ package com.kitri.daily.member;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Map;
@@ -184,20 +185,37 @@ public class MemController {
 		mav.addObject("result", result);
 		return mav;
 	}
-
-/*	@RequestMapping(value = "/member/searchID.do")
-	public ModelAndView sId() throws Exception {
-		ModelAndView mav;
-		String email = ;
-		String id = service.getId(email);
-		System.out.println(id);
-		if (id != null) {
-			mav = new ModelAndView("redirect:/member/loginForm.do");
-			return mav;
-		} else {
-			mav = new ModelAndView("redirect:/member/searchID.do");
-			return mav;
+	
+	@RequestMapping(value = "/member/searchID.do")
+	public String sId() {
+		return "member/searchID";
+	}
+	
+	@RequestMapping(value = "/member/idResult.do")
+	public ModelAndView idResult(Member m, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("/member/showId");
+		String mail = m.getEmail();
+		if(mail!=null) {
+			String id = service.getId(mail);
+			System.out.println(id);
+			mav.addObject("result",id);
 		}
+		return mav;
+	}
+	
+/*	@RequestMapping(value = "/member/searchID.do")
+	public String sId() {
+		return "member/searchID";
+	}*/
+
+/*	@RequestMapping(value = "/member/idResult.do")
+	public ModelAndView idResult(String Email, HttpServletResponse response) throws Exception {
+		response.setCharacterEncoding("UTF-8"); // Ãâ·Â½Ã ÇÑ±Û±úÁü ¹æÁö
+		ModelAndView mav = new ModelAndView();
+		String id = service.getId(Email);
+		mav.addObject("id", id);
+		System.out.println(id);
+		return mav;
 	}*/
 
 	@RequestMapping(value = "/member/searchPW.do")
