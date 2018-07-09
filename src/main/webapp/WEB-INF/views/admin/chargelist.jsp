@@ -69,7 +69,7 @@ body {
 
 	$(function() {
 		$("a.eye").click(function() {
-			alert("게시물로 이동");
+			alert("해당 게시물로 이동하시겠습니까?");
 		});
 		
 		
@@ -90,7 +90,7 @@ body {
 		}); */
 		
 		$("button#delete").click(function() {
-			//alert("정말 삭제하시겠습니까?");
+			alert("정말 삭제하시겠습니까?");
 			
 			var checkArr = []; //배열 초기화
 			
@@ -107,6 +107,7 @@ body {
 				}
 				
 			});
+			location.href="${pageContext.request.contextPath}/admin/chargelist.do";
 		});
 	});
 </script>

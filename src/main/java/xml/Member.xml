@@ -10,6 +10,7 @@
 		<result column="name" property="name" />
 		<result column="birthday" property="birthday" />
 		<result column="email" property="email" />
+		<result column="zip_code" property="zip_code" />
 		<result column="address" property="address" />
 		<result column="gender" property="gender" />
 		<result column="joindate" property="joindate" />
@@ -28,8 +29,8 @@
 	
 	<insert id="insertMem" parameterType="com.kitri.daily.member.Member">
 		INSERT INTO
-		MEMBER (`id`, `pwd`, `name`, `intro`, `birthday`, `email`, `address`, `gender`, `joindate`, `useyn`, `publicyn`)
-		VALUES (#{id}, #{pwd}, #{name, jdbcType=VARCHAR}, #{intro, jdbcType=VARCHAR}, #{birthday}, #{email}, #{address}, #{gender}, now(), 'y', 'y')
+		MEMBER (`id`, `pwd`, `name`, `intro`, `birthday`, `email`, `zip_code`, `address`, `gender`, `joindate`, `useyn`, `publicyn`)
+		VALUES (#{id}, #{pwd}, #{name, jdbcType=VARCHAR}, #{intro, jdbcType=VARCHAR}, #{birthday}, #{email}, #{zip_code, jdbcType=VARCHAR}, #{address, jdbcType=VARCHAR}, #{gender}, now(), 'y', 'y')
 	</insert>
 	
 	<update id="delMember" parameterType="com.kitri.daily.member.Member">
@@ -57,7 +58,7 @@
 	
 	<update id="updateMem" parameterType="com.kitri.daily.member.Member">
 		update member 
-		set pwd=#{pwd}, name=#{name}, birthday=#{birthday}, email=#{email}, address=#{address},
+		set pwd=#{pwd}, name=#{name}, birthday=#{birthday}, email=#{email}, zip_code=#{zip_code}, address=#{address},
 		gender=#{gender}, publicyn=#{publicyn}, profile_img=#{profile_img}, intro=concat(#{intro},' \n')
 		where id=#{id}
 	</update>

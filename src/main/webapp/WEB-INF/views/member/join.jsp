@@ -292,7 +292,7 @@
 									<div class="input-group-addon">
 										<i class="glyphicon glyphicon-list-alt"></i>
 									</div>
-									<input type="text" class="form-control" name="zipcode" id="zip_code"
+									<input type="text" class="form-control" name="zip_code" id="zip_code"
 										placeholder="Postal Code" required readonly>
 
 								</div>
@@ -301,7 +301,7 @@
 						</div>
 						<div class="col-lg-4">
 							<div class="form-group">
-								<a href="#" class="btn btn-info" id="search" data-toggle="modal" data-target="#zip_codeModal">우편번호 검색</a>
+								<a class="btn btn-info" id="search" data-toggle="modal" data-target="#zip_codeModal">우편번호 검색</a>
 							</div>
 						</div>
 						<!-- 모달창 -->
