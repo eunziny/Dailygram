@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="/WEB-INF/views/container/header.jsp"%>
 <style>
 .col-lg-12 {
 	padding: 0;
@@ -162,4 +161,3 @@
 	
 	
 </script>
-<%@ include file="/WEB-INF/views/container/footer.jsp"%>

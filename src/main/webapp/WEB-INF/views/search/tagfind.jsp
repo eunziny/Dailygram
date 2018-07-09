@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="/WEB-INF/views/container/header.jsp"%>
 <style>
 /* .container {
 	width: 1000px;
@@ -174,4 +173,3 @@
 
 	}); //스크롤 이벤트 종료
 </script>
-<%@ include file="/WEB-INF/views/container/footer.jsp"%>

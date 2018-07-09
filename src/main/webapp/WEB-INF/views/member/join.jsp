@@ -3,6 +3,8 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>    
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- fontawesome icon-->
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 <style>
 .well {
 	padding: 35px;
@@ -284,9 +286,9 @@
 								</div>
 								<div class="captcha_child_two">
 									<a onclick="javascript:refreshBtn()" class="refreshBtn">
-										<i class="fas fa-sync-alt" aria-hidden="true"></i>새로고침</a>
+										<i class="fas fa-sync-alt" aria-hidden="true"></i>&nbsp;새로고침</a>
 									<a onclick="javascript:audio()" class="refreshBtn">
-										<i class="fas fa-volume-up" aria-hidden="true"></i>음성듣기</a>
+										<i class="fas fa-volume-up" aria-hidden="true"></i>&nbsp;음성듣기</a>
 								</div>
 							</div>
 						</div>
