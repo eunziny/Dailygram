@@ -62,7 +62,20 @@
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	</beans:bean>
-	
+
+	<!-- Tiles viewResolver -->
+	<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+		<beans:property name="order" value="2" /> 
+	</beans:bean> 
+	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<beans:property name="definitions">
+			<beans:list>
+				<beans:value>/WEB-INF/views/tiles/tiles.xml</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+
 	<!-- 메일 보내기 -->
     <beans:bean id="mailSender" class ="org.springframework.mail.javamail.JavaMailSenderImpl" >
         <beans:property name="host" value="smtp.gmail.com" />
@@ -85,7 +98,7 @@
     </beans:bean>
     <beans:bean id="emailSender" class="com.kitri.daily.member.EmailSender">
 	</beans:bean>
-	
+
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 	
 	<!-- @ResponseBody -->
