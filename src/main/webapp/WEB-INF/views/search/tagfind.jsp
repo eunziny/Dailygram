@@ -51,13 +51,21 @@
 <div class="row">
 	<div class="container">
 		<div class="col-lg-12" id="looktop">
-			<div class="col-lg-offset-1 col-lg-3" id="looktag_img">
-				<img class="img-circle" src="/dailygram/thumbnail/${list[0].img}" width="200" height="200" alt="No Image">
-			</div>
+		<div class="col-lg-offset-1 col-lg-3" id="looktag_img">
+			<c:choose>
+				<c:when test="${list2[0].img ne null}">
+					<img class="img-circle" src="/dailygram/thumbnail/${list2[0].img}" width="200" height="200">
+				</c:when>
+				<c:otherwise>
+					<img src="${pageContext.request.contextPath }/resources/img/d_icon.png" width="200" height="200">
+				</c:otherwise>
+			</c:choose>
+		</div>
 			<div class="col-lg-8">
 				<br> <br>
-				<h2>${list[0].tagname}</h2>
-				<h4>게시물 ${fn:length(list)}</h4>
+				<%-- <h2>${list2[0].tagname}</h2> --%>
+				<h2>${tagname}</h2>
+				<h4>게시물 ${fn:length(list2)}개</h4>
 			</div>
 		</div>
 	</div>
