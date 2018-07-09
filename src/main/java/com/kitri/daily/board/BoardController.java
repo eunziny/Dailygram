@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kitri.daily.alerm.Alerm;
 import com.kitri.daily.friend.Friend;
 import com.kitri.daily.friend.Relationship;
 import com.kitri.daily.member.Member;
@@ -327,6 +328,10 @@ public class BoardController {
 	   String id = mem.getId();
 	   Like like = new Like(bseq, id);
 	   service.addLike(like);
+	   
+	   Alerm alerm = new Alerm(like.getSender(), like.getBoard_seq());
+	   service.addlikealerm(alerm);
+	   
 	   return "redirect:/board/post.do?bseq="+bseq;
    }
    

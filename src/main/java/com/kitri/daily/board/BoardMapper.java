@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import com.kitri.daily.search.Hashtag;
+import com.kitri.daily.alerm.Alerm;
 import com.kitri.daily.friend.Relationship;
 import com.kitri.daily.member.Member;
 public interface BoardMapper {
@@ -41,4 +42,5 @@ public interface BoardMapper {
 	String selectcheckRelation(Relationship relation);
 	List<Comment> getNewsComm(HashMap<String, List<Integer>> hm);
 	List<Member> getProfileImg(HashMap<String, List<String>> hm);
+	void insertLikeAlerm(Alerm alerm);
 }

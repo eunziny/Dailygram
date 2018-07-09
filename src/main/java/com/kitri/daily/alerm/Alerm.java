@@ -17,6 +17,12 @@ public class Alerm {
 		this.receiver = receiver;
 	}
 
+	public Alerm(String sender, int board_seq) {
+		super();
+		this.sender = sender;
+		this.board_seq = board_seq;
+	}
+
 	public Alerm(Date date, String sender, String receiver, String type) {
 		super();
 		this.date = date;

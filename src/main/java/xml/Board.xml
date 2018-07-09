@@ -56,6 +56,14 @@
 		<result column="status" property="status" />
 		<result column="date" property="date" />
 	</resultMap>
+	
+	<resultMap id="AlermResult" type="com.kitri.daily.alerm.Alerm">
+		<result column="date" property="date" />
+		<result column="sender" property="sender" />
+		<result column="receiver" property="receiver" />
+		<result column="board_seq" property="board_seq" />
+		<result column="type" property="type" />
+	</resultMap>
 
 	<select id="select" resultMap="BoardResult" parameterType="java.lang.Integer">
 		select b.* , count(if(ls.type='L', ls.type, null)) likecnt from board
@@ -178,6 +186,15 @@
 		VALUES (#{board_seq}, #{sender}, 'L', now())
 		ON DUPLICATE KEY UPDATE
 		board_seq=#{board_seq}, sender=#{sender}, type='L', date=now();
+	</insert>
+	
+	<insert id="insertLikeAlerm" parameterType="com.kitri.daily.alerm.Alerm">
+		INSERT INTO alerm(`date`, `sender`, `receiver`, `board_seq`, `type`)
+		SELECT l.date, #{sender}, b.writer, #{board_seq}, l.type 
+				FROM like_siren l, board b
+				WHERE l.board_seq = #{board_seq}
+				AND b.board_seq = #{board_seq}
+				AND l.board_seq = b.board_seq
 	</insert>
 
 	<insert id="addSiren" parameterType="com.kitri.daily.board.Like">

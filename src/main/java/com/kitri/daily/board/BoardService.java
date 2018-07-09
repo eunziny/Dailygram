@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 import com.kitri.daily.search.Hashtag;
+import com.kitri.daily.alerm.Alerm;
 import com.kitri.daily.friend.Relationship;
 import com.kitri.daily.member.Member;
 public interface BoardService {
@@ -39,4 +40,5 @@ public interface BoardService {
 	String checkRelation(Relationship relation);
 	List<Comment> getNewsComm(HashMap<String, List<Integer>> hm);
 	List<Member> getProfileImg(HashMap<String, List<String>> hm2);
+	void addlikealerm(Alerm alerm);
 }
