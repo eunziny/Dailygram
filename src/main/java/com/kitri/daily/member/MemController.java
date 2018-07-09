@@ -4,30 +4,27 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.google.gson.Gson;
-import com.kitri.daily.admin.Like_Siren;
-import com.kitri.daily.search.Hashtag;
 
 @Controller
 public class MemController {
@@ -190,8 +187,33 @@ public class MemController {
 	}
 
 	@RequestMapping(value = "/member/searchPW.do")
-	public String sPW() {
-		return "member/searchPW";
+	public void sPW(@RequestParam Map<String, Object> paramMap, ModelMap model) throws Exception {
+		model.addAttribute("msg",0);
+	}
+
+	@Autowired
+	private EmailSender emailSender;
+	@Autowired
+	private Email email;
+
+	@RequestMapping(value = "/member/sendPW.do")
+	public ModelAndView sendPW(@RequestParam Map<String, Object> paramMap, ModelMap model) throws Exception {
+		ModelAndView mav;
+		String id = (String) paramMap.get("id");
+		String e_mail = (String) paramMap.get("email");
+		String pw = service.getPw(paramMap);
+		System.out.println(pw);
+		if (pw != null) {
+			email.setContent("비밀번호는 " + pw + "입니다.");
+			email.setReceiver(e_mail);
+			email.setSubject(id + "님의 비밀번호 찾기 메일입니다.");
+			emailSender.SendEmail(email);
+			mav = new ModelAndView("redirect:/member/loginForm.do");
+			return mav;
+		} else {
+			mav = new ModelAndView("redirect:/member/searchPW.do");
+			return mav;
+		}
 	}
 
 	@RequestMapping(value = "/member/captchaImg.do")

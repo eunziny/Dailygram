@@ -141,6 +141,9 @@ $(document).ready(function(e){
 	<div class="col-md-4">
       <ul class="nav navbar-right pull-right top-nav">
       	<li class="dropdown dropdown-notification">
+			<a href="${pageContext.request.contextPath }/chat/chatting.do"><i class="fas fa-comments"></i></a>	
+      	</li>
+      	<li class="dropdown dropdown-notification">
 			<a href="${pageContext.request.contextPath }/search/look.do"><span class="glyphicon glyphicon-globe"></span></a>	
       	</li>
       	<li class="dropdown dropdown-notification">
