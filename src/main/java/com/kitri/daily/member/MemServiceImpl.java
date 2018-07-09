@@ -54,4 +54,10 @@ public class MemServiceImpl implements MemService {
 		memberMapper = sqlSession.getMapper(MemberMapper.class);
 		return memberMapper.getPw(paramMap);
 	}
+
+	@Override
+	public String getId(String email) {
+		memberMapper = sqlSession.getMapper(MemberMapper.class);
+		return memberMapper.getId(email);
+	}
 }

@@ -18,11 +18,19 @@
 
 </style>
 <script>
-   $(document).ready(function(){
-	   $("#cancel").click(function(){
-		   alert("메일을 전송했습니다. 메일함을 확인하세요.");
-		 
-	   }));
+   $(document).on('click', '#findId', function(){
+	  
+		  $.ajax({
+		  url : '/member/searchID.do',
+		  type: 'POST',
+		  data: data,
+		  contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+		  dataType : "json",
+		  
+		  success:function(data) {
+			  $("#emailList").append("<h1>" + "회원님의 정보로 등록된 아이디는 : " +idFind+ "입니다."+ "</h1>");
+		  }
+	  })
    });
 </script>
 <form action="${pageContext.request.contextPath }/member/searchID.do" name="myID" method="post" onsubmit="return(validate());">
@@ -61,7 +69,7 @@
 									placeholder="E-Mail" required>
 							</div>
 						</div>
-					</div>
+					</div> 
 				</div>
 				<br>
 				<div class="row widget">
@@ -70,7 +78,7 @@
 							<a href="${pageContext.request.contextPath }/member/loginForm.do" class="btn btn-primary btn-block" id="cancle">취소</a>
 						</div>
 						<div class="col-lg-6">
-							<button class="btn btn-success btn-block" id="ok" onclick="location.href='${pageContext.request.contextPath }/member/loginForm.do'" >확인</button>
+							<button class="btn btn-success btn-block" id="findId" onclick="location.href='${pageContext.request.contextPath }/member/loginForm.do'" >확인</button>
 						</div>
 					</div>
 				</div>
