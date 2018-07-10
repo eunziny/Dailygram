@@ -119,7 +119,7 @@ $(function(){
 						  <c:choose>
 							<c:when test="${profile ne null}"> 
 								<img class="img-circle"
-									src="/dailygram/thumbnail_mem/${sessionScope.memInfo.profile_img}"
+									src="/resources/dailygram/thumbnail_mem/${sessionScope.memInfo.profile_img}"
 									width="150" height="150" alt="Profile Image">
 							</c:when>
 							<c:otherwise>

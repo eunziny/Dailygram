@@ -50,7 +50,7 @@
 		<div class="col-lg-12 scrollingtop">
 			<c:forEach items="${lookList }" var="lo">
 				<div class="gallery_product col-lg-4 scrolling">
-					<img src="/dailygram/thumbnail/${lo.img}" class="lookimg">
+					<img src="/resources/dailygram/thumbnail/${lo.img}" class="lookimg">
 					<input type='hidden' class='board_seq' value='${lo.board_seq}'>
 					<input type="hidden" class="scrolling" value="${lo.row }">
 				</div>
@@ -134,7 +134,7 @@
 								function(){
 									console.log(this);		
 									str +=	"<div class="+"'gallery_product col-lg-4 scrolling'"+">" 
-										+	 "<img src="+"'/dailygram/thumbnail/"+this.img+"'"+"class='lookimg'"+">"
+										+	 "<img src="+"'/resources/dailygram/thumbnail/"+this.img+"'"+"class='lookimg'"+">"
 										+    "<input type='hidden' class='board_seq' value='"+this.board_seq +"'>"
 										+	 "<input type="+"'hidden'"+ "class='scrolling'"+ "value='"+this.row+"'"+">"
 										+	 "</div>";

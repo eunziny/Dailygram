@@ -34,7 +34,7 @@ ul.list-group>li>a[type=button]{
 				<li class="list-group-item">
 					<c:choose>
 						<c:when test="${p.profile_img ne null}"> 
-							<img alt="" class="img-circle" src="/dailygram/thumbnail_mem/${p.profile_img}" width="30"> 
+							<img alt="" class="img-circle" src="/resources/dailygram/thumbnail_mem/${p.profile_img}" width="30"> 
 						</c:when>
 						<c:otherwise>
 							<img alt="" class="img-circle" src="http://www.technifroid-pro.fr/wp-content/uploads/2014/02/Technifroid-F.jpg" width="30">

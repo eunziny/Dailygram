@@ -24,7 +24,7 @@ input{
                       <c:set var="profile" value="${fri.profile_img}" /> 
 					  <c:choose>
 						<c:when test="${profile ne null}"> 
-							<img id='user_img' src="/dailygram/thumbnail_mem/${fri.profile_img}">
+							<img id='user_img' src="/resources/dailygram/thumbnail_mem/${fri.profile_img}">
 						</c:when>
 						<c:otherwise>
 							<img id='user_img' src="http://www.technifroid-pro.fr/wp-content/uploads/2014/02/Technifroid-F.jpg">
@@ -55,7 +55,7 @@ input{
 					  </ul>
                     </div>
                     <div class='post'>
-                      <img src="/dailygram/thumbnail/${b.img}">
+                      <img src="/resources/dailygram/thumbnail/${b.img}">
                     </div>
                     
                     <div class='footer'>

@@ -53,7 +53,7 @@
 		<div class="col-lg-offset-1 col-lg-3" id="looktag_img">
 			<c:choose>
 				<c:when test="${list2[0].img ne null}">
-					<img class="img-circle" src="/dailygram/thumbnail/${list2[0].img}" width="200" height="200">
+					<img class="img-circle" src="/resources/dailygram/thumbnail/${list2[0].img}" width="200" height="200">
 				</c:when>
 				<c:otherwise>
 					<img src="${pageContext.request.contextPath }/resources/img/d_icon.png" width="200" height="200">
@@ -75,7 +75,7 @@
 			<c:forEach var="s" items="${list }">
 				<div class="gallery_product col-lg-4 scrolling">
 					<a href="${pageContext.request.contextPath}/board/post.do?bseq=${s.board_seq}">
-						<img src="/dailygram/thumbnail/${s.img }" class="lookimg">
+						<img src="/resources/dailygram/thumbnail/${s.img }" class="lookimg">
 					</a> <input type="hidden" class="board_seq" value="${s.board_seq}">
 					<input type="hidden" class="scrolling" value="${s.row }">
 				</div>
@@ -157,7 +157,7 @@
 								function(){
 									console.log(this);		
 									str +=	"<div class="+"'gallery_product col-lg-4 scrolling'"+">" 
-										+	 "<img src="+"'/dailygram/thumbnail/"+this.img+"'"+"class='lookimg'"+">"
+										+	 "<img src="+"'/resources/dailygram/thumbnail/"+this.img+"'"+"class='lookimg'"+">"
 										+    "<input type='hidden' class='board_seq' value='"+this.board_seq +"'>"
 										+	 "<input type="+"'hidden'"+ "class='scrolling'"+ "value='"+this.row+"'"+">"
 										+	 "</div>";

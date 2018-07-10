@@ -34,7 +34,7 @@ import com.kitri.daily.search.Look;
 
 @Controller
 public class BoardController {
-	String basePath = System.getProperty("catalina.home") + "\\webapps\\dailygram";
+	String basePath = "var/webapps/dailygram";
 
 	@Resource(name = "boardService")
 	private BoardService service;
@@ -50,8 +50,8 @@ public class BoardController {
 
 	@RequestMapping(value = "/board/upload.do")
 	public String upload(HttpServletRequest req, Board b) {
-		String originPath = basePath + "\\Board\\"; // 원본파일 경로
-		String upfolder = basePath + "\\thumbnail\\"; // 썸네일 처리한 파일 경로
+		String originPath = basePath + "/Board/"; // 원본파일 경로
+		String upfolder = basePath + "/thumbnail/"; // 썸네일 처리한 파일 경로
 		MultipartFile file = b.getFile(); // form.jsp에서 선택한 파일 가져오기
 		if (file != null && !file.equals("")) {
 			File dir = new File(originPath);
@@ -63,7 +63,7 @@ public class BoardController {
 			String FileType = extension[extension.length - 1];
 			String img = b.getWriter() + "_" + System.currentTimeMillis() + "." + FileType;
 			b.setImg(img); // img 경로 set
-			File f = new File(originPath + "\\" + img);
+			File f = new File(originPath + "/" + img);
 			try {
 				file.transferTo(f);
 			} catch (IllegalStateException e) {
@@ -85,7 +85,7 @@ public class BoardController {
 				thumbImg = new BufferedImage(thumbnail_width, thumbnail_height, BufferedImage.TYPE_3BYTE_BGR);
 				java.awt.Graphics2D g = thumbImg.createGraphics();
 				g.drawImage(srcImg, 0, 0, thumbnail_width, thumbnail_height, null);
-				File outFile = new File(upfolder + "\\" + img);
+				File outFile = new File(upfolder + "/" + img);
 				ImageIO.write(thumbImg, "PNG", outFile); // 썸네일 파일 저장
 
 			} catch (IllegalStateException e) {
@@ -209,8 +209,8 @@ public class BoardController {
 
 	@RequestMapping(value = "/board/edit.do")
 	public String edit(Board b) {
-		String originPath = basePath + "\\board\\"; // 원본파일 경로
-		String upfolder = basePath + "\\thumbnail\\"; // 썸네일 처리한 파일 경로
+		String originPath = basePath + "/Board/"; // 원본파일 경로
+		String upfolder = basePath + "/thumbnail/"; // 썸네일 처리한 파일 경로
 		MultipartFile file = b.getFile(); // form.jsp에서 선택한 파일 가져오기
 		if (file != null && !file.equals("")) {
 			Board d = service.detailBoard(b.getBoard_seq());
@@ -223,7 +223,7 @@ public class BoardController {
 			String FileType = extension[extension.length - 1];
 			String img = b.getWriter() + "_" + System.currentTimeMillis() + "." + FileType;
 			b.setImg(img); // img 경로 set
-			File f = new File(originPath + "\\" + img);
+			File f = new File(originPath + "/" + img);
 
 			try {
 				file.transferTo(f); // 새로운 파일을 넣음
@@ -248,7 +248,7 @@ public class BoardController {
 				thumbImg = new BufferedImage(thumbnail_width, thumbnail_height, BufferedImage.TYPE_3BYTE_BGR);
 				java.awt.Graphics2D g = thumbImg.createGraphics();
 				g.drawImage(srcImg, 0, 0, thumbnail_width, thumbnail_height, null);
-				File outFile = new File(upfolder + "\\" + img);
+				File outFile = new File(upfolder + "/" + img);
 				ImageIO.write(thumbImg, "PNG", outFile); // 썸네일 파일 저장
 
 			} catch (IllegalStateException e) {
@@ -274,7 +274,7 @@ public class BoardController {
 		List<Comment> coList = service.getComments(bseq);// 해당글의 코멘트 리스트들 가져오기.
 		mav.addObject("b", b);
 		mav.addObject("coList", coList);
-		String upfolder = basePath + "\\thumbnail\\"; // img 가져올 파일 경로
+		String upfolder = basePath + "/thumbnail/"; // img 가져올 파일 경로
 		String path = upfolder + b.getImg();
 		mav.addObject("path", path);
 		Member fri = service.friend(b.getWriter());

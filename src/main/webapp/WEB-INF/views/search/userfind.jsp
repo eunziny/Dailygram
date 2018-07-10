@@ -27,7 +27,7 @@ ul.list-group>li>button {
 						<c:choose>
 							<c:when test="${s.profile_img ne null}">
 								<img class="img-circle"
-									src="/dailygram/thumbnail_mem/${s.profile_img}" width="30">
+									src="/resources/dailygram/thumbnail_mem/${s.profile_img}" width="30">
 							</c:when>
 							<c:otherwise>
 								<img alt="" class="img-circle"

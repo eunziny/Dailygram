@@ -33,7 +33,7 @@ import com.google.gson.Gson;
 
 @Controller
 public class MemController {
-	String basePath = System.getProperty("catalina.home") + "\\webapps\\dailygram";
+	String basePath = "var/webapps/dailygram";
 
 	@Resource(name = "memService")
 	private MemService service;
@@ -93,8 +93,8 @@ public class MemController {
 
 	@RequestMapping(value = "/member/memEdit.do")
 	public String memEdit(HttpServletRequest req, Member m) {
-		String originPath = basePath + "\\Member\\"; // 원본파일 경로
-		String upfolder = basePath + "\\thumbnail_mem\\"; // 썸네일 처리한 파일 경로
+		String originPath = basePath + "/Member/"; // 원본파일 경로
+		String upfolder = basePath + "/thumbnail_mem/"; // 썸네일 처리한 파일 경로
 		MultipartFile file = m.getFile(); // mem_editForm.jsp에서 선택한 파일 가져오기
 		HttpSession session = req.getSession(false);
 		Member mem = (Member) session.getAttribute("memInfo");
@@ -113,7 +113,7 @@ public class MemController {
 			String FileType = extension[extension.length - 1];
 			String img = m.getId() + "_" + System.currentTimeMillis() + "." + FileType;
 			m.setProfile_img(img); // img 경로 set
-			File f = new File(originPath + "\\" + img);
+			File f = new File(originPath + "/" + img);
 			try {
 				file.transferTo(f);
 				delete.delete();
@@ -137,7 +137,7 @@ public class MemController {
 				thumbImg = new BufferedImage(thumbnail_width, thumbnail_height, BufferedImage.TYPE_3BYTE_BGR);
 				java.awt.Graphics2D g = thumbImg.createGraphics();
 				g.drawImage(srcImg, 0, 0, thumbnail_width, thumbnail_height, null);
-				File outFile = new File(upfolder + "\\" + img);
+				File outFile = new File(upfolder + "/" + img);
 				ImageIO.write(thumbImg, "PNG", outFile); // 썸네일 파일 저장
 
 			} catch (IllegalStateException e) {

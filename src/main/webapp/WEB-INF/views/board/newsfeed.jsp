@@ -36,7 +36,7 @@ input{
 					  		<c:if test="${po.id eq b.writer }">
 					  			<c:choose>
 					  				<c:when test="${!empty po.profile_img}">
-					  					<img id='user_img' src="/dailygram/thumbnail_mem/${po.profile_img}">
+					  					<img id='user_img' src="/resources/dailygram/thumbnail_mem/${po.profile_img}">
 					  				</c:when>
 					  				<c:otherwise>
 					  					<img id='user_img' src="http://www.technifroid-pro.fr/wp-content/uploads/2014/02/Technifroid-F.jpg">
@@ -70,7 +70,7 @@ input{
 					  </ul>
                     </div>
                     <div class='post'>
-                      <img src="/dailygram/thumbnail/${b.img}">
+                      <img src="/resources/dailygram/thumbnail/${b.img}">
                     </div>
                     
                     <div class='footer'>
@@ -191,7 +191,7 @@ input{
 									$(data.proList).each(function(index,po){
 										if(po.id = bo.writer){
 											if(po.profile_img != "" || po.profile_img != null){
-												str += "<img id='user_img' src='/dailygram/thumbnail_mem/"+po.profile_img+"'></a>";
+												str += "<img id='user_img' src='/resources/dailygram/thumbnail_mem/"+po.profile_img+"'></a>";
 												return false;
 											}else{
 												str += "<img id='user_img' src='http://www.technifroid-pro.fr/wp-content/uploads/2014/02/Technifroid-F.jpg'></a>";
@@ -218,7 +218,7 @@ input{
 									 str += "<li><a href='${pageContext.request.contextPath }/board/repost.do?bseq="+bo.board_seq+"'>공유</a></li>";
 								 }	 
 									str +="</ul></div>"
-								  	+ "<div class='post'><img src='/dailygram/thumbnail/"+bo.img+"'></div>"
+								  	+ "<div class='post'><img src='/resources/dailygram/thumbnail/"+bo.img+"'></div>"
 								  	+ "<div class='footer'><div class='react'>";
 								  	
 								  	if(bo.type == 'L'){

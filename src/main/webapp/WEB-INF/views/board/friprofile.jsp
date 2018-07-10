@@ -55,7 +55,7 @@
 					<c:set var="profile" value="${fri.profile_img}" /> 
 					  <c:choose>
 						<c:when test="${profile ne null}"> 
-							<img src="/dailygram/thumbnail_mem/${fri.profile_img}">
+							<img src="/resources/dailygram/thumbnail_mem/${fri.profile_img}">
 						</c:when>
 						<c:otherwise>
 							<img src="http://www.technifroid-pro.fr/wp-content/uploads/2014/02/Technifroid-F.jpg">
