@@ -141,7 +141,7 @@ $(function(){
   		location.href='${pageContext.request.contextPath }/board/myList.do';
   	});
 });
->>>>>>> master
+
 /* function makeMemoList(memos) {
     var memocnt = memos.memolist.length;
     $('#memolist').children('div').remove();
@@ -208,6 +208,9 @@ $(function(){
 						<div class="col-md-4">
 							<ul class="nav navbar-right pull-right top-nav">
 								<li class="dropdown dropdown-notification"><a
+									href="${pageContext.request.contextPath }/chat/chatting.do"><i
+										class="fas fa-comments"></i></a></li>
+								<li class="dropdown dropdown-notification"><a
 									href="${pageContext.request.contextPath }/search/look.do"><span
 										class="glyphicon glyphicon-globe"></span></a></li>
 								<li class="dropdown dropdown-notification"><a
@@ -217,54 +220,21 @@ $(function(){
 									class="dropdown-toggle" href="javascript:;"
 									data-toggle="dropdown" data-hover="dropdown"
 									data-close-others="true" aria-expanded="true"> <i
-										class="fas fa-bell"></i> <span class="badge badge-default">
-											5 </span>
-								</a>
+										class="fas fa-bell"></i> <%-- <span class="badge badge-default">
+		<%int alermsize = Integer.parseInt((String) session.getAttribute("alermSize")); 
+		if(alermsize>0){ %> <strong>NEW</strong> <%} %></span> --%></a>
 									<ul class="dropdown-menu dropdown-menu-alerm">
-										<li class="external">
-											<h3>
-												<span class="bold">12 pending</span> notifications
-											</h3> <a href="page_user_profile_1.html">view all</a>
-										</li>
-										<li>
-											<ul class="dropdown-menu-list">
-												<li><a href="javascript:;"> <span class="time">just
-															now</span> <span class="details"> <span
-															class="label label-sm label-icon label-success"> <i
-																class="fa fa-plus"></i>
-														</span> abb님이 좋아요를 눌렀습니다
-													</span>
-												</a></li>
-												<li><a href="javascript:;"> <span class="time">3
-															mins</span> <span class="details"> <span
-															class="label label-sm label-icon label-danger"> <i
-																class="fa fa-bolt"></i>
-														</span> good님이 댓글을 달았습니다:배고파!
-													</span>
-												</a></li>
-												<li><a href="javascript:;"> <span class="time">10
-															mins</span> <span class="details"> <span
-															class="label label-sm label-icon label-warning"> <i
-																class="fa fa-bell-o"></i>
-														</span> wow님이 좋아요를 눌렀습니다
-													</span>
-												</a></li>
-												<li><a href="javascript:;"> <span class="time">14
-															hrs</span> <span class="details"> <span
-															class="label label-sm label-icon label-info"> <i
-																class="fa fa-bullhorn"></i>
-														</span> happy님이 댓글을 남겼습니다:안녕?
-													</span>
-												</a></li>
-												<li><a href="javascript:;"> <span class="time">14
-															hrs</span> <span class="details"> <span
-															class="label label-sm label-icon label-info"> <i
-																class="fa fa-bullhorn"></i>
-														</span> hi님이 댓글을 남겼습니다:야호!
-													</span>
-												</a></li>
-											</ul>
-										</li>
+										<ul class="dropdown-menu-list" id="alerm">
+											<!-- <li> <a href="javascript:;"> 
+							<span class="time">just now</span> 
+								<span class="details"> 
+									<span class="label label-sm label-icon label-success"> 
+									<i class="fa fa-plus"></i> 
+								</span> abb님이 좋아요를 눌렀습니다
+							</span> 
+						</a> 
+					</li> -->
+										</ul>
 									</ul></li>
 								<li class="dropdown"><a href="#"
 									class="dropdown-toggle users" data-toggle="dropdown"
@@ -299,58 +269,4 @@ $(function(){
 			</div>
 		</div>
 		<!-- <div class="col-md-offset-1 col-md-4"> -->
-
-<div id='right'>
-	<div class="col-md-4">
-      <ul class="nav navbar-right pull-right top-nav">
-      	<li class="dropdown dropdown-notification">
-			<a href="${pageContext.request.contextPath }/chat/chatting.do"><i class="fas fa-comments"></i></a>	
-      	</li>
-      	<li class="dropdown dropdown-notification">
-			<a href="${pageContext.request.contextPath }/search/look.do"><span class="glyphicon glyphicon-globe"></span></a>	
-      	</li>
-      	<li class="dropdown dropdown-notification">
-			<a href="${pageContext.request.contextPath }/friend/knownfriend.do?id=${sessionScope.memInfo.id }"><i class="fas fa-users"></i></a>	
-      	</li>
-		<li class="dropdown dropdown-notification"> <a class="dropdown-toggle" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="true"> <i class="fas fa-bell"></i> 
-		<%-- <span class="badge badge-default">
-		<%int alermsize = Integer.parseInt((String) session.getAttribute("alermSize")); 
-		if(alermsize>0){ %> <strong>NEW</strong> <%} %></span> --%></a>
-			<ul class="dropdown-menu dropdown-menu-alerm" >
-				<ul class="dropdown-menu-list" id="alerm">
-					<!-- <li> <a href="javascript:;"> 
-							<span class="time">just now</span> 
-								<span class="details"> 
-									<span class="label label-sm label-icon label-success"> 
-									<i class="fa fa-plus"></i> 
-								</span> abb님이 좋아요를 눌렀습니다
-							</span> 
-						</a> 
-					</li> -->
-				</ul>
-			</ul>
-		</li>
-		<li class="dropdown"> 
-			<a href="#" class="dropdown-toggle users" data-toggle="dropdown" aria-expanded="true">
-				<c:set var="profile" value="${sessionScope.memInfo.profile_img}" /> 
-				  <c:choose>
-					<c:when test="${profile ne null}"> 
-						<img class="img-circle" width="30" src="/dailygram/thumbnail_mem/${sessionScope.memInfo.profile_img}">
-					</c:when>
-					<c:otherwise>
-						<img class="img-circle" width="30" src="http://www.technifroid-pro.fr/wp-content/uploads/2014/02/Technifroid-F.jpg">
-					</c:otherwise>
-				  </c:choose>
-				<span class="hidden-xs">${sessionScope.memInfo.id }</span> 
-			</a>
-			<ul class="dropdown-menu">
-				<li><a href="${pageContext.request.contextPath }/board/myList.do"><i class="fa fa-fw fa-user"></i> My Page</a></li>
-				<li><a href="${pageContext.request.contextPath }/member/mem_editForm.do"><i class="fa fa-fw fa-cog"></i> Edit Profile</a></li>
-				<li class="divider"></li>
-				<li><a href="${pageContext.request.contextPath }/member/logout.do"><i class="fa fa-fw fa-power-off"></i> Logout</a></li>
-			</ul>
-		</li>
-	</ul>
-	</div>
-	</div>
 </div>
