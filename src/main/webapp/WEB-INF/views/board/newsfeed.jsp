@@ -26,6 +26,7 @@ input{
     <div class="row">
 		<div class="col-lg-offset-1 col-lg-10 col-lg-offset-1">
             <section class="scrollingtop">
+            	<c:if test="${!empty boardList }">
 				<c:forEach items="${boardList}" var = "b">	
                   <div class= 'insta scrolling'>
                     <div class='top-insta '>
@@ -123,6 +124,7 @@ input{
                     <input type="hidden" class="scrolling" value="${b.row }">
                   </div> <!-- end Insta -->
                   </c:forEach>
+                  </c:if>
                 </section> <!-- end section -->
         </div>
 	</div>
