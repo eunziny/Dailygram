@@ -152,4 +152,17 @@ public class FriServiceImpl implements FriService {
 		friendMapper = sqlSession.getMapper(FriendMapper.class);
 		friendMapper.deleteAlerm(alerm);
 	}
+
+	@Override
+	public void successFollow(Relationship relation) {
+		friendMapper = sqlSession.getMapper(FriendMapper.class);
+		friendMapper.updateFollow(relation);
+	}
+
+	@Override
+	public void updateRead(Alerm alerm) {
+		friendMapper = sqlSession.getMapper(FriendMapper.class);
+		friendMapper.updateReadType(alerm);
+		
+	}
 }

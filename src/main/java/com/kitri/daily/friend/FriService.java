@@ -28,6 +28,6 @@ public interface FriService {
 	void addfollowalerm(Alerm alerm);
 	Alerm findAlerm(Alerm alerm);
 	void deleteAlerm(Alerm alerm);
-	
-
+	void successFollow(Relationship relation);
+	void updateRead(Alerm alerm);
 }

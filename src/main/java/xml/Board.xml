@@ -195,6 +195,8 @@
 				WHERE l.board_seq = #{board_seq}
 				AND b.board_seq = #{board_seq}
 				AND l.board_seq = b.board_seq
+				AND b.writer NOT LIKE #{sender}
+		ON DUPLICATE KEY UPDATE date=now(), sender=#{sender}, receiver=#{receiver}, board_seq=#{board_seq}, type='L'
 	</insert>
 
 	<insert id="addSiren" parameterType="com.kitri.daily.board.Like">

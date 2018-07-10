@@ -23,4 +23,12 @@
 		where receiver = #{id}
 		and type = 'L'
 	</select>
+	
+	<select id="selectMyAlerm" resultMap="alermResult" parameterType="String">
+		select date, sender, receiver, ifnull(board_seq,-1), type
+		from alerm
+		where receiver=#{id}
+		AND readyn='N'
+		order by date desc
+	</select>
 </mapper>

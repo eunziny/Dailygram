@@ -28,4 +28,6 @@ public interface FriendMapper {
 	void insertFollowAlerm(Alerm alerm);
 	Alerm selectAlerm(Alerm alerm);
 	void deleteAlerm(Alerm alerm);
+	void updateFollow(Relationship relation);
+	void updateReadType(Alerm alerm);
 }

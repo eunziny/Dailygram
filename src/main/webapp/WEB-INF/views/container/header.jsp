@@ -1,3 +1,4 @@
+<%@page import="org.springframework.web.context.annotation.SessionScope"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -15,7 +16,13 @@
 <!-- <script src="http://code.jquery.com/jquery-1.7.js" type="text/javascript"></script> -->
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui-css" rel="stylesheet" type="text/s-css" />
-
+<style>
+ul.dropdown-menu-list>li>a[type=button] {
+	float: right;
+	background-color: #9770f9;
+	color: white;
+}
+</style>
 <script>
 $(document).ready(function(e){
 		var $target = "";
@@ -65,9 +72,6 @@ $(document).ready(function(e){
 						 //response($.map(autoList, function(item) {
 						//	 return item.tagname;
 						 //}));
- 
-				 
-						 
 						 //makeList(data);
 					 }
 				 });
@@ -82,9 +86,51 @@ $(document).ready(function(e){
          }
            return false;
          });  
-
 });
-
+$(function(){
+	 function ajaxCall(){
+  		$.ajax({
+  			url: '${pageContext.request.contextPath}/container/searchalerm.do?id='+'${sessionScope.memInfo.id}',	
+  			type:'post',
+  			dataType:'json',
+  			success:function(data){
+  				console.log(data);
+  				var id = $('ul.dropdown-menu-list'); 
+  				html="";
+  				if(data==""){
+						html+='<li><span class="label label-sm label-icon label-danger"></span>&nbsp;<strong>새로운 알림이 없습니다.</strong></li>';
+				}
+  				$(data).each(function (){
+  					console.log("내 알림>>>>>>" + this.sender + ", " + this.type + ", " + this.date + ".");	
+  					if(this.type=='N'){//팔로우 요청 받았을 경우
+		            	console.log('n조건문 들어옴');
+		            	html+='<li> &nbsp;&nbsp;<span class="details"><span class="label label-sm label-icon label-success"><i class="fa fa-plus"></i></span>&nbsp;'
+		            			+ '<a href="${pageContext.request.contextPath }/board/friList.do?writer=' + this.sender + '">'
+		            			+ this.sender
+		            			+ '</a><span>님이 팔로우 요청하셨습니다</span><a id="successfollow" class="pull-right" type="button" href="${pageContext.request.contextPath }/friend/successFriend.do?receiver='
+		            			+ this.receiver+'&sender='+this.sender
+		            			+ '">수락</a></span></li>'; 
+		            			console.log('html : '+html);
+		            }else if(this.type=='L'){//타인이 내글에 좋아요 누른 경우
+		            	console.log('l조건문 들어옴');
+		            	html+='<li> &nbsp;&nbsp;<span class="details"><span class="label label-sm label-icon label-warning"><i class="far fa-heart"></i></span>&nbsp;'
+		            			+ '<a href="${pageContext.request.contextPath }/board/friList.do?writer=' + this.sender  +'">'
+		            			+ this.sender 
+		            			+ '님</a>이<a href="${pageContext.request.contextPath }/board/post.do?bseq=' + this.board_seq + '">회원님의 글</a>'
+		            			+ '에 좋아요 하셨습니다.</span></a></li>';
+		            }	
+		            console.log('조건문 밖');
+  				});
+  				id.html(html).show();
+  		}
+  	});
+	 }
+  	setInterval(ajaxCall(), 3000);	
+  	$( document ).on( 'click', 'a#successfollow', function(  ) {
+  		alert('수락하시겠습니까?'); 
+  		location.href='${pageContext.request.contextPath }/board/myList.do';
+  	});
+});
 /* function makeMemoList(memos) {
     var memocnt = memos.memolist.length;
     $('#memolist').children('div').remove();
@@ -96,6 +142,7 @@ $(document).ready(function(e){
     }
     
 } */
+
 </script>
 <!------ Include the above in your HEAD tag ---------->
 
@@ -149,21 +196,22 @@ $(document).ready(function(e){
       	<li class="dropdown dropdown-notification">
 			<a href="${pageContext.request.contextPath }/friend/knownfriend.do?id=${sessionScope.memInfo.id }"><i class="fas fa-users"></i></a>	
       	</li>
-		<li class="dropdown dropdown-notification"> <a class="dropdown-toggle" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="true"> <i class="fas fa-bell"></i> <span class="badge badge-default"> 5 </span> </a>
-			<ul class="dropdown-menu dropdown-menu-alerm">
-				<!-- <li class="external">
-					<h3> <span class="bold">12 pending</span> notifications</h3>
-					<a href="page_user_profile_1.html">view all</a> 
-				</li> -->
-				<li>
-				<li>
-					<ul class="dropdown-menu-list">
-						<li> <a href="javascript:;"> <span class="time">just now</span> <span class="details"> <span class="label label-sm label-icon label-success"> <i class="fa fa-plus"></i> </span> abb님이 좋아요를 눌렀습니다</span> </a> </li>
-						<li> <a href="javascript:;"> <span class="time">3 mins</span> <span class="details"> <span class="label label-sm label-icon label-danger"> <i class="fa fa-bolt"></i> </span> good님이 댓글을 달았습니다:배고파!</span> </a> </li>
-						<li> <a href="javascript:;"> <span class="time">10 mins</span> <span class="details"> <span class="label label-sm label-icon label-warning"> <i class="fa fa-bell-o"></i> </span> wow님이 좋아요를 눌렀습니다</span> </a> </li>
-						<li> <a href="javascript:;"> <span class="time">14 hrs</span> <span class="details"> <span class="label label-sm label-icon label-info"> <i class="fa fa-bullhorn"></i> </span> happy님이 댓글을 남겼습니다:안녕?</span> </a> </li>
-						<li> <a href="javascript:;"> <span class="time">14 hrs</span> <span class="details"> <span class="label label-sm label-icon label-info"> <i class="fa fa-bullhorn"></i> </span> hi님이 댓글을 남겼습니다:야호!</span> </a> </li>
-					</ul>
+		<li class="dropdown dropdown-notification"> <a class="dropdown-toggle" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="true"> <i class="fas fa-bell"></i> 
+		<%-- <span class="badge badge-default">
+		<%int alermsize = Integer.parseInt((String) session.getAttribute("alermSize")); 
+		if(alermsize>0){ %> <strong>NEW</strong> <%} %></span> --%></a>
+			<ul class="dropdown-menu dropdown-menu-alerm" >
+				<ul class="dropdown-menu-list" id="alerm">
+					<!-- <li> <a href="javascript:;"> 
+							<span class="time">just now</span> 
+								<span class="details"> 
+									<span class="label label-sm label-icon label-success"> 
+									<i class="fa fa-plus"></i> 
+								</span> abb님이 좋아요를 눌렀습니다
+							</span> 
+						</a> 
+					</li> -->
+				</ul>
 			</ul>
 		</li>
 		<li class="dropdown"> 

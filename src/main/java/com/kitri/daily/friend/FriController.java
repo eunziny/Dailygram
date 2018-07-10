@@ -402,4 +402,16 @@ public class FriController {
 		}
 		return url;
 	}
+	
+	@RequestMapping(value = "/friend/successFriend.do")
+	public String successFriend(@RequestParam(value = "receiver") String receiver,
+			@RequestParam(value = "sender") String sender) {// 팔로우 요청 수락
+		Relationship relation = new Relationship(sender, receiver);
+		service.successFollow(relation);
+		
+		Alerm alerm = new Alerm(sender, receiver);
+		service.updateRead(alerm);
+		return "redirect:/board/myList.do";
+	}
+	
 }

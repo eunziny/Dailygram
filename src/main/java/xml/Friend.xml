@@ -227,6 +227,7 @@
 	<insert id="insertFollowAlerm" parameterType="com.kitri.daily.alerm.Alerm">
 		INSERT INTO alerm(`date`, `sender`, `receiver`, `type`)
 		VALUES (now(), #{sender}, #{receiver}, 'N')
+		ON DUPLICATE KEY UPDATE date=now(), sender=#{sender}, receiver=#{receiver}, type='N' 
 	</insert>
 	
 	<select id="selectFollowwaitList" resultMap="FriendResult" parameterType="String">
@@ -237,4 +238,20 @@
 					WHERE sender=#{id}
 					AND status='N')
 	</select>
+	
+	<update id="updateFollow" parameterType="com.kitri.daily.friend.Relationship">
+		update relationship
+		set 
+		status='Y', date=now()
+		where
+		sender=#{sender} and receiver=#{receiver}
+	</update>
+	
+	<update id="updateReadType" parameterType="com.kitri.daily.alerm.Alerm">
+		update alerm
+		set 
+		readyn='Y', date=now()
+		where
+		sender=#{sender} and receiver=#{receiver}
+	</update>
 </mapper>
