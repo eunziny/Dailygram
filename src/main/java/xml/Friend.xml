@@ -25,6 +25,13 @@
 		<result column="date" property="date" />
 	</resultMap>
 	
+	<resultMap id="AlermResult" type="com.kitri.daily.alerm.Alerm">
+		<result column="date" property="date" />
+		<result column="sender" property="sender" />
+		<result column="receiver" property="receiver" />
+		<result column="type" property="type" />
+	</resultMap>
+	
 	<select id="selectFriendRelationshipCount" resultType="java.util.HashMap" parameterType="String">
 		select count(*) cnt from like_siren
 	      where sender = #{id}
@@ -196,6 +203,16 @@
 		WHERE sender=#{sender} AND receiver=#{receiver} AND (status='Y' OR status='N')
 	</delete>
 	
+	<select id="selectAlerm" resultMap="AlermResult" parameterType="com.kitri.daily.alerm.Alerm">
+		SELECT date, sender, receiver, type FROM alerm
+		WHERE sender=#{sender} AND receiver=#{receiver} AND type='N'
+	</select>
+	
+	<delete id="deleteAlerm" parameterType="com.kitri.daily.alerm.Alerm">
+		DELETE FROM alerm
+		WHERE sender=#{sender} AND receiver=#{receiver} AND type='N'
+	</delete>
+	
 	<delete id="deletesubscribe" parameterType="com.kitri.daily.friend.Relationship">
 		DELETE FROM relationship
 		WHERE sender=#{sender} AND receiver=#{receiver} AND status='R'
@@ -207,6 +224,12 @@
 		ON DUPLICATE KEY UPDATE sender=#{sender}, receiver=#{receiver}, status='N', date=now()
 	</insert>
 	
+	<insert id="insertFollowAlerm" parameterType="com.kitri.daily.alerm.Alerm">
+		INSERT INTO alerm(`date`, `sender`, `receiver`, `type`)
+		VALUES (now(), #{sender}, #{receiver}, 'N')
+		ON DUPLICATE KEY UPDATE date=now(), sender=#{sender}, receiver=#{receiver}, type='N' 
+	</insert>
+	
 	<select id="selectFollowwaitList" resultMap="FriendResult" parameterType="String">
 		SELECT id, profile_img
 		FROM member
@@ -215,4 +238,20 @@
 					WHERE sender=#{id}
 					AND status='N')
 	</select>
+	
+	<update id="updateFollow" parameterType="com.kitri.daily.friend.Relationship">
+		update relationship
+		set 
+		status='Y', date=now()
+		where
+		sender=#{sender} and receiver=#{receiver}
+	</update>
+	
+	<update id="updateReadType" parameterType="com.kitri.daily.alerm.Alerm">
+		update alerm
+		set 
+		readyn='Y', date=now()
+		where
+		sender=#{sender} and receiver=#{receiver}
+	</update>
 </mapper>

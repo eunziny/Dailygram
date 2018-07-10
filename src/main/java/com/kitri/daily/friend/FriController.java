@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kitri.daily.alerm.Alerm;
 import com.kitri.daily.board.BoardService;
 import com.kitri.daily.member.Member;
 
@@ -340,8 +341,15 @@ public class FriController {
 		String user_id = mem.getId();
 		String friend_id = (String) session.getAttribute("friendId");
 		Relationship relation = new Relationship(user_id, writer);
+		
+		//alerm 테이블에 user_id, writer, type='n'이 있으면(팔로우요청취소 이므로 테이블에서 삭제해주기, 팔로잉 취소면 삭제 해줄 필요 없음
+		Alerm alerm = new Alerm(relation.getSender(), relation.getReceiver());
+		Alerm al = service.findAlerm(alerm);
+		if(al!=null) {//팔로우 요청 취소
+			service.deleteAlerm(alerm);
+		}
+		
 		service.cancelfollow(relation);
-
 		ArrayList<Integer> count = service.profileCount(user_id);
 		session.setAttribute("followerCount", count.get(0));
 		session.setAttribute("followingCount", count.get(1));
@@ -398,6 +406,9 @@ public class FriController {
 		String friend_id = (String) session.getAttribute("friendId");
 		Relationship relation = new Relationship(user_id, writer);
 		service.addfollow(relation);
+		
+		Alerm alerm = new Alerm(relation.getSender(), relation.getReceiver());
+		service.addfollowalerm(alerm);
 
 		ArrayList<Integer> count = service.profileCount(user_id);
 		session.setAttribute("followerCount", count.get(0));
@@ -416,4 +427,16 @@ public class FriController {
 		}
 		return url;
 	}
+	
+	@RequestMapping(value = "/friend/successFriend.do")
+	public String successFriend(@RequestParam(value = "receiver") String receiver,
+			@RequestParam(value = "sender") String sender) {// 팔로우 요청 수락
+		Relationship relation = new Relationship(sender, receiver);
+		service.successFollow(relation);
+		
+		Alerm alerm = new Alerm(sender, receiver);
+		service.updateRead(alerm);
+		return "redirect:/board/myList.do";
+	}
+	
 }

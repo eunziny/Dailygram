@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Relationship {
 	private String sender;
 	private String receiver;
-	private String stauts;
+	private String status;
 	private Date date;
 	
 	public Relationship() {}
@@ -16,15 +16,14 @@ public class Relationship {
 		this.receiver = receiver;
 	}
 
-	public Relationship(String sender, String receiver, String stauts, Date date) {
+	public Relationship(String sender, String receiver, String status, Date date) {
 		super();
 		this.sender = sender;
 		this.receiver = receiver;
-		this.stauts = stauts;
+		this.status = status;
 		this.date = date;
 	}
 
-	
 	public String getSender() {
 		return sender;
 	}
@@ -41,20 +40,25 @@ public class Relationship {
 		this.receiver = receiver;
 	}
 
-	public String getStauts() {
-		return stauts;
+	public String getStatus() {
+		return status;
 	}
-	public void setStauts(String stauts) {
-		this.stauts = stauts;
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
+
 	public Date getDate() {
 		return date;
 	}
+
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
 	@Override
 	public String toString() {
-		return "Subscribe [user_id=" + sender + ", id=" + receiver + ", stauts=" + stauts + ", date=" + date + "]";
+		return "Relationship [sender=" + sender + ", receiver=" + receiver + ", status=" + status + ", date=" + date
+				+ "]";
 	}
 }

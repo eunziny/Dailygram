@@ -1,3 +1,4 @@
+<%@page import="org.springframework.web.context.annotation.SessionScope"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -15,7 +16,13 @@
 <!-- <script src="http://code.jquery.com/jquery-1.7.js" type="text/javascript"></script> -->
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui-css" rel="stylesheet" type="text/s-css" />
-
+<style>
+ul.dropdown-menu-list>li>a[type=button] {
+	float: right;
+	background-color: #9770f9;
+	color: white;
+}
+</style>
 <script>
 $(document).ready(function(e){
       var $target = "";
@@ -41,7 +48,7 @@ $(document).ready(function(e){
             });
          return false;
          });
-      
+
        /* 검색 자동완성 */
        $("#searchValue").autocomplete({
           source : function(request, response) {
@@ -74,7 +81,7 @@ $(document).ready(function(e){
              });
          }
        });
-       
+
          $("#searchBtn").click(function(e) { 
             if ($target == "") { //검색타입을 아무것도 선택하지 않았을 때
              alert("검색타입을 선택하세요.");
@@ -83,7 +90,6 @@ $(document).ready(function(e){
          }
            return false;
          });  
-
 });
 
 function selectKeyword(keyword) {
@@ -91,6 +97,51 @@ function selectKeyword(keyword) {
 	$(".auto-body").hide();
 }
 
+$(function(){
+	 function ajaxCall(){
+  		$.ajax({
+  			url: '${pageContext.request.contextPath}/container/searchalerm.do?id='+'${sessionScope.memInfo.id}',	
+  			type:'post',
+  			dataType:'json',
+  			success:function(data){
+  				console.log(data);
+  				var id = $('ul.dropdown-menu-list'); 
+  				html="";
+  				if(data==""){
+						html+='<li><span class="label label-sm label-icon label-danger"></span>&nbsp;<strong>새로운 알림이 없습니다.</strong></li>';
+				}
+  				$(data).each(function (){
+  					console.log("내 알림>>>>>>" + this.sender + ", " + this.type + ", " + this.date + ".");	
+  					if(this.type=='N'){//팔로우 요청 받았을 경우
+		            	console.log('n조건문 들어옴');
+		            	html+='<li> &nbsp;&nbsp;<span class="details"><span class="label label-sm label-icon label-success"><i class="fa fa-plus"></i></span>&nbsp;'
+		            			+ '<a href="${pageContext.request.contextPath }/board/friList.do?writer=' + this.sender + '">'
+		            			+ this.sender
+		            			+ '</a><span>님이 팔로우 요청하셨습니다</span><a id="successfollow" class="pull-right" type="button" href="${pageContext.request.contextPath }/friend/successFriend.do?receiver='
+		            			+ this.receiver+'&sender='+this.sender
+		            			+ '">수락</a></span></li>'; 
+		            			console.log('html : '+html);
+		            }else if(this.type=='L'){//타인이 내글에 좋아요 누른 경우
+		            	console.log('l조건문 들어옴');
+		            	html+='<li> &nbsp;&nbsp;<span class="details"><span class="label label-sm label-icon label-warning"><i class="far fa-heart"></i></span>&nbsp;'
+		            			+ '<a href="${pageContext.request.contextPath }/board/friList.do?writer=' + this.sender  +'">'
+		            			+ this.sender 
+		            			+ '님</a>이<a href="${pageContext.request.contextPath }/board/post.do?bseq=' + this.board_seq + '">회원님의 글</a>'
+		            			+ '에 좋아요 하셨습니다.</span></a></li>';
+		            }	
+		            console.log('조건문 밖');
+  				});
+  				id.html(html).show();
+  		}
+  	});
+	 }
+  	setInterval(ajaxCall(), 3000);	
+  	$( document ).on( 'click', 'a#successfollow', function(  ) {
+  		alert('수락하시겠습니까?'); 
+  		location.href='${pageContext.request.contextPath }/board/myList.do';
+  	});
+});
+>>>>>>> master
 /* function makeMemoList(memos) {
     var memocnt = memos.memolist.length;
     $('#memolist').children('div').remove();
@@ -102,6 +153,7 @@ function selectKeyword(keyword) {
     }
     
 } */
+
 </script>
 <!------ Include the above in your HEAD tag ---------->
 
@@ -246,5 +298,59 @@ function selectKeyword(keyword) {
 				</div>
 			</div>
 		</div>
+		<!-- <div class="col-md-offset-1 col-md-4"> -->
+
+<div id='right'>
+	<div class="col-md-4">
+      <ul class="nav navbar-right pull-right top-nav">
+      	<li class="dropdown dropdown-notification">
+			<a href="${pageContext.request.contextPath }/chat/chatting.do"><i class="fas fa-comments"></i></a>	
+      	</li>
+      	<li class="dropdown dropdown-notification">
+			<a href="${pageContext.request.contextPath }/search/look.do"><span class="glyphicon glyphicon-globe"></span></a>	
+      	</li>
+      	<li class="dropdown dropdown-notification">
+			<a href="${pageContext.request.contextPath }/friend/knownfriend.do?id=${sessionScope.memInfo.id }"><i class="fas fa-users"></i></a>	
+      	</li>
+		<li class="dropdown dropdown-notification"> <a class="dropdown-toggle" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="true"> <i class="fas fa-bell"></i> 
+		<%-- <span class="badge badge-default">
+		<%int alermsize = Integer.parseInt((String) session.getAttribute("alermSize")); 
+		if(alermsize>0){ %> <strong>NEW</strong> <%} %></span> --%></a>
+			<ul class="dropdown-menu dropdown-menu-alerm" >
+				<ul class="dropdown-menu-list" id="alerm">
+					<!-- <li> <a href="javascript:;"> 
+							<span class="time">just now</span> 
+								<span class="details"> 
+									<span class="label label-sm label-icon label-success"> 
+									<i class="fa fa-plus"></i> 
+								</span> abb님이 좋아요를 눌렀습니다
+							</span> 
+						</a> 
+					</li> -->
+				</ul>
+			</ul>
+		</li>
+		<li class="dropdown"> 
+			<a href="#" class="dropdown-toggle users" data-toggle="dropdown" aria-expanded="true">
+				<c:set var="profile" value="${sessionScope.memInfo.profile_img}" /> 
+				  <c:choose>
+					<c:when test="${profile ne null}"> 
+						<img class="img-circle" width="30" src="/dailygram/thumbnail_mem/${sessionScope.memInfo.profile_img}">
+					</c:when>
+					<c:otherwise>
+						<img class="img-circle" width="30" src="http://www.technifroid-pro.fr/wp-content/uploads/2014/02/Technifroid-F.jpg">
+					</c:otherwise>
+				  </c:choose>
+				<span class="hidden-xs">${sessionScope.memInfo.id }</span> 
+			</a>
+			<ul class="dropdown-menu">
+				<li><a href="${pageContext.request.contextPath }/board/myList.do"><i class="fa fa-fw fa-user"></i> My Page</a></li>
+				<li><a href="${pageContext.request.contextPath }/member/mem_editForm.do"><i class="fa fa-fw fa-cog"></i> Edit Profile</a></li>
+				<li class="divider"></li>
+				<li><a href="${pageContext.request.contextPath }/member/logout.do"><i class="fa fa-fw fa-power-off"></i> Logout</a></li>
+			</ul>
+		</li>
+	</ul>
+	</div>
 	</div>
 </div>

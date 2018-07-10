@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.kitri.daily.alerm.Alerm;
+
 public interface FriendMapper {
 	List<HashMap<String, Object>> selectFriendRelationshipCount(String user_id);
 	List selectRecommend(String user_id);
@@ -23,4 +25,9 @@ public interface FriendMapper {
 	void insertfollow(Relationship relation);
 	ArrayList<Integer> selectProfileCount(String user_id);
 	ArrayList<Friend> selectFollowwaitList(String id);
+	void insertFollowAlerm(Alerm alerm);
+	Alerm selectAlerm(Alerm alerm);
+	void deleteAlerm(Alerm alerm);
+	void updateFollow(Relationship relation);
+	void updateReadType(Alerm alerm);
 }

@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 import com.kitri.daily.search.Hashtag;
+import com.kitri.daily.alerm.Alerm;
 import com.kitri.daily.friend.Relationship;
 import com.kitri.daily.member.Member;
 
@@ -182,5 +183,11 @@ public class BoardServiceImpl implements BoardService {
 	public String cntBoard(String id) {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
 		return boardMapper.cntBoard(id);
+	}
+
+	@Override
+	public void addlikealerm(Alerm alerm) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.insertLikeAlerm(alerm);
 	}
 }
