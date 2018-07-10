@@ -294,7 +294,7 @@
 									<div class="input-group-addon">
 										<i class="glyphicon glyphicon-list-alt"></i>
 									</div>
-									<input type="text" class="form-control" name="zipcode" id="zip_code"
+									<input type="text" class="form-control" name="zip_code" id="zip_code"
 										placeholder="Postal Code" required readonly>
 
 								</div>
@@ -303,7 +303,7 @@
 						</div>
 						<div class="col-lg-4">
 							<div class="form-group">
-								<a href="#" class="btn btn-info" id="search" data-toggle="modal" data-target="#zip_codeModal">우편번호 검색</a>
+								<a class="btn btn-info" id="search" data-toggle="modal" data-target="#zip_codeModal">우편번호 검색</a>
 							</div>
 						</div>
 						<!-- 모달창 -->
@@ -317,19 +317,13 @@
 										<h3 class="modal-title" id="myModalLabel"><b>우편번호 검색</b></h3>
 									</div>
 									<div class="modal-body text-center">
-										<form id="zip_codeForm">
 											<div class="input-group">
 												<span class="input-group-addon">동 입력</span> 
 													<input type="text" class="form-control" name="query" id="query">
 												<span class="input-group-btn">
-													<!-- <input type="button" class="btn btn-warning" value="검색" id="searchBtn" 	onkeydown="javascript:if(event.keyCode==13)"> -->
-													<!-- <input type="button" class="btn btn-warning" value="검색" id="searchBtn"> -->
-													<!-- <button class="btn btn-warning" id="searchBtn">검색</button> -->
 													<a class="btn btn-warning" id="searchBtn">검색</a>
 												</span>
 											</div>
-										</form>
-										<p></p>
 										<div>
 											<div style="width: 100%; height: 400px; overflow: auto">
 												<table class="table text-center">

@@ -107,7 +107,7 @@ $(document).ready(function(e){
     <div id='left'>
       <a href='${pageContext.request.contextPath}/board/newsfeed.do?id=${sessionScope.memInfo.id}'><img src='${pageContext.request.contextPath }/resources/img/logo.png' id='logo-name'></a>
     </div>
-		<div class="col-md-offset-1 col-md-4">
+		<div class="col-md-offset-1 col-md-4 search">
 			<form id="searchform" action="${pageContext.request.contextPath }/container/search.do" method="post">
 			<div class="input-group">
 				<div class="input-group-btn bs-dropdown-to-select-group">
