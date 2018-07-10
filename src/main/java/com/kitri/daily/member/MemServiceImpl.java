@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import javax.annotation.Resource;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
@@ -53,5 +52,11 @@ public class MemServiceImpl implements MemService {
 	public String getPw(Map<String, Object> paramMap) {
 		memberMapper = sqlSession.getMapper(MemberMapper.class);
 		return memberMapper.getPw(paramMap);
+	}
+
+	@Override
+	public String getId(String email) {
+		memberMapper = sqlSession.getMapper(MemberMapper.class);
+		return memberMapper.getId(email);
 	}
 }

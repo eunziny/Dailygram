@@ -3,6 +3,8 @@ package com.kitri.daily.member;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
@@ -18,8 +20,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -180,15 +185,42 @@ public class MemController {
 		mav.addObject("result", result);
 		return mav;
 	}
-
+	
 	@RequestMapping(value = "/member/searchID.do")
 	public String sId() {
 		return "member/searchID";
 	}
+	
+	@RequestMapping(value = "/member/idResult.do")
+	public ModelAndView idResult(Member m, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("/member/showId");
+		String mail = m.getEmail();
+		if(mail!=null) {
+			String id = service.getId(mail);
+			System.out.println(id);
+			mav.addObject("result",id);
+		}
+		return mav;
+	}
+	
+/*	@RequestMapping(value = "/member/searchID.do")
+	public String sId() {
+		return "member/searchID";
+	}*/
+
+/*	@RequestMapping(value = "/member/idResult.do")
+	public ModelAndView idResult(String Email, HttpServletResponse response) throws Exception {
+		response.setCharacterEncoding("UTF-8"); // 출력시 한글깨짐 방지
+		ModelAndView mav = new ModelAndView();
+		String id = service.getId(Email);
+		mav.addObject("id", id);
+		System.out.println(id);
+		return mav;
+	}*/
 
 	@RequestMapping(value = "/member/searchPW.do")
 	public void sPW(@RequestParam Map<String, Object> paramMap, ModelMap model) throws Exception {
-		model.addAttribute("msg",0);
+		model.addAttribute("msg", 0);
 	}
 
 	@Autowired
@@ -225,49 +257,51 @@ public class MemController {
 	public void captchaAudio(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		new CaptchaUtil().captchaAudio(req, res);
 	}
-	
-	//우편번호 검색
-	//인증키
-	/*public static final String ZIPCODE_API_KEY = 
-			"ZRp1M9%2FW4tvJTR7kaHLhUGxrkMy1R0rB70aWUBuzc9WQTpIwygSrT%2BnplK2lQb2KqKbAb0K7ta8WPo1b54vkHw%3D%3D";*/
-	//api를 쓰기 위한 주소
-	public static final String ZIPCODE_API_URL = 
-			"http://openapi.epost.go.kr/postal/retrieveNewAdressAreaCdSearchAllService/retrieveNewAdressAreaCdSearchAllService/getNewAddressListAreaCdSearchAll?ServiceKey=ZRp1M9%2FW4tvJTR7kaHLhUGxrkMy1R0rB70aWUBuzc9WQTpIwygSrT%2BnplK2lQb2KqKbAb0K7ta8WPo1b54vkHw%3D%3D&countPerPage=10&currentPage=1&srchwrd=";
+
+	// 우편번호 검색
+	// 인증키
+	/*
+	 * public static final String ZIPCODE_API_KEY =
+	 * "ZRp1M9%2FW4tvJTR7kaHLhUGxrkMy1R0rB70aWUBuzc9WQTpIwygSrT%2BnplK2lQb2KqKbAb0K7ta8WPo1b54vkHw%3D%3D";
+	 */
+	// api를 쓰기 위한 주소
+	public static final String ZIPCODE_API_URL = "http://openapi.epost.go.kr/postal/retrieveNewAdressAreaCdSearchAllService/retrieveNewAdressAreaCdSearchAllService/getNewAddressListAreaCdSearchAll?ServiceKey=ZRp1M9%2FW4tvJTR7kaHLhUGxrkMy1R0rB70aWUBuzc9WQTpIwygSrT%2BnplK2lQb2KqKbAb0K7ta8WPo1b54vkHw%3D%3D&countPerPage=10&currentPage=1&srchwrd=";
+
 	@RequestMapping(value = "/member/zip_search.do")
-	public @ResponseBody String zip_codeList(@RequestParam(value="query") String query ) throws Exception {
+	public @ResponseBody String zip_codeList(@RequestParam(value = "query") String query) throws Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		StringBuilder queryUrl = new StringBuilder();
-        queryUrl.append(ZIPCODE_API_URL);
-        queryUrl.append(query.replaceAll(" ", ""));
-        
-        //document 선언
-        Document document = Jsoup.connect(queryUrl.toString()).get();
-        //errorCode 선언
-        String errorCode = document.select("errMsg").text();
-        
-        if(errorCode == null || errorCode.equals("")) {
-            Elements elements = document.select("newAddressListAreaCdSearchAll");
-            List<Member> list = new ArrayList<Member>();
-            Member m = null;
-            
-            for(Element element : elements){
-            	m = new Member();
-            	//우편번호 검색
-            	m.setZip_code(element.select("zipNo").text());
-                //도로명주소 검색
-            	m.setAddress(element.select("lnmAdres").text());
-                list.add(m);
-            }
-            //list 결과 put
-            paramMap.put("list", list);
-            System.out.println("우편번호 검색 성공???" + list);
-        } else {
-            String errorMessage = document.select("errMsg").text();
-            //paramMap.put("errorCode", errorCode);
-            paramMap.put("errorMessage", errorMessage);
-        }
-        //Gson형태로 paramMap 리턴
-        return (new Gson()).toJson(paramMap);
+		queryUrl.append(ZIPCODE_API_URL);
+		queryUrl.append(query.replaceAll(" ", ""));
+
+		// document 선언
+		Document document = Jsoup.connect(queryUrl.toString()).get();
+		// errorCode 선언
+		String errorCode = document.select("errMsg").text();
+
+		if (errorCode == null || errorCode.equals("")) {
+			Elements elements = document.select("newAddressListAreaCdSearchAll");
+			List<Member> list = new ArrayList<Member>();
+			Member m = null;
+
+			for (Element element : elements) {
+				m = new Member();
+				// 우편번호 검색
+				m.setZip_code(element.select("zipNo").text());
+				// 도로명주소 검색
+				m.setAddress(element.select("lnmAdres").text());
+				list.add(m);
+			}
+			// list 결과 put
+			paramMap.put("list", list);
+			System.out.println("우편번호 검색 성공???" + list);
+		} else {
+			String errorMessage = document.select("errMsg").text();
+			// paramMap.put("errorCode", errorCode);
+			paramMap.put("errorMessage", errorMessage);
+		}
+		// Gson형태로 paramMap 리턴
+		return (new Gson()).toJson(paramMap);
 	}
-	
+
 }

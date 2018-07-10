@@ -21,6 +21,14 @@ div.joinList{
 	margin-top : 15px;
 	margin-bottom: 15px;
 }
+div#chatdata{
+	height: 500px;
+	overflow: auto;
+}
+ul.active{
+	height: 200px;
+	overflow: auto;
+}
 </style>
 <div class="panel-group">
 <h2><i class="far fa-comments"></i> Chat</h2>
@@ -35,12 +43,10 @@ div.joinList{
              Send</button>
      </span>
 </div>
-<div id="chatdata" style="overflow:auto"></div>
+<div id="chatdata"></div>
 <div id="data"></div>
 </div>
 <script type="text/javascript">
-$('#scrollDiv').scrollTop($('#scrollDiv').prop('scrollHeight'));
-
 var sock = new SockJS("<c:url value='/chat'/>");
 sock.onmessage = onMessage;
 sock.onclose = onClose;
@@ -62,7 +68,6 @@ $(function(){
 		
 	});
 })
-
 
 function sendMessage(){
 	//websocket으로 메세지보내기

@@ -10,4 +10,5 @@ public interface MemService {
 	void editMem(Member m);
 	void insertMem(Member m);
 	String getPw(Map<String, Object> paramMap);
+	String getId(String email);
 }

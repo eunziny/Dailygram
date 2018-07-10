@@ -74,7 +74,7 @@
 				<div class="row widget">
 					<div class="col-lg-12">
 						<div class="col-lg-6">
-							<a href="${pageContext.request.contextPath }/member/loginForm.do" class="btn btn-primary btn-block" id="cancle">취소</a>
+							<a href="${pageContext.request.contextPath }/member/loginForm.do" class="btn btn-primary btn-block" id="cancel">취소</a>
 						</div>
 						<div class="col-lg-6">
 							<button class="btn btn-success btn-block" id="ok" onclick="search()">확인</button>
