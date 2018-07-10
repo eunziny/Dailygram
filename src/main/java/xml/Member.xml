@@ -30,7 +30,7 @@
 	<insert id="insertMem" parameterType="com.kitri.daily.member.Member">
 		INSERT INTO
 		MEMBER (`id`, `pwd`, `name`, `intro`, `birthday`, `email`, `zip_code`, `address`, `gender`, `joindate`, `useyn`, `publicyn`)
-		VALUES (#{id}, #{pwd}, #{name, jdbcType=VARCHAR}, #{intro, jdbcType=VARCHAR}, #{birthday}, #{email}, #{zip_code, jdbcType=VARCHAR}, #{address, jdbcType=VARCHAR}, #{gender}, now(), 'y', 'y')
+		VALUES (#{id}, #{pwd}, #{name, jdbcType=VARCHAR}, concat(#{intro, jdbcType=VARCHAR},' \n'), #{birthday}, #{email}, #{zip_code, jdbcType=VARCHAR}, #{address, jdbcType=VARCHAR}, #{gender}, now(), 'y', 'y')
 	</insert>
 	
 	<update id="delMember" parameterType="com.kitri.daily.member.Member">
