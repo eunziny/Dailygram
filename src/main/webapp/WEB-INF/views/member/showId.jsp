@@ -6,33 +6,35 @@
 	rel="stylesheet" id="bootstrap-css">
 <script
 	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$.ajax({
-			method:'POST',
-			data:{
-				'email':$('#email').val()
-				},
-			url:'member/idResult.do',
-			success:function(data){
-				data = data.trim();
-				if(data!= null){//data아이디 받아오기
-					var result = "회원님의 아이디는 " + data + " 입니다.";
-					$('span#resultdata').html(result).css('color', 'blue').show();
-				}else if(data == null){
-					var result = '위 정보에 맞는 아이디가 존재하지 않습니다. 다시 입력하세요'
-					$('span#resultdata').html(result).css('color', 'red').show();
-				}
-			}
-		});
-	});
-</script>
+<style>
+#result {
+	padding-top: 10%;
+}
+
+#foot {
+	padding-top: 50%;
+}
+
+#resultdata {
+	font-size: 25px;
+	color: red;
+}
+</style>
 <div class="container-fluid" id="idResult">
-<div class="row">
-	<div class="col-lg-12">
-		<div align="center" id=result>
-				<strong><span id="resultdata"> 회원님의 아이디는 ${result}  입니다. </span></strong>
+	<div class="row">
+		<div class="col-lg-12">
+			<div align="center" id=result>
+				<p>
+					회원님의 아이디는 <strong><span id="resultdata"> ${result}</span></strong>입니다.
+				</p>
+			</div>
+		</div>
+		<div class="col-lg-offset-4 col-lg-4 col-lg-offset-4" align="center">
+			<a href="${pageContext.request.contextPath }/member/loginForm.do" class="btn btn-success btn-block" id="ok">확인</a>
 		</div>
 	</div>
+
 </div>
+<div id="foot">
+	<%@ include file="/WEB-INF/views/container/footer.jsp"%>
 </div>
