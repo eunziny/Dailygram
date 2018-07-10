@@ -40,6 +40,6 @@ public interface BoardMapper {
 	ArrayList<Integer> selectFriendProfileCount(String id);
 	String selectcheckRelation(Relationship relation);
 	List<Comment> getNewsComm(HashMap<String, List<Integer>> hm);
-	List<Member> getProfileImg(HashMap<String, List<String>> hm);
+	List<Member> getProfileImg(HashMap<String, List<String>> hm2);
 	void insertLikeAlerm(Alerm alerm);
 }

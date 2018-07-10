@@ -34,7 +34,7 @@ import com.kitri.daily.search.Look;
 
 @Controller
 public class BoardController {
-	String basePath = "var/webapps/dailygram";
+	String basePath = "/var/webapps/dailygram";
 
 	@Resource(name = "boardService")
 	private BoardService service;
@@ -142,6 +142,9 @@ public class BoardController {
 		sendbo.setWriter(id);
 		sendbo.setRow(0);
 		List <Board> boardList= service.getNewsfeed(sendbo);//10개 + 해당글의 type가져온다 L,S,X 셋중하나.
+		if(boardList.size() == 0) {
+			System.out.println("아무것도 없다!");
+		}else {
 		mav.addObject("boardList", boardList);
 		//댓글을 찾기위한 글번호 list 이다.
 		List <Integer> bseqList = new ArrayList<Integer>();
@@ -160,6 +163,7 @@ public class BoardController {
 		List<Member> proList = service.getProfileImg(hm2);
 		mav.addObject("coList",coList);
 		mav.addObject("proList",proList);
+		}
 		return mav;
 	}
 

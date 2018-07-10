@@ -33,7 +33,7 @@ import com.google.gson.Gson;
 
 @Controller
 public class MemController {
-	String basePath = "var/webapps/dailygram";
+	String basePath = "/var/webapps/dailygram";
 
 	@Resource(name = "memService")
 	private MemService service;
