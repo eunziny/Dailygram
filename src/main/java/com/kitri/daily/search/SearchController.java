@@ -86,8 +86,9 @@ public class SearchController {
 			mav2.addObject("list2", list2);
 			System.out.println("tagList : " + list);
 			return mav2;
+		} else {
+			return null;
 		}
-		return searchList(searchType, tagname);
 	}
 	
 	@RequestMapping(value = "/search/infitag.do")

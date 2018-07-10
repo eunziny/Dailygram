@@ -152,6 +152,27 @@ public class FriController {
 			}
 			mav.addObject("list", list3);
 		}
+		
+		ArrayList<Friend> falist = (ArrayList<Friend>) service.getfollowerList(id);// 팔로워 리스트 받아옴
+		ArrayList<Friend> mylist = (ArrayList<Friend>) service.getfollowingList(id);// 내가 팔로잉 하는사람(y)
+		ArrayList<Friend> mywaitlist = (ArrayList<Friend>) service.getfollowwaitList(id);// 팔로워 요청 한 목록(n)
+
+		for (int i = 0; i < falist.size(); i++) {
+			for (int j = 0; j < mylist.size(); j++) {
+				if (falist.get(i).getId().equals(mylist.get(j).getId())) {
+					falist.get(i).setStatus("y");// 내 팔로우 리스트에 있으면 상태값 y로 바꿔줌
+				}
+			}
+			for (int j = 0; j < mywaitlist.size(); j++) {
+				if (falist.get(i).getId().equals(mywaitlist.get(j).getId())) {
+					falist.get(i).setStatus("wait");// 내 팔로우 요청리스트에 있으면 상태값 wait로 바꿔줌
+				}
+			}
+			if (falist.get(i).getStatus() == null)
+				falist.get(i).setStatus("no");
+		}
+		mav.addObject("list", falist);
+		
 		return mav;
 	}
 
@@ -298,7 +319,7 @@ public class FriController {
 		  HttpSession session = req.getSession(false); 
 		  Member mem = (Member) session.getAttribute("memInfo"); 
 		  String user_id = mem.getId(); 
-		  String friend_id = (String) session.getAttribute("friendId");
+//		  String friend_id = (String) session.getAttribute("friendId");
 		  Relationship subscribe = new Relationship(user_id, id); 
 		  service.subscribe(subscribe);
 		  
@@ -344,6 +365,8 @@ public class FriController {
 			url = "redirect:/friend/friendfollowinglist.do?id=" + friend_id;
 		} else if (type == 5) {
 			url = "redirect:/board/friList.do?writer=" + friend_id;
+		} else if (type == 6) {
+			url = "redirect:/friend/knownfriend.do?id=" + user_id;
 		}
 		return url;
 	}
@@ -399,6 +422,8 @@ public class FriController {
 			url = "redirect:/friend/friendfollowinglist.do?id=" + friend_id;
 		} else if (type == 4) {
 			url = "redirect:/board/friList.do?writer=" + friend_id;
+		} else if (type == 5) {
+			url = "redirect:/friend/knownfriend.do?id=" + user_id;
 		}
 		return url;
 	}

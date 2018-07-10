@@ -54,7 +54,6 @@ public class MemController {
 	@RequestMapping(value = "/member/login.do")
 	public String login(HttpServletRequest req, Member m) {
 		Member mem = service.getMember(m.getId());
-
 		if (mem == null || !mem.getPwd().equals(m.getPwd())) {
 			System.out.println("로그인 실패");
 			return "redirect:/member/loginForm.do";
@@ -199,24 +198,11 @@ public class MemController {
 			String id = service.getId(mail);
 			System.out.println(id);
 			mav.addObject("result",id);
+		} else {
+			mav.addObject("result","-1");
 		}
 		return mav;
 	}
-	
-/*	@RequestMapping(value = "/member/searchID.do")
-	public String sId() {
-		return "member/searchID";
-	}*/
-
-/*	@RequestMapping(value = "/member/idResult.do")
-	public ModelAndView idResult(String Email, HttpServletResponse response) throws Exception {
-		response.setCharacterEncoding("UTF-8"); // 출력시 한글깨짐 방지
-		ModelAndView mav = new ModelAndView();
-		String id = service.getId(Email);
-		mav.addObject("id", id);
-		System.out.println(id);
-		return mav;
-	}*/
 
 	@RequestMapping(value = "/member/searchPW.do")
 	public void sPW(@RequestParam Map<String, Object> paramMap, ModelMap model) throws Exception {

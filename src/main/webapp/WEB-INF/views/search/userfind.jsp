@@ -26,7 +26,7 @@ ul.list-group>li>button {
 					<li class="list-group-item">
 						<c:choose>
 							<c:when test="${s.profile_img ne null}">
-								<img alt="" class="img-circle"
+								<img class="img-circle"
 									src="/dailygram/thumbnail_mem/${s.profile_img}" width="30">
 							</c:when>
 							<c:otherwise>
@@ -35,8 +35,7 @@ ul.list-group>li>button {
 									width="30">
 							</c:otherwise>
 						</c:choose>
-						<a href=# style="color: black"><span>${s.id}</span></a>
-						<button type="button" class="btn btn-xs">팔로우</button></li>
+						<a href="${pageContext.request.contextPath}/board/friList.do?writer=${s.id}" style="color: black"><span>${s.id}</span></a>
 				</c:forEach>
 			</ul>
 		</div>

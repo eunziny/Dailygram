@@ -28,6 +28,29 @@ public class Member {
 		super();
 		this.id = id;
 	}
+	
+	//zip_code 추가된 전체 생성자
+	public Member(String id, String pwd, String name, Date birthday, String email, String zip_code, String address,
+			String gender, Date joindate, String useyn, String profile_img, String publicyn, String intro,
+			MultipartFile file, String captcha, int cnt) {
+		super();
+		this.id = id;
+		this.pwd = pwd;
+		this.name = name;
+		this.birthday = birthday;
+		this.email = email;
+		this.zip_code = zip_code;
+		this.address = address;
+		this.gender = gender;
+		this.joindate = joindate;
+		this.useyn = useyn;
+		this.profile_img = profile_img;
+		this.publicyn = publicyn;
+		this.intro = intro;
+		this.file = file;
+		this.captcha = captcha;
+		this.cnt = cnt;
+	}
 	public Member(String id, String pwd, String name, Date birthday, String email, String address, String gender,
 			Date joindate, String useyn, String profile_img, String publicyn, String intro) {
 		super();

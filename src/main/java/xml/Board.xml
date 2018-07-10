@@ -95,47 +95,7 @@
 		from board
 		where writer=#{writer};
 	</select>
-<!-- 
-	구독이거나 아무사이도 아닐 때 공개계정 공개게시물만 리스트로 뿌림 
-	친구일때
-	<select id="list" resultMap="BoardResult" parameterType="com.kitri.daily.board.Board">
-		select a.*
-		from
-		(
-		SELECT b.*
-		FROM board b join relationship r
-		on b.writer = r.receiver
-		join member m
-		on b.writer = m.id
-		where b.writer=#{writer}
-		and r.sender =#{sender}
-		and b.public_yn='y'
-		and m.publicyn='y'
-		and r.status!='y'
-        and now() >= date_add(b.posted, interval 1 minute)
-		group by b.board_seq
-		union
-		SELECT b.*
-		FROM board b join relationship r
-		on b.writer = r.receiver
-		where b.writer=#{writer}
-		and r.sender =#{sender}
-		and r.status='y'
-        and now() >= date_add(b.posted, interval 1 minute)
-		group by b.board_seq
-		union
-		SELECT b.*
-		FROM board b join member m
-		on b.writer = m.id
-		where b.writer=#{writer}
-		and b.public_yn='y'
-		and m.publicyn='y'
-        and now() >= date_add(b.posted, interval 1 minute)
-		group by b.board_seq
-		) a
-		order by a.posted desc
-	</select>
- -->
+
  	<select id="getStatus" resultType="String" parameterType="com.kitri.daily.board.Board">
  		(select publicyn from member
 		where id = #{writer}) 

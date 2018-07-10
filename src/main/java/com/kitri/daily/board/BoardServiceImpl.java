@@ -116,13 +116,7 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
 		boardMapper.addSiren(like);
 	}
-/*
-	@Override
-	public List<Board> getList(Board board) {
-		boardMapper = sqlSession.getMapper(BoardMapper.class);
-		return boardMapper.list(board);
-	}
-*/
+
 	@Override
 	public Member friend(String writer) {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
