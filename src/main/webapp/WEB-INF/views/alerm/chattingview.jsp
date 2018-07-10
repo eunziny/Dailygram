@@ -36,6 +36,8 @@ ul.active{
 <div id="joindata">
 	<ul class="list-group"></ul>
 </div>
+<div id="chatdata"></div>
+<div id="data"></div>
 <div class="input-group">
      <input id="message" type="text" class="form-control input-sm" placeholder="Type your message here..." />
      <span class="input-group-btn">
@@ -43,8 +45,6 @@ ul.active{
              Send</button>
      </span>
 </div>
-<div id="chatdata"></div>
-<div id="data"></div>
 </div>
 <script type="text/javascript">
 var sock = new SockJS("<c:url value='/chat'/>");
@@ -67,7 +67,16 @@ $(function(){
 
 		
 	});
+	
+	$('#message').keypress(function(event){
+	     if ( event.which == 13 ) {
+	         $('#sendBtn').click();
+	         return false;
+	     }
+	});
 })
+
+
 
 function sendMessage(){
 	//websocket으로 메세지보내기
@@ -101,14 +110,14 @@ function onMessage(evt){
 			printHTML += "<strong>@"+sessionid+" : "+message+"</strong>";
 			printHTML += "</div>";
 			printHTML += "</div>";
-			$("#chatdata").append(printHTML);
+			$("#chatdata").prepend(printHTML);
 		}else{
 			var printHTML = "<div class='well'>";
 			printHTML += "<div class='alert alert-warning'>";
 			printHTML += "<strong>@"+sessionid+" : "+message+"</strong>";
 			printHTML += "</div>";
 			printHTML += "</div>";
-			$("#chatdata").append(printHTML);
+			$("#chatdata").prepend(printHTML);
 		}
 		
 		console.log('chatting data:' +data);
@@ -126,17 +135,17 @@ function onMessage(evt){
 		if(connectId == currentuser_session){
 			var printHTML = "<div class='well'>";
 			printHTML += "<div class='alert alert-info'>";
-			printHTML += "<strong>@"+connectId+" : "+message+"</strong>";
+			printHTML += "<strong>@"+connectId+"  "+message+"</strong>";
 			printHTML += "</div>";
 			printHTML += "</div>";
-			$("#chatdata").append(printHTML);
+			$("#chatdata").prepend(printHTML);
 		}else{
 			var printHTML = "<div class='well'>";
 			printHTML += "<div class='alert alert-warning'>";
-			printHTML += "<strong>@"+connectId+" : "+message+"</strong>";
+			printHTML += "<strong>@"+connectId+"  "+message+"</strong>";
 			printHTML += "</div>";
 			printHTML += "</div>";
-			$("#chatdata").append(printHTML);
+			$("#chatdata").prepend(printHTML);
 		}
 		
 				
