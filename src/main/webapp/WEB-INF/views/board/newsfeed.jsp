@@ -398,9 +398,9 @@ input{
 			contentType : "application/json; charset=UTF-8",
 			dataType : 'json',
 			success : function(data){
+				$("div."+boseq).remove(); //기존에 있던 댓글 전부 날리기.
 				alert('댓글삭제 성공!');
 				if(data != ""){
-					$("div."+boseq).remove(); //기존에 있던 댓글 전부 날리기.
 					$(commwrite).remove();
 					$(data).each(function(){
 						 var str = "";
