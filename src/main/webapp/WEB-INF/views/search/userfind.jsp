@@ -36,7 +36,6 @@ ul.list-group>li>button {
 							</c:otherwise>
 						</c:choose>
 						<a href="${pageContext.request.contextPath}/board/friList.do?writer=${s.id}" style="color: black"><span>${s.id}</span></a>
-						<button type="button" class="btn btn-xs">팔로우</button></li>
 				</c:forEach>
 			</ul>
 		</div>

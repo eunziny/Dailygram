@@ -18,32 +18,13 @@
 
 </style>
 <script>
-$(document).ready(function() {
+$(function(){
 	$("#findId").click(function() {
 		var email = $("#email").val();
 		if ($("#email").val() == '') {
 			alert("이메일을 입력하세요");
 			return;
-		} else {
-			$.ajax({
-				method:'POST',
-				data:{
-					'email':$('#email').val()
-					},
-				url:'member/idResult.do',
-				success:function(data){
-					data = data.trim();
-					if(data!= null){//data아이디 받아오기
-						var result = "회원님의 아이디는 " + data + " 입니다.";
-						$('span#resultdata').html(result).css('color', 'blue').show();
-					}else if(data == null){
-						var result = '위 정보에 맞는 아이디가 존재하지 않습니다. 다시 입력하세요'
-						$('span#resultdata').html(result).css('color', 'red').show();
-					}
-				}
-			});
-		}
-	});
+		} 
 });
 </script>
 <form action="${pageContext.request.contextPath }/member/idResult.do" name="myID" method="post" onsubmit="return(validate());">

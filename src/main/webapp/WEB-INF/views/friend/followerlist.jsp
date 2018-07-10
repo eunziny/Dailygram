@@ -40,7 +40,8 @@ ul.list-group>li>a[name=wait] {
 					<c:if test="${empty list }">다시한번 조회해주시기 바랍니다. </c:if>
 					<c:if test="${not empty list }">
 						<c:forEach var="p" items="${list }">
-							<li class="list-group-item"><c:choose>
+							<li class="list-group-item">
+								<c:choose>
 									<c:when test="${p.profile_img ne null}">
 										<img alt="" class="img-circle"
 											src="/dailygram/thumbnail_mem/${p.profile_img}" width="30">
@@ -50,10 +51,10 @@ ul.list-group>li>a[name=wait] {
 											src="http://www.technifroid-pro.fr/wp-content/uploads/2014/02/Technifroid-F.jpg"
 											width="30">
 									</c:otherwise>
-								</c:choose> <a
-								href='${pageContext.request.contextPath }/board/friList.do?writer=${p.id }'
-								style="color: black"><span>${p.id }</span></a> <c:if
-									test="${p.status eq 'y' }">
+								</c:choose>
+								<a href='${pageContext.request.contextPath }/board/friList.do?writer=${p.id }'
+									style="color: black"><span>${p.id }</span></a> 
+								<c:if test="${p.status eq 'y' }">
 									<a type="button"
 										href='${pageContext.request.contextPath }/friend/cancelFollow.do?writer=${p.id }&type=2'
 										class="btn btn-xs">팔로잉 취소</a>
@@ -65,7 +66,8 @@ ul.list-group>li>a[name=wait] {
 									<a type="button" name="wait"
 										href='${pageContext.request.contextPath }/friend/cancelFollow.do?writer=${p.id }&type=2'
 										class="btn btn-xs">팔로우 요청 취소</a>
-								</c:if></li>
+								</c:if>
+							</li>
 						</c:forEach>
 					</c:if>
 				</ul>
