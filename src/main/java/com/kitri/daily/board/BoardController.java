@@ -369,9 +369,7 @@ public class BoardController {
 		   }
 	   }
 	   
-//	   List<Board> list = (ArrayList<Board>) service.getList(board);
 	   Member fri = service.friend(writer);
-	   System.out.println("Ä«¿îÆ®~~~~~~~!! " + fri.getCnt());
 	   session.setAttribute("friendId", writer);
 	   ModelAndView mav = new ModelAndView("board/friList");
 	   mav.addObject("list", list);

@@ -83,25 +83,23 @@ function put(address,zip_code){
 	} //우편번호 검색 end
 
 $(function(){
-	$("button[type=submit]").click(function(){
-		if( $("input[type=file]").val() == "" ){
+	$("button[type='submit']").click(function(){
+		if( $("input[type='file']").val() == "" ){
 	         alert('업로드할 이미지를 선택해주세요.');
 	         return false;
 	      }
 	});
-	$("input[type=file]").change(function(){
-    	if( $("input[type=file]").val() != "" ){
+ 	$("input[type='file']").change(function(){
+    	if( $("input[type='file']").val() != "" ){
         	var ext = $('#file').val().split('.').pop().toLowerCase();
         	if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
             	alert('gif,png,jpg,jpeg 파일만 업로드 할수 있습니다.');
-            	$("input[type=file]").val("");
+            	$("input[type='file']").val("");
             	return;
             }
         }
    });
 });
-
-
 </script>
 
 <div class="container-fluid" id="memeditbottom">
@@ -135,7 +133,7 @@ $(function(){
 						<h2>${sessionScope.memInfo.id }</h2>
 						<br>
 						<h5 style="font-weight: bold">프로필 사진 수정</h5>
-						<input type="file" name="file" accept=".png, .jpg, .jpeg, .gif" />
+						<input type="file" name="file" id="file" accept=".png, .jpg, .jpeg, .gif" />
 					</div>
 				</div>
 			</div>
@@ -250,19 +248,13 @@ $(function(){
 										<h3 class="modal-title" id="myModalLabel"><b>우편번호 검색</b></h3>
 									</div>
 									<div class="modal-body text-center">
-										<form id="zip_codeForm">
 											<div class="input-group">
 												<span class="input-group-addon">동 입력</span> 
 													<input type="text" class="form-control" name="query" id="query">
 												<span class="input-group-btn">
-													<!-- <input type="button" class="btn btn-warning" value="검색" id="searchBtn" 	onkeydown="javascript:if(event.keyCode==13)"> -->
-													<!-- <input type="button" class="btn btn-warning" value="검색" id="searchBtn"> -->
-													<!-- <button class="btn btn-warning" id="searchBtn">검색</button> -->
 													<a class="btn btn-warning" id="searchBtn2">검색</a>
 												</span>
 											</div>
-										</form>
-										<p></p>
 										<div>
 											<div style="width: 100%; height: 400px; overflow: auto">
 												<table class="table text-center">
