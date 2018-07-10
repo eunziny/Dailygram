@@ -58,7 +58,7 @@ input{
 								<li><a href="${pageContext.request.contextPath }/board/del.do?bseq=${b.board_seq}">삭제</a></li>
 					  		</c:when>  
 					  		<c:otherwise>
-					  			<c:if test="${b.type eq 'X' or l.type eq 'L'}">
+					  			<c:if test="${b.type eq 'X' or b.type eq 'L'}">
 							  		<li><a href="${pageContext.request.contextPath }/board/siren.do?bseq=${b.board_seq}">신고</a></li>
 							  	</c:if>
 							 	<c:if test="${b.type eq 'S'}">
@@ -75,7 +75,7 @@ input{
                     
                     <div class='footer'>
                       <div class='react'>
-                      	<c:if test="${b.type eq 'X' or l.type eq 'S'}">
+                      	<c:if test="${b.type eq 'X' or b.type eq 'S'}">
                         	<a role='button' href="${pageContext.request.contextPath }/board/like.do?bseq=${b.board_seq}">
                         		<i class="far fa-heart fa-2x"></i></a>
                         </c:if>
