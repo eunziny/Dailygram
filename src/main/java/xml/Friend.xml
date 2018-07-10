@@ -39,7 +39,7 @@
 	      select count(*) from relationship
 	      where sender = #{id}
 	      and status
-	      in ('y','r','n')
+	      in ('Y','R','N')
 	</select>
 	
 	<select id="selectRecommend" resultMap="FriendResult" parameterType="String">
@@ -54,8 +54,8 @@
 						AND b.board_seq = l.board_seq
 						ORDER BY posted DESC) bb
 		WHERE m.id = bb.writer
-		AND m.publicyn='y'
-		AND m.useyn='y'
+		AND m.publicyn='Y'
+		AND m.useyn='Y'
 		AND m.id NOT LIKE #{id} 
 	</select>
 	
@@ -70,9 +70,9 @@
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status
-			  in ('y','r','n')
+			  in ('Y','R','N')
 			  )
-		AND useyn='y'
+		AND useyn='Y'
 	</select>
 	
 	<select id="selectRecommendHT2" resultMap="FriendResult" parameterType="com.kitri.daily.friend.Friend">
@@ -82,9 +82,9 @@
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status
-			  in ('y','r','n')
+			  in ('Y','R','N')
 			  )
-		AND useyn='y'
+		AND useyn='Y'
 	</select>
 	
 	<select id="selectRecommendHT3" resultMap="FriendResult" parameterType="com.kitri.daily.friend.Friend">
@@ -94,9 +94,9 @@
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status
-			  in ('y','r','n')
+			  in ('Y','R','N')
 			  )
-		AND useyn='y'
+		AND useyn='Y'
 	</select>
 	
 	<select id="selectRecommendHT4" resultMap="FriendResult" parameterType="com.kitri.daily.friend.Friend">
@@ -107,9 +107,9 @@
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status
-			  in ('y','r','n')
+			  in ('Y','R','N')
 			  )
-		AND useyn='y'
+		AND useyn='Y'
 	</select>
 	
 	<select id="selectRecommendHT5" resultMap="FriendResult" parameterType="com.kitri.daily.friend.Friend">
@@ -121,9 +121,9 @@
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status
-			  in ('y','r','n')
+			  in ('Y','R','N')
 			  )
-		AND useyn='y'
+		AND useyn='Y'
 	</select>
 	
 	<select id="selectRecommend2" resultMap="FriendResult" parameterType="String">
@@ -138,13 +138,13 @@
 						AND b.board_seq = l.board_seq
 						ORDER BY posted DESC) bb
 		WHERE m.id = bb.writer
-		AND m.publicyn='y'
-		AND m.useyn='y'
+		AND m.publicyn='Y'
+		AND m.useyn='Y'
 		AND m.id NOT LIKE #{id}
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status
-			  in ('y','r','n')
+			  in ('Y','R','N')
 			  )
 	</select>
 	
@@ -154,7 +154,7 @@
 		WHERE id in(SELECT receiver
 					FROM relationship
 					WHERE sender=#{id}
-					AND status='r')
+					AND status='R')
 	</select>
 	
 	<select id="selectFollowingList" resultMap="FriendResult" parameterType="String">
@@ -163,7 +163,7 @@
 		WHERE id in(SELECT receiver
 					FROM relationship
 					WHERE sender=#{id}
-					AND status='y')
+					AND status='Y')
 	</select>
 	
 	<select id="selectFollowerList" resultMap="FriendResult" parameterType="String">
@@ -172,24 +172,24 @@
 		WHERE id in(SELECT sender
 						FROM relationship
 						WHERE receiver=#{id}
-						AND status='y')
+						AND status='Y')
 	</select>
 	
 	<select id="selectProfileCount" resultType="Integer" parameterType="String">
 		SELECT count(*)
 		FROM relationship
 		WHERE receiver=#{id}
-		AND status='y'
+		AND status='Y'
 		union all
 		SELECT count(*)
 		FROM relationship
 		WHERE sender=#{id}
-		AND status='y'
+		AND status='Y'
 		union all
 		SELECT count(*)
 		FROM relationship
 		WHERE sender=#{id}
-		AND status='r'
+		AND status='R'
 	</select>
 	
 	<insert id="insertSubscribe" parameterType="com.kitri.daily.friend.Relationship">

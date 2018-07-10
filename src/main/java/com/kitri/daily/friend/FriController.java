@@ -115,11 +115,8 @@ public class FriController {
 
 		if (list.size() < 15) {
 			ArrayList<Friend> list3 = list;
-			/*
-			 * for(int a=0; a<list.size();a++) { list3.set(a, list.get(a)); }//list3¿¡ listº¹»ç
-			 */
 
-			System.out.print("list : ");
+			/*System.out.print("list : ");
 			for (int i = 0; i < list.size(); i++) {
 				System.out.print(list.get(i) + ", ");
 			}
@@ -130,15 +127,15 @@ public class FriController {
 				System.out.print(list3.get(i) + ", ");
 			}
 			System.out.println("");
-
+*/
 			ArrayList<Friend> list2 = (ArrayList<Friend>) service.getRecommend2(id);
 
-			System.out.print("list2 : ");
+			/*System.out.print("list2 : ");
 			for (int i = 0; i < list2.size(); i++) {
 				System.out.print(list2.get(i) + ", ");
 			}
 			System.out.println("");
-
+*/
 			for (int i = 0; i < list2.size(); i++) {
 				boolean check = false;
 				for (int j = 0; j < list.size(); j++) {
