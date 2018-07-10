@@ -14,8 +14,9 @@
 </head>
 <script>
 	$(function() {
-		$('a#close').click(function() {
-			close();
+		$('button#close').click(function() {
+			//close();
+			location.href="${pageContext.request.contextPath}/admin/chargelist.do";
 		});
 	});
 </script>
@@ -42,13 +43,14 @@
 													width="30">
 											</c:otherwise>
 										</c:choose> 
-										<a href=# style="color: black"><span>${pl.sender}</span></a>
+										<a href="${pageContext.request.contextPath}/board/friList.do?writer=${pl.sender}" style="color: black"><span>${pl.sender}</span></a>
 									</li>
 								</ul>
 							</c:forEach>
 							<div class="pull-right">
-								<a id="close" type="button" class="btn btn-success"
-									style="background-color: #9770f9">닫기</a>
+								<!-- <a id="close" type="button" class="btn btn-success"
+									style="background-color: #9770f9">닫기</a> -->
+								<button id="close" class="btn btn-success">닫기</button>	
 							</div>
 						</div>
 					</div>

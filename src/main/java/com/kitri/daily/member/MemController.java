@@ -54,7 +54,6 @@ public class MemController {
 	@RequestMapping(value = "/member/login.do")
 	public String login(HttpServletRequest req, Member m) {
 		Member mem = service.getMember(m.getId());
-
 		if (mem == null || !mem.getPwd().equals(m.getPwd())) {
 			System.out.println("로그인 실패");
 			return "redirect:/member/loginForm.do";
