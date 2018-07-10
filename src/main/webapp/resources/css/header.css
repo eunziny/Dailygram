@@ -177,11 +177,14 @@ i.fas , span.glyphicon , span.hidden-xs{
   border-width: 0 1px 0 1px;
 }
 
+div.search{
+	margin-left: 50px;
+}
 
 
 /*Notification Bell dropdown*/
 .top-nav {
-	width: 300px;
+	width: 355px;
     padding: 0 5px;
 }
 .top-nav > li {
