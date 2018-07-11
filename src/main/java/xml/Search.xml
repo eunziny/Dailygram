@@ -29,7 +29,7 @@
    </select>
 
 	<select id="selectByUser" parameterType="String" resultMap="SearchResult">
-      select id, profile_img 
+      select id, ifnull(profile_img,'X') profile_img 
       from member
       where id like CONCAT(#{tagname},'%')
       order by id 

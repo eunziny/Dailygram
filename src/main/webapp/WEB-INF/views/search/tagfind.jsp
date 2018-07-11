@@ -88,11 +88,11 @@
 <a id="footer"></a>
 <script>
 
-	/* //이미지 세부로 들어가기
+	//이미지 세부로 들어가기
 	$(document).on('click','.scrolling',function(event){
 		var board_seq = $(this).children(":last").val();
 		location.href="${pageContext.request.contextPath }/board/post.do?bseq="+board_seq;
-	}); */
+	});
 	
 	
 	// Top버튼 클릭시
