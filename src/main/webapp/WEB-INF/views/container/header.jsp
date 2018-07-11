@@ -168,7 +168,7 @@ $(function(){
 					</div>
 					<div class="col-md-offset-1 col-md-4">
 						<form id="searchform"
-							action="${pageContext.request.contextPath }/container/search.do" method="post">
+							action="${pageContext.request.contextPath }/container/search.do" method="post" style="position:relative;">
 							<div class="input-group">
 								<div class="input-group-btn bs-dropdown-to-select-group">
 									<button type="button"
@@ -188,18 +188,18 @@ $(function(){
 								<input type="text" id="searchValue" class="form-control"
 									name="searchValue" placeholder='Search'
 									style="text-align: center;">
-								<!-- 자동완성 결과 보여주는 부분 -->
-								<div class="auto-body"
-									style="display: none; position: relative; left: 13px; top: 0px; height: 148px; width: 184px; margin-left: -12px; clear: both; overflow: hidden; margin-top: -149px; background-color: #fff; border: 1px solid #ccc;">
-									<div class='listgroup'>
-										<div></div>
-									</div>
-								</div>
-								<!-- 자동완성 결과 end -->
 								<span class="input-group-btn">
 									<button id="searchBtn" class="btn btn-default">검색</button>
 								</span>
 							</div>
+							<!-- 자동완성 결과 보여주는 부분 -->
+							<div class="auto-body"
+								style="display: none; position: absolute; left: 122px; top: 182px; height: 155px; width: 186px; margin-left: -12px; clear: both; overflow: hidden; overflow-y:scroll; margin-top: -149px; background-color: #fff; border: 1px solid #ccc;">
+								<div class='listgroup'>
+									<div></div>    
+								</div>
+							</div>
+							<!-- 자동완성 결과 end -->
 						</form>
 					</div>
 					<div id='right'>
