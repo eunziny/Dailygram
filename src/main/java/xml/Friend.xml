@@ -253,5 +253,6 @@
 		readyn='Y', date=now()
 		where
 		sender=#{sender} and receiver=#{receiver}
+		ON DUPLICATE KEY UPDATE sender=#{sender}, receiver=#{receiver}, readyn='Y'
 	</update>
 </mapper>
