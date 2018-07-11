@@ -42,4 +42,5 @@ public interface BoardMapper {
 	List<Comment> getNewsComm(HashMap<String, List<Integer>> hm);
 	List<Member> getProfileImg(HashMap<String, List<String>> hm2);
 	void insertLikeAlerm(Alerm alerm);
+	void delAlerm(int board_seq);
 }
