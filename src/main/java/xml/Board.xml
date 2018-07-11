@@ -188,7 +188,6 @@
 		where sender= #{writer}
 		and status = 'Y'
 		) or b.writer = #{writer}
-		or ls.sender = #{writer}
         group by board_seq)
 		union
 		(select distinct b.* , ifnull(ls.type,'X') type , count(if(ls.type='L',ls.type,null)) likecnt from board b
@@ -199,7 +198,6 @@
 		where sender= #{writer}
 		and status = 'R'
 		) and public_yn = 'y'
-		or ls.sender = #{writer}
         group by board_seq)
 		order by posted desc
 		) a , (select @rownum:=0) tmp
@@ -219,7 +217,7 @@
 	</select>
 	
 	<select id="getProfileImg" resultMap="MemberResult" parameterType="hashmap">
-		select distinct m.id, m.profile_img from member m
+		select distinct m.id, ifnull(m.profile_img,'X') profile_img from member m
 		join board b on m.id = b.writer
 		where m.id in
 		<foreach collection="writer" item="w" open="(" close=")" separator=",">
