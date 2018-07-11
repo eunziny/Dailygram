@@ -58,7 +58,7 @@ public class SearchController {
 		List<Search> list2 = new ArrayList<Search>();
 		if (searchType.equals("¾ÆÀÌµð")) {
 			list = service.getSearchByUser(tagname);
-			int i=0;
+/*			int i=0;
 			for(Search s : list) {
 				String originpath = s.getProfile_img();
 				try {
@@ -70,7 +70,7 @@ public class SearchController {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
+			}*/
 			mav1.addObject("list", list);
 			System.out.println("userList : " + list);
 			return mav1;
