@@ -256,6 +256,11 @@
 		where board_seq = #{board_seq};
 	</delete>
 	
+	<delete id="delAlerm" parameterType="java.lang.Integer">
+		delete from alerm
+		where board_seq = #{board_seq};
+	</delete>
+	
 	<delete id="delBoard" parameterType="java.lang.Integer">
 		delete from board
 		where board_seq = #{board_seq};

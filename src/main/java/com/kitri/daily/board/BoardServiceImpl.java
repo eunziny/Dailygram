@@ -67,6 +67,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void deleteBoard(int board_seq) throws Exception {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.delAlerm(board_seq);
 		boardMapper.dellikeSiren(board_seq);
 		boardMapper.delHashtag(board_seq);
 		boardMapper.delComment(board_seq);
