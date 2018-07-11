@@ -23,13 +23,13 @@ public class Alerm {
 		this.board_seq = board_seq;
 	}
 
-	public Alerm(Date date, String sender, String receiver, String type) {
+	/*public Alerm(Date date, String sender, String receiver, String type) {
 		super();
 		this.date = date;
 		this.sender = sender;
 		this.receiver = receiver;
 		this.type = type;
-	}
+	}*/
 
 	public Alerm(Date date, String sender, String receiver, int board_seq, String type) {
 		super();
