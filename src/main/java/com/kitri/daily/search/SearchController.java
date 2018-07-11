@@ -126,7 +126,7 @@ public class SearchController {
 			System.out.println("cntArr[i]"+cntArr[i]);
 		}
 		/*i = 0; //index용*/
-		if(cntArr.length == 1) { //아무 활동도 하지 않은 상태  cnt=0 1줄
+		if(Integer.parseInt(cntArr[0]) == 0 && Integer.parseInt(cntArr[1]) == 0) { //아무 활동도 하지 않은 상태  cnt=0 1줄
 			lookList = service.getLook(0);
 			/*for(Look b : lookList) {
 				String originpath = b.getImg();
@@ -139,7 +139,8 @@ public class SearchController {
 			mav.addObject("lookList",lookList);
 			mav.addObject("flag",1);
 		}else {
-			if(Integer.parseInt(cntArr[0]) > 1 && Integer.parseInt(cntArr[1]) == 0) {//좋아요 1이상 친구 0
+			if(Integer.parseInt(cntArr[0]) >= 1 && Integer.parseInt(cntArr[1]) == 0) {//좋아요 1이상 친구 0
+				System.out.println("좋아요만 1이상");
 				List <Look> likeLookList = new ArrayList<Look>();
 				Look lo = new Look(id,0);
 				likeLookList = service.getLikeLook(lo);
@@ -155,12 +156,13 @@ public class SearchController {
 				
 				mav.addObject("lookList",likeLookList);
 				mav.addObject("flag",2);
-			}else if(Integer.parseInt(cntArr[0]) == 0 && Integer.parseInt(cntArr[1]) > 1 ) {//좋아요 0 친구 1이상
+			}else if(Integer.parseInt(cntArr[0]) == 0 && Integer.parseInt(cntArr[1]) >= 1 ) {//좋아요 0 친구 1이상
 				String friCnt = service.getFriLookCnt(id);
 				List <Look> friLookList = new ArrayList<Look>();
 				Look lo = new Look(id,0);
-				
+				System.out.println("친구만있음여기로");
 				if(Integer.parseInt(friCnt) <= 100) {
+					System.out.println("여기로와야지");
 					friLookList = service.getFriLookDown(lo);
 					mav.addObject("flag",3);
 				}else {//100개 이상이라면
