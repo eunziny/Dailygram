@@ -30,7 +30,6 @@ input{
 				<c:forEach items="${boardList}" var = "b">	
                   <div class= 'insta scrolling'>
                     <div class='top-insta '>
-                      <a href='${pageContext.request.contextPath }/board/friList.do?writer=${b.writer}'>
 					  <c:if test="${!empty proList}">
 					  	<c:set var="loop_flag" value="flase"></c:set>
 					  	<c:forEach items="${proList}" var="po" varStatus="status">
@@ -46,8 +45,14 @@ input{
 					  		</c:if>
 					  	</c:forEach>
 					  </c:if>
-                      </a>
-                      <a href='${pageContext.request.contextPath }/board/friList.do?writer=${b.writer}' class='user'>${b.writer}</a>
+                      <c:choose>
+                      	<c:when test="${b.writer eq sessionScope.memInfo.id }">
+                      		<a href='${pageContext.request.contextPath }/board/myList.do?' class='user'>${b.writer}</a>
+                      	</c:when>
+                      	<c:otherwise>
+                      		<a href='${pageContext.request.contextPath }/board/friList.do?writer=${b.writer}' class='user'>${b.writer}</a>
+                      	</c:otherwise>
+                      </c:choose>
 					  <a href='#' id='menu' class="dropdown-toggle" data-toggle="dropdown">
 						<i class="fas fa-ellipsis-v fa-2x"></i>
 					  </a>
