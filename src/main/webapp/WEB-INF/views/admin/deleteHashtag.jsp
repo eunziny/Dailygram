@@ -64,7 +64,7 @@ body {
 	$(document).ready(function() {
 		//$("button#add").click(function(e) {
 		  $(document).on('click', 'button#add', function() {	
-			if($("input[name='tagname']").val() == "") {
+			if($("input[name='inserttag']").val() == "") {
 				alert("금지할 해시태그를 입력해주세요.");
 			} else {
 				alert("정말 해당 해시태그를 검색 금지어로 설정하시겠습니까?");
@@ -72,15 +72,14 @@ body {
 
 		});
 		
-		//$("button#delete, a#eye").on('click', function(e) {
-		$(document).on('click', 'button#delete, a#eye', function() {
+		$(document).on('click', "button#delete, a.eye", function(e) {
 			alert("해당  해시태그를 다시 활성화 시키시겠습니까?");
+			
 			var checkArr = []; //배열 초기화
 			
 			$("input[name='tagcancle']:checked").each(function(e) {
 				checkArr.push($(this).val());
 			});
-			
  			$.ajax ({
 				url: "${pageContext.request.contextPath}/admin/allclick.do",
 				type: 'post',
@@ -99,7 +98,7 @@ body {
 									+ "<li class='list-group-item'>"
 									+ "<form id='eyeclick' class='eyeclick'>"
 									+ "<div class='checkbox'>"
-									+ "<input type='checkbox' class='checkb' name='tagcancle' id='checkbox1'/>"
+									+ "<input type='checkbox' class='checkb' name='tagcancle' value='"+this.tagname+"'/>"
 									+ "<label for='checkbox1'>"+this.tagname+"</label>"
 									+ "</div>"
 									+ "<div class='pull-right action-buttons'>"
@@ -129,7 +128,7 @@ body {
 						<hr>
 						<div align="center">
 							<form action="${pageContext.request.contextPath}/admin/tagblock.do" method="post">
-							<input type="text" id="tagname" name="tagname" placeholder="금지할 해시태그를 입력하세요." style="width:300px; height:35px; vertical-align:middle;">
+							<input type="text" id="tagname" name="inserttag" placeholder="금지할 해시태그를 입력하세요." style="width:300px; height:35px; vertical-align:middle;">
 							<button id="add" type="submit" class="btn btn-danger" style="height:35px; vertical-align:middle;"><i class="glyphicon glyphicon-eye-close"></i>추가</button>
 							</form>
 						</div>
@@ -146,7 +145,7 @@ body {
 									<form id="eyeclick" class="eyeclick">
 									<div class="checkbox">
 										<input type="checkbox" class="checkb" name="tagcancle"
-											id="checkbox1" value="${bl.tagname}" /><label for="checkbox1">${bl.tagname}</label>
+											value="${bl.tagname}" /><label for="checkbox1">${bl.tagname}</label>
 									</div>
 									<div class="pull-right action-buttons">
 										<a href="#" class="eye" id="eye"><span class="glyphicon glyphicon-eye-open"></span></a>

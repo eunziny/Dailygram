@@ -35,7 +35,7 @@
 	<select id="selectFriendRelationshipCount" resultType="java.util.HashMap" parameterType="String">
 		select count(*) cnt from like_siren
 	      where sender = #{id}
-	      union all
+	      union
 	      select count(*) from relationship
 	      where sender = #{id}
 	      and status
@@ -70,7 +70,7 @@
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status
-			  in ('Y','R','N')
+			  in ('Y','R')
 			  )
 		AND useyn='Y'
 	</select>
@@ -82,7 +82,7 @@
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status
-			  in ('Y','R','N')
+			  in ('Y','R')
 			  )
 		AND useyn='Y'
 	</select>
@@ -94,7 +94,7 @@
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status
-			  in ('Y','R','N')
+			  in ('Y','R')
 			  )
 		AND useyn='Y'
 	</select>
@@ -107,7 +107,7 @@
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status
-			  in ('Y','R','N')
+			  in ('Y','R')
 			  )
 		AND useyn='Y'
 	</select>
@@ -121,7 +121,7 @@
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status
-			  in ('Y','R','N')
+			  in ('Y','R')
 			  )
 		AND useyn='Y'
 	</select>
@@ -144,7 +144,7 @@
 		AND id not in( select receiver from relationship
 			  where sender = #{id}
 			  and status
-			  in ('Y','R','N')
+			  in ('Y','R')
 			  )
 	</select>
 	

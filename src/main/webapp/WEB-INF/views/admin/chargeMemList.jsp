@@ -15,7 +15,6 @@
 <script>
 	$(function() {
 		$('button#close').click(function() {
-			//close();
 			location.href="${pageContext.request.contextPath}/admin/chargelist.do";
 		});
 	});
@@ -48,10 +47,9 @@
 								</ul>
 							</c:forEach>
 							<div class="pull-right">
-								<!-- <a id="close" type="button" class="btn btn-success"
-									style="background-color: #9770f9">닫기</a> -->
 								<button id="close" class="btn btn-success">닫기</button>	
 							</div>
+							<br><br><br><br>
 						</div>
 					</div>
 				</div>

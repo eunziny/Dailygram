@@ -27,17 +27,7 @@ public class SearchController {
 		this.service = service;
 	}
 	
-/*   @RequestMapping(value = "/container/autocomplete.do")
-   public ModelAndView autoSearch(String term) {
-      ModelAndView mav = new ModelAndView("container/header");
-      List<Search> autoList = new ArrayList<Search>();
-      autoList = service.getAutoSearch(term);
-      mav.addObject("autoList", autoList);
-      System.out.println("자동완성 리스트 : " + autoList);
-      return mav;
-   }*/
-	
-	@RequestMapping(value = "/container/autocomplete.do")
+/*	@RequestMapping(value = "/container/autocomplete.do")
 	public @ResponseBody String autoSearch(@RequestParam(value="term") String term, HttpServletRequest req) {
 		List<Search> autoList = new ArrayList<Search>();
 		autoList = service.getAutoSearch(term);
@@ -47,7 +37,14 @@ public class SearchController {
 	    json.put("searchlist", array);
 	    System.out.println("list :::: " + json.toString());
 		return json.toString();
-	}
+	}*/
+	
+    @RequestMapping(value = "/container/autocomplete.do")
+    public @ResponseBody List<Search> autoSearch(@RequestParam(value="term") String term, HttpServletRequest req) {
+       List<Search> autoList = service.getAutoSearch(term);
+       System.out.println("autoList >>>>>>> " + autoList);
+       return autoList;
+    }
 	
 	@RequestMapping(value = "/container/search.do")
 	public ModelAndView searchList(@RequestParam(value = "searchType") String searchType,
@@ -91,6 +88,7 @@ public class SearchController {
 		}
 	}
 	
+	//검색 결과 무한스크롤
 	@RequestMapping(value = "/search/infitag.do")
 	public @ResponseBody List<Search> infitag(@RequestParam(value="row") int row , 
 			@RequestParam(value="tagname") String tagname) {
@@ -99,7 +97,7 @@ public class SearchController {
 		Search sc = new Search(row, tagname);
 		infiSearchList = service.getSearchInfiTag(sc);
 		System.out.println("무한스크롤 되냐!!" + infiSearchList);
-		int i=0;
+/*		int i=0;
 		for(Search s : infiSearchList) {
 			String originpath = s.getImg();
 			int index = originpath.lastIndexOf("\\");
@@ -107,7 +105,7 @@ public class SearchController {
 			s.setImg(path);
 			infiSearchList.set(i, s);
 			i++;
-		}
+		}*/
 		return infiSearchList;
 		
 	}
