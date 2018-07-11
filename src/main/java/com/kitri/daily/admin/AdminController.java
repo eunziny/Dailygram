@@ -48,8 +48,8 @@ public class AdminController {
 	
 	//금지할 해시태그 추가하기
 	@RequestMapping(value = "/admin/tagblock.do")
-	public String tagblock(@RequestParam(value="tagname") String tagname) {
-		System.out.println("모야"+tagname);
+	public String tagblock(@RequestParam(value="inserttag") String tagname) {
+		System.out.println("추가할 금지태그 : "+tagname);
 		service.addBlocktag(tagname);
 		return "forward:/admin/deleteHashtag.do";
 	}
@@ -94,14 +94,6 @@ public class AdminController {
 		return mav;
 	}
 	
-	//해당 신고 게시물 보기
-	@RequestMapping(value = "/admin/chargepost.do")
-	public ModelAndView chargedetail(@RequestParam(value="bseq") int bseq) {
-		ModelAndView mav = new ModelAndView("board/post");
-		
-		return mav;
-	}
-	
 	//해당 게시물 신고자 리스트
 	@RequestMapping(value = "/admin/chargeperson.do")
 	public ModelAndView personlist(@RequestParam(value="bseq") int bseq) {
@@ -115,7 +107,7 @@ public class AdminController {
 	}
 	//신고 게시물 삭제
 	@RequestMapping(value = "/admin/postdel.do")
-	public String postdel(@RequestParam(value="valueArrTest[]") List<Integer> checkArr) {
+	public @ResponseBody List<Like_Siren> postdel(@RequestParam(value="valueArrTest[]") List<Integer> checkArr) {
 		System.out.println("들어오니? : " + checkArr);
 		for(int i=0; i<checkArr.size(); i++) {
 			try {
@@ -124,6 +116,7 @@ public class AdminController {
 				e.printStackTrace();
 			}
 		}
-		return "redirect:/admin/chargelist.do";
+		List<Like_Siren> delList = service.getChargeList();
+		return delList;
 	}
 }
