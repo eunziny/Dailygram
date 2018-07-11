@@ -29,7 +29,7 @@
    </select>
 
 	<select id="selectByUser" parameterType="String" resultMap="SearchResult">
-      select id, profile_img 
+      select id, ifnull(profile_img,'X') profile_img 
       from member
       where id like CONCAT(#{tagname},'%')
       order by id 
@@ -76,7 +76,7 @@
 	<select id="getLookCnt" resultType="String" parameterType="String">
 		select count(*) cnt from like_siren
 		where sender = #{id}
-		union
+		union all
 		select
 		count(*) from relationship
 		where sender = #{id}
@@ -115,8 +115,9 @@
 		select @rownum:=@rownum+1 As
 		row,b.board_seq , b.img
 		from
-		(select * from
-		board
+		(select bo.* from
+		board bo join member m
+        on bo.writer = m.id
 		where board_seq in(
 		select a.board_seq from
 		(select board_seq,
@@ -135,7 +136,7 @@
 		board_seq
 		order by
 		likecnt desc) a
-		)
+		) and m.publicyn = 'y'
 		order by field(board_seq,
 		'select
 		a.board_seq from
@@ -153,6 +154,7 @@
 		)
 		group by board_seq
 		order by likecnt desc) a
+        and m.publicyn = ''y''
 		'
 		)) b , (select
 		@rownum:=0) tmp
@@ -167,7 +169,9 @@
 		select @rownum:=@rownum+1 As row,
 		a.board_seq , a.img , a.posted from
 		(
-		select * from board
+		select bo.* from board bo
+        join member m
+        on m.id = bo.writer
 		where board_seq
 		in(
 		select aa.board_seq from
@@ -185,7 +189,8 @@
 		order by sender desc
 		) aa
 		)
-		and public_yn = 'y'
+		and bo.public_yn = 'y'
+        and m.publicyn = 'y'
         and now() >= date_add(posted, interval 1 minute)
 		) a
 		,(select @rownum:=0) tmp
@@ -203,7 +208,9 @@
 		(
 		( select a.board_seq , a.img , a.posted from
 		(
-		select * from board
+		select bo.* from board bo
+        join member m
+        on m.id = bo.writer
 		where board_seq in(
 		select aa.board_seq from
 		(
@@ -221,7 +228,8 @@
 		order by sender desc
 		) aa
 		)
-		and public_yn = 'y'
+		and bo.public_yn = 'y'
+        and m.publicyn = 'y'
         and now() >= date_add(posted, interval 1 minute)
 		) a )
 
@@ -232,8 +240,9 @@
 		(
 		select b.board_seq , b.img
 		,b.posted from
-		(select * from
-		board
+		(select bo.* from
+		board bo join member m
+        on m.id = bo.writer
 		where board_seq in(
 		select a.board_seq
 		from
@@ -253,7 +262,7 @@
 		board_seq
 		order by
 		likecnt desc) a
-		)
+		) and m.publicyn = 'y'
 		order by field(board_seq,
 		'select
 		a.board_seq from
@@ -271,6 +280,7 @@
 		)
 		group by board_seq
 		order by likecnt desc) a
+        and m.publicyn = ''y''
 		'
 		)) b , (select
 		@rownum:=0) tmp
@@ -287,7 +297,9 @@
 		select @rownum:=@rownum+1 As
 		row , a.* from
 		(
-		select * from board
+		select * from board bo
+        join member m
+        on m.id = bo.writer
 		where board_seq in(
 		select distinct
 		board_seq from hashtag
@@ -301,6 +313,7 @@
 		= #{id} )
 		)
 		)and public_yn = 'y'
+        and m.publicyn = 'y'
         and now() >= date_add(posted, interval 1 minute)
 		order by posted desc
 		)a ,(select @rownum:=0) tmp
@@ -313,7 +326,9 @@
 		(select @rownum:=@rownum+1 As row ,b.board_seq , b.img from
 		(select a.board_seq , a.img ,a.posted from
 		(
-		select * from board
+		select bo.* from board bo
+        join member m
+        on m.id = bo.writer
 		where board_seq
 		in(
 		select aa.board_seq from
@@ -332,12 +347,15 @@
 		) aa
 		)
 		and public_yn = 'y'
+        and m.publicyn = 'y'
 		and now() >= date_add(posted, interval 1 minute)
 		) a
 		union
 		select a.board_seq , a.img ,a.posted from
 		(
-		select * from board
+		select * from board bo
+        join member m
+        on m.id = bo.writer
 		where board_seq in(
 		select distinct board_seq from hashtag
 		where tagname in
@@ -348,6 +366,7 @@
 		where sender = #{id} )
 		)
 		)and public_yn = 'y'
+        and m.publicyn = 'y'
 		and now() >= date_add(posted, interval 1 minute)
 		order by posted desc
 		)a

@@ -46,7 +46,7 @@ input{
 					  </c:if>
                       <c:choose>
                       	<c:when test="${b.writer eq sessionScope.memInfo.id }">
-                      		<a href='${pageContext.request.contextPath }/board/myList.do?' class='user'>${b.writer}</a>
+                      		<a href='${pageContext.request.contextPath }/board/myList.do' class='user'>${b.writer}</a>
                       	</c:when>
                       	<c:otherwise>
                       		<a href='${pageContext.request.contextPath }/board/friList.do?writer=${b.writer}' class='user'>${b.writer}</a>
@@ -94,7 +94,14 @@ input{
                       </div>
                       <p style="margin-top:10px; font-weight:bold;">좋아요  ${b.likecnt }개</p>
                       <div class='caption'>
-                        <a href='${pageContext.request.contextPath }/board/friList.do?writer=${b.writer}'>${b.writer}</a>
+                      	<c:choose>
+                      	<c:when test="${b.writer eq sessionScope.memInfo.id }">
+                      		<a href='${pageContext.request.contextPath }/board/myList.do' class='user'>${b.writer}</a>
+                      	</c:when>
+                      	<c:otherwise>
+                      		<a href='${pageContext.request.contextPath }/board/friList.do?writer=${b.writer}' class='user'>${b.writer}</a>
+                      	</c:otherwise>
+                      	</c:choose>
                         <span>${b.content}</span>
                       </div>
                       <!-- 게시일 -->
@@ -104,7 +111,14 @@ input{
 							<c:forEach var="co" items="${coList }">
 								<c:if test="${co.board_seq eq b.board_seq }"> <!-- 현재 글번호와 댓글의 글번호가 같을때만  -->
 									<div class='comment-body ${b.board_seq }' style="padding-left: ${co.lev*30}px">
-		                       		 <a href='${pageContext.request.contextPath }/board/friList.do?writer=${co.writer }' class='user' id='a2'>${co.writer }</a>
+		                       		 <c:choose>
+				                      	<c:when test="${co.writer eq sessionScope.memInfo.id }">
+				                      		<a href='${pageContext.request.contextPath }/board/myList.do' class='user' id='a2' >${co.writer }</a>
+				                      	</c:when>
+				                      	<c:otherwise>
+				                      		<a href='${pageContext.request.contextPath }/board/friList.do?writer=${co.writer }' class='user' id='a2'>${co.writer }</a>
+				                      	</c:otherwise>
+				                     </c:choose>	
 		                       		 <input class= 'commcontent' readonly="readonly" value="${co.content }">
 		                       		 <c:if test="${sessionScope.memInfo.id eq co.writer }">
 		                       		 	<a><i class="fas fa-edit"></i></a>
@@ -202,10 +216,14 @@ input{
 											}
 										}
 									})
-								
-			                     str += "<a href='${pageContext.request.contextPath }/board/friList.do?writer="+bo.writer+"' class='user'>"+bo.writer+"</a>"
-								     +"<a href='#' id='menu' class'dropdown-toggle' data-toggle='dropdown'><i class='fas fa-ellipsis-v fa-2x'></i></a>" 
-									 +"<ul class='dropdown-menu dropdown-menu-right'>";
+								    if(bo.writer == '${sessionScope.memInfo.id}'){
+								    	str += "<a href='${pageContext.request.contextPath }/board/myList.do' class='user'>"+bo.writer+"</a>";
+								    }else{
+								    	str += "<a href='${pageContext.request.contextPath }/board/friList.do?writer="+bo.writer+"' class='user'>"+bo.writer+"</a>";
+								    }
+								 
+								   str  += "<a href='#' id='menu' class'dropdown-toggle' data-toggle='dropdown'><i class='fas fa-ellipsis-v fa-2x'></i></a>" 
+										+"<ul class='dropdown-menu dropdown-menu-right'>";
 									 
 									 
 								 if(bo.writer == '${sessionScope.memInfo.id}'){
@@ -236,20 +254,26 @@ input{
 								  	    + "<a role='button' href='${pageContext.request.contextPath }/board/repost.do?bseq="+bo.board_seq+"'>"
 								  	    + "<i class='far fa-share-square fa-2x'></i></a></div>"
 								  		+ "<p style='margin-top:10px; font-weight:bold;'>좋아요  "+bo.likecnt+" 개</p>"
-								  	    + "<div class='caption'>"
-								  	    + "<a href='${pageContext.request.contextPath }/board/friList.do?writer="+bo.writer+"'>"+bo.writer+"</a>"
-			                      		+ "<span>"+bo.content+"</span></div>"
+								  	    + "<div class='caption'>";
+								  	    
+								  	if(bo.writer == '${sessionScope.memInfo.id}'){
+								    	str += "<a href='${pageContext.request.contextPath }/board/myList.do' class='user'>"+bo.writer+"</a>";
+								    }else{
+								    	str += "<a href='${pageContext.request.contextPath }/board/friList.do?writer="+bo.writer+"' class='user'>"+bo.writer+"</a>";
+								    }    
+			                      		str += "<span>"+bo.content+"</span></div>"
 			                      		+ "<input class='public_yn' type = 'text' hidden='hidden' name='public_yn' value='"+bo.public_yn+"'>"	
 			                        	+ "<div class='comment-list'>";
-			                     
-			                        	
-			                        	
 			                      	if(data.coList != "" || data.coList != null){
 			                      		$(data.coList).each(function(index,co){
 											if(co.board_seq == bo.board_seq){
-												str += "<div class='comment-body "+bo.board_seq+"' style='padding-left: "+co.lev * 30+"px'>"
-											     + "<a href='${pageContext.request.contextPath }/board/friList.do?writer="+co.writer+"' class='user' id='a2'>"+co.writer+"</a>"
-					                       		 + "<input class= 'commcontent' readonly='readonly' value='"+co.content+"'>";
+												str += "<div class='comment-body "+bo.board_seq+"' style='padding-left: "+co.lev * 30+"px'>";
+												if(co.writer ==  '${sessionScope.memInfo.id}'){
+													str += "<a href='${pageContext.request.contextPath }/board/myList.do' class='user' id='a2'>"+co.writer+"</a>";
+												}else{
+												   str += "<a href='${pageContext.request.contextPath }/board/friList.do?writer="+co.writer+"' class='user' id='a2'>"+co.writer+"</a>";
+												}
+					                       		 str += "<input class= 'commcontent' readonly='readonly' value='"+co.content+"'>";
 					                       		 if('${sessionScope.memInfo.id}' == co.writer){
 					                       			str += "<a><i class='fas fa-edit'></i></a>"
 					                       				+ "<a><i class='fas fa-check okbtn' style='color:#9770f9; display:none'></i></a>"	
@@ -348,9 +372,13 @@ input{
 					$(commwrite).remove();
 					$(data).each(function(){
 						var str = "";
-						str += "<div class='comment-body "+boseq+"' style='padding-left: "+(this.lev *30)+"px'>"
-	                          +"<a href='${pageContext.request.contextPath }/board/friList.do?writer="+this.writer+"' class='user' id='a2'>"+this.writer+"</a>"
-	                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
+						str += "<div class='comment-body "+boseq+"' style='padding-left: "+(this.lev *30)+"px'>";
+						if(this.writer ==  '${sessionScope.memInfo.id}'){
+							str += "<a href='${pageContext.request.contextPath }/board/myList.do' class='user' id='a2'>"+this.writer+"</a>";
+						}else{
+						   str += "<a href='${pageContext.request.contextPath }/board/friList.do?writer="+this.writer+"' class='user' id='a2'>"+this.writer+"</a>";
+						}      
+                       		 str +="<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
 	                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
 	                       	  +"<input id='replycnt' type='hidden' value='"+this.reply+"'>";
 						if('${sessionScope.memInfo.id}' == this.writer){
@@ -406,9 +434,13 @@ input{
 					$(commwrite).remove();
 					$(data).each(function(){
 						 var str = "";
-							str += "<div class='comment-body "+boseq+"' style='padding-left: "+(this.lev *30)+"px'>"
-		                          +"<a href='${pageContext.request.contextPath }/board/friList.do?writer="+this.writer+"' class='user' id='a2'>"+this.writer+"</a>"
-		                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
+							str += "<div class='comment-body "+boseq+"' style='padding-left: "+(this.lev *30)+"px'>";
+							if(this.writer ==  '${sessionScope.memInfo.id}'){
+								str += "<a href='${pageContext.request.contextPath }/board/myList.do' class='user' id='a2'>"+this.writer+"</a>";
+							}else{
+							   str += "<a href='${pageContext.request.contextPath }/board/friList.do?writer="+this.writer+"' class='user' id='a2'>"+this.writer+"</a>";
+							}      
+		                       str += "<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
 		                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
 		                       	  +"<input id='replycnt' type='hidden' value='"+this.reply+"'>";
 							if('${sessionScope.memInfo.id}' == this.writer){
@@ -470,9 +502,13 @@ input{
 						$(commwrite).remove();
 						 $(data).each(function(){
 							 var str = "";
-								str += "<div class='comment-body "+boseq+"' style='padding-left: "+(this.lev *30)+"px'>"
-			                          +"<a href='${pageContext.request.contextPath }/board/friList.do?writer="+this.writer+"' class='user' id='a2'>"+this.writer+"</a>"
-			                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
+								str += "<div class='comment-body "+boseq+"' style='padding-left: "+(this.lev *30)+"px'>";
+								if(this.writer ==  '${sessionScope.memInfo.id}'){
+									str += "<a href='${pageContext.request.contextPath }/board/myList.do' class='user' id='a2'>"+this.writer+"</a>";
+								}else{
+								   str += "<a href='${pageContext.request.contextPath }/board/friList.do?writer="+this.writer+"' class='user' id='a2'>"+this.writer+"</a>";
+								}      
+			                       str +="<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
 			                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
 			                       	  +"<input id='replycnt' type='hidden' value='"+this.reply+"'>";
 								if('${sessionScope.memInfo.id}' == this.writer){
@@ -524,9 +560,13 @@ input{
 					$(commwrite).remove();
 					 $(data).each(function(){
 						var str = "";
-							str += "<div class='comment-body "+boseq+"' style='padding-left: "+(this.lev *30)+"px'>"
-		                          +"<a href='${pageContext.request.contextPath }/board/friList.do?writer="+this.writer+"' class='user' id='a2'>"+this.writer+"</a>"
-		                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
+							str += "<div class='comment-body "+boseq+"' style='padding-left: "+(this.lev *30)+"px'>";
+							if(this.writer ==  '${sessionScope.memInfo.id}'){
+								str += "<a href='${pageContext.request.contextPath }/board/myList.do' class='user' id='a2'>"+this.writer+"</a>";
+							}else{
+							   str += "<a href='${pageContext.request.contextPath }/board/friList.do?writer="+this.writer+"' class='user' id='a2'>"+this.writer+"</a>";
+							}     
+		                       str +="<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
 		                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
 		                       	  +"<input id='replycnt' type='hidden' value='"+this.reply+"'>";
 							if('${sessionScope.memInfo.id}' == this.writer){

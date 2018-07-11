@@ -105,7 +105,7 @@ $(function(){
   			dataType:'json',
   			success:function(data){
   				console.log(data);
-  				var id = $('ul.dropdown-menu-list'); 
+  				var id = $('ul#alerm'); 
   				html="";
   				if(data==""){
 						html+='<li><span class="label label-sm label-icon label-danger"></span>&nbsp;<strong>새로운 알림이 없습니다.</strong></li>';
@@ -218,20 +218,10 @@ $(function(){
 									class="dropdown-toggle" href="javascript:;"
 									data-toggle="dropdown" data-hover="dropdown"
 									data-close-others="true" aria-expanded="true"> <i
-										class="fas fa-bell"></i> <%-- <span class="badge badge-default">
-		<%int alermsize = Integer.parseInt((String) session.getAttribute("alermSize")); 
-		if(alermsize>0){ %> <strong>NEW</strong> <%} %></span> --%></a>
-									<ul class="dropdown-menu dropdown-menu-alerm">
-										<ul class="dropdown-menu-list" id="alerm">
-											<!-- <li> <a href="javascript:;"> 
-							<span class="time">just now</span> 
-								<span class="details"> 
-									<span class="label label-sm label-icon label-success"> 
-									<i class="fa fa-plus"></i> 
-								</span> abb님이 좋아요를 눌렀습니다
-							</span> 
-						</a> 
-					</li> -->
+										class="fas fa-bell"></i></a>
+									<ul class="dropdown-menu">
+										<ul class="dropdown-menu-list" id="alerm" style="overflow-y:scroll; height:250px">
+										
 										</ul>
 									</ul>
 								</li>
