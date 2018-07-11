@@ -20,18 +20,36 @@ input{
             <section>
                   <div class= 'insta'>
                     <div class='top-insta'>
-                      <a href='${pageContext.request.contextPath }/board/friList.do?writer=${b.writer}'>
-                      <c:set var="profile" value="${fri.profile_img}" /> 
-					  <c:choose>
-						<c:when test="${profile ne null}"> 
-							<img id='user_img' src="/dailygram/thumbnail_mem/${fri.profile_img}">
-						</c:when>
-						<c:otherwise>
-							<img id='user_img' src="http://www.technifroid-pro.fr/wp-content/uploads/2014/02/Technifroid-F.jpg">
-						</c:otherwise>
-					  </c:choose>
-                      </a>
-                      <a href='${pageContext.request.contextPath }/board/friList.do?writer=${b.writer}' class='user'>${b.writer}</a>
+                      <c:choose>
+						  <c:when test="${b.writer eq sessionScope.memInfo.id }">
+						  	  <a href='${pageContext.request.contextPath }/board/myList.do'>
+		                      <c:set var="profile" value="${sessionScope.memInfo.profile_img}" /> 
+							  <c:choose>
+								<c:when test="${profile ne null}"> 
+									<img id='user_img' src="/dailygram/thumbnail_mem/${sessionScope.memInfo.profile_img}">
+								</c:when>
+								<c:otherwise>
+									<img id='user_img' src="http://www.technifroid-pro.fr/wp-content/uploads/2014/02/Technifroid-F.jpg">
+								</c:otherwise>
+							  </c:choose>
+		                      </a>
+		                      <a href='${pageContext.request.contextPath }/board/myList.do' class='user'>${sessionScope.memInfo.id}</a>
+	                      </c:when>
+	                      <c:otherwise>
+	                      	  <a href='${pageContext.request.contextPath }/board/friList.do?writer=${b.writer}'>
+		                      <c:set var="profile" value="${fri.profile_img}" /> 
+							  <c:choose>
+								<c:when test="${profile ne null}"> 
+									<img id='user_img' src="/dailygram/thumbnail_mem/${fri.profile_img}">
+								</c:when>
+								<c:otherwise>
+									<img id='user_img' src="http://www.technifroid-pro.fr/wp-content/uploads/2014/02/Technifroid-F.jpg">
+								</c:otherwise>
+							  </c:choose>
+		                      </a>
+		                      <a href='${pageContext.request.contextPath }/board/friList.do?writer=${b.writer}' class='user'>${b.writer}</a>
+	                      </c:otherwise>
+	                  </c:choose>
 					  <a href='#' id='menu' class="dropdown-toggle" data-toggle="dropdown">
 						<i class="fas fa-ellipsis-v fa-2x"></i>
 					  </a>
@@ -74,8 +92,16 @@ input{
                       </div>
                       <p style="margin-top:10px; font-weight:bold;">좋아요  ${b.likecnt }개</p>
                       <div class='caption'>
-                        <a href='${pageContext.request.contextPath }/board/friList.do?writer=${b.writer}'>${b.writer}</a>
-                        <span>${b.content}</span>
+						<c:choose>
+							<c:when test="${b.writer eq sessionScope.memInfo.id }">
+								<a href='${pageContext.request.contextPath }/board/myList.do?' class='user'>${b.writer}</a>
+							</c:when>
+							<c:otherwise>
+								<a href='${pageContext.request.contextPath }/board/friList.do?writer=${b.writer}'
+									class='user'>${b.writer}</a>
+							</c:otherwise>
+						</c:choose>
+						<span>${b.content}</span>
                       </div>
                       <!-- 게시일 -->
                       <input class="public_yn" type = "text" hidden="hidden" name="public_yn" value="${b.public_yn}">
