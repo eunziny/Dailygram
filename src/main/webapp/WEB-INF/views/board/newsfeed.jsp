@@ -31,11 +31,10 @@ input{
                   <div class= 'insta scrolling'>
                     <div class='top-insta '>
 					  <c:if test="${!empty proList}">
-					  	<c:set var="loop_flag" value="flase"></c:set>
 					  	<c:forEach items="${proList}" var="po" varStatus="status">
 					  		<c:if test="${po.id eq b.writer }">
 					  			<c:choose>
-					  				<c:when test="${!empty po.profile_img}">
+					  				<c:when test="${po.profile_img ne 'X'}">
 					  					<img id='user_img' src="/dailygram/thumbnail_mem/${po.profile_img}">
 					  				</c:when>
 					  				<c:otherwise>
@@ -105,7 +104,7 @@ input{
 							<c:forEach var="co" items="${coList }">
 								<c:if test="${co.board_seq eq b.board_seq }"> <!-- 현재 글번호와 댓글의 글번호가 같을때만  -->
 									<div class='comment-body ${b.board_seq }' style="padding-left: ${co.lev*30}px">
-		                       		 <a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>${co.writer }</a>
+		                       		 <a href='${pageContext.request.contextPath }/board/friList.do?writer=${co.writer }' class='user' id='a2'>${co.writer }</a>
 		                       		 <input class= 'commcontent' readonly="readonly" value="${co.content }">
 		                       		 <c:if test="${sessionScope.memInfo.id eq co.writer }">
 		                       		 	<a><i class="fas fa-edit"></i></a>
@@ -170,9 +169,7 @@ input{
 			// down-scroll : 현재 게시글 다음의 글을 불러온다.
             console.log("down-scroll");
 			lastScrollTop = currentScrollTop;
-			console.log('스크롤탑'+$(window).scrollTop());
-			console.log('도큐먼트 높이'+$(document).height());
-			console.log('윈도우 높이'+$(window).height());
+
 			if(flag != false ){
 			if (Math.ceil($(window).scrollTop()) >= ($(document).height() - $(window).height())){
 				console.log('여기로 들어왔다');
@@ -193,11 +190,10 @@ input{
 						if(data.boardList != "" || data.boardList != null){
 							$(data.boardList).each(function(index,bo){
 								str += "<div class= 'insta scrolling'><div class='top-insta '>"
-								+ "<a href='${pageContext.request.contextPath }/board/friList.do?writer="+bo.writer+">";
-								if(data.proList != "" || data.proList != null){
+								+ "<a href='${pageContext.request.contextPath }/board/friList.do?writer="+bo.writer+"'>";
 									$(data.proList).each(function(index,po){
 										if(po.id = bo.writer){
-											if(po.profile_img != "" || po.profile_img != null){
+											if(po.profile_img != 'X'){
 												str += "<img id='user_img' src='/dailygram/thumbnail_mem/"+po.profile_img+"'></a>";
 												return false;
 											}else{
@@ -206,7 +202,6 @@ input{
 											}
 										}
 									})
-								}
 								
 			                     str += "<a href='${pageContext.request.contextPath }/board/friList.do?writer="+bo.writer+"' class='user'>"+bo.writer+"</a>"
 								     +"<a href='#' id='menu' class'dropdown-toggle' data-toggle='dropdown'><i class='fas fa-ellipsis-v fa-2x'></i></a>" 
@@ -253,7 +248,7 @@ input{
 			                      		$(data.coList).each(function(index,co){
 											if(co.board_seq == bo.board_seq){
 												str += "<div class='comment-body "+bo.board_seq+"' style='padding-left: "+co.lev * 30+"px'>"
-											     + "<a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>"+co.writer+"</a>"
+											     + "<a href='${pageContext.request.contextPath }/board/friList.do?writer="+co.writer+"' class='user' id='a2'>"+co.writer+"</a>"
 					                       		 + "<input class= 'commcontent' readonly='readonly' value='"+co.content+"'>";
 					                       		 if('${sessionScope.memInfo.id}' == co.writer){
 					                       			str += "<a><i class='fas fa-edit'></i></a>"
@@ -354,7 +349,7 @@ input{
 					$(data).each(function(){
 						var str = "";
 						str += "<div class='comment-body "+boseq+"' style='padding-left: "+(this.lev *30)+"px'>"
-	                          +"<a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>"+this.writer+"</a>"
+	                          +"<a href='${pageContext.request.contextPath }/board/friList.do?writer="+this.writer+"' class='user' id='a2'>"+this.writer+"</a>"
 	                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
 	                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
 	                       	  +"<input id='replycnt' type='hidden' value='"+this.reply+"'>";
@@ -412,7 +407,7 @@ input{
 					$(data).each(function(){
 						 var str = "";
 							str += "<div class='comment-body "+boseq+"' style='padding-left: "+(this.lev *30)+"px'>"
-		                          +"<a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>"+this.writer+"</a>"
+		                          +"<a href='${pageContext.request.contextPath }/board/friList.do?writer="+this.writer+"' class='user' id='a2'>"+this.writer+"</a>"
 		                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
 		                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
 		                       	  +"<input id='replycnt' type='hidden' value='"+this.reply+"'>";
@@ -476,7 +471,7 @@ input{
 						 $(data).each(function(){
 							 var str = "";
 								str += "<div class='comment-body "+boseq+"' style='padding-left: "+(this.lev *30)+"px'>"
-			                          +"<a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>"+this.writer+"</a>"
+			                          +"<a href='${pageContext.request.contextPath }/board/friList.do?writer="+this.writer+"' class='user' id='a2'>"+this.writer+"</a>"
 			                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
 			                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
 			                       	  +"<input id='replycnt' type='hidden' value='"+this.reply+"'>";
@@ -530,7 +525,7 @@ input{
 					 $(data).each(function(){
 						var str = "";
 							str += "<div class='comment-body "+boseq+"' style='padding-left: "+(this.lev *30)+"px'>"
-		                          +"<a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>"+this.writer+"</a>"
+		                          +"<a href='${pageContext.request.contextPath }/board/friList.do?writer="+this.writer+"' class='user' id='a2'>"+this.writer+"</a>"
 		                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
 		                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
 		                       	  +"<input id='replycnt' type='hidden' value='"+this.reply+"'>";
@@ -555,10 +550,6 @@ input{
 				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			}
 		});
-		
 	});
-	
-
-
 </script>
 <%@ include file="../container/footer.jsp"%>

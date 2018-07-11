@@ -99,7 +99,7 @@
 		and status in ('y','r')
 		)
 		and date >=
-		date_add(now(), interval -7 day)
+		date_add(now(), interval -1 month)
 		order by date desc
 		)
 		and public_yn = 'y'
@@ -180,7 +180,7 @@
 		and status in ('y','r')
 		)
 		and date >=
-		date_add(now(), interval -7 day)
+		date_add(now(), interval -1 month)
 		group by board_seq
 		order by sender desc
 		) aa
@@ -215,7 +215,7 @@
 		and status in
 		('y','r')
 		)
-		and date >= date_add(now(), interval -7 day)
+		and date >= date_add(now(), interval -1 month)
 		group by
 		board_seq
 		order by sender desc
@@ -326,7 +326,7 @@
 		and status in ('y','r')
 		)
 		and date >=
-		date_add(now(), interval -7 day)
+		date_add(now(), interval -1 month)
 		group by board_seq
 		order by sender desc
 		) aa

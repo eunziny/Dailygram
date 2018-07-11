@@ -161,6 +161,8 @@ public class BoardController {
 		hm2.put("writer",writerList);
 		List<Comment> coList = service.getNewsComm(hm); //댓글 가져와라
 		List<Member> proList = service.getProfileImg(hm2);
+		System.out.println("처음 글쓴이 아이디들:"+writerList);
+		System.out.println("ㅊ음 프로필있는 아이디들:"+proList);
 		mav.addObject("coList",coList);
 		mav.addObject("proList",proList);
 			
@@ -190,6 +192,8 @@ public class BoardController {
 		hm2.put("writer",writerList);
 		List<Comment> coList = service.getNewsComm(hm); //댓글 가져와라
 		List<Member> proList = service.getProfileImg(hm2);
+		System.out.println("글쓴이 아이디들:"+writerList);
+		System.out.println("프로필있는 아이디들:"+proList);
 		map.put("coList", coList);
 		map.put("proList", proList);
 		return map;

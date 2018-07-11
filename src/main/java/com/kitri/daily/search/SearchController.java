@@ -122,6 +122,9 @@ public class SearchController {
 		List <Look> lookList = new ArrayList<Look>();
 		cntArr = service.getLookCnt(id);
 		System.out.println(cntArr.length);
+		for(i=0;i<cntArr.length;i++) {
+			System.out.println("cntArr[i]"+cntArr[i]);
+		}
 		/*i = 0; //index용*/
 		if(cntArr.length == 1) { //아무 활동도 하지 않은 상태  cnt=0 1줄
 			lookList = service.getLook(0);
@@ -176,6 +179,7 @@ public class SearchController {
 				}*/
 				mav.addObject("lookList",friLookList);
 			}else {
+				System.out.println("일로 들어온거니?");
 				List <Look> frliLookList = new ArrayList<Look>();
 				Look lo = new Look(id,0);
 				frliLookList = service.getFrLiLook(lo);

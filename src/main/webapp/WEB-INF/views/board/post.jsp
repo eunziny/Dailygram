@@ -108,7 +108,7 @@ input{
                       <div class='comment-list'>
                       	<c:forEach var="co" items="${coList }">
                       	<div class='comment-body' style="padding-left: ${co.lev*30}px">
-                       		 <a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>${co.writer }</a>
+                       		 <a href='${pageContext.request.contextPath }/board/friList.do?writer=${co.writer }' class='user' id='a2'>${co.writer }</a>
                        		 <input class= 'commcontent' readonly="readonly" value="${co.content }">
                        		 <c:if test="${sessionScope.memInfo.id eq co.writer }">
                        		 	<a><i class="fas fa-edit"></i></a>
@@ -179,7 +179,7 @@ input{
 					$(data).each(function(){
 						var str = "";
 							str += "<div class='comment-body' style='padding-left: "+(this.lev *30)+"px'>"
-		                          +"<a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>"+this.writer+"</a>"
+		                          +"<a href='${pageContext.request.contextPath }/board/friList.do?writer="+this.writer+"' class='user' id='a2'>"+this.writer+"</a>"
 		                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
 		                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
 		                       	  +"<input id='replycnt' type='hidden' value='"+this.reply+"'>";
@@ -231,7 +231,7 @@ input{
 					$(data).each(function(){
 						var str = "";
 							str += "<div class='comment-body' style='padding-left: "+(this.lev *30)+"px'>"
-		                          +"<a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>"+this.writer+"</a>"
+		                          +"<a href='${pageContext.request.contextPath }/board/friList.do?writer="+this.writer+"' class='user' id='a2'>"+this.writer+"</a>"
 		                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
 		                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
 		                       	  +"<input id='replycnt' type='hidden' value='"+this.reply+"'>";
@@ -287,7 +287,7 @@ input{
 						$(data).each(function(){
 							var str = "";
 								str += "<div class='comment-body' style='padding-left: "+(this.lev *30)+"px'>"
-			                          +"<a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>"+this.writer+"</a>"
+			                          +"<a href='${pageContext.request.contextPath }/board/friList.do?writer="+this.writer+"' class='user' id='a2'>"+this.writer+"</a>"
 			                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
 			                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
 			                       	  +"<input id='replycnt' type='hidden' value='"+this.reply+"'>";
@@ -333,7 +333,7 @@ input{
 					$(data).each(function(){
 						var str = "";
 							str += "<div class='comment-body' style='padding-left: "+(this.lev *30)+"px'>"
-		                          +"<a href='${pageContext.request.contextPath }/board/friList.do' class='user' id='a2'>"+this.writer+"</a>"
+		                          +"<a href='${pageContext.request.contextPath }/board/friList.do?writer="+this.writer+"' class='user' id='a2'>"+this.writer+"</a>"
 		                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
 		                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
 		                       	  +"<input id='replycnt' type='hidden' value='"+this.reply+"'>";
