@@ -64,28 +64,10 @@ body {
 }
 </style>
 <script>
-
 	$(function() {
 		$("a.eye").click(function() {
 			alert("해당 게시물로 이동하시겠습니까?");
 		});
-		
-		
-/*   		$("a.badge").click(function() {
-  			var list1 = new Array();
-
-  			<c:forEach items="${chargeList}" var="item1">
-
-  			list1.push("${item1.board_seq}");
-
-  			</c:forEach>
-
-			console.log(list1);
-				window.open("${pageContext.request.contextPath}/admin/chargeperson.do?bseq=list1",
-						" 해당 게시물 신고자 리스트",
-						"width=450, height=550, top=70 left=400, scrollbars=yes");
-				
-		}); */
 		
 		$("button#delete").click(function() {
 			alert("정말 삭제하시겠습니까?");
@@ -102,10 +84,33 @@ body {
 				dataType: 'text',
 				data: {
 					valueArrTest:checkArr
+				},
+				dataType: 'json',
+				success: function(data) {
+					if(data != "") {
+						$('.list-group').remove();
+						$(data).each(function (){
+							var str = "";
+								str += "<ul class='list-group'>"
+									+ "<li class='list-group-item'>"
+									+ "<div class='checkbox'>"
+									+ "<input type='checkbox' class='checkb' name='chargedel' value='"+this.board_seq+"'/>"
+									+ "<label for='checkbox1'>"+this.writer+"</label>"
+									+ "</div>"
+									+ "<div class='pull-right action-buttons'>"
+									+ "<a href='${pageContext.request.contextPath}/board/post.do?bseq="+this.board_seq+"' class='eye'><span class='glyphicon glyphicon-eye-open'></span></a>"
+									+ "<a href='${pageContext.request.contextPath}/admin/chargeperson.do?bseq="+this.board_seq+"' class='badge badge-danger'>"+this.sirencnt+"</a>"
+									+ "</div>"		
+									+ "</li>"
+									+ "</ul>";
+							$(".panel-body").append(str);		
+						});
+					}
+				},
+				error : function(xhr, status, error) {
+	                 alert("에러발생");
 				}
-				
 			});
-			location.href="${pageContext.request.contextPath}/admin/chargelist.do";
 		});
 	});
 </script>
@@ -128,7 +133,7 @@ body {
 								<li class="list-group-item">
 									<div class="checkbox">
 										<input type="checkbox" class="checkb" name="chargedel"
-											id="checkbox1" value="${cl.board_seq}" /> <label for="checkbox1">${cl.writer}</label>
+											value="${cl.board_seq}" /> <label for="checkbox1">${cl.writer}</label>
 									</div>
 									<div class="pull-right action-buttons">
 										<a href="${pageContext.request.contextPath}/board/post.do?bseq=${cl.board_seq}" class="eye"><span class="glyphicon glyphicon-eye-open"></span></a> 

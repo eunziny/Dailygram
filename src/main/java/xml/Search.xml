@@ -22,11 +22,11 @@
 	</resultMap>
 	
 	<select id="selectByAuto" parameterType="String" resultMap="SearchResult">
-		select tagname
-		from hashtag
-		where tagname like CONCAT(#{term},'%')
-		order by tagname
-	</select>
+      select distinct tagname
+      from hashtag
+      where tagname like CONCAT(#{term},'%')
+      order by tagname
+   </select>
 
 	<select id="selectByUser" parameterType="String" resultMap="SearchResult">
       select id, profile_img 
