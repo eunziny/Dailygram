@@ -188,7 +188,7 @@ div.search{
     padding: 0 5px;
 }
 .top-nav > li {
-    display: inline-block;
+   /*  display: inline-block; */
     float: left;
 }
 .top-nav > li > a {
