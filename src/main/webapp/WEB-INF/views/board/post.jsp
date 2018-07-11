@@ -108,7 +108,14 @@ input{
                       <div class='comment-list'>
                       	<c:forEach var="co" items="${coList }">
                       	<div class='comment-body' style="padding-left: ${co.lev*30}px">
-                       		 <a href='${pageContext.request.contextPath }/board/friList.do?writer=${co.writer }' class='user' id='a2'>${co.writer }</a>
+                       		  <c:choose>
+		                      	<c:when test="${co.writer eq sessionScope.memInfo.id }">
+		                      		<a href='${pageContext.request.contextPath }/board/myList.do' class='user' id='a2' >${co.writer }</a>
+		                      	</c:when>
+		                      	<c:otherwise>
+		                      		<a href='${pageContext.request.contextPath }/board/friList.do?writer=${co.writer }' class='user' id='a2'>${co.writer }</a>
+		                      	</c:otherwise>
+				              </c:choose>
                        		 <input class= 'commcontent' readonly="readonly" value="${co.content }">
                        		 <c:if test="${sessionScope.memInfo.id eq co.writer }">
                        		 	<a><i class="fas fa-edit"></i></a>
@@ -178,11 +185,15 @@ input{
 					$('.comment-write').remove();
 					$(data).each(function(){
 						var str = "";
-							str += "<div class='comment-body' style='padding-left: "+(this.lev *30)+"px'>"
-		                          +"<a href='${pageContext.request.contextPath }/board/friList.do?writer="+this.writer+"' class='user' id='a2'>"+this.writer+"</a>"
-		                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
-		                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
-		                       	  +"<input id='replycnt' type='hidden' value='"+this.reply+"'>";
+							str += "<div class='comment-body' style='padding-left: "+(this.lev *30)+"px'>";
+							if(this.writer ==  '${sessionScope.memInfo.id}'){
+								str += "<a href='${pageContext.request.contextPath }/board/myList.do' class='user' id='a2'>"+this.writer+"</a>";
+							}else{
+							   str += "<a href='${pageContext.request.contextPath }/board/friList.do?writer="+this.writer+"' class='user' id='a2'>"+this.writer+"</a>";
+							}  
+							str += "<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
+		                       	+"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
+		                       	+"<input id='replycnt' type='hidden' value='"+this.reply+"'>";
 							if('${sessionScope.memInfo.id}' == this.writer){
 								str += "<a><i class='fas fa-edit '></i></a>"+
 								"<a><i class='fas fa-check okbtn' style='color:#9770f9; display:none'></i></a>"+
@@ -230,9 +241,13 @@ input{
 					$('.comment-write').remove();
 					$(data).each(function(){
 						var str = "";
-							str += "<div class='comment-body' style='padding-left: "+(this.lev *30)+"px'>"
-		                          +"<a href='${pageContext.request.contextPath }/board/friList.do?writer="+this.writer+"' class='user' id='a2'>"+this.writer+"</a>"
-		                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
+							str += "<div class='comment-body' style='padding-left: "+(this.lev *30)+"px'>";
+							if(this.writer ==  '${sessionScope.memInfo.id}'){
+								str += "<a href='${pageContext.request.contextPath }/board/myList.do' class='user' id='a2'>"+this.writer+"</a>";
+							}else{
+							   str += "<a href='${pageContext.request.contextPath }/board/friList.do?writer="+this.writer+"' class='user' id='a2'>"+this.writer+"</a>";
+							}      
+		                      str +="<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
 		                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
 		                       	  +"<input id='replycnt' type='hidden' value='"+this.reply+"'>";
 							if('${sessionScope.memInfo.id}' == this.writer){
@@ -286,9 +301,13 @@ input{
 						$('.comment-write').remove();
 						$(data).each(function(){
 							var str = "";
-								str += "<div class='comment-body' style='padding-left: "+(this.lev *30)+"px'>"
-			                          +"<a href='${pageContext.request.contextPath }/board/friList.do?writer="+this.writer+"' class='user' id='a2'>"+this.writer+"</a>"
-			                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
+								str += "<div class='comment-body' style='padding-left: "+(this.lev *30)+"px'>";
+								if(this.writer ==  '${sessionScope.memInfo.id}'){
+									str += "<a href='${pageContext.request.contextPath }/board/myList.do' class='user' id='a2'>"+this.writer+"</a>";
+								}else{
+								   str += "<a href='${pageContext.request.contextPath }/board/friList.do?writer="+this.writer+"' class='user' id='a2'>"+this.writer+"</a>";
+								}
+								str += "<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
 			                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
 			                       	  +"<input id='replycnt' type='hidden' value='"+this.reply+"'>";
 								if('${sessionScope.memInfo.id}' == this.writer){
@@ -332,9 +351,13 @@ input{
 					$('.comment-write').remove();
 					$(data).each(function(){
 						var str = "";
-							str += "<div class='comment-body' style='padding-left: "+(this.lev *30)+"px'>"
-		                          +"<a href='${pageContext.request.contextPath }/board/friList.do?writer="+this.writer+"' class='user' id='a2'>"+this.writer+"</a>"
-		                       	  +"<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
+							str += "<div class='comment-body' style='padding-left: "+(this.lev *30)+"px'>";
+							if(this.writer ==  '${sessionScope.memInfo.id}'){
+								str += "<a href='${pageContext.request.contextPath }/board/myList.do' class='user' id='a2'>"+this.writer+"</a>";
+							}else{
+							   str += "<a href='${pageContext.request.contextPath }/board/friList.do?writer="+this.writer+"' class='user' id='a2'>"+this.writer+"</a>";
+							}
+		                       str +="<input class='commcontent' readonly='readonly' value='"+this.content+"'>"
 		                       	  +"<input id='com_seq' type='hidden' value='"+this.com_seq+"'>"
 		                       	  +"<input id='replycnt' type='hidden' value='"+this.reply+"'>";
 							if('${sessionScope.memInfo.id}' == this.writer){
@@ -355,7 +378,6 @@ input{
 				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			}
 		});
-		
 	});
 	
 	var str2 = "<div class='comment-write'>"+

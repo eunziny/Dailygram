@@ -110,6 +110,7 @@
         from board
         where writer=#{writer}
         and now() >= date_add(posted, interval 1 minute)
+        order by posted desc
  	</select>
  	
  	<select id="publicy" resultMap="BoardResult" parameterType="String">
@@ -117,7 +118,8 @@
         from board
         where writer=#{writer}
         and now() >= date_add(posted, interval 1 minute)
-        and public_yn='y';
+        and public_yn='y'
+        order by posted desc
  	</select>
  	
 	<select id="myType" resultMap="LikeResult" parameterType="com.kitri.daily.board.Like">
