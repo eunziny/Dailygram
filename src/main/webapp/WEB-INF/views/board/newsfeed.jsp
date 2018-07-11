@@ -26,6 +26,7 @@ input{
     <div class="row">
 		<div class="col-lg-offset-1 col-lg-10 col-lg-offset-1">
             <section class="scrollingtop">
+            	<c:if test="${!empty boardList }">
 				<c:forEach items="${boardList}" var = "b">	
                   <div class= 'insta scrolling'>
                     <div class='top-insta '>
@@ -123,6 +124,7 @@ input{
                     <input type="hidden" class="scrolling" value="${b.row }">
                   </div> <!-- end Insta -->
                   </c:forEach>
+                  </c:if>
                 </section> <!-- end section -->
         </div>
 	</div>
@@ -398,9 +400,9 @@ input{
 			contentType : "application/json; charset=UTF-8",
 			dataType : 'json',
 			success : function(data){
+				$("div."+boseq).remove(); //기존에 있던 댓글 전부 날리기.
 				alert('댓글삭제 성공!');
 				if(data != ""){
-					$("div."+boseq).remove(); //기존에 있던 댓글 전부 날리기.
 					$(commwrite).remove();
 					$(data).each(function(){
 						 var str = "";
