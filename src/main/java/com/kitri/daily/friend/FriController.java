@@ -43,11 +43,12 @@ public class FriController {
 		// 로그인한 사람의 친구 수 구하기
 		List<HashMap<String, Object>> count = service.getFriendRelationshipCount(id);
 		ArrayList<Friend> list = null;
+		ArrayList<Friend> list3 = null;
 		if (count.size() == 1) {// 친구 수가 0이고 좋아요 한 글이 없다면 최신글순으로 좋아요 많이 받은 회원 추천하기
 			System.out.println("친구 0명");
 			list = (ArrayList<Friend>) service.getRecommend(id);
 			mav.addObject("list", list);
-			return mav;
+
 		} else {// 친구 수가 1명 이상 있으면
 			System.out.println("친구 여러명");
 			// 로그인한 회원의 intro 가져오기
@@ -112,9 +113,9 @@ public class FriController {
 				mav.addObject("list", list);
 			}
 		}
-
+		list3 = list;
 		if (list.size() < 15) {
-			ArrayList<Friend> list3 = list;
+			//list3 = list;
 
 			/*System.out.print("list : ");
 			for (int i = 0; i < list.size(); i++) {
@@ -126,16 +127,16 @@ public class FriController {
 			for (int i = 0; i < list3.size(); i++) {
 				System.out.print(list3.get(i) + ", ");
 			}
-			System.out.println("");
-*/
+			System.out.println("");*/
+
 			ArrayList<Friend> list2 = (ArrayList<Friend>) service.getRecommend2(id);
 
 			/*System.out.print("list2 : ");
 			for (int i = 0; i < list2.size(); i++) {
 				System.out.print(list2.get(i) + ", ");
 			}
-			System.out.println("");
-*/
+			System.out.println("");*/
+
 			for (int i = 0; i < list2.size(); i++) {
 				boolean check = false;
 				for (int j = 0; j < list.size(); j++) {
@@ -149,26 +150,27 @@ public class FriController {
 			}
 			mav.addObject("list", list3);
 		}
-		
-		ArrayList<Friend> falist = (ArrayList<Friend>) service.getfollowerList(id);// 팔로워 리스트 받아옴
+
 		ArrayList<Friend> mylist = (ArrayList<Friend>) service.getfollowingList(id);// 내가 팔로잉 하는사람(y)
 		ArrayList<Friend> mywaitlist = (ArrayList<Friend>) service.getfollowwaitList(id);// 팔로워 요청 한 목록(n)
 
-		for (int i = 0; i < falist.size(); i++) {
+		for (int i = 0; i < list3.size(); i++) {
 			for (int j = 0; j < mylist.size(); j++) {
-				if (falist.get(i).getId().equals(mylist.get(j).getId())) {
-					falist.get(i).setStatus("y");// 내 팔로우 리스트에 있으면 상태값 y로 바꿔줌
+				if (list3.get(i).getId().equals(mylist.get(j).getId())) {
+					list3.get(i).setStatus("y");// 내 팔로우 리스트에 있으면 상태값 y로 바꿔줌
 				}
 			}
 			for (int j = 0; j < mywaitlist.size(); j++) {
-				if (falist.get(i).getId().equals(mywaitlist.get(j).getId())) {
-					falist.get(i).setStatus("wait");// 내 팔로우 요청리스트에 있으면 상태값 wait로 바꿔줌
+				if (list3.get(i).getId().equals(mywaitlist.get(j).getId())) {
+					list3.get(i).setStatus("wait");// 내 팔로우 요청리스트에 있으면 상태값 wait로 바꿔줌
 				}
 			}
-			if (falist.get(i).getStatus() == null)
-				falist.get(i).setStatus("no");
+			if (list3.get(i).getStatus() == null)
+				list3.get(i).setStatus("no");
+			
+			//System.out.print(list3.get(i) + ", ");
 		}
-		mav.addObject("list", falist);
+		mav.addObject("list", list3);
 		
 		return mav;
 	}
@@ -309,26 +311,24 @@ public class FriController {
 		mav.addObject("list", list);
 		return mav;
 	}
-
 	
-	  @RequestMapping(value = "/friend/subscribe.do") 
-	  public String subscribe(HttpServletRequest req ,@RequestParam(value="writer") String id) {
-		  HttpSession session = req.getSession(false); 
-		  Member mem = (Member) session.getAttribute("memInfo"); 
-		  String user_id = mem.getId(); 
+	@RequestMapping(value = "/friend/subscribe.do") 
+	public String subscribe(HttpServletRequest req ,@RequestParam(value="writer") String id) {
+	  HttpSession session = req.getSession(false); 
+	  Member mem = (Member) session.getAttribute("memInfo"); 
+	  String user_id = mem.getId(); 
 //		  String friend_id = (String) session.getAttribute("friendId");
-		  Relationship subscribe = new Relationship(user_id, id); 
-		  service.subscribe(subscribe);
-		  
-		  ArrayList<Integer> count = service.profileCount(user_id);
-		  session.setAttribute("followerCount", count.get(0));
-		  session.setAttribute("followingCount", count.get(1));
-		  session.setAttribute("subscribeCount", count.get(2)); 
-			
-		 return "redirect:/board/friList.do?writer="+id; 
-	 }
-	 
-
+	  Relationship subscribe = new Relationship(user_id, id); 
+	  service.subscribe(subscribe);
+	  
+	  ArrayList<Integer> count = service.profileCount(user_id);
+	  session.setAttribute("followerCount", count.get(0));
+	  session.setAttribute("followingCount", count.get(1));
+	  session.setAttribute("subscribeCount", count.get(2)); 
+		
+	  return "redirect:/board/friList.do?writer="+id; 
+	}
+ 
 	@RequestMapping(value = "/friend/cancelFollow.do")
 	public String cancelFollow(HttpServletRequest req, @RequestParam(value = "writer") String writer,
 			@RequestParam(value = "type") int type) {// 팔로우 취소
@@ -346,7 +346,8 @@ public class FriController {
 			service.deleteAlerm(alerm);
 		}
 		
-		service.cancelfollow(relation);
+		service.cancelfollow(relation);//팔로우 취소
+		
 		ArrayList<Integer> count = service.profileCount(user_id);
 		session.setAttribute("followerCount", count.get(0));
 		session.setAttribute("followingCount", count.get(1));
@@ -378,7 +379,7 @@ public class FriController {
 		String friend_id = (String) session.getAttribute("friendId");
 		String url=null;
 		Relationship relation = new Relationship(user_id, writer);
-		service.cancelsubscribe(relation);
+		service.cancelsubscribe(relation);//구독취소
 
 		ArrayList<Integer> count = service.profileCount(user_id);
 		session.setAttribute("followerCount", count.get(0));
@@ -395,22 +396,23 @@ public class FriController {
 
 	@RequestMapping(value = "/friend/addFollow.do")
 	public String addFollow(HttpServletRequest req, @RequestParam(value = "writer") String writer,
-			@RequestParam(value = "type") int type) {// 팔로우
+			@RequestParam(value = "type") int type) {// 팔로우 요청
 		HttpSession session = req.getSession(false);
 		Member mem = (Member) session.getAttribute("memInfo");
 		String user_id = mem.getId();
 		String url = null;
 		String friend_id = (String) session.getAttribute("friendId");
 		Relationship relation = new Relationship(user_id, writer);
-		service.addfollow(relation);
+		service.addfollow(relation);//관계 테이블에 'N'추가
 		
 		Alerm alerm = new Alerm(relation.getSender(), relation.getReceiver());
-		service.addfollowalerm(alerm);
+		service.addfollowalerm(alerm);//알림테이블에 'N'추가
 
 		ArrayList<Integer> count = service.profileCount(user_id);
 		session.setAttribute("followerCount", count.get(0));
 		session.setAttribute("followingCount", count.get(1));
 		session.setAttribute("subscribeCount", count.get(2));
+		
 		if (type == 1) {// 내 팔로워 리스트에서 팔로우 할 경우
 			url = "redirect:/friend/followerlist.do?id=" + user_id;
 		} else if (type == 2) {
@@ -429,10 +431,10 @@ public class FriController {
 	public String successFriend(@RequestParam(value = "receiver") String receiver,
 			@RequestParam(value = "sender") String sender) {// 팔로우 요청 수락
 		Relationship relation = new Relationship(sender, receiver);
-		service.successFollow(relation);
+		service.successFollow(relation);//관계테이블에 'Y로  업데이트
 		
 		Alerm alerm = new Alerm(sender, receiver);
-		service.updateRead(alerm);
+		service.updateRead(alerm);//해당알림 읽음 처리
 		return "redirect:/board/myList.do";
 	}
 	
