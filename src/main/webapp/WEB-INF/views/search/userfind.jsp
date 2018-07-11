@@ -38,7 +38,7 @@ div.panel-group {
 						<c:otherwise>
 							<a href='${pageContext.request.contextPath }/board/friList.do?writer=${s.id}'>
 								<c:choose>
-									<c:when test="${profile ne null}">
+									<c:when test="${s.profile_img ne null}">
 										<img class="img-circle" width="30"
 											src="/dailygram/thumbnail_mem/${s.profile_img}">
 									</c:when>
