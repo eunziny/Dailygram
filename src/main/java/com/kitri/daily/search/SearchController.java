@@ -206,10 +206,10 @@ public class SearchController {
 		HttpSession session = req.getSession(false);
 		Member mem = (Member)session.getAttribute("memInfo");
 		String id = mem.getId();
-		Look lo = new Look(id,row-1);
+		Look lo = new Look(id,row);
 		switch (flag) {
 		case 1:
-			lookList= service.getLook(row-1);
+			lookList= service.getLook(row);
 			break;
 		case 2:
 			lookList = service.getLikeLook(lo);
@@ -218,7 +218,7 @@ public class SearchController {
 			lookList= service.getFriLookDown(lo);
 			break;
 		case 4:
-			lookList= service.getFriLookUp(lo);			
+			lookList= service.getFriLookUp(lo);
 			break;
 		case 5:
 			lookList = service.getFrLiLook(lo);
