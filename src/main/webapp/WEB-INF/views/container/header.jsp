@@ -163,14 +163,12 @@ $(function(){
 			<div class="row">
 				<div class="col-md-12">
 					<div id='left'>
-						<a href='${pageContext.request.contextPath}/board/newsfeed.do'><img
-							src='${pageContext.request.contextPath }/resources/img/logo.png'
-							id='logo-name'></a>
+						<a href='${pageContext.request.contextPath}/board/newsfeed.do?id=${sessionScope.memInfo.id}'><img
+							src='${pageContext.request.contextPath }/resources/img/logo.png' id='logo-name'></a>
 					</div>
 					<div class="col-md-offset-1 col-md-4">
 						<form id="searchform"
-							action="${pageContext.request.contextPath }/container/search.do"
-							method="post">
+							action="${pageContext.request.contextPath }/container/search.do" method="post">
 							<div class="input-group">
 								<div class="input-group-btn bs-dropdown-to-select-group">
 									<button type="button"
@@ -235,7 +233,8 @@ $(function(){
 						</a> 
 					</li> -->
 										</ul>
-									</ul></li>
+									</ul>
+								</li>
 								<li class="dropdown"><a href="#"
 									class="dropdown-toggle users" data-toggle="dropdown"
 									aria-expanded="true"> <c:set var="profile"
@@ -261,7 +260,8 @@ $(function(){
 										<li><a
 											href="${pageContext.request.contextPath }/member/logout.do"><i
 												class="fa fa-fw fa-power-off"></i> Logout</a></li>
-									</ul></li>
+									</ul>
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -269,4 +269,5 @@ $(function(){
 			</div>
 		</div>
 		<!-- <div class="col-md-offset-1 col-md-4"> -->
+	</div>
 </div>
