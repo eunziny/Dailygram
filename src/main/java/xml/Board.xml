@@ -355,4 +355,9 @@
 		WHERE sender=#{sender}
 		AND receiver=#{receiver}
 	</select>
+	
+	<delete id="delAlerm" parameterType="java.lang.Integer">
+		delete from alerm
+		where board_seq = #{board_seq};
+	</delete>
 </mapper>
