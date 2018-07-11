@@ -25,7 +25,7 @@
 	</select>
 	
 	<select id="selectMyAlerm" resultMap="alermResult" parameterType="String">
-		select date, sender, receiver, ifnull(board_seq,-1), type
+		select date, sender, receiver, ifnull(board_seq, -1) board_seq, type
 		from alerm
 		where receiver=#{id}
 		AND readyn='N'

@@ -111,7 +111,7 @@ $(function(){
 						html+='<li><span class="label label-sm label-icon label-danger"></span>&nbsp;<strong>새로운 알림이 없습니다.</strong></li>';
 				}
   				$(data).each(function (){
-  					console.log("내 알림>>>>>>" + this.sender + ", " + this.type + ", " + this.date + ".");	
+  					console.log("내 알림>>>>>>" + this.sender + ", " + this.receiver + ", " + this.type + ", " + this.board_seq + ", " + this.date + ".");	
   					if(this.type=='N'){//팔로우 요청 받았을 경우
 		            	console.log('n조건문 들어옴');
 		            	html+='<li> &nbsp;&nbsp;<span class="details"><span class="label label-sm label-icon label-success"><i class="fa fa-plus"></i></span>&nbsp;'
