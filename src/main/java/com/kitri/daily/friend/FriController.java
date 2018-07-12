@@ -44,20 +44,23 @@ public class FriController {
 		List<HashMap<String, Object>> count = service.getFriendRelationshipCount(id);
 		ArrayList<Friend> list = null;
 		ArrayList<Friend> list3 = null;
-		if (count.size() == 1) {// 친구 수가 0이고 좋아요 한 글이 없다면 최신글순으로 좋아요 많이 받은 회원 추천하기
+		// 로그인한 회원의 intro 가져오기
+		String user_intro = service.getUserIntro(id);
+		System.out.println("로그인한 회원의 소개글 : " + user_intro);
+		if (count.size() == 1 && user_intro == null) {
+			// 친구 수가 0이고 좋아요 한 글이 없고, intro가 없을 경우--> 최신글순으로 좋아요 많이 받은 회원 추천하기
 			System.out.println("친구 0명");
 			list = (ArrayList<Friend>) service.getRecommend(id);
 			mav.addObject("list", list);
-
-		} else {// 친구 수가 1명 이상 있으면
-			System.out.println("친구 여러명");
-			// 로그인한 회원의 intro 가져오기
-			String user_intro = service.getUserIntro(id);
-			System.out.println("로그인한 회원의 소개글 : " + user_intro);
+		} else {
+			//친구가 없지만, intro가 있는  경우
+			//친구가 있는데, intro가 없는 경우
+			//친구도 있고, intro도 있는 경우
+			System.out.println("친구 여러명");	
 
 			// -> 해시태그 단위로 잘라서 배열로 만들기
 			String[] introArray = null;
-			if (user_intro != null) {
+			if (user_intro != null) {//소개글이 있을 경우 해시태그 자르기
 				introArray = user_intro.split(" ");
 				System.out.println("해시태그 갯수 : " + introArray.length);
 				for (int i = 0; i < introArray.length; i++)
