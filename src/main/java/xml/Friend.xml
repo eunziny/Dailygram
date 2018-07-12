@@ -252,6 +252,6 @@
 		set 
 		readyn='Y', date=now()
 		where
-		sender=#{sender} and receiver=#{receiver}
+		sender=#{sender} and receiver=#{receiver} and type='N'
 	</update>
 </mapper>
