@@ -166,7 +166,7 @@ $(function(){
 						<a href='${pageContext.request.contextPath}/board/newsfeed.do?id=${sessionScope.memInfo.id}'><img
 							src='${pageContext.request.contextPath }/resources/img/logo.png' id='logo-name'></a>
 					</div>
-					<div class="col-md-offset-1 col-md-4">
+					<div class="col-md-offset-1 col-md-4 searchfind">
 						<form id="searchform"
 							action="${pageContext.request.contextPath }/container/search.do" method="post" style="position:relative;">
 							<div class="input-group">
@@ -180,8 +180,8 @@ $(function(){
 									<ul class="dropdown-menu" role="menu"
 										style="max-height: 300px;">
 										<!-- Loop -->
-										<li id="user" value="아이디"><a href="#">아이디</a></li>
-										<li id="tag" value="해시태그"><a href="#">해시태그</a></li>
+										<li id="user" value="아이디"><a>아이디</a></li>
+										<li id="tag" value="해시태그"><a>해시태그</a></li>
 										<!-- END Loop -->
 									</ul>
 								</div>
