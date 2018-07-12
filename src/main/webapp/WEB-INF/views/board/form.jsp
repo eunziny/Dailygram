@@ -54,7 +54,8 @@ $(function(){
           		<br>
 	    	</div>
 	    	<div class="col-lg-offset-3 col-lg-6 col-lg-offset-3 imgUpload">
-	    		<label>첨부파일</label>
+	    		<label>첨부파일&nbsp;
+	    			(업로드하신 게시물은 1분 뒤에 공개됩니다.)</label>
 	    		<br>
 	    		<input type="file" name="file" id="imagefile" accept=".png, .jpg, .jpeg, .gif" /><br>
 	    	</div>
