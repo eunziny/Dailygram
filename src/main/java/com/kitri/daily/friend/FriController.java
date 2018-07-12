@@ -428,13 +428,20 @@ public class FriController {
 	}
 	
 	@RequestMapping(value = "/friend/successFriend.do")
-	public String successFriend(@RequestParam(value = "receiver") String receiver,
+	public String successFriend(HttpServletRequest req, @RequestParam(value = "receiver") String receiver,
 			@RequestParam(value = "sender") String sender) {// 팔로우 요청 수락
+		HttpSession session = req.getSession(false);
 		Relationship relation = new Relationship(sender, receiver);
 		service.successFollow(relation);//관계테이블에 'Y로  업데이트
 		
 		Alerm alerm = new Alerm(sender, receiver);
 		service.updateRead(alerm);//해당알림 읽음 처리
+		
+		ArrayList<Integer> count = service.profileCount(receiver);
+		session.setAttribute("followerCount", count.get(0));
+		session.setAttribute("followingCount", count.get(1));
+		session.setAttribute("subscribeCount", count.get(2));
+		
 		return "redirect:/board/myList.do";
 	}
 	
