@@ -87,12 +87,12 @@ body {
 				},
 				dataType: 'json',
 				success: function(data) {
+					$('.list-group').remove();
 					if(data != "") {
-						$('.list-group').remove();
+						var str = "";
+						str += "<ul class='list-group'>";
 						$(data).each(function (){
-							var str = "";
-								str += "<ul class='list-group'>"
-									+ "<li class='list-group-item'>"
+								str += "<li class='list-group-item'>"
 									+ "<div class='checkbox'>"
 									+ "<input type='checkbox' class='checkb' name='chargedel' value='"+this.board_seq+"'/>"
 									+ "<label for='checkbox1'>"+this.writer+"</label>"
@@ -101,10 +101,10 @@ body {
 									+ "<a href='${pageContext.request.contextPath}/board/post.do?bseq="+this.board_seq+"' class='eye'><span class='glyphicon glyphicon-eye-open'></span></a>"
 									+ "<a href='${pageContext.request.contextPath}/admin/chargeperson.do?bseq="+this.board_seq+"' class='badge badge-danger'>"+this.sirencnt+"</a>"
 									+ "</div>"		
-									+ "</li>"
-									+ "</ul>";
-							$(".panel-body").append(str);		
+									+ "</li>";
 						});
+						str += "</ul>";
+						$(".panel-body").append(str);
 					}
 				},
 				error : function(xhr, status, error) {

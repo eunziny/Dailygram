@@ -89,32 +89,33 @@ body {
 				},
 				dataType: 'json',
 				success: function(data) {
- 					if(data != "") {
-						$('.list-group').remove();
-						$(data).each(function () {
+					$('.list-group').remove();
+					if(data != "") {
+ 						var str = "";
+						str += "<ul class='list-group'>";
+ 						$(data).each(function () {
 							console.log("뿌려질 태그>>>>>>" + this.tagname);
-							 var str = "";
-								str += "<ul class='list-group'>"
-									+ "<li class='list-group-item'>"
+								str += "<li class='list-group-item'>"
 									+ "<form id='eyeclick' class='eyeclick'>"
 									+ "<div class='checkbox'>"
 									+ "<input type='checkbox' class='checkb' name='tagcancle' value='"+this.tagname+"'/>"
 									+ "<label for='checkbox1'>"+this.tagname+"</label>"
 									+ "</div>"
 									+ "<div class='pull-right action-buttons'>"
-									+ "<a href='#' class='eye' id='eye'><span class='glyphicon glyphicon-eye-open'></span></a>"
+									+ "<a class='eye' id='eye'><span class='glyphicon glyphicon-eye-open'></span></a>"
 									+ "</div>"
 									+ "</form>"
-									+ "</li>"
-									+ "</ul>";
-							$(".panel-body").append(str);
- 						});	
+									+ "</li>";
+ 						});
+ 						str += "</ul>";
+ 						$(".panel-body").append(str);
 					}
 				},
 				error : function(xhr, status, error) {
 	                 alert("에러발생");
 				}
 			});
+ 			
 		});
 	});
 </script>
