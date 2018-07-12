@@ -88,11 +88,11 @@
 <a id="footer"></a>
 <script>
 
-	//이미지 세부로 들어가기
+/* 	//이미지 세부로 들어가기
 	$(document).on('click','.scrolling',function(event){
 		var board_seq = $(this).children(":last").val();
 		location.href="${pageContext.request.contextPath }/board/post.do?bseq="+board_seq;
-	});
+	}); */
 	
 	
 	// Top버튼 클릭시
@@ -134,7 +134,6 @@
 			console.log('스크롤탑'+$(window).scrollTop());
 			console.log('도큐먼트 높이'+$(document).height());
 			console.log('윈도우 높이'+$(window).height());
-//			if(flag != false ){
 			if (Math.ceil($(window).scrollTop()) >= ($(document).height() - $(window).height())){
 				console.log('여기로 들어왔다');
 				//맨 마지막 row 값을 갖고 온다..다음에 뿌려질 값을 위해서.
@@ -157,16 +156,14 @@
 								function(){
 									console.log(this);		
 									str +=	"<div class="+"'gallery_product col-lg-4 scrolling'"+">" 
+									    +   "<a href='${pageContext.request.contextPath}/board/post.do?bseq="+this.board_seq+"'>"
 										+	 "<img src="+"'/dailygram/thumbnail/"+this.img+"'"+"class='lookimg'"+">"
+										+    "</a>"
 										+    "<input type='hidden' class='board_seq' value='"+this.board_seq +"'>"
 										+	 "<input type="+"'hidden'"+ "class='scrolling'"+ "value='"+this.row+"'"+">"
 										+	 "</div>";
 							});// each
-							/* if(data.length <9){
-								flag = false;
-							}else{
-								flag = true;
-							} */
+							
 							$(".scrollingtop").append(str);
 							
 						}
@@ -174,7 +171,6 @@
 					
 				});// ajax
 	        }//if : 현재 스크롤의 top 좌표가  <= 0 되는 순간
-//		}
 			// lastScrollTop을 현재 currentScrollTop으로 갱신해준다.
 			lastScrollTop = currentScrollTop;
 		}//다운스크롤인 상태
