@@ -17,6 +17,10 @@
 		<put-attribute name="body" value="/WEB-INF/views/search/{1}.jsp" />
 	</definition>
 	
+	<definition name="alerm/*" extends="defaultLayout">
+		<put-attribute name="body" value="/WEB-INF/views/alerm/{1}.jsp" />
+	</definition>
+	
 	<definition name="admin/*" extends="adminLayout">
 		<put-attribute name="body" value="/WEB-INF/views/admin/{1}.jsp" />
 	</definition>

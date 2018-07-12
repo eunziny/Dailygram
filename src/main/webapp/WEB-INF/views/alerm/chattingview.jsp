@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ include file="../container/header.jsp"%>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>    
 <!-- SocketJS CDN -->    
 <script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
@@ -165,4 +164,3 @@ function onClose(evt){
 
 
 </script>
-<%@ include file="../container/footer.jsp"%>
