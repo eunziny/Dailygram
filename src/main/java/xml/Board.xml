@@ -182,25 +182,15 @@
 		(
 		select @rownum:=@rownum+1 As row, a.* from
 		(
-		(select distinct b.* , ifnull(ls.type,'X') type , count(if(ls.type='L',ls.type,null)) likecnt from board b
-		left outer join like_siren ls
-		on ls.board_seq = b.board_seq
-		where writer in(
-		select receiver from relationship
-		where sender= #{writer}
-		and status = 'Y'
-		) or b.writer = #{writer}
-        group by board_seq)
-		union
-		(select distinct b.* , ifnull(ls.type,'X') type , count(if(ls.type='L',ls.type,null)) likecnt from board b
-		left outer join like_siren ls
-		on ls.board_seq = b.board_seq
-		where writer in(
-		select receiver from relationship
-		where sender= #{writer}
-		and status = 'R'
-		) and public_yn = 'y'
-        group by board_seq)
+		
+        (select board_seq, writer, content, posted, img, public_yn, (select count(*) from like_siren where board.board_seq = like_siren.board_seq) as likecnt, ifnull((select type from like_siren where sender = #{writer} and like_siren.board_seq = board.board_seq),'X') as type
+		from board
+		where (writer = #{writer} or writer in (select receiver from relationship where sender = #{writer} and status = 'Y')))
+        union
+        (select board_seq, writer, content, posted, img, public_yn, (select count(*) from like_siren where board.board_seq = like_siren.board_seq) as likecnt, ifnull((select type from like_siren where sender = #{writer} and like_siren.board_seq = board.board_seq),'X') as type
+		from board
+		where public_yn = 'y'
+		and (writer in (select receiver from relationship where sender = #{writer} and status = 'R')))
 		order by posted desc
 		) a , (select @rownum:=0) tmp
 		) b limit #{row},10
