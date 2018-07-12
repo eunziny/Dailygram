@@ -28,6 +28,9 @@ ul.active{
 	height: 200px;
 	overflow: auto;
 }
+.panel-group{
+	height: 100%;
+}
 </style>
 <div class="panel-group">
 <h2><i class="far fa-comments"></i> Chat</h2>
