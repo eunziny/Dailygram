@@ -126,28 +126,8 @@ public class FriController {
 			}
 		}
 		list3 = list;
-		if (list.size() < 10) {
-			//list3 = list;
-
-			System.out.print("list : ");
-			for (int i = 0; i < list.size(); i++) {
-				System.out.print(list.get(i) + ", ");
-			}
-			System.out.println("");
-
-			System.out.print("list3 : ");
-			for (int i = 0; i < list3.size(); i++) {
-				System.out.print(list3.get(i) + ", ");
-			}
-			System.out.println("");
-
+		if (list.size() < 10) {//추천 회원이 10명 미만이면 좋아요 기반으로 추천인원  추가함.
 			ArrayList<Friend> list2 = (ArrayList<Friend>) service.getRecommend2(id);
-
-			System.out.print("list2 : ");
-			for (int i = 0; i < list2.size(); i++) {
-				System.out.print(list2.get(i) + ", ");
-			}
-			System.out.println("");
 
 			for (int i = 0; i < list2.size(); i++) {
 				boolean check = false;
@@ -179,8 +159,7 @@ public class FriController {
 			}
 			if (list3.get(i).getStatus() == null)
 				list3.get(i).setStatus("no");
-			
-			//System.out.print(list3.get(i) + ", ");
+
 		}
 		mav.addObject("list", list);
 		
