@@ -180,8 +180,8 @@ $(function(){
 									<ul class="dropdown-menu" role="menu"
 										style="max-height: 300px;">
 										<!-- Loop -->
-										<li id="user" value="아이디"><a href="#">아이디</a></li>
-										<li id="tag" value="해시태그"><a href="#">해시태그</a></li>
+										<li id="user" value="아이디"><a>아이디</a></li>
+										<li id="tag" value="해시태그"><a>해시태그</a></li>
 										<!-- END Loop -->
 									</ul>
 								</div>
