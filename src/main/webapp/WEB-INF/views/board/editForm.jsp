@@ -83,7 +83,6 @@ $(function(){
 	    </div>
 	    <input class="date" type = "date" hidden="hidden" name="posted" value="${update.posted}">
 	    <input type ="hidden" name="img" value="${update.img }">
-	    <input class="public_yn" type = "text" hidden="hidden" name="public_yn" value="${update.public_yn}">
 		<div class="col-lg-offset-8">
 	    	<button type="submit" class="btn btn-primary" id = "ok">수정</button>
 	    	<button type="button" class="btn btn-primary" id = "cancel" onclick="location.href='${pageContext.request.contextPath }/board/post.do?bseq=${update.board_seq}'">취소</button>
