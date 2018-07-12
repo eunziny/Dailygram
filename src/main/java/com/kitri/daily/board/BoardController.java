@@ -315,6 +315,11 @@ public class BoardController {
 		 * 
 		 * t.schedule(m_task, 10000);
 		 */
+		ArrayList<Integer> count = service.profileCount(id);
+		session.setAttribute("followerCount", count.get(0));
+		session.setAttribute("followingCount", count.get(1));
+		session.setAttribute("subscribeCount", count.get(2));
+		
 		ModelAndView mav = new ModelAndView("board/myList");
 		mav.addObject("list", boardlist);
 		return mav;
@@ -389,9 +394,9 @@ public class BoardController {
 	   mav.addObject("list", list);
 	   mav.addObject("fri", fri);
 	   
-	   Relationship relation = new Relationship(id, writer);
-	   ArrayList<Integer> count =  service.FriendprofileCount(writer);
+	   Relationship relation = new Relationship(id, writer); 
 	   String check = service.checkRelation(relation);
+	   ArrayList<Integer> count =  service.FriendprofileCount(writer);
 	   session.setAttribute("check", check);//  나와 상대방의 관계
 	   session.setAttribute("friendfollowerCount", count.get(0));
 	   session.setAttribute("friendfollowingCount",count.get(1));

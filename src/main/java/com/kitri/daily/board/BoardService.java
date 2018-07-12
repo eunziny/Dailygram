@@ -40,4 +40,5 @@ public interface BoardService {
 	List<Comment> getNewsComm(HashMap<String, List<Integer>> hm);
 	List<Member> getProfileImg(HashMap<String, List<String>> hm2);
 	void addlikealerm(Alerm alerm);
+	ArrayList<Integer> profileCount(String id);
 }

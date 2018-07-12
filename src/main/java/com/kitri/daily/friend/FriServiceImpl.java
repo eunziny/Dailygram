@@ -165,4 +165,10 @@ public class FriServiceImpl implements FriService {
 		friendMapper.updateReadType(alerm);
 		
 	}
+
+	@Override
+	public ArrayList<Integer> FriendprofileCount(String sender) {
+		friendMapper = sqlSession.getMapper(FriendMapper.class);
+		return friendMapper.selectFriendprofileCount(sender);
+	}
 }

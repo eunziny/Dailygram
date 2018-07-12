@@ -43,4 +43,5 @@ public interface BoardMapper {
 	List<Member> getProfileImg(HashMap<String, List<String>> hm2);
 	void insertLikeAlerm(Alerm alerm);
 	void delAlerm(int board_seq);
+	ArrayList<Integer> selectProfileCount(String id);
 }

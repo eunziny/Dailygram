@@ -30,4 +30,5 @@ public interface FriService {
 	void deleteAlerm(Alerm alerm);
 	void successFollow(Relationship relation);
 	void updateRead(Alerm alerm);
+	ArrayList<Integer> FriendprofileCount(String sender);
 }

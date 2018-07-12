@@ -191,4 +191,10 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper = sqlSession.getMapper(BoardMapper.class);
 		boardMapper.insertLikeAlerm(alerm);
 	}
+
+	@Override
+	public ArrayList<Integer> profileCount(String id) {
+		boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.selectProfileCount(id);
+	}
 }
