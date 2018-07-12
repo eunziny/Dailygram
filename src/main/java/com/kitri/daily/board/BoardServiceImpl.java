@@ -70,6 +70,7 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.dellikeSiren(board_seq);
 		boardMapper.delHashtag(board_seq);
 		boardMapper.delComment(board_seq);
+		boardMapper.delAlerm(board_seq);
 		boardMapper.delBoard(board_seq);
 	}
 	
