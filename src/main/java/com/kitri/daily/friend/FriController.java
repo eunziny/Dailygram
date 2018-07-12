@@ -47,7 +47,23 @@ public class FriController {
 		// 로그인한 회원의 intro 가져오기
 		String user_intro = service.getUserIntro(id);
 		System.out.println("로그인한 회원의 소개글 : " + user_intro);
-		if (count.size() == 1 && user_intro == null) {
+		
+		// -> 해시태그 단위로 잘라서 배열로 만들기
+		String[] introArray = null;
+		user_intro = user_intro.trim();//공백제거
+		if (user_intro != null) {//소개글이 있을 경우 해시태그 자르기
+			introArray = user_intro.split(" ");
+			System.out.println("해시태그 갯수 : " + introArray.length);
+			for (int i = 0; i < introArray.length; i++)
+				System.out.println(introArray[i]);
+		}
+		System.out.println("user intro 길이:" + user_intro.length());
+		System.out.println("count size : " + count.size());
+		for(int i=0;i<introArray.length;i++) {
+			System.out.println("해시태그 :" + introArray[i]);
+		}
+		System.out.println();
+		if (count.size() == 1 && user_intro.trim().length()==0) {
 			// 친구 수가 0이고 좋아요 한 글이 없고, intro가 없을 경우--> 최신글순으로 좋아요 많이 받은 회원 추천하기
 			System.out.println("친구 0명");
 			list = (ArrayList<Friend>) service.getRecommend(id);
@@ -58,30 +74,20 @@ public class FriController {
 			//친구도 있고, intro도 있는 경우
 			System.out.println("친구 여러명");	
 
-			// -> 해시태그 단위로 잘라서 배열로 만들기
-			String[] introArray = null;
-			if (user_intro != null) {//소개글이 있을 경우 해시태그 자르기
-				introArray = user_intro.split(" ");
-				System.out.println("해시태그 갯수 : " + introArray.length);
-				for (int i = 0; i < introArray.length; i++)
-					System.out.println(introArray[i]);
-			}
-
 			// intro 해시태그 기준으로 회원 추천해주기
-			if (user_intro == null) {
+			if (user_intro.trim().length()==0) {//소개글 없을 경우
+				System.out.println("소개글 없을 경우");
 				list = (ArrayList<Friend>) service.getRecommend2(id);
 				mav.addObject("list", list);
-			} else if (introArray.length == 0) {// 소개글이 null 일경우 || 해시태그로 이루어져있지 않은 경우(좋아요 기준으로 회원 추천)
-				list = (ArrayList<Friend>) service.getRecommend2(id);
-				mav.addObject("list", list);
-
-			} else if (introArray.length == 1) {// 해시태그가 1개 있을 경우
+			}else if (introArray.length == 1) {// 해시태그가 1개 있을 경우
+				System.out.println("해시태그 1개");
 				friend.setTag1(introArray[0]);
 				friend.setId(id);
 				list = (ArrayList<Friend>) service.getRecommendHT1(friend);
 				mav.addObject("list", list);
 
 			} else if (introArray.length == 2) {// 해시태그가 2개있을 경우
+				System.out.println("해시태그 2개");
 				friend.setTag1(introArray[0]);
 				friend.setTag2(introArray[1]);
 
@@ -89,6 +95,7 @@ public class FriController {
 				mav.addObject("list", list);
 
 			} else if (introArray.length == 3) {// 해시태그가 3개있을 경우
+				System.out.println("해시태그 3개");
 				friend.setTag1(introArray[0]);
 				friend.setTag2(introArray[1]);
 				friend.setTag3(introArray[2]);
@@ -97,6 +104,7 @@ public class FriController {
 				mav.addObject("list", list);
 
 			} else if (introArray.length == 4) {// 해시태그가 4개있을 경우
+				System.out.println("해시태그 4개");
 				friend.setTag1(introArray[0]);
 				friend.setTag2(introArray[1]);
 				friend.setTag3(introArray[2]);
@@ -106,6 +114,7 @@ public class FriController {
 				mav.addObject("list", list);
 
 			} else if (introArray.length == 5) {// 해시태그가 5개있을 경우
+				System.out.println("해시태그 5개");
 				friend.setTag1(introArray[0]);
 				friend.setTag2(introArray[1]);
 				friend.setTag3(introArray[2]);
@@ -117,10 +126,10 @@ public class FriController {
 			}
 		}
 		list3 = list;
-		if (list.size() < 15) {
+		if (list.size() < 10) {
 			//list3 = list;
 
-			/*System.out.print("list : ");
+			System.out.print("list : ");
 			for (int i = 0; i < list.size(); i++) {
 				System.out.print(list.get(i) + ", ");
 			}
@@ -130,15 +139,15 @@ public class FriController {
 			for (int i = 0; i < list3.size(); i++) {
 				System.out.print(list3.get(i) + ", ");
 			}
-			System.out.println("");*/
+			System.out.println("");
 
 			ArrayList<Friend> list2 = (ArrayList<Friend>) service.getRecommend2(id);
 
-			/*System.out.print("list2 : ");
+			System.out.print("list2 : ");
 			for (int i = 0; i < list2.size(); i++) {
 				System.out.print(list2.get(i) + ", ");
 			}
-			System.out.println("");*/
+			System.out.println("");
 
 			for (int i = 0; i < list2.size(); i++) {
 				boolean check = false;
@@ -153,7 +162,7 @@ public class FriController {
 			}
 			mav.addObject("list", list3);
 		}
-
+		
 		ArrayList<Friend> mylist = (ArrayList<Friend>) service.getfollowingList(id);// 내가 팔로잉 하는사람(y)
 		ArrayList<Friend> mywaitlist = (ArrayList<Friend>) service.getfollowwaitList(id);// 팔로워 요청 한 목록(n)
 
@@ -173,7 +182,7 @@ public class FriController {
 			
 			//System.out.print(list3.get(i) + ", ");
 		}
-		mav.addObject("list", list3);
+		mav.addObject("list", list);
 		
 		return mav;
 	}
