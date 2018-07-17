@@ -15,6 +15,9 @@
 #joinbottom {
 	margin-bottom: 70px;
 }
+form{
+	height:100%;
+}
 
 </style>
 <script>

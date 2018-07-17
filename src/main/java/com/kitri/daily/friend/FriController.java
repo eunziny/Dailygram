@@ -433,6 +433,11 @@ public class FriController {
 		session.setAttribute("followingCount", count.get(1));
 		session.setAttribute("subscribeCount", count.get(2));
 		
+		 ArrayList<Integer> fricount =  service.FriendprofileCount(sender);
+		 session.setAttribute("friendfollowerCount", fricount.get(0));
+		 session.setAttribute("friendfollowingCount",fricount.get(1));
+		 session.setAttribute("friendsubscribeCount", fricount.get(2));
+		
 		return "redirect:/board/myList.do";
 	}
 	

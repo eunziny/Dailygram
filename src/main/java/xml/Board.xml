@@ -350,4 +350,20 @@
 		delete from alerm
 		where board_seq = #{board_seq};
 	</delete>
+	<select id="selectProfileCount"  resultType="Integer" parameterType="String">
+		SELECT count(*)
+		FROM relationship
+		WHERE receiver=#{id}
+		AND status='Y'
+		union all
+		SELECT count(*)
+		FROM relationship
+		WHERE sender=#{id}
+		AND status='Y'
+		union all
+		SELECT count(*)
+		FROM relationship
+		WHERE sender=#{id}
+		AND status='R'
+	</select>
 </mapper>

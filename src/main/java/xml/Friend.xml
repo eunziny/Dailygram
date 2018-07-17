@@ -254,4 +254,21 @@
 		where
 		sender=#{sender} and receiver=#{receiver} and type='N'
 	</update>
+	
+	<select id="selectFriendprofileCount" resultType="Integer" parameterType="String">
+		SELECT count(*)
+		FROM relationship
+		WHERE receiver=#{id}
+		AND status='Y'
+		union all
+		SELECT count(*)
+		FROM relationship
+		WHERE sender=#{id}
+		AND status='Y'
+		union all
+		SELECT count(*)
+		FROM relationship
+		WHERE sender=#{id}
+		AND status='R'
+	</select>
 </mapper>

@@ -30,4 +30,5 @@ public interface FriendMapper {
 	void deleteAlerm(Alerm alerm);
 	void updateFollow(Relationship relation);
 	void updateReadType(Alerm alerm);
+	ArrayList<Integer> selectFriendprofileCount(String sender);
 }

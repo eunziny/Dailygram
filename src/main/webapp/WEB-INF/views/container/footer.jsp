@@ -8,7 +8,7 @@
 	padding-bottom: 12px;
 	left:0px;
    	bottom:0px;
- 	height:60px;
+ 	height:65px;
  	width:100%;
 }
 .footer-bottom div.footer-div {

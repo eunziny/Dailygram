@@ -28,6 +28,12 @@ ul.active{
 	height: 200px;
 	overflow: auto;
 }
+.panel-group{
+	height: 100%;
+}
+.alert-info, .alert-warning{
+	margin-bottom: 0px;
+}
 </style>
 <div class="panel-group">
 <h2><i class="far fa-comments"></i> Chat</h2>
